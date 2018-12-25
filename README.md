@@ -8,10 +8,38 @@
 
 ### Config & Run The Application
 
-In order to run this app do the following:
+Setting up badger on your development environment:
 
 ```bash
-#
+# Install virtualenv
+$ pip install virtualenv
+$ virtualenv env
+$ source env/bin/activate
+
+$ git clone https://github.com/Clivern/Badger.git badger
+$ cd badger
+$ cp .env.example .env
+
+# Install dependencies
+$ pip install -r requirements.txt
+
+# Update .env file
+$ python manage.py badger update_env DB_HOST=127.0.0.1
+$ python manage.py badger update_env DB_PORT=3306
+$ python manage.py badger update_env DB_DATABASE=badger
+$ python manage.py badger update_env DB_USERNAME=root
+$ python manage.py badger update_env DB_PASSWORD=
+$ python manage.py badger update_app_key
+$ python manage.py badger update_env DB_CONNECTION=mysql
+
+# Migrate DB
+$ python manage.py migrate
+
+# Run Application
+$ python manage.py runserver
+
+# Exit the virtualenv
+$ deactivate
 ```
 
 
