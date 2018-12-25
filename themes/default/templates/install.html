@@ -1,0 +1,52 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="page-single">
+        <div class="container">
+            <div class="row" id="app_install">
+                <div class="col col-login mx-auto">
+                    <div class="text-center mb-6">
+                        <img src="{% static 'assets/images/logo.png' %}" class="h-9">
+                    </div>
+                    <form class="card" v-on:submit.prevent="installAction" action="{% url 'app.api.private.v1.install.endpoint' %}" method="post" data-redirect-url="{% url 'app.web.login' %}" data-redirect-after="3000">
+                        {% csrf_token %}
+                        <div class="card-body p-6">
+                            <div class="form-group">
+                                <label class="form-label">{% trans "App Name" %}</label>
+                                <input name="app_name" type="text" class="form-control" placeholder="{% trans "Enter app name" %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "App Email" %}</label>
+                                <input name="app_email" type="email" class="form-control" placeholder="{% trans "Enter app email" %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "App URL" %}</label>
+                                <input name="app_url" type="url" class="form-control" placeholder="{% trans "Enter app url" %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "Admin Username" %}</label>
+                                <input name="admin_username" type="text" class="form-control" placeholder="{% trans "Enter admin username" %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "Admin Email" %}</label>
+                                <input name="admin_email" type="email" class="form-control" placeholder="{% trans "Enter admin email" %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "Password" %}</label>
+                                <input name="admin_password" type="password" class="form-control" placeholder="{% trans "Enter admin password" %}" required>
+                            </div>
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn-primary btn-block" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Install" %}</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center text-muted">
+                        {% trans "Copyright" %} &#169; {% now "Y" %} <a href="{{ AUTHOR_URL }}">{{ AUTHOR }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

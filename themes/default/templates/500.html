@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="page-content">
+        <div class="container text-center">
+            <div class="display-1 text-muted mb-5"><i class="si si-exclamation"></i> {% trans "500" %}</div>
+            <h1 class="h2 mb-3">{% trans "Internal Server Error" %}</h1>
+            <p class="h4 text-muted font-weight-normal mb-7">{% trans "The server encountered something unexpected!" %}</p>
+            <a class="btn btn-primary" href="javascript:history.back()">
+                <i class="fe fe-arrow-left mr-2"></i> {% trans "Go back" %}
+            </a>
+        </div>
+    </div>
+{% endblock %}

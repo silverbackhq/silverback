@@ -1,0 +1,90 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-22 14:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: app/controllers/web/install.py:18
+msgid "Installation"
+msgstr ""
+
+#: app/settings/basic.py:121
+msgid "French"
+msgstr ""
+
+#: app/settings/basic.py:122
+msgid "English"
+msgstr ""
+
+#: themes/default/templates/404.html:9
+msgid "Oops.. You just found an error page.."
+msgstr ""
+
+#: themes/default/templates/404.html:10
+msgid "We are sorry but our service is currently not available.."
+msgstr ""
+
+#: themes/default/templates/404.html:12
+msgid "Go back"
+msgstr ""
+
+#: themes/default/templates/install.html:16
+msgid "App Name"
+msgstr ""
+
+#: themes/default/templates/install.html:17
+msgid "Enter app name"
+msgstr ""
+
+#: themes/default/templates/install.html:20
+msgid "App Email"
+msgstr ""
+
+#: themes/default/templates/install.html:21
+msgid "Enter app email"
+msgstr ""
+
+#: themes/default/templates/install.html:24
+msgid "Admin Username"
+msgstr ""
+
+#: themes/default/templates/install.html:25
+msgid "Enter admin username"
+msgstr ""
+
+#: themes/default/templates/install.html:28
+msgid "Admin Email"
+msgstr ""
+
+#: themes/default/templates/install.html:29
+msgid "Enter admin email"
+msgstr ""
+
+#: themes/default/templates/install.html:32
+msgid "Password"
+msgstr ""
+
+#: themes/default/templates/install.html:33
+msgid "Enter admin password"
+msgstr ""
+
+#: themes/default/templates/install.html:36
+msgid "Install"
+msgstr ""
+
+#: themes/default/templates/install.html:41
+msgid "Copyright"
+msgstr ""

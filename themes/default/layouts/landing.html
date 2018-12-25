@@ -1,0 +1,22 @@
+{% load staticfiles %}
+{% load i18n %}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>{{ page_title }}</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,700" rel="stylesheet">
+		<link rel="stylesheet" href="{% static 'assets/css/landing.css' %}">
+        <link rel="icon" href="{% static 'assets/images/logo.png' %}" type="image/x-icon"/>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo.png' %}" />
+		{% include 'partials/header.html' %}
+	</head>
+	<body>
+    	{% block content %}
+        {% endblock %}
+		{% include 'partials/footer.html' %}
+	</body>
+</html>

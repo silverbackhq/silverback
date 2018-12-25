@@ -1,0 +1,94 @@
+version: '3'
+
+services:
+
+    # Nginx Service
+    nginx:
+        image: 'nginx:1.15'
+        ports:
+            - '80:80'
+        volumes:
+            - '.:/code'
+            - './docker/nginx:/etc/nginx/conf.d'
+        depends_on:
+            - web
+        restart: always
+        healthcheck:
+            test: '/bin/bash service nginx status || exit 1'
+            interval: 3s
+            timeout: 1s
+            retries: 5
+
+    # MYSQL Service (DB)
+    db:
+        image: 'mysql:5.6'
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=badger
+            - MYSQL_USER=badger
+            - MYSQL_PASSWORD=secret
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+        restart: always
+        healthcheck:
+            test: '/usr/bin/mysql --user=badger --password=secret --execute "SHOW DATABASES;"'
+            interval: 3s
+            timeout: 1s
+            retries: 5
+
+    # Web UI Service
+    web:
+        image: "clivern_badger:1.0.0"
+        build: .
+        command: 'gunicorn --bind 0.0.0.0:8000 app.wsgi'
+        volumes:
+            - '.:/code'
+        depends_on:
+            - db
+            - redis
+            - rabbitmq
+        restart: always
+        healthcheck:
+            test: 'python3 manage.py health check'
+            interval: 3s
+            timeout: 1s
+            retries: 5
+
+    # Worker Service
+    worker1:
+        image: "clivern_badger:1.0.0"
+        build: .
+        command: 'celery -A app worker --loglevel=info -n worker1'
+        volumes:
+            - '.:/code'
+        depends_on:
+            - db
+            - redis
+            - rabbitmq
+        restart: always
+        healthcheck:
+            test: 'python3 manage.py health check'
+            interval: 3s
+            timeout: 1s
+            retries: 5
+
+    # Redis Service
+    redis:
+        image: 'redis:3.2-alpine'
+        volumes:
+            - 'redis_data:/data'
+        restart: always
+
+    # RabbitMQ Service
+    rabbitmq:
+        image: 'rabbitmq:3-management'
+        hostname: rabbit
+        ports:
+            - '15672:15672'
+        labels:
+            NAME: rabbitmq
+        volumes:
+            - './docker/rabbitmq/rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config'
+        restart: always
+
+volumes:
+    redis_data: null

@@ -1,0 +1,10 @@
+Django==2.0.8
+mysqlclient==1.3.12
+python-dotenv==0.8.2
+gunicorn==19.8.1
+requests==2.20.1
+psycopg2==2.7.4
+jsonschema==2.6.0
+celery==4.2.1
+redis==2.10.6
+cryptography==2.3.1

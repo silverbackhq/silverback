@@ -1,0 +1,112 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block content %}
+    <div class="page-main">
+        {% include 'partials/top-menu.html' %}
+        <div class="my-3 my-md-5">
+            <div class="container">
+                <div class="row" id="manage_settings">
+                    <div class="col-8">
+                        <form class="card" v-on:submit.prevent="updateSettingsAction" action="{% url 'app.api.private.v1.admin.settings.endpoint' %}" method="post">
+                            {% csrf_token %}
+                            <div class="card-status bg-green"></div>
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Settings" %}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "App Name" %}</label>
+                                            <input type="text" class="form-control" name="app_name" value="{{ app_name }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "App URL" %}</label>
+                                            <input type="url" class="form-control" name="app_url" value="{{ app_url }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "App Email" %}</label>
+                                            <input type="email" class="form-control" name="app_email" value="{{ app_email }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "App Description" %}</label>
+                                            <textarea class="form-control" name="app_description">{{ app_description }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Google Analytics Account" %}</label>
+                                            <input type="text" class="form-control" name="google_analytics_account" value="{{ google_analytics_account }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Max Reset Messages" %}</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="reset_mails_messages_count" value="{{ reset_mails_messages_count }}">
+                                                <span class="input-group-append">
+                                                    <span class="input-group-text">{% trans "Per Day" %}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Reset Message Expire After" %}</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="reset_mails_expire_after" value="{{ reset_mails_expire_after }}">
+                                                <span class="input-group-append">
+                                                    <span class="input-group-text">{% trans "Hours" %}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Access Token Expire After" %}</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="access_tokens_expire_after" value="{{ access_tokens_expire_after }}">
+                                                <span class="input-group-append">
+                                                    <span class="input-group-text">{% trans "Hours" %}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Prometheus Auth. Token" %}</label>
+                                            <input type="text" class="form-control" name="prometheus_token" value="{{ prometheus_token }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-primary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Submit" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <div class="tag tag-dark">
+                                    {% trans "Github" %}
+                                    <a href="{{ REPO_URL }}" class="tag-addon tag-warning" target="_blank">Badger</a>
+                                </div>
+                                <div class="tag">
+                                    {% trans "Version" %}
+                                    <a href="{{ current.download_url }}" class="tag-addon tag-success" target="_blank">{{ current.version }}</a>
+                                </div>
+                                <div class="tag">
+                                    {% trans "Latest" %}
+                                    <a href="{{ latest.download_url }}" class="tag-addon tag-info" target="_blank">{{ latest.version }}</a>
+                                </div>
+                                <br/><br/>
+                                <div class="tag tag-danger">
+                                    {% trans "Support" %}
+                                    <a href="{{ SUPPORT_URL }}" class="tag-addon" target="_blank"><i class="fa fa-support"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'partials/bottom-menu.html' %}
+
+{% endblock %}

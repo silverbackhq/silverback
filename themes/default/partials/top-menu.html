@@ -1,0 +1,64 @@
+{% load staticfiles %}
+{% load i18n %}
+
+<div class="header py-4">
+    <div class="container">
+        <div class="d-flex">
+            <a class="header-brand" href="/">
+                <img src="{% static 'assets/images/logo.png' %}" class="header-brand-img" alt="{{ app_name }}">
+            </a>
+            <div class="d-flex order-lg-2 ml-auto">
+                <div class="dropdown d-none d-md-flex" id="app_notifications">
+                    <a class="nav-link icon" data-toggle="dropdown">
+                    <i class="fe fe-bell"></i>
+                        <span v-bind:class="{'nav-unread': notification_status == 'unread', 'nav-read': notification_status == 'read'}"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <template v-for="notification in notifications">
+                            <a v-bind:href="notification.url" class="dropdown-item d-flex">
+                                <span class="avatar mr-3 align-self-center" v-bind:class="{'avatar-yellow': notification.type == 'pending', 'btn-loading': notification.type == 'pending', 'avatar-orange': notification.type == 'failed','avatar-green': notification.type == 'passed','avatar-red': notification.type == 'error','avatar-blue': notification.type == 'message'}"><i class="fe" v-bind:class="{ 'fe-loader': notification.type == 'pending', 'fe-x': notification.type == 'failed', 'fe-check': notification.type == 'passed', 'fe-alert-circle': notification.type == 'error', 'fe-message-circle': notification.type == 'message' }"></i></span>
+                                <div v-on:mouseover="mouseOver(notification.id, notification.delivered)" v-bind:class="{'text-black':notification.delivered == false}">
+                                    <strong>${notification.highlight}</strong> ${notification.description}
+                                    <div class="small text-muted">${notification.time}</div>
+                                </div>
+                            </a>
+                        </template>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'app.web.admin.activity.list' %}" class="dropdown-item text-center text-muted-dark">{% trans "View All" %}</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+                        <span class="avatar" style="background-image: url({{ user_avatar }})"></span>
+                        <span class="ml-2 d-none d-lg-block">
+                            <span class="text-default">{{ user_first_name }} {{ user_last_name }}</span>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <a class="dropdown-item" href="{% url 'app.web.admin.dashboard' %}">
+                            <i class="dropdown-icon fe fe-pie-chart"></i> {% trans "Dashboard" %}
+                        </a>
+                        <a class="dropdown-item" href="{% url 'app.web.admin.profile' %}">
+                            <i class="dropdown-icon fe fe-user"></i> {% trans "Profile" %}
+                        </a>
+                        <a class="dropdown-item" href="{% url 'app.web.admin.activity.list' %}">
+                            <i class="dropdown-icon fe fe-zap"></i> {% trans "Activity" %}
+                        </a>
+                        {% if perms.auth.manage_settings %}
+                            <a class="dropdown-item" href="{% url 'app.web.admin.settings' %}">
+                                <i class="dropdown-icon fe fe-settings"></i> {% trans "Settings" %}
+                            </a>
+                        {% endif %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'app.web.admin.logout' %}">
+                            <i class="dropdown-icon fe fe-log-out"></i> {% trans "Logout" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+                <span class="header-toggler-icon"></span>
+            </a>
+        </div>
+    </div>
+</div>

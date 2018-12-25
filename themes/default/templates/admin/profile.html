@@ -1,0 +1,196 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block content %}
+    <div class="page-main">
+        {% include 'partials/top-menu.html' %}
+        <div class="my-3 my-md-5">
+            <div class="container">
+                <div class="row" id="app_profile">
+                    <div class="col-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card card-profile">
+                                    <div class="card-header" style="background-color: #dff9fb;">
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <img class="card-profile-img" src="{{ avatar }}">
+                                        <h3 class="mb-3">{{ first_name }} {{ last_name }}</h3>
+                                        <p class="mb-4">
+                                            {% if job_title and company %}
+                                                {{ job_title }}, {{ company }}
+                                            {% else %}
+                                                {{ job_title }} {{ company }}
+                                            {% endif %}
+                                        </p>
+                                        <ul class="social-links list-inline mb-0 mt-2">
+                                            {% if facebook_url %}
+                                                <li class="list-inline-item">
+                                                        <a href="{{ facebook_url }}" title="Facebook" data-toggle="tooltip" target="_blank"><i class="fa fa-facebook"></i></a>
+                                                </li>
+                                            {% endif %}
+                                            {% if twitter_url %}
+                                                <li class="list-inline-item">
+                                                    <a href="{{ twitter_url }}" title="Twitter" data-toggle="tooltip" target="_blank"><i class="fa fa-twitter"></i></a>
+                                                </li>
+                                            {% endif %}
+                                            {% if github_url %}
+                                                <li class="list-inline-item">
+                                                    <a href="{{ github_url }}" title="@clivern" data-toggle="tooltip" target="_blank"><i class="fa fa-github"></i></a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <form class="card" v-on:submit.prevent="updatePassword" action="{% url 'app.api.private.v1.admin.profile.endpoint' %}" method="post" data-reload-after="3000">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="_update_password">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Old Password" %}</label>
+                                                    <input type="password" name="old_password" class="form-control" placeholder="********" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "New Password" %}</label>
+                                                    <input type="password" name="new_password" class="form-control" placeholder="********" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-right">
+                                        <div class="d-flex">
+                                            <button type="submit" class="btn btn-primary ml-auto" v-bind:class="{ 'btn-loading': isUpdatePasswordInProgress }" v-bind:disabled="isUpdatePasswordInProgress">{% trans "Submit" %}</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <form class="card" v-on:submit.prevent="updateProfile" action="{% url 'app.api.private.v1.admin.profile.endpoint' %}" method="post" data-reload-after="3000">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="_update_profile">
+                                    <div class="card-status bg-green"></div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">{% trans "Edit Profile" %}</h3>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Username" %}</label>
+                                                    <input type="text" class="form-control" name="username" value="{{ username }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Email address" %}</label>
+                                                    <input type="email" class="form-control" name="email" value="{{ email }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "First Name" %}</label>
+                                                    <input type="text" class="form-control" name="first_name" value="{{ first_name }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Last Name" %}</label>
+                                                    <input type="text" class="form-control" name="last_name" value="{{ last_name }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Job Title" %}</label>
+                                                    <input type="text" class="form-control" name="job_title" value="{{ job_title }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Company" %}</label>
+                                                    <input type="text" class="form-control" name="company" value="{{ company }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Address" %}</label>
+                                                    <input type="text" class="form-control" name="address" value="{{ address }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Github URL" %}</label>
+                                                    <input type="url" class="form-control" name="github_url" value="{{ github_url }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Facebook URL" %}</label>
+                                                    <input type="url" class="form-control" name="facebook_url" value="{{ facebook_url }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label class="form-label">{% trans "Twitter URL" %}</label>
+                                                    <input type="url" class="form-control" name="twitter_url" value="{{ twitter_url }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-right">
+                                        <div class="d-flex">
+                                            <button type="submit" class="btn btn-primary ml-auto" v-bind:class="{ 'btn-loading': isUpdateProfileInProgress }" v-bind:disabled="isUpdateProfileInProgress">{% trans "Submit" %}</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Access Token" %}</label>
+                                            <div class="row gutters-xs">
+                                                <div class="col">
+                                                    <input type="text" name="access_token" class="form-control" value="{{ access_token }}" disabled>
+                                                </div>
+                                                <span class="col-auto">
+                                                    <button class="btn btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateAccessToken" v-bind:disabled="isUpdateAccessTokenInProgress">{% trans "Update" %} <i class="fa fa-paper-plane"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Refresh Token" %}</label>
+                                            <div class="row gutters-xs">
+                                                <div class="col">
+                                                    <input type="text" name="refresh_token" class="form-control" value="{{ refresh_token }}" disabled>
+                                                </div>
+                                                <span class="col-auto">
+                                                    <button class="btn btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateRefreshToken" v-bind:disabled="isUpdateRefreshTokenInProgress">{% trans "Update" %} <i class="fa fa-paper-plane"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'partials/bottom-menu.html' %}
+
+{% endblock %}

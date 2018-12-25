@@ -1,0 +1,23 @@
+{% load staticfiles %}
+{% load i18n %}
+
+{% if google_account %}
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '{{ google_account }}']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+{% endif %}
+<script type="text/javascript">
+    var app_globals = {
+        notifications_endpoint: "{% url 'app.api.private.v1.admin.notifications.endpoint' %}"
+    };
+    var _i18n = {
+        confirm_msg: "{% trans 'Are you sure!' %}"
+    };
+</script>

@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="page-single">
+        <div class="container">
+            <div class="row" id="app_register">
+                <div class="col col-login mx-auto">
+                    <div class="text-center mb-6">
+                        <a href="/">
+                            <img src="{% static 'assets/images/logo.png' %}" class="h-9">
+                        </a>
+                    </div>
+                    <form class="card" v-on:submit.prevent="registerAction" action="{% url 'app.api.private.v1.register.endpoint' %}" method="post" data-redirect-url="{% url 'app.web.login' %}" data-redirect-after="3000">
+                        {% csrf_token %}
+                        <div class="card-body p-6">
+                            <div class="card-title">{% trans "Create new account" %}</div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "First Name" %}</label>
+                                <input type="text" name="first_name" class="form-control" placeholder="{% trans "Enter first name" %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "Last Name" %}</label>
+                                <input type="text" name="last_name" class="form-control" placeholder="{% trans "Enter last name" %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "Username" %}</label>
+                                <input type="text" name="username" class="form-control" placeholder="{% trans "Enter username" %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "Email address" %}</label>
+                                <input type="email" name="email" class="form-control" placeholder="{% trans "Enter email" %}" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">{% trans "Password" %}</label>
+                                <input type="password" name="password" class="form-control" placeholder="{% trans "Password" %}" required>
+                            </div>
+                            <div class="form-footer">
+                                <button type="submit" class="btn btn-primary btn-block" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Create a new account" %}</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="text-center text-muted">
+                        {% trans "Already have account?" %} <a href="{% url 'app.web.login' %}">{% trans "Login" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

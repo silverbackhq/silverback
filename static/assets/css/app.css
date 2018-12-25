@@ -1,0 +1,69 @@
+/* Toast */
+#toast-container.toast-bottom-center>div,
+#toast-container.toast-top-center>div {
+    margin: 10px auto 0
+}
+
+#toast-container>.toast-info,
+#toast-container>.toast-error,
+#toast-container>.toast-warning,
+#toast-container>.toast-success {
+    background-image: none
+}
+
+#toast-container>div {
+    background: #fff;
+    padding: 20px;
+    color: #6a6c6f;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 1
+}
+
+#toast-container>div:hover {
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2)
+}
+
+.toast-close-button {
+    color: #000;
+    opacity: .2
+}
+
+.toast-info {
+    background: #fff;
+    border-left: 6px solid #3498db
+}
+
+.toast-success {
+    background: #fff;
+    border-left: 6px solid #62cb31
+}
+
+.toast-warning {
+    background: #fff;
+    border-left: 6px solid #ffb606
+}
+
+.toast-error {
+    background: #fff;
+    border-left: 6px solid #e74c3c
+}
+
+.toast-progress {
+    opacity: .6
+}
+
+.toast-info .toast-progress {
+    background-color: #3498db
+}
+
+.toast-success .toast-progress {
+    background-color: #62cb31
+}
+
+.toast-warning .toast-progress {
+    background-color: #ffb606
+}
+
+.toast-error .toast-progress {
+    background-color: #e74c3c
+}
