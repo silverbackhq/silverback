@@ -1,12 +1,12 @@
 require(['jscookie', 'toastr', 'pace', 'vue', 'axios']);
 
-var kraven_app = kraven_app || {};
+var badger_app = badger_app || {};
 
 
 /**
  * App Install
  */
-kraven_app.install_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+badger_app.install_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -67,7 +67,7 @@ kraven_app.install_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Notifications
  */
-kraven_app.notifications = (Vue, axios, $, Pace, Cookies, toastr) => {
+badger_app.notifications = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -124,7 +124,7 @@ kraven_app.notifications = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Manage Settings
  */
-kraven_app.manage_settings_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+badger_app.manage_settings_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -182,7 +182,7 @@ kraven_app.manage_settings_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Login
  */
-kraven_app.login_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+badger_app.login_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -243,7 +243,7 @@ kraven_app.login_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Register
  */
-kraven_app.register_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+badger_app.register_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -304,7 +304,7 @@ kraven_app.register_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Forgot Password
  */
-kraven_app.forgot_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+badger_app.forgot_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -365,7 +365,7 @@ kraven_app.forgot_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Reset Password
  */
-kraven_app.reset_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+badger_app.reset_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -426,7 +426,7 @@ kraven_app.reset_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Profile
  */
-kraven_app.profile_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+badger_app.profile_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -638,7 +638,7 @@ $(document).ready(() => {
         });
 
         if (document.getElementById("app_notifications")) {
-            kraven_app.notifications(
+            badger_app.notifications(
                 Vue,
                 axios,
                 $,
@@ -648,7 +648,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("manage_settings")) {
-            kraven_app.manage_settings_screen(
+            badger_app.manage_settings_screen(
                 Vue,
                 axios,
                 $,
@@ -658,7 +658,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_login")) {
-            kraven_app.login_screen(
+            badger_app.login_screen(
                 Vue,
                 axios,
                 $,
@@ -668,7 +668,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_register")) {
-            kraven_app.register_screen(
+            badger_app.register_screen(
                 Vue,
                 axios,
                 $,
@@ -678,7 +678,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_forgot_password")) {
-            kraven_app.forgot_password_screen(
+            badger_app.forgot_password_screen(
                 Vue,
                 axios,
                 $,
@@ -688,7 +688,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_reset_password")) {
-            kraven_app.reset_password_screen(
+            badger_app.reset_password_screen(
                 Vue,
                 axios,
                 $,
@@ -698,7 +698,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_install")) {
-            kraven_app.install_screen(
+            badger_app.install_screen(
                 Vue,
                 axios,
                 $,
@@ -708,7 +708,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_profile")) {
-            kraven_app.profile_screen(
+            badger_app.profile_screen(
                 Vue,
                 axios,
                 $,
