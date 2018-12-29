@@ -26,6 +26,7 @@ class Notification(models.Model):
         db_index=True,
         verbose_name="Related user"
     )
+
     task = models.ForeignKey(
         Task,
         on_delete=models.CASCADE,

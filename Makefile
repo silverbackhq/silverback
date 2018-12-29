@@ -29,6 +29,16 @@ test:
 	$(PYTHON) manage.py test
 
 
+migration:
+	@echo "\n==> Make Migrations:"
+	$(PYTHON) manage.py makemigrations
+
+
+migrate:
+	@echo "\n==> Migrate:"
+	$(PYTHON) manage.py migrate
+
+
 coverage:
 	$(COVERAGE) run --source='.' manage.py test app
 	$(COVERAGE) report -m

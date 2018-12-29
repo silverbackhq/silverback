@@ -23,6 +23,7 @@ class Task(models.Model):
         verbose_name="Related user",
         null=True
     )
+
     uuid = models.CharField(max_length=200, verbose_name="UUID")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending", verbose_name="Status")
     executor = models.CharField(max_length=200, verbose_name="Executor")

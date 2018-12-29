@@ -1,5 +1,5 @@
 """
-User Meta Model
+Reset Request Model
 """
 
 # Django
