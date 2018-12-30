@@ -9,10 +9,8 @@ import os
 from django.views import View
 from django.shortcuts import render
 from django.utils.translation import gettext as _
-from django.http import Http404
 
 # local Django
-from app.modules.util.helpers import Helpers
 from app.modules.core.context import Context
 from app.modules.core.user import User as User_Module
 from app.modules.core.decorators import login_if_not_authenticated
