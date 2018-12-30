@@ -15,6 +15,7 @@ class Profile(models.Model):
         db_index=True,
         verbose_name="Related user"
     )
+
     job_title = models.CharField(max_length=100, verbose_name="Job Title")
     company = models.CharField(max_length=100, verbose_name="Company")
     address = models.CharField(max_length=100, verbose_name="Address")
