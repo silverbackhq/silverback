@@ -12,7 +12,6 @@
                     <div class="col-8">
                         <form class="card" v-on:submit.prevent="updateSettingsAction" action="{% url 'app.api.private.v1.admin.settings.endpoint' %}" method="post">
                             {% csrf_token %}
-                            <div class="card-status bg-green"></div>
                             <div class="card-header">
                                 <h3 class="card-title">{% trans "Settings" %}</h3>
                             </div>
@@ -75,7 +74,7 @@
                             </div>
                             <div class="card-footer text-right">
                                 <div class="d-flex">
-                                    <button type="submit" class="btn btn-primary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Submit" %}</button>
+                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Submit" %}</button>
                                 </div>
                             </div>
                         </form>

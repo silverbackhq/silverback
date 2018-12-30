@@ -2,17 +2,88 @@
 {% load staticfiles %}
 {% load i18n %}
 
+{% block customer_header %}
+    <script type="text/javascript">
+        var _user_list_view_i18n = {
+            manage: "{% trans "Manage" %}",
+            actions: "{% trans "Actions" %}",
+            delete: "{% trans "Delete" %}",
+            edit: "{% trans "Edit" %}",
+            noUsers: "{% trans "You miss a lot of fun, create some users!" %}"
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
-    <div class="page-main">
+   <div class="page-main">
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
             <div class="container">
-                <div class="page-header">
-                    <h1 class="page-title">
-                        {% trans "Users" %}
-                    </h1>
-                </div>
+                <div class="row" id="user_list" data-fetch-hosts="">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Users" %}</h3>
+                                <div class="card-options">
+                                    <a href="{% url 'app.web.admin.user.add' %}" class="btn btn-secondary btn-sm"><i class="fe fe-plus mr-2"></i> {% trans "New User" %}</a>
+                                </div>
+                            </div>
 
+                            <div class="dimmer" v-bind:class="{ active: isDimmerActive }">
+                                <div class="loader"></div>
+                                <div class="dimmer-content">
+                                    <div class="table-responsive">
+                                        <table class="table card-table table-vcenter text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>{% trans "Username" %}</th>
+                                                    <th>{% trans "Email" %}</th>
+                                                    <th>{% trans "Role" %}</th>
+                                                    <th>{% trans "Created" %}</th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template v-if="Object.keys(items).length === 0">
+                                                    <tr>
+                                                        <td colspan="6" class="text-center small text-muted">
+                                                            <br/>
+                                                            ${i18n.noUsers}
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                                <template v-if="Object.keys(items).length > 0">
+                                                    <tr v-for="item in items">
+                                                        <td><a v-bind:href="item.view_url" class="text-inherit">${item.username}</a></td>
+                                                        <td>${item.email}</td>
+                                                        <td>${item.role}</td>
+                                                        <td>${item.created_at}</td>
+                                                        <td colspan="2" class="text-right">
+                                                            <a v-bind:href="item.view_url" class="btn btn-secondary btn-sm">${i18n.manage}</a>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">${i18n.actions}</button>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <a v-bind:href="item.edit_url" class="dropdown-item">
+                                                                        <i class="dropdown-icon fe fe-edit"></i> ${i18n.edit}
+                                                                    </a>
+                                                                    <a href="javascript:void(0)" v-bind:data-url="item.delete_url" class="dropdown-item" v-on:click="deleteUserAction">
+                                                                        <i class="dropdown-icon fe fe-trash"></i> ${i18n.delete}
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                        <br/><br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

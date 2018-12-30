@@ -617,6 +617,226 @@ badger_app.profile_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 }
 
 
+/**
+ * User Add
+ */
+badger_app.add_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#user_add_app',
+        data() {
+            return {
+                isInProgress: false,
+                auth_type: "",
+                host_slug: ""
+            }
+        },
+        methods: {
+            addUserAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * User Edit
+ */
+badger_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#host_edit_app',
+        data() {
+            return {
+                isInProgress: false,
+                auth_type: $('select[name="auth_type"]').val(),
+                host_slug: $('input[name="slug"]').val()
+            }
+        },
+        methods: {
+            editHostAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            },
+            hostNameChangeAction(event) {
+                var _self = $(event.target);
+                this.host_slug = _self.val().toString().toLowerCase()
+                    .replace(/\s+/g, '-') // Replace spaces with -
+                    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+                    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+                    .replace(/^-+/, '') // Trim - from start of text
+                    .replace(/-+$/, ''); // Trim - from end of text
+            }
+        }
+    });
+}
+
+
+/**
+ * App User List
+ */
+badger_app.user_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#user_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                errored: false,
+                i18n: _user_list_view_i18n
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+        methods: {
+            fetch() {
+                axios.get($('#user_list').attr('data-fetch-hosts'))
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = response.data.payload.hosts;
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            deleteUserAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
 $(document).ready(() => {
 
     $(document).ajaxStart(() => {

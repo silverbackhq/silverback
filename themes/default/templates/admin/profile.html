@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="card-footer text-right">
                                         <div class="d-flex">
-                                            <button type="submit" class="btn btn-primary ml-auto" v-bind:class="{ 'btn-loading': isUpdatePasswordInProgress }" v-bind:disabled="isUpdatePasswordInProgress">{% trans "Submit" %}</button>
+                                            <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isUpdatePasswordInProgress }" v-bind:disabled="isUpdatePasswordInProgress">{% trans "Submit" %}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -81,7 +81,6 @@
                                 <form class="card" v-on:submit.prevent="updateProfile" action="{% url 'app.api.private.v1.admin.profile.endpoint' %}" method="post" data-reload-after="3000">
                                     {% csrf_token %}
                                     <input type="hidden" name="action" value="_update_profile">
-                                    <div class="card-status bg-green"></div>
                                     <div class="card-body">
                                         <h3 class="card-title">{% trans "Edit Profile" %}</h3>
                                         <div class="row">
@@ -149,7 +148,7 @@
                                     </div>
                                     <div class="card-footer text-right">
                                         <div class="d-flex">
-                                            <button type="submit" class="btn btn-primary ml-auto" v-bind:class="{ 'btn-loading': isUpdateProfileInProgress }" v-bind:disabled="isUpdateProfileInProgress">{% trans "Submit" %}</button>
+                                            <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isUpdateProfileInProgress }" v-bind:disabled="isUpdateProfileInProgress">{% trans "Submit" %}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -166,7 +165,7 @@
                                                     <input type="text" name="access_token" class="form-control" value="{{ access_token }}" disabled>
                                                 </div>
                                                 <span class="col-auto">
-                                                    <button class="btn btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateAccessToken" v-bind:disabled="isUpdateAccessTokenInProgress">{% trans "Update" %} <i class="fa fa-paper-plane"></i></button>
+                                                    <button class="btn btn-pill btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateAccessToken" v-bind:disabled="isUpdateAccessTokenInProgress">{% trans "Update" %} <i class="fa fa-paper-plane"></i></button>
                                                 </span>
                                             </div>
                                         </div>
@@ -177,7 +176,7 @@
                                                     <input type="text" name="refresh_token" class="form-control" value="{{ refresh_token }}" disabled>
                                                 </div>
                                                 <span class="col-auto">
-                                                    <button class="btn btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateRefreshToken" v-bind:disabled="isUpdateRefreshTokenInProgress">{% trans "Update" %} <i class="fa fa-paper-plane"></i></button>
+                                                    <button class="btn btn-pill btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateRefreshToken" v-bind:disabled="isUpdateRefreshTokenInProgress">{% trans "Update" %} <i class="fa fa-paper-plane"></i></button>
                                                 </span>
                                             </div>
                                         </div>
