@@ -30,9 +30,12 @@ from app.controllers.api.private.v1.login import Login as Login_V1_Endpoint_Priv
 from app.controllers.api.private.v1.register import Register as Register_V1_Endpoint_Private
 from app.controllers.api.private.v1.forgot_password import Forgot_Password as Forgot_Password_V1_Endpoint_Private
 from app.controllers.api.private.v1.reset_password import Reset_Password as Reset_Password_V1_Endpoint_Private
+
 from app.controllers.api.private.v1.admin.settings import Settings as Settings_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.profile import Profile as Profile_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.notifications import Notifications as Notifications_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.user import User as User_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.user import Users as Users_Admin_V1_Endpoint_Private
 
 
 urlpatterns = [
@@ -40,7 +43,7 @@ urlpatterns = [
     path('', Home_View.as_view(), name='app.web.home'),
     path('install', Install_View.as_view(), name='app.web.install'),
     path('login', Login_View.as_view(), name='app.web.login'),
-    path('register', Register_View.as_view(), name='app.web.register'),
+    path('register/<token>', Register_View.as_view(), name='app.web.register'),
     path('forgot-password', Forgot_Password_View.as_view(), name='app.web.forgot_password'),
     path('reset-password/<token>', Reset_Password_View.as_view(), name='app.web.reset_password'),
     path('metrics/<type>', Metric_View.as_view(), name='app.web.metrics'),
@@ -73,6 +76,10 @@ urlpatterns = [
             path('settings', Settings_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.settings.endpoint'),
             path('profile', Profile_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.profile.endpoint'),
             path('notification', Notifications_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.notifications.endpoint'),
+
+            path('user', Users_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.users.endpoint'),
+            path('user/<int:user_id>', User_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.user.endpoint'),
+
         ]))
 
     ])),

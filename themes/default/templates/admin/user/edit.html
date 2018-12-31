@@ -9,7 +9,7 @@
             <div class="container">
                 <div class="row" id="user_add_app">
                     <div class="col-12">
-                        <form class="card" v-on:submit.prevent="addUserAction" action="#" method="post" data-redirect-url="{% url 'app.web.admin.user.list' %}" data-redirect-after="3000">
+                        <form class="card" v-on:submit.prevent="addUserAction" action="{% url 'app.api.private.v1.admin.user.endpoint' user.id %}" method="post" data-redirect-url="{% url 'app.web.admin.user.list' %}" data-redirect-after="3000">
                             {% csrf_token %}
                             <div class="card-header">
                                 <h3 class="card-title">{% trans "Edit User" %}</h3>

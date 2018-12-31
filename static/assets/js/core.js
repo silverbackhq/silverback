@@ -627,9 +627,7 @@ badger_app.add_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
         el: '#user_add_app',
         data() {
             return {
-                isInProgress: false,
-                auth_type: "",
-                host_slug: ""
+                isInProgress: false
             }
         },
         methods: {
@@ -687,16 +685,14 @@ badger_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
-        el: '#host_edit_app',
+        el: '#user_edit_app',
         data() {
             return {
-                isInProgress: false,
-                auth_type: $('select[name="auth_type"]').val(),
-                host_slug: $('input[name="slug"]').val()
+                isInProgress: false
             }
         },
         methods: {
-            editHostAction(event) {
+            editUserAction(event) {
                 event.preventDefault();
                 this.isInProgress = true;
 
@@ -710,7 +706,7 @@ badger_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
                 Pace.track(() => {
                     $.ajax({
-                        method: "POST",
+                        method: "PUT",
                         url: _form.attr('action'),
                         data: inputs
                     }).done((response, textStatus, jqXHR) => {
@@ -737,15 +733,6 @@ badger_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                         this.isInProgress = false;
                     });
                 });
-            },
-            hostNameChangeAction(event) {
-                var _self = $(event.target);
-                this.host_slug = _self.val().toString().toLowerCase()
-                    .replace(/\s+/g, '-') // Replace spaces with -
-                    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-                    .replace(/\-\-+/g, '-') // Replace multiple - with single -
-                    .replace(/^-+/, '') // Trim - from start of text
-                    .replace(/-+$/, ''); // Trim - from end of text
             }
         }
     });
@@ -764,19 +751,33 @@ badger_app.user_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
             return {
                 items: [],
                 isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
                 errored: false,
-                i18n: _user_list_view_i18n
+                i18n: _user_list_view_i18n,
+                limit: 25,
+                offset: 0
             }
         },
         mounted() {
             this.fetch();
         },
+
         methods: {
             fetch() {
-                axios.get($('#user_list').attr('data-fetch-hosts'))
+                axios.get($('#user_list').attr('data-fetch-users') + "?limit=" + this.limit + "&offset=" + this.offset)
                     .then(response => {
                         if (response.data.status == "success") {
-                            this.items = response.data.payload.hosts;
+                            this.items = this.items.concat(response.data.payload.users);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
                         } else {
                             for (var messageObj of response.data.messages) {
                                 toastr.clear();
@@ -790,6 +791,11 @@ badger_app.user_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                         toastr.error(error);
                     })
                     .finally(() => this.isDimmerActive = false)
+            },
+            loadUsersAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
             },
             deleteUserAction(event) {
                 event.preventDefault();
@@ -929,6 +935,36 @@ $(document).ready(() => {
         }
         if (document.getElementById("app_profile")) {
             badger_app.profile_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("user_add_app")) {
+            badger_app.add_user_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("user_edit_app")) {
+            badger_app.edit_user_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("user_list")) {
+            badger_app.user_list_screen(
                 Vue,
                 axios,
                 $,

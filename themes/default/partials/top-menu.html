@@ -45,6 +45,9 @@
                             <i class="dropdown-icon fe fe-zap"></i> {% trans "Activity" %}
                         </a>
                         {% if perms.auth.manage_settings %}
+                            <a class="dropdown-item" href="{% url 'app.web.admin.user.list' %}">
+                                <i class="dropdown-icon fe fe-users"></i> {% trans "Users" %}
+                            </a>
                             <a class="dropdown-item" href="{% url 'app.web.admin.settings' %}">
                                 <i class="dropdown-icon fe fe-settings"></i> {% trans "Settings" %}
                             </a>

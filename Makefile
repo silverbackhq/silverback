@@ -39,6 +39,11 @@ migrate:
 	$(PYTHON) manage.py migrate
 
 
+run:
+	@echo "\n==> Run Server:"
+	$(PYTHON) manage.py runserver
+
+
 coverage:
 	$(COVERAGE) run --source='.' manage.py test app
 	$(COVERAGE) report -m

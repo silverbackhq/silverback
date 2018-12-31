@@ -19,7 +19,7 @@
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
             <div class="container">
-                <div class="row" id="user_list" data-fetch-hosts="">
+                <div class="row" id="user_list" data-fetch-users="{% url 'app.api.private.v1.admin.users.endpoint' %}">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
@@ -60,7 +60,6 @@
                                                         <td>${item.role}</td>
                                                         <td>${item.created_at}</td>
                                                         <td colspan="2" class="text-right">
-                                                            <a v-bind:href="item.view_url" class="btn btn-secondary btn-sm">${i18n.manage}</a>
                                                             <div class="dropdown">
                                                                 <button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">${i18n.actions}</button>
                                                                 <div class="dropdown-menu dropdown-menu-right">
@@ -77,8 +76,14 @@
                                                 </template>
                                             </tbody>
                                         </table>
-                                        <br/><br/>
+                                        <br/>
                                     </div>
+                                    <template v-if="isLoadingActive">
+                                        <div class="text-center">
+                                            <a href="#" class="btn btn-pill btn-secondary" v-on:click="loadUsersAction" v-bind:class="{ 'btn-loading': isLoadingDimmed }">Load More</a>
+                                            <br/><br/>
+                                        </div>
+                                    </template>
                                 </div>
                             </div>
                         </div>
