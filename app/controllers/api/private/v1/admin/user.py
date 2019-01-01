@@ -24,18 +24,185 @@ class Users(View):
     __form = None
     __logger = None
     __user_id = None
-    __user_module = None
+    __user = None
 
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__user_module = User_Module()
+        self.__user = User_Module()
         self.__logger = self.__helpers.get_logger(__name__)
 
     def post(self, request):
-        pass
+
+        self.__request.set_request(request)
+
+        request_data = self.__request.get_request_data("post", {
+            "invitation": "",
+            "first_name": "",
+            "last_name": "",
+            "username": "",
+            "role": "",
+            "email": "",
+            "password": ""
+        })
+
+        if request_data["invitation"] != "":
+
+            self.__form.add_inputs({
+                'first_name': {
+                    'value': request_data["first_name"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'names': {
+                            'error': _('Error! First name contains invalid characters.')
+                        },
+                        'length_between': {
+                            'param': [0, 20],
+                            'error': _('Error! First name must be 1 to 20 characters long.')
+                        }
+                    }
+                },
+                'last_name': {
+                    'value': request_data["last_name"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'names': {
+                            'error': _('Error! Last name contains invalid characters.')
+                        },
+                        'length_between': {
+                            'param': [0, 20],
+                            'error': _('Error! Last name must be 1 to 20 characters long.')
+                        }
+                    }
+                },
+                'username': {
+                    'value': request_data["username"],
+                    'sanitize': {
+                        'escape': {},
+                        'strip': {}
+                    },
+                    'validate': {
+                        'alpha_numeric': {
+                            'error': _('Error! Username must be alpha numeric.')
+                        },
+                        'length_between': {
+                            'param': [4, 10],
+                            'error': _('Error! Username must be 5 to 10 characters long.')
+                        }
+                    }
+                },
+                'email': {
+                    'value': request_data["email"],
+                    'sanitize': {
+                        'escape': {},
+                        'strip': {}
+                    },
+                    'validate': {
+                        'email': {
+                            'error': _('Error! User email is invalid.')
+                        }
+                    }
+                },
+                'password': {
+                    'value': request_data["password"],
+                    'validate': {
+                        'password': {
+                            'error': _('Error! Password must contain at least uppercase letter, lowercase letter, numbers and special character.')
+                        },
+                        'length_between': {
+                            'param': [7, 20],
+                            'error': _('Error! Password length must be from 8 to 20 characters.')
+                        }
+                    }
+                },
+                'role': {
+                    'value': request_data["role"],
+                    'validate': {
+                        'any_of': {
+                            'param': [["admin", "user"]],
+                            'error': _('Error! Role is invalid.')
+                        }
+                    }
+                }
+            })
+
+        else:
+
+            self.__form.add_inputs({
+                'email': {
+                    'value': request_data["email"],
+                    'sanitize': {
+                        'escape': {},
+                        'strip': {}
+                    },
+                    'validate': {
+                        'email': {
+                            'error': _('Error! User email is invalid.')
+                        }
+                    }
+                },
+                'role': {
+                    'value': request_data["role"],
+                    'validate': {
+                        'any_of': {
+                            'param': [["admin", "user"]],
+                            'error': _('Error! Role is invalid.')
+                        }
+                    }
+                }
+            })
+
+        self.__form.process()
+
+        if not self.__form.is_passed():
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+
+        if self.__user.email_used(self.__form.get_input_value("email")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Email is already used for other account.")
+            }]))
+
+        if request_data["invitation"] != "" and self.__user.username_used(self.__form.get_input_value("username")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Username is already used.")
+            }]))
+
+        if request_data["invitation"] != "":
+
+            result = self.__user.insert_one({
+                "username": self.__form.get_input_value("username"),
+                "email": self.__form.get_input_value("email"),
+                "first_name": self.__form.get_input_value("first_name"),
+                "last_name": self.__form.get_input_value("last_name"),
+                "password": self.__form.get_input_value("password"),
+                "is_staff": False,
+                "is_active": True,
+                "is_superuser": True if self.__form.get_input_value("role") == "admin" else False
+            })
+
+            if result:
+                return JsonResponse(self.__response.send_private_success([{
+                    "type": "success",
+                    "message": _("Account created successfully.")
+                }]))
+            else:
+                return JsonResponse(self.__response.send_private_failure([{
+                    "type": "error",
+                    "message": _("Error! Something goes wrong while creating your account.")
+                }]))
+        else:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Invitation sent successfully.")
+            }]))
 
     def get(self, request):
 
@@ -54,11 +221,11 @@ class Users(View):
             limit = 0
 
         return JsonResponse(self.__response.send_private_success([], {
-            'users': self.__format_users(self.__user_module.get_all(offset, limit)),
+            'users': self.__format_users(self.__user.get_all(offset, limit)),
             'metadata': {
                 'offset': offset,
                 'limit': limit,
-                'count': self.__user_module.count_all() + 2
+                'count': self.__user.count_all() + 2
             }
         }))
 
@@ -89,24 +256,237 @@ class User(View):
     __form = None
     __logger = None
     __user_id = None
-    __user_module = None
+    __user = None
 
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__user_module = User_Module()
+        self.__user = User_Module()
         self.__logger = self.__helpers.get_logger(__name__)
 
-    def put(self, request, user_id):
-        pass
+    def post(self, request, user_id):
+
+        self.__request.set_request(request)
+
+        request_data = self.__request.get_request_data("post", {
+            "first_name": "",
+            "last_name": "",
+            "username": "",
+            "role": "",
+            "email": "",
+            "update_password": "",
+            "password": ""
+        })
+
+        if request_data["update_password"] == "":
+            self.__form.add_inputs({
+                'first_name': {
+                    'value': request_data["first_name"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'names': {
+                            'error': _('Error! First name contains invalid characters.')
+                        },
+                        'length_between': {
+                            'param': [0, 20],
+                            'error': _('Error! First name must be 1 to 20 characters long.')
+                        }
+                    }
+                },
+                'last_name': {
+                    'value': request_data["last_name"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'names': {
+                            'error': _('Error! Last name contains invalid characters.')
+                        },
+                        'length_between': {
+                            'param': [0, 20],
+                            'error': _('Error! Last name must be 1 to 20 characters long.')
+                        }
+                    }
+                },
+                'username': {
+                    'value': request_data["username"],
+                    'sanitize': {
+                        'escape': {},
+                        'strip': {}
+                    },
+                    'validate': {
+                        'alpha_numeric': {
+                            'error': _('Error! Username must be alpha numeric.')
+                        },
+                        'length_between': {
+                            'param': [4, 10],
+                            'error': _('Error! Username must be 5 to 10 characters long.')
+                        }
+                    }
+                },
+                'email': {
+                    'value': request_data["email"],
+                    'sanitize': {
+                        'escape': {},
+                        'strip': {}
+                    },
+                    'validate': {
+                        'email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
+                },
+                'role': {
+                    'value': request_data["role"],
+                    'validate': {
+                        'any_of': {
+                            'param': [["admin", "user"]],
+                            'error': _('Error! Role is invalid.')
+                        }
+                    }
+                }
+            })
+        else:
+            self.__form.add_inputs({
+                'first_name': {
+                    'value': request_data["first_name"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'names': {
+                            'error': _('Error! First name contains invalid characters.')
+                        },
+                        'length_between': {
+                            'param': [0, 20],
+                            'error': _('Error! First name must be 1 to 20 characters long.')
+                        }
+                    }
+                },
+                'last_name': {
+                    'value': request_data["last_name"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'names': {
+                            'error': _('Error! Last name contains invalid characters.')
+                        },
+                        'length_between': {
+                            'param': [0, 20],
+                            'error': _('Error! Last name must be 1 to 20 characters long.')
+                        }
+                    }
+                },
+                'username': {
+                    'value': request_data["username"],
+                    'sanitize': {
+                        'escape': {},
+                        'strip': {}
+                    },
+                    'validate': {
+                        'alpha_numeric': {
+                            'error': _('Error! Username must be alpha numeric.')
+                        },
+                        'length_between': {
+                            'param': [4, 10],
+                            'error': _('Error! Username must be 5 to 10 characters long.')
+                        }
+                    }
+                },
+                'email': {
+                    'value': request_data["email"],
+                    'sanitize': {
+                        'escape': {},
+                        'strip': {}
+                    },
+                    'validate': {
+                        'email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
+                },
+                'password': {
+                    'value': request_data["password"],
+                    'validate': {
+                        'password': {
+                            'error': _('Error! Password must contain at least uppercase letter, lowercase letter, numbers and special character.')
+                        },
+                        'length_between': {
+                            'param': [7, 20],
+                            'error': _('Error! Password length must be from 8 to 20 characters.')
+                        }
+                    }
+                },
+                'role': {
+                    'value': request_data["role"],
+                    'validate': {
+                        'any_of': {
+                            'param': [["admin", "user"]],
+                            'error': _('Error! Role is invalid.')
+                        }
+                    }
+                }
+            })
+
+        self.__form.process()
+
+        if not self.__form.is_passed():
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+
+        if self.__user.username_used_elsewhere(user_id, self.__form.get_input_value("username")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Username is already used.")
+            }]))
+
+        if self.__user.email_used_elsewhere(user_id, self.__form.get_input_value("email")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Email is already used for other account.")
+            }]))
+
+        if request_data["update_password"] == "":
+
+            result = self.__user.update_one_by_id(user_id, {
+                "username": self.__form.get_input_value("username"),
+                "email": self.__form.get_input_value("email"),
+                "first_name": self.__form.get_input_value("first_name"),
+                "last_name": self.__form.get_input_value("last_name"),
+                "is_superuser": True if self.__form.get_input_value("role") == "admin" else False
+            })
+
+        else:
+
+            result = self.__user.update_one_by_id(user_id, {
+                "username": self.__form.get_input_value("username"),
+                "email": self.__form.get_input_value("email"),
+                "first_name": self.__form.get_input_value("first_name"),
+                "last_name": self.__form.get_input_value("last_name"),
+                "password": self.__form.get_input_value("password"),
+                "is_superuser": True if self.__form.get_input_value("role") == "admin" else False
+            })
+
+        if result:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("User updated successfully.")
+            }]))
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while creating your account.")
+            }]))
 
     def delete(self, request, user_id):
 
         self.__user_id = request.user.id
 
-        if self.__user_module.delete_one_by_id(user_id):
+        if self.__user.delete_one_by_id(user_id):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("User deleted successfully.")

@@ -627,7 +627,8 @@ badger_app.add_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
         el: '#user_add_app',
         data() {
             return {
-                isInProgress: false
+                isInProgress: false,
+                disableInvitation: false
             }
         },
         methods: {
@@ -688,7 +689,8 @@ badger_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
         el: '#user_edit_app',
         data() {
             return {
-                isInProgress: false
+                isInProgress: false,
+                updatePassword: false
             }
         },
         methods: {
@@ -706,7 +708,7 @@ badger_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
                 Pace.track(() => {
                     $.ajax({
-                        method: "PUT",
+                        method: "POST",
                         url: _form.attr('action'),
                         data: inputs
                     }).done((response, textStatus, jqXHR) => {

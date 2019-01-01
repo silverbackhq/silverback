@@ -143,6 +143,6 @@ class User_Entity():
 
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
-            return User.objects.order_by('date_joined').get()
+            return User.objects.order_by('-date_joined').get()
 
-        return User.objects.order_by('date_joined')[offset:limit]
+        return User.objects.order_by('-date_joined')[offset:limit]

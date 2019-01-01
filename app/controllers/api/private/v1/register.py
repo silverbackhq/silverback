@@ -12,7 +12,7 @@ from app.modules.validation.form import Form
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
-from app.modules.core.register import Register as Register_Module
+from app.modules.core.user import User as User_Module
 from app.modules.core.decorators import stop_request_if_authenticated
 
 
@@ -22,7 +22,7 @@ class Register(View):
     __response = None
     __helpers = None
     __form = None
-    __register = None
+    __user = None
     __logger = None
 
     def __init__(self):
@@ -30,7 +30,7 @@ class Register(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__register = Register_Module()
+        self.__user = User_Module()
         self.__logger = self.__helpers.get_logger(__name__)
 
     @stop_request_if_authenticated
@@ -124,19 +124,19 @@ class Register(View):
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
 
-        if self.__register.username_used(self.__form.get_input_value("username")):
+        if self.__user.username_used(self.__form.get_input_value("username")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
             }]))
 
-        if self.__register.email_used(self.__form.get_input_value("email")):
+        if self.__user.email_used(self.__form.get_input_value("email")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
             }]))
 
-        result = self.__register.create_user({
+        result = self.__user.create_user({
             "username": self.__form.get_input_value("username"),
             "email": self.__form.get_input_value("email"),
             "first_name": self.__form.get_input_value("first_name"),

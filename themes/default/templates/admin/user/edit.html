@@ -7,9 +7,9 @@
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
             <div class="container">
-                <div class="row" id="user_add_app">
+                <div class="row" id="user_edit_app">
                     <div class="col-12">
-                        <form class="card" v-on:submit.prevent="addUserAction" action="{% url 'app.api.private.v1.admin.user.endpoint' user.id %}" method="post" data-redirect-url="{% url 'app.web.admin.user.list' %}" data-redirect-after="3000">
+                        <form class="card" v-on:submit.prevent="editUserAction" action="{% url 'app.api.private.v1.admin.user.endpoint' user.id %}" method="post" data-redirect-url="{% url 'app.web.admin.user.list' %}" data-redirect-after="3000">
                             {% csrf_token %}
                             <div class="card-header">
                                 <h3 class="card-title">{% trans "Edit User" %}</h3>
@@ -17,7 +17,41 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12 col-lg-12">
-                                        <!-- Inputs Goes Here -->
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "First Name" %}<span class="form-required">*</span></label>
+                                            <input type="text" name="first_name" class="form-control" placeholder="{% trans "Enter first name" %}" value="{{ user.first_name }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Last Name" %}<span class="form-required">*</span></label>
+                                            <input type="text" name="last_name" class="form-control" placeholder="{% trans "Enter last name" %}" value="{{ user.last_name }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Username" %}<span class="form-required">*</span></label>
+                                            <input type="text" name="username" class="form-control" placeholder="{% trans "Enter username" %}" value="{{ user.username }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Role" %}<span class="form-required">*</span></label>
+                                            <select class="form-control" name="role" required>
+                                                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>{% trans "Admin" %}</option>
+                                                <option value="user" {% if user.role == 'user' %}selected{% endif %}>{% trans "User" %}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Email address" %}<span class="form-required">*</span></label>
+                                            <input type="email" name="email" class="form-control" placeholder="{% trans "Enter email" %}" value="{{ user.email }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="update_password" value="1" v-model="updatePassword">
+                                                <span class="custom-control-label">{% trans "Update Password" %}</span>
+                                            </label>
+                                        </div>
+                                        <template v-if="updatePassword">
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Password" %}<span class="form-required">*</span></label>
+                                                <input type="password" name="password" class="form-control" placeholder="{% trans "Password" %}" required>
+                                            </div>
+                                        </template>
                                     </div>
                                 </div>
                             </div>
