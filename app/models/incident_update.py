@@ -4,7 +4,6 @@ Incident Update Model
 
 # Django
 from django.db import models
-from django.contrib.auth.models import User
 
 # local Django
 from .incident import Incident
@@ -23,13 +22,6 @@ class Incident_Update(models.Model):
     NOTIFY_CHOICES = (
         ('on', 'ON'),
         ('off', 'OFF')
-    )
-
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        db_index=True,
-        verbose_name="Related user"
     )
 
     incident = models.ForeignKey(

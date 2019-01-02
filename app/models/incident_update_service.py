@@ -7,7 +7,7 @@ from django.db import models
 
 # local Django
 from .incident_update import Incident_Update
-from .service import Service
+from .component import Component
 
 
 class Incident_Update_Service(models.Model):
@@ -16,16 +16,14 @@ class Incident_Update_Service(models.Model):
         Incident_Update,
         on_delete=models.CASCADE,
         db_index=True,
-        verbose_name="Related Incident Update",
-        null=True
+        verbose_name="Related Incident Update"
     )
 
-    service = models.ForeignKey(
-        Service,
+    component = models.ForeignKey(
+        Component,
         on_delete=models.CASCADE,
         db_index=True,
-        verbose_name="Related Service",
-        null=True
+        verbose_name="Related Component"
     )
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
