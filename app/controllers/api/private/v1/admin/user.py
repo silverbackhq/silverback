@@ -247,7 +247,7 @@ class Users(View):
             'metadata': {
                 'offset': offset,
                 'limit': limit,
-                'count': self.__user.count_all() + 2
+                'count': self.__user.count_all()
             }
         }))
 

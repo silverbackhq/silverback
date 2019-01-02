@@ -43,6 +43,8 @@ from app.controllers.api.private.v1.admin.profile import Profile as Profile_Admi
 from app.controllers.api.private.v1.admin.notifications import Notifications as Notifications_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.user import User as User_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.user import Users as Users_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.component_group import Component_Group as Component_Group_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.component_group import Component_Groups as Component_Groups_Admin_V1_Endpoint_Private
 
 
 urlpatterns = [
@@ -88,13 +90,41 @@ urlpatterns = [
         path('reset-password', Reset_Password_V1_Endpoint_Private.as_view(), name='app.api.private.v1.reset_password.endpoint'),
 
         path('admin/', include([
-            path('settings', Settings_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.settings.endpoint'),
-            path('profile', Profile_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.profile.endpoint'),
-            path('notification', Notifications_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.notifications.endpoint'),
-
-            path('user', Users_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.users.endpoint'),
-            path('user/<int:user_id>', User_Admin_V1_Endpoint_Private.as_view(), name='app.api.private.v1.admin.user.endpoint'),
-
+            path(
+                'settings',
+                Settings_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.settings.endpoint'
+            ),
+            path(
+                'profile',
+                Profile_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.profile.endpoint'
+            ),
+            path(
+                'notification',
+                Notifications_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.notifications.endpoint'
+            ),
+            path(
+                'user',
+                Users_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.users.endpoint'
+            ),
+            path(
+                'user/<int:user_id>',
+                User_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.user.endpoint'
+            ),
+            path(
+                'component-group',
+                Component_Groups_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.component_groups.endpoint'
+            ),
+            path(
+                'component-group/<int:group_id>',
+                Component_Group_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.component_group.endpoint'
+            ),
         ]))
 
     ])),

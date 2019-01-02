@@ -62,7 +62,7 @@ class Component_Group_Edit(View):
     @login_if_not_authenticated
     def get(self, request, group_id):
 
-        group = True
+        group = self.__component_group.get_one_by_id(group_id)
 
         if not group:
             raise Http404("Component group not found.")
@@ -71,9 +71,7 @@ class Component_Group_Edit(View):
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
             "page_title": _("Edit Component Group · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
-            "group": {
-                "id": group_id
-            }
+            "group": group
         })
 
         return render(request, self.template_name, self.__context.get())
