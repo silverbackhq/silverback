@@ -25,6 +25,13 @@ from app.controllers.web.admin.user import User_List as User_List_Web
 from app.controllers.web.admin.user import User_Edit as User_Edit_Web
 from app.controllers.web.admin.user import User_Add as User_Add_Web
 
+from app.controllers.web.admin.component import Component_List as Component_List_View
+from app.controllers.web.admin.component import Component_Add as Component_Add_View
+from app.controllers.web.admin.component import Component_Edit as Component_Edit_View
+from app.controllers.web.admin.component_group import Component_Group_List as Component_Group_List_View
+from app.controllers.web.admin.component_group import Component_Group_Add as Component_Group_Add_View
+from app.controllers.web.admin.component_group import Component_Group_Edit as Component_Group_Edit_View
+
 from app.controllers.api.private.v1.install import Install as Install_V1_Endpoint_Private
 from app.controllers.api.private.v1.login import Login as Login_V1_Endpoint_Private
 from app.controllers.api.private.v1.register import Register as Register_V1_Endpoint_Private
@@ -60,6 +67,14 @@ urlpatterns = [
         path('users', User_List_Web.as_view(), name='app.web.admin.user.list'),
         path('users/add', User_Add_Web.as_view(), name='app.web.admin.user.add'),
         path('users/edit/<int:user_id>', User_Edit_Web.as_view(), name='app.web.admin.user.edit'),
+
+        path('components', Component_List_View.as_view(), name='app.web.admin.component.list'),
+        path('components/add', Component_Add_View.as_view(), name='app.web.admin.component.add'),
+        path('components/edit/<int:component_id>', Component_Edit_View.as_view(), name='app.web.admin.component.edit'),
+
+        path('component-groups', Component_Group_List_View.as_view(), name='app.web.admin.component_group.list'),
+        path('component-groups/add', Component_Group_Add_View.as_view(), name='app.web.admin.component_group.add'),
+        path('component-groups/edit/<int:group_id>', Component_Group_Edit_View.as_view(), name='app.web.admin.component_group.edit'),
 
     ])),
 

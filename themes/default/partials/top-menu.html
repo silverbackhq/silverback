@@ -45,6 +45,12 @@
                             <i class="dropdown-icon fe fe-zap"></i> {% trans "Activity" %}
                         </a>
                         {% if perms.auth.manage_settings %}
+                            <a class="dropdown-item" href="{% url 'app.web.admin.component_group.list' %}">
+                                <i class="dropdown-icon fe fe-tag"></i> {% trans "Component Groups" %}
+                            </a>
+                            <a class="dropdown-item" href="{% url 'app.web.admin.component.list' %}">
+                                <i class="dropdown-icon fe fe-layers"></i> {% trans "Components" %}
+                            </a>
                             <a class="dropdown-item" href="{% url 'app.web.admin.user.list' %}">
                                 <i class="dropdown-icon fe fe-users"></i> {% trans "Users" %}
                             </a>
