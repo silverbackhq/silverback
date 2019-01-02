@@ -31,6 +31,7 @@ class Register_Request_Entity():
         request = Register_Request(
             email=request["email"],
             token=request["token"] if "token" in request else self.gererate_token(),
+            payload=request["payload"],
             expire_at=request["expire_at"] if "expire_at" in request else timezone.now() + timedelta(hours=int(request["expire_after"]))
         )
 

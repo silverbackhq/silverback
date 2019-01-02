@@ -199,10 +199,32 @@ class Users(View):
                     "message": _("Error! Something goes wrong while creating your account.")
                 }]))
         else:
-            return JsonResponse(self.__response.send_private_success([{
-                "type": "success",
-                "message": _("Invitation sent successfully.")
-            }]))
+
+            self.__user.delete_register_request_by_email(self.__form.get_input_value("email"))
+
+            token = self.__user.create_register_request(
+                self.__form.get_input_value("email"),
+                self.__form.get_input_value("role")
+            )
+
+            if not token:
+                return JsonResponse(self.__response.send_private_failure([{
+                    "type": "error",
+                    "message": _("Error! Something goes wrong while creating reset request.")
+                }]))
+
+            message = self.__user.send_register_request_message(self.__form.get_input_value("email"), token)
+
+            if not message:
+                return JsonResponse(self.__response.send_private_failure([{
+                    "type": "error",
+                    "message": _("Error! Something goes wrong while sending register request.")
+                }]))
+            else:
+                return JsonResponse(self.__response.send_private_success([{
+                    "type": "success",
+                    "message": _("Register Request instructions sent successfully.")
+                }]))
 
     def get(self, request):
 
@@ -485,6 +507,12 @@ class User(View):
     def delete(self, request, user_id):
 
         self.__user_id = request.user.id
+
+        if self.__user_id == user_id:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! You can't delete your account.")
+            }]))
 
         if self.__user.delete_one_by_id(user_id):
             return JsonResponse(self.__response.send_private_success([{

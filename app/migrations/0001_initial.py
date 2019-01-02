@@ -180,6 +180,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('email', models.CharField(db_index=True, max_length=60, verbose_name='Email')),
                 ('token', models.CharField(db_index=True, max_length=200, verbose_name='Token')),
+                ('payload', models.CharField(max_length=200, verbose_name='Payload')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Updated at')),
                 ('expire_at', models.DateTimeField(verbose_name='Expire at')),
