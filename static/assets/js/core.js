@@ -969,7 +969,7 @@ badger_app.edit_component_group_screen = (Vue, axios, $, Pace, Cookies, toastr) 
 
 
 /**
- * App User List
+ * Component Group List
  */
 badger_app.component_group_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
@@ -1070,6 +1070,244 @@ badger_app.component_group_list_screen = (Vue, axios, $, Pace, Cookies, toastr) 
     });
 
 }
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Component Add
+ */
+badger_app.add_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#component_add_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            addComponentAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * Component Edit
+ */
+badger_app.edit_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#component_edit_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            editComponentAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+/**
+ * Component List
+ */
+badger_app.component_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#component_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _user_list_view_i18n,
+                limit: 25,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#component_list').attr('data-fetch-components') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.components);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadComponentsAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
+            },
+            deleteComponentAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
+
+
 
 
 
@@ -1229,6 +1467,36 @@ $(document).ready(() => {
         }
         if (document.getElementById("component_group_list")) {
             badger_app.component_group_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("component_add_app")) {
+            badger_app.add_component_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("component_edit_app")) {
+            badger_app.edit_component_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("component_list")) {
+            badger_app.component_list_screen(
                 Vue,
                 axios,
                 $,

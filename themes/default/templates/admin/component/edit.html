@@ -7,12 +7,52 @@
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
             <div class="container">
-                <div class="page-header">
-                    <h1 class="page-title">
-                        {% trans "Edit Component" %}
-                    </h1>
+                <div class="row" id="component_edit_app">
+                    <div class="col-12">
+                        <form class="card" v-on:submit.prevent="editComponentAction" action="{% url 'app.api.private.v1.admin.component.endpoint' component.id %}" method="post" data-redirect-url="{% url 'app.web.admin.component.list' %}" data-redirect-after="3000">
+                            {% csrf_token %}
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Edit Component" %}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Name" %}<span class="form-required">*</span></label>
+                                            <input type="text" name="name" class="form-control" placeholder="{% trans "Enter component name" %}" value="{{ component.name }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Description" %}</label>
+                                            <textarea name="description" rows="4" class="form-control" placeholder="{% trans "Enter component description" %}">{{ component.description }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Uptime" %}<span class="form-required">*</span></label>
+                                            <select class="form-control" name="uptime" required>
+                                                <option value="">{% trans "Please Select a Value" %}</option>
+                                                <option value="on" {% if component.uptime == 'on' %}selected{% endif %}>{% trans "On" %}</option>
+                                                <option value="off" {% if component.uptime == 'off' %}selected{% endif %}>{% trans "Off" %}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Group" %}</label>
+                                            <select class="form-control" name="group">
+                                                <option value="">{% trans "Please Select a Value" %}</option>
+                                                {% for group in groups %}
+                                                    <option value="{{ group.id }}" {% if group.id == component.group_id %}selected{% endif %}>{{ group.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Save" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>

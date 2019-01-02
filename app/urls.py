@@ -46,6 +46,9 @@ from app.controllers.api.private.v1.admin.user import Users as Users_Admin_V1_En
 from app.controllers.api.private.v1.admin.component_group import Component_Group as Component_Group_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.component_group import Component_Groups as Component_Groups_Admin_V1_Endpoint_Private
 
+from app.controllers.api.private.v1.admin.component import Component as Component_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.component import Components as Components_Admin_V1_Endpoint_Private
+
 
 urlpatterns = [
     # Public Views
@@ -124,6 +127,16 @@ urlpatterns = [
                 'component-group/<int:group_id>',
                 Component_Group_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.component_group.endpoint'
+            ),
+            path(
+                'component',
+                Components_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.components.endpoint'
+            ),
+            path(
+                'component/<int:component_id>',
+                Component_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.component.endpoint'
             ),
         ]))
 
