@@ -10,7 +10,7 @@ from .incident_update import Incident_Update
 from .component import Component
 
 
-class Incident_Update_Service(models.Model):
+class Incident_Update_Component(models.Model):
 
     incident_update = models.ForeignKey(
         Incident_Update,
