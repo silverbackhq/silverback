@@ -145,4 +145,4 @@ class User_Entity():
         if offset is None or limit is None:
             return User.objects.order_by('-date_joined').get()
 
-        return User.objects.order_by('-date_joined')[offset:limit]
+        return User.objects.order_by('-date_joined')[offset:limit+offset]

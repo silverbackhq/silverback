@@ -68,7 +68,7 @@ class Component_Entity():
         if offset is None or limit is None:
             return Component.objects.order_by('-created_at').get()
 
-        return Component.objects.order_by('-created_at')[offset:limit]
+        return Component.objects.order_by('-created_at')[offset:limit+offset]
 
     def count(self, group_id=None):
         if group_id is None:

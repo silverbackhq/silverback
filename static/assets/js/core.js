@@ -757,7 +757,7 @@ badger_app.user_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                 isLoadingDimmed: false,
                 errored: false,
                 i18n: _user_list_view_i18n,
-                limit: 25,
+                limit: 20,
                 offset: 0
             }
         },
@@ -984,7 +984,7 @@ badger_app.component_group_list_screen = (Vue, axios, $, Pace, Cookies, toastr) 
                 isLoadingDimmed: false,
                 errored: false,
                 i18n: _user_list_view_i18n,
-                limit: 25,
+                limit: 20,
                 offset: 0
             }
         },
@@ -1070,15 +1070,6 @@ badger_app.component_group_list_screen = (Vue, axios, $, Pace, Cookies, toastr) 
     });
 
 }
-
-
-
-
-
-
-
-
-
 
 
 /**
@@ -1218,7 +1209,7 @@ badger_app.component_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                 isLoadingDimmed: false,
                 errored: false,
                 i18n: _user_list_view_i18n,
-                limit: 25,
+                limit: 20,
                 offset: 0
             }
         },
@@ -1304,15 +1295,6 @@ badger_app.component_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
     });
 
 }
-
-
-
-
-
-
-
-
-
 
 
 $(document).ready(() => {

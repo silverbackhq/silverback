@@ -101,7 +101,7 @@ class Components(View):
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Something goes wrong while creating your account.")
+                "message": _("Error! Something goes wrong while creating component.")
             }]))
 
     def get(self, request):
@@ -232,7 +232,7 @@ class Component(View):
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Something goes wrong while creating your account.")
+                "message": _("Error! Something goes wrong while updating component.")
             }]))
 
     def delete(self, request, component_id):
@@ -248,5 +248,5 @@ class Component(View):
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Something goes wrong while deleting a user.")
+                "message": _("Error! Something goes wrong while deleting component.")
             }]))

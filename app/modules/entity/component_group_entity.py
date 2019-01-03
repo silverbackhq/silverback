@@ -54,5 +54,4 @@ class Component_Group_Entity():
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
             return Component_Group.objects.order_by('-created_at')
-
-        return Component_Group.objects.order_by('-created_at')[offset:limit]
+        return Component_Group.objects.order_by('-created_at')[offset:limit+offset]

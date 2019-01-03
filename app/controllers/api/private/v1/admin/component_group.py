@@ -83,7 +83,7 @@ class Component_Groups(View):
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Something goes wrong while creating your account.")
+                "message": _("Error! Something goes wrong while creating group.")
             }]))
 
     def get(self, request):
@@ -195,7 +195,7 @@ class Component_Group(View):
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Something goes wrong while creating your account.")
+                "message": _("Error! Something goes wrong while updating group.")
             }]))
 
     def delete(self, request, group_id):
@@ -211,5 +211,5 @@ class Component_Group(View):
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Something goes wrong while deleting a user.")
+                "message": _("Error! Something goes wrong while deleting group.")
             }]))
