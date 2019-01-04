@@ -6,18 +6,24 @@ Incident Update Module
 from app.modules.util.helpers import Helpers
 from app.modules.entity.incident_update_entity import Incident_Update_Entity
 from app.modules.entity.incident_entity import Incident_Entity
+from app.modules.entity.incident_update_component_entity import Incident_Update_Component
+from app.modules.entity.incident_update_notification_entity import Incident_Update_Notification
 
 
 class Incident_Update():
 
     __incident_update_entity = None
     __incident_entity = None
+    __incident_update_component_entity = None
+    __incident_update_notification_entity = None
     __helpers = None
     __logger = None
 
     def __init__(self):
         self.__incident_update_entity = Incident_Update_Entity()
         self.__incident_entity = Incident_Entity()
+        self.__incident_update_component_entity = Incident_Update_Component()
+        self.__incident_update_notification_entity = Incident_Update_Notification()
         self.__helpers = Helpers()
         self.__logger = self.__helpers.get_logger(__name__)
 
