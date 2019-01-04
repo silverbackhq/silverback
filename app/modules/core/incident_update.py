@@ -46,11 +46,11 @@ class Incident_Update():
     def update_one_by_id(self, id, incident_data):
         return self.__incident_update_entity.update_one_by_id(id, incident_data)
 
-    def count_all(self):
-        return self.__incident_update_entity.count_all()
+    def count_all(self, incident_id):
+        return self.__incident_update_entity.count_all(incident_id)
 
-    def get_all(self, offset=None, limit=None):
-        return self.__incident_update_entity.get_all(offset, limit)
+    def get_all(self, incident_id, offset=None, limit=None):
+        return self.__incident_update_entity.get_all(incident_id, offset, limit)
 
     def delete_one_by_id(self, id):
         return self.__incident_update_entity.delete_one_by_id(id)

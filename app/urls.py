@@ -31,6 +31,13 @@ from app.controllers.web.admin.component import Component_Edit as Component_Edit
 from app.controllers.web.admin.component_group import Component_Group_List as Component_Group_List_View
 from app.controllers.web.admin.component_group import Component_Group_Add as Component_Group_Add_View
 from app.controllers.web.admin.component_group import Component_Group_Edit as Component_Group_Edit_View
+from app.controllers.web.admin.incident import Incident_List as Incident_List_View
+from app.controllers.web.admin.incident import Incident_Add as Incident_Add_View
+from app.controllers.web.admin.incident import Incident_Edit as Incident_Edit_View
+from app.controllers.web.admin.incident import Incident_View as Incident_View_View
+from app.controllers.web.admin.incident_update import Incident_Update_Add as Incident_Update_Add_View
+from app.controllers.web.admin.incident_update import Incident_Update_Edit as Incident_Update_Edit_View
+from app.controllers.web.admin.incident_update import Incident_Update_View as Incident_Update_View_View
 
 from app.controllers.api.private.v1.install import Install as Install_V1_Endpoint_Private
 from app.controllers.api.private.v1.login import Login as Login_V1_Endpoint_Private
@@ -48,6 +55,10 @@ from app.controllers.api.private.v1.admin.component_group import Component_Group
 
 from app.controllers.api.private.v1.admin.component import Component as Component_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.component import Components as Components_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident import Incident as Incident_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident import Incidents as Incidents_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident_update import Incident_Update as Incident_Update_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident_update import Incident_Updates as Incident_Updates_Admin_V1_Endpoint_Private
 
 
 urlpatterns = [
@@ -80,6 +91,15 @@ urlpatterns = [
         path('component-groups', Component_Group_List_View.as_view(), name='app.web.admin.component_group.list'),
         path('component-groups/add', Component_Group_Add_View.as_view(), name='app.web.admin.component_group.add'),
         path('component-groups/edit/<int:group_id>', Component_Group_Edit_View.as_view(), name='app.web.admin.component_group.edit'),
+
+        path('incidents', Incident_List_View.as_view(), name='app.web.admin.incident.list'),
+        path('incidents/add', Incident_Add_View.as_view(), name='app.web.admin.incident.add'),
+        path('incidents/edit/<int:incident_id>', Incident_Edit_View.as_view(), name='app.web.admin.incident.edit'),
+        path('incidents/view/<int:incident_id>', Incident_View_View.as_view(), name='app.web.admin.incident.view'),
+
+        path('incidents/view/<int:incident_id>/updates/add', Incident_Update_Add_View.as_view(), name='app.web.admin.incident_update.add'),
+        path('incidents/view/<int:incident_id>/updates/edit/<int:update_id>', Incident_Update_Edit_View.as_view(), name='app.web.admin.incident_update.edit'),
+        path('incidents/view/<int:incident_id>/updates/view/<int:update_id>', Incident_Update_View_View.as_view(), name='app.web.admin.incident_update.view'),
 
     ])),
 
@@ -137,6 +157,26 @@ urlpatterns = [
                 'component/<int:component_id>',
                 Component_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.component.endpoint'
+            ),
+            path(
+                'incident',
+                Incidents_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incidents.endpoint'
+            ),
+            path(
+                'incident/<int:incident_id>',
+                Incident_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incident.endpoint'
+            ),
+            path(
+                'incident-update/<int:incident_id>',
+                Incident_Updates_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incident_updates.endpoint'
+            ),
+            path(
+                'incident-update/<int:incident_id>/<int:update_id>',
+                Incident_Update_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incident_update.endpoint'
             ),
         ]))
 

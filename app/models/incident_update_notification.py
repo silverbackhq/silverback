@@ -12,6 +12,12 @@ from .subscriber import Subscriber
 
 class Incident_Update_Notification(models.Model):
 
+    STATUS_CHOICES = (
+        ('pending', 'PENDING'),
+        ('failed', 'FAILED'),
+        ('success', 'SUCCESS')
+    )
+
     incident_update = models.ForeignKey(
         Incident_Update,
         on_delete=models.CASCADE,
@@ -28,5 +34,6 @@ class Incident_Update_Notification(models.Model):
         null=True
     )
 
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="pending", verbose_name="Status")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")

@@ -20,51 +20,9 @@ from app.modules.core.incident_update import Incident_Update as Incident_Update_
 from app.modules.core.decorators import login_if_not_authenticated
 
 
-class Incident_List(View):
+class Incident_Update_Add(View):
 
-    template_name = 'templates/admin/incident/list.html'
-    __context = Context()
-    __incident = Incident_Module()
-    __incident_update = Incident_Update_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
-
-    @login_if_not_authenticated
-    def get(self, request):
-
-        self.__context.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Incidents · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger"))
-        })
-
-        return render(request, self.template_name, self.__context.get())
-
-
-class Incident_Add(View):
-
-    template_name = 'templates/admin/incident/add.html'
-    __context = Context()
-    __incident = Incident_Module()
-    __incident_update = Incident_Update_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
-
-    @login_if_not_authenticated
-    def get(self, request):
-
-        self.__context.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Add an Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger"))
-        })
-
-        return render(request, self.template_name, self.__context.get())
-
-
-class Incident_Edit(View):
-
-    template_name = 'templates/admin/incident/edit.html'
+    template_name = 'templates/admin/incident/update/add.html'
     __context = Context()
     __incident = Incident_Module()
     __incident_update = Incident_Update_Module()
@@ -82,16 +40,16 @@ class Incident_Edit(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Edit Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
             "incident": incident
         })
 
         return render(request, self.template_name, self.__context.get())
 
 
-class Incident_View(View):
+class Incident_Update_View(View):
 
-    template_name = 'templates/admin/incident/view.html'
+    template_name = 'templates/admin/incident/update/view.html'
     __context = Context()
     __incident = Incident_Module()
     __incident_update = Incident_Update_Module()
@@ -99,18 +57,50 @@ class Incident_View(View):
     __component_group = Component_Group_Module()
 
     @login_if_not_authenticated
-    def get(self, request, incident_id):
+    def get(self, request, incident_id, update_id):
 
         incident = incident_id
 
         if not incident:
             raise Http404("Incident not found.")
 
+        update = update_id
+
+        if not update:
+            raise Http404("Incident update not found.")
+
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("View Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
-            "incident": incident
+            "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "update": update
+        })
+
+        return render(request, self.template_name, self.__context.get())
+
+
+class Incident_Update_Edit(View):
+
+    template_name = 'templates/admin/incident/update/edit.html'
+    __context = Context()
+    __incident = Incident_Module()
+    __incident_update = Incident_Update_Module()
+    __component = Component_Module()
+    __component_group = Component_Group_Module()
+
+    @login_if_not_authenticated
+    def get(self, request, incident_id, update_id):
+
+        update = update_id
+
+        if not update:
+            raise Http404("Incident update not found.")
+
+        self.__context.autoload_options()
+        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.__context.push({
+            "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "update": update
         })
 
         return render(request, self.template_name, self.__context.get())
