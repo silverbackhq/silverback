@@ -28,23 +28,24 @@ class Incident_Update():
         self.__logger = self.__helpers.get_logger(__name__)
 
     def get_one_by_id(self, id):
-        incident = self.__incident_update_entity.get_one_by_id(id)
+        update = self.__incident_update_entity.get_one_by_id(id)
 
-        if not incident:
+        if not update:
             return False
 
         return {
-            "id": incident.id,
-            "name": incident.name,
-            "uri": incident.uri,
-            "status": incident.status
+            "id": update.id,
+            "time": update.time,
+            "message": update.message,
+            "notify_subscribers": update.notify_subscribers,
+            "status": update.status
         }
 
-    def insert_one(self, incident):
-        return self.__incident_update_entity.insert_one(incident)
+    def insert_one(self, update):
+        return self.__incident_update_entity.insert_one(update)
 
-    def update_one_by_id(self, id, incident_data):
-        return self.__incident_update_entity.update_one_by_id(id, incident_data)
+    def update_one_by_id(self, id, update_data):
+        return self.__incident_update_entity.update_one_by_id(id, update_data)
 
     def count_all(self, incident_id):
         return self.__incident_update_entity.count_all(incident_id)

@@ -101,7 +101,7 @@ class Incident_View(View):
     @login_if_not_authenticated
     def get(self, request, incident_id):
 
-        incident = incident_id
+        incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
             raise Http404("Incident not found.")

@@ -32,7 +32,7 @@ class Incident_Update_Add(View):
     @login_if_not_authenticated
     def get(self, request, incident_id):
 
-        incident = incident_id
+        incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
             raise Http404("Incident not found.")
@@ -59,12 +59,12 @@ class Incident_Update_View(View):
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
-        incident = incident_id
+        incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
             raise Http404("Incident not found.")
 
-        update = update_id
+        update = self.__incident_update.get_one_by_id(update_id)
 
         if not update:
             raise Http404("Incident update not found.")
@@ -73,7 +73,8 @@ class Incident_Update_View(View):
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
             "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
-            "update": update
+            "update": update,
+            "incident": incident
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -91,7 +92,12 @@ class Incident_Update_Edit(View):
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
-        update = update_id
+        incident = self.__incident.get_one_by_id(incident_id)
+
+        if not incident:
+            raise Http404("Incident not found.")
+
+        update = self.__incident_update.get_one_by_id(update_id)
 
         if not update:
             raise Http404("Incident update not found.")
@@ -100,7 +106,8 @@ class Incident_Update_Edit(View):
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
             "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
-            "update": update
+            "update": update,
+            "incident": incident
         })
 
         return render(request, self.template_name, self.__context.get())

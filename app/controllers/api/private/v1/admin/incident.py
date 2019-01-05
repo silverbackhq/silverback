@@ -150,9 +150,6 @@ class Incident(View):
         self.__incident = Incident_Module()
         self.__logger = self.__helpers.get_logger(__name__)
 
-    def get(self, request, incident_id):
-        pass
-
     def post(self, request, incident_id):
 
         self.__request.set_request(request)

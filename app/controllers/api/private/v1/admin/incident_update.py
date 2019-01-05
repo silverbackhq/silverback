@@ -35,7 +35,74 @@ class Incident_Updates(View):
         self.__logger = self.__helpers.get_logger(__name__)
 
     def post(self, request, incident_id):
-        pass
+
+        self.__request.set_request(request)
+
+        request_data = self.__request.get_request_data("post", {
+            "status": "",
+            "notify_subscribers": "",
+            "message": "",
+            "time": "",
+        })
+
+        self.__form.add_inputs({
+            'message': {
+                'value': request_data["message"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
+            },
+            'time': {
+                'value': request_data["time"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
+            },
+            'status': {
+                'value': request_data["status"],
+                'validate': {
+                    'any_of': {
+                        'param': [["investigating", "identified", "monitoring", "update", "resolved"]],
+                        'error': _('Error! Status is invalid.')
+                    }
+                }
+            },
+            'notify_subscribers': {
+                'value': request_data["notify_subscribers"],
+                'validate': {
+                    'any_of': {
+                        'param': [["on", "off"]],
+                        'error': _('Error! Notify subscribers is invalid.')
+                    }
+                }
+            }
+        })
+
+        self.__form.process()
+
+        if not self.__form.is_passed():
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+
+        result = self.__incident_update.insert_one({
+            "notify_subscribers": self.__form.get_input_value("notify_subscribers"),
+            "time": self.__form.get_input_value("time"),
+            "message": self.__form.get_input_value("message"),
+            "status": self.__form.get_input_value("status"),
+            "incident_id": incident_id
+        })
+
+        if result:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Incident update created successfully.")
+            }]))
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while creating update.")
+            }]))
 
     def get(self, request, incident_id):
 
@@ -68,9 +135,9 @@ class Incident_Updates(View):
         for update in updates:
             updates_list.append({
                 "id": update.id,
-                "status": update.status,
-                "notify_subscribers": update.notify_subscribers,
-                "time": update.time,
+                "status": update.status.title(),
+                "notify_subscribers": update.notify_subscribers.title(),
+                "time": update.time.strftime("%b %d %Y %H:%M:%S"),
                 "progress": 95,
                 "created_at": update.created_at.strftime("%b %d %Y %H:%M:%S"),
                 "view_url": reverse("app.web.admin.incident_update.view", kwargs={'incident_id': incident_id, "update_id": update.id}),
@@ -99,11 +166,74 @@ class Incident_Update(View):
         self.__incident_update = Incident_Update_Module()
         self.__logger = self.__helpers.get_logger(__name__)
 
-    def get(self, request, incident_id, update_id):
-        pass
-
     def post(self, request, incident_id, update_id):
-        pass
+
+        self.__request.set_request(request)
+
+        request_data = self.__request.get_request_data("post", {
+            "status": "",
+            "notify_subscribers": "",
+            "message": "",
+            "time": "",
+        })
+
+        self.__form.add_inputs({
+            'message': {
+                'value': request_data["message"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
+            },
+            'time': {
+                'value': request_data["time"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
+            },
+            'status': {
+                'value': request_data["status"],
+                'validate': {
+                    'any_of': {
+                        'param': [["investigating", "identified", "monitoring", "update", "resolved"]],
+                        'error': _('Error! Status is invalid.')
+                    }
+                }
+            },
+            'notify_subscribers': {
+                'value': request_data["notify_subscribers"],
+                'validate': {
+                    'any_of': {
+                        'param': [["on", "off"]],
+                        'error': _('Error! Notify subscribers is invalid.')
+                    }
+                }
+            }
+        })
+
+        self.__form.process()
+
+        if not self.__form.is_passed():
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+
+        result = self.__incident_update.update_one_by_id(update_id, {
+            "notify_subscribers": self.__form.get_input_value("notify_subscribers"),
+            "time": self.__form.get_input_value("time"),
+            "message": self.__form.get_input_value("message"),
+            "status": self.__form.get_input_value("status")
+        })
+
+        if result:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Incident update updated successfully.")
+            }]))
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while updating update.")
+            }]))
 
     def delete(self, request, incident_id, update_id):
 
