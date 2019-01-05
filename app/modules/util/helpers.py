@@ -5,6 +5,8 @@ Helpers Module
 # standard library
 import json
 import logging
+import random
+import string
 from pprint import pprint
 from datetime import timedelta
 
@@ -72,3 +74,6 @@ class Helpers():
             elif key == "years":
                 datetime += timedelta(days=value * 360)
         return datetime
+
+    def random_generator(self, size=6, chars=string.ascii_lowercase + string.digits):
+        return ''.join(random.choice(chars) for x in range(size))

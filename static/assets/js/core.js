@@ -756,7 +756,7 @@ badger_app.user_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                 isLoadingActive: false,
                 isLoadingDimmed: false,
                 errored: false,
-                i18n: _user_list_view_i18n,
+                i18n: _list_view_i18n,
                 limit: 20,
                 offset: 0
             }
@@ -983,7 +983,7 @@ badger_app.component_group_list_screen = (Vue, axios, $, Pace, Cookies, toastr) 
                 isLoadingActive: false,
                 isLoadingDimmed: false,
                 errored: false,
-                i18n: _user_list_view_i18n,
+                i18n: _list_view_i18n,
                 limit: 20,
                 offset: 0
             }
@@ -1208,7 +1208,7 @@ badger_app.component_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                 isLoadingActive: false,
                 isLoadingDimmed: false,
                 errored: false,
-                i18n: _user_list_view_i18n,
+                i18n: _list_view_i18n,
                 limit: 20,
                 offset: 0
             }
@@ -1252,6 +1252,231 @@ badger_app.component_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                 this.fetch();
             },
             deleteComponentAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
+/**
+ * Incident Add
+ */
+badger_app.add_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#incident_add_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            addIncidentAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * Incident Edit
+ */
+badger_app.edit_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#incident_edit_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            editIncidentAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+/**
+ * Incident List
+ */
+badger_app.incident_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#incident_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _list_view_i18n,
+                limit: 20,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#incident_list').attr('data-fetch-incidents') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.incidents);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadIncidentsAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
+            },
+            deleteIncidentAction(event) {
                 event.preventDefault();
 
                 if (!confirm(_i18n.confirm_msg)) {
@@ -1479,6 +1704,36 @@ $(document).ready(() => {
         }
         if (document.getElementById("component_list")) {
             badger_app.component_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("incident_add_app")) {
+            badger_app.add_incident_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("incident_edit_app")) {
+            badger_app.edit_incident_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("incident_list")) {
+            badger_app.incident_list_screen(
                 Vue,
                 axios,
                 $,

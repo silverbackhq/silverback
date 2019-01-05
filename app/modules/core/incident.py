@@ -40,6 +40,15 @@ class Incident():
             "status": incident.status
         }
 
+    def generate_uri(self, size=6):
+
+        uri = self.__helpers.random_generator(size)
+
+        while self.__incident_entity.get_one_by_uri(uri):
+            uri = self.__helpers.random_generator(size)
+
+        return uri
+
     def insert_one(self, incident):
         return self.__incident_entity.insert_one(incident)
 

@@ -56,6 +56,13 @@ class Incident_Entity():
         except Exception:
             return False
 
+    def get_one_by_uri(self, uri):
+        try:
+            incident = Incident.objects.get(uri=uri)
+            return False if incident.pk is None else incident
+        except Exception:
+            return False
+
     def delete_one_by_id(self, id):
         incident = self.get_one_by_id(id)
         if incident is not False:

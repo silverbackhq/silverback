@@ -7,12 +7,39 @@
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
             <div class="container">
-                <div class="page-header">
-                    <h1 class="page-title">
-                        {% trans "Edit Incident" %}
-                    </h1>
+                <div class="row" id="incident_edit_app">
+                    <div class="col-12">
+                        <form class="card" v-on:submit.prevent="editIncidentAction" action="{% url 'app.api.private.v1.admin.incident.endpoint' incident.id %}" method="post" data-redirect-url="{% url 'app.web.admin.incident.list' %}" data-redirect-after="3000">
+                            {% csrf_token %}
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Edit Incident" %}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Name" %}<span class="form-required">*</span></label>
+                                            <input type="text" name="name" class="form-control" placeholder="{% trans "Enter incident name" %}" value="{{ incident.name }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Status" %}<span class="form-required">*</span></label>
+                                            <select class="form-control" name="status" required>
+                                                <option value="">{% trans "Please Select a Value" %}</option>
+                                                <option value="open" {% if incident.status == 'open' %}selected{% endif %}>{% trans "Open" %}</option>
+                                                <option value="closed" {% if incident.status == 'closed' %}selected{% endif %}>{% trans "Closed" %}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Save" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
