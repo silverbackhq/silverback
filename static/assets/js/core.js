@@ -1,5 +1,7 @@
 require(['jscookie', 'toastr', 'pace', 'vue', 'axios']);
 
+$.jMaskGlobals.watchDataMask = true;
+
 var badger_app = badger_app || {};
 
 
@@ -617,6 +619,1361 @@ badger_app.profile_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 }
 
 
+/**
+ * User Add
+ */
+badger_app.add_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#user_add_app',
+        data() {
+            return {
+                isInProgress: false,
+                disableInvitation: false
+            }
+        },
+        methods: {
+            addUserAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * User Edit
+ */
+badger_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#user_edit_app',
+        data() {
+            return {
+                isInProgress: false,
+                updatePassword: false
+            }
+        },
+        methods: {
+            editUserAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * App User List
+ */
+badger_app.user_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#user_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _list_view_i18n,
+                limit: 20,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#user_list').attr('data-fetch-users') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.users);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadUsersAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
+            },
+            deleteUserAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
+/**
+ * Component Group Add
+ */
+badger_app.add_component_group_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#component_group_add_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            addGroupAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * Component Group Edit
+ */
+badger_app.edit_component_group_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#component_group_edit_app',
+        data() {
+            return {
+                isInProgress: false,
+                updatePassword: false
+            }
+        },
+        methods: {
+            editGroupAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * Component Group List
+ */
+badger_app.component_group_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#component_group_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _list_view_i18n,
+                limit: 20,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#component_group_list').attr('data-fetch-component_groups') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.groups);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadGroupsAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
+            },
+            deleteGroupAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
+/**
+ * Component Add
+ */
+badger_app.add_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#component_add_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            addComponentAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * Component Edit
+ */
+badger_app.edit_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#component_edit_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            editComponentAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+/**
+ * Component List
+ */
+badger_app.component_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#component_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _list_view_i18n,
+                limit: 20,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#component_list').attr('data-fetch-components') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.components);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadComponentsAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
+            },
+            deleteComponentAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
+/**
+ * Incident Add
+ */
+badger_app.add_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#incident_add_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            addIncidentAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * Incident Edit
+ */
+badger_app.edit_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#incident_edit_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            editIncidentAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+/**
+ * Incident List
+ */
+badger_app.incident_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#incident_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _list_view_i18n,
+                limit: 20,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#incident_list').attr('data-fetch-incidents') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.incidents);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadIncidentsAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
+            },
+            deleteIncidentAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
+/**
+ * Update Add
+ */
+badger_app.add_update_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#update_add_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            addUpdateAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * Update Edit
+ */
+badger_app.edit_update_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#update_edit_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            editUpdateAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+/**
+ * Update List
+ */
+badger_app.update_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#update_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _list_view_i18n,
+                limit: 20,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#update_list').attr('data-fetch-updates') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.updates);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadUpdatesAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
+            },
+            deleteUpdateAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
+/**
+ * Metric Add
+ */
+badger_app.add_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#metric_add_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            addMetricAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+
+/**
+ * Metric Edit
+ */
+badger_app.edit_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#metric_edit_app',
+        data() {
+            return {
+                isInProgress: false
+            }
+        },
+        methods: {
+            editMetricAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.href = _form.attr('data-redirect-url');
+                            }, _form.attr('data-redirect-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                            this.isInProgress = false;
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
+            }
+        }
+    });
+}
+
+/**
+ * Metric List
+ */
+badger_app.metric_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#metric_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _list_view_i18n,
+                limit: 20,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#metric_list').attr('data-fetch-metrics') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.metrics);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadMetricsAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
+            },
+            deleteMetricAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
 $(document).ready(() => {
 
     $(document).ajaxStart(() => {
@@ -709,6 +2066,186 @@ $(document).ready(() => {
         }
         if (document.getElementById("app_profile")) {
             badger_app.profile_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("user_add_app")) {
+            badger_app.add_user_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("user_edit_app")) {
+            badger_app.edit_user_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("user_list")) {
+            badger_app.user_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("component_group_add_app")) {
+            badger_app.add_component_group_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("component_group_edit_app")) {
+            badger_app.edit_component_group_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("component_group_list")) {
+            badger_app.component_group_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("component_add_app")) {
+            badger_app.add_component_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("component_edit_app")) {
+            badger_app.edit_component_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("component_list")) {
+            badger_app.component_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("incident_add_app")) {
+            badger_app.add_incident_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("incident_edit_app")) {
+            badger_app.edit_incident_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("incident_list")) {
+            badger_app.incident_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("update_add_app")) {
+            badger_app.add_update_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("update_edit_app")) {
+            badger_app.edit_update_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("update_list")) {
+            badger_app.update_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("metric_add_app")) {
+            badger_app.add_metric_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("metric_edit_app")) {
+            badger_app.edit_metric_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("metric_list")) {
+            badger_app.metric_list_screen(
                 Vue,
                 axios,
                 $,

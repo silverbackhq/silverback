@@ -1,0 +1,35 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="page-main">
+        {% include 'partials/top-menu.html' %}
+        <div class="my-3 my-md-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="card p-3">
+                            <div class="d-flex align-items-center">
+                                <span class="stamp stamp-md bg-green mr-3">
+                                    <i class="fe fe-bookmark"></i>
+                                </span>
+                                <div>
+                                    <h4 class="m-0"><a href="{% url 'app.web.admin.incident.view' incident.id %}"><small>{{ incident.name }}</small></a></h4>
+                                    <small class="text-muted">{{ incident.status }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="update_view_app">
+                    <div class="col-12">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'partials/bottom-menu.html' %}
+
+{% endblock %}

@@ -131,5 +131,18 @@ class User_Entity():
             return True
         return False
 
-    def count_all_users(self):
+    def delete_one_by_id(self, id):
+        user = self.get_one_by_id(id)
+        if user is not False:
+            count, deleted = user.delete()
+            return True if count > 0 else False
+        return False
+
+    def count_all(self):
         return User.objects.count()
+
+    def get_all(self, offset=None, limit=None):
+        if offset is None or limit is None:
+            return User.objects.order_by('-date_joined').get()
+
+        return User.objects.order_by('-date_joined')[offset:limit+offset]

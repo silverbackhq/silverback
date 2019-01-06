@@ -1,7 +1,7 @@
 """
-Incident Update Notification Entity Module
+Incident Update Notification Module
 """
 
 
-class Incident_Update_Notification_Entity():
+class Incident_Update_Notification():
     pass

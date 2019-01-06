@@ -22,6 +22,16 @@
                             {% endif %}
                         {% endfor %}
                     {% endif %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                <div class="alert alert-danger" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert"></button>
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                     <form class="card" v-on:submit.prevent="loginAction" action="{% url 'app.api.private.v1.login.endpoint' %}" method="post" data-redirect-url="{{ redirect_url }}" data-redirect-after="3000">
                         {% csrf_token %}
                         <div class="card-body p-6">
@@ -52,9 +62,6 @@
                             </div>
                         </div>
                     </form>
-                    <div class="text-center text-muted">
-                        {% trans "Don't have account yet?" %} <a href="{% url 'app.web.register' %}">{% trans "Register" %}</a>
-                    </div>
                 </div>
             </div>
         </div>

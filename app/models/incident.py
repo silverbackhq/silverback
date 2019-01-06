@@ -4,7 +4,6 @@ Incident Model
 
 # Django
 from django.db import models
-from django.contrib.auth.models import User
 
 
 class Incident(models.Model):
@@ -12,13 +11,6 @@ class Incident(models.Model):
     STATUS_CHOICES = (
         ('open', 'OPEN'),
         ('closed', 'CLOSED')
-    )
-
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        db_index=True,
-        verbose_name="Related user"
     )
 
     name = models.CharField(max_length=200, verbose_name="Name")

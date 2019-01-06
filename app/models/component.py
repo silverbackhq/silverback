@@ -1,24 +1,27 @@
 """
-Service Model
+Component Model
 """
 
 # Django
 from django.db import models
-from django.contrib.auth.models import User
+
+# local Django
+from .component_group import Component_Group
 
 
-class Service(models.Model):
+class Component(models.Model):
 
     UPTIME_CHOICES = (
         ('on', 'ON'),
         ('off', 'OFF')
     )
 
-    user = models.OneToOneField(
-        User,
+    group = models.OneToOneField(
+        Component_Group,
         on_delete=models.CASCADE,
         db_index=True,
-        verbose_name="Related user"
+        verbose_name="Related Component Group",
+        null=True
     )
 
     name = models.CharField(max_length=100, verbose_name="Name")

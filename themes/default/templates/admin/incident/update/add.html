@@ -1,0 +1,79 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="page-main">
+        {% include 'partials/top-menu.html' %}
+        <div class="my-3 my-md-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="card p-3">
+                            <div class="d-flex align-items-center">
+                                <span class="stamp stamp-md bg-green mr-3">
+                                    <i class="fe fe-bookmark"></i>
+                                </span>
+                                <div>
+                                    <h4 class="m-0"><a href="{% url 'app.web.admin.incident.view' incident.id %}"><small>{{ incident.name }}</small></a></h4>
+                                    <small class="text-muted">{{ incident.status }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="update_add_app">
+                    <div class="col-12">
+                        <form class="card" v-on:submit.prevent="addUpdateAction" action="{% url 'app.api.private.v1.admin.incident_updates.endpoint' incident.id %}" method="post" data-redirect-url="{% url 'app.web.admin.incident.view' incident.id %}" data-redirect-after="3000">
+                            {% csrf_token %}
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Add a New Update" %}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Datetime" %}<span class="form-required">*</span></label>
+                                            <input type="text" name="datetime" class="form-control" data-mask="0000-00-00 00:00:00" data-mask-clearifnotmatch="true" placeholder="0000-00-00 00:00:00" required>
+                                            <small class="form-text text-muted">{% trans "For example" %} <code>2019-01-15 19:00:00</code></small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Status" %}<span class="form-required">*</span></label>
+                                            <select class="form-control" name="status" required>
+                                                <option value="">{% trans "Please Select a Value" %}</option>
+                                                <option value="investigating">{% trans "Investigating" %}</option>
+                                                <option value="identified">{% trans "Identified" %}</option>
+                                                <option value="monitoring">{% trans "Monitoring" %}</option>
+                                                <option value="update">{% trans "Update" %}</option>
+                                                <option value="resolved">{% trans "Resolved" %}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Notify Subscribers" %}<span class="form-required">*</span></label>
+                                            <select class="form-control" name="notify_subscribers" required>
+                                                <option value="">{% trans "Please Select a Value" %}</option>
+                                                <option value="on">{% trans "On" %}</option>
+                                                <option value="off">{% trans "Off" %}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Message (Markdown)" %}<span class="form-required">*</span></label>
+                                            <textarea name="message" rows="8" class="form-control" placeholder="{% trans "Enter update message" %}"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Save" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'partials/bottom-menu.html' %}
+
+{% endblock %}

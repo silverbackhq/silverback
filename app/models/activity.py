@@ -16,6 +16,6 @@ class Activity(models.Model):
         verbose_name="Related user"
     )
 
-    activity = models.CharField(max_length=200, verbose_name="activity")
+    activity = models.TextField(verbose_name="Activity")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")

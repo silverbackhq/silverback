@@ -7,12 +7,39 @@
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
             <div class="container">
-                <div class="page-header">
-                    <h1 class="page-title">
-                        {% trans "Metric" %}
-                    </h1>
+                <div class="row" id="metric_edit_app">
+                    <div class="col-12">
+                        <form class="card" v-on:submit.prevent="editMetricAction" action="{% url 'app.api.private.v1.admin.metric.endpoint' metric.id %}" method="post" data-redirect-url="{% url 'app.web.admin.metric.list' %}" data-redirect-after="3000">
+                            {% csrf_token %}
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Edit Metric" %}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Title" %}<span class="form-required">*</span></label>
+                                            <input type="text" name="title" class="form-control" placeholder="{% trans "Enter title" %}" value="{{ metric.title }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Type" %}<span class="form-required">*</span></label>
+                                            <select class="form-control" name="type" required>
+                                                <option value="">{% trans "Please Select a Value" %}</option>
+                                                <option value="graphite" {% if metric.type == 'graphite' %}selected{% endif %}>{% trans "Graphite" %}</option>
+                                                <option value="prometheus" {% if metric.type == 'prometheus' %}selected{% endif %}>{% trans "Prometheus" %}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Save" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>

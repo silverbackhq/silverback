@@ -1,54 +1,47 @@
 """
-Settings Module
+Metric Module
 """
 
 # local Django
 from app.modules.util.helpers import Helpers
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.entity.user_entity import User_Entity
-from app.modules.entity.profile_entity import Profile_Entity
-from app.modules.entity.task_entity import Task_Entity
+from app.modules.entity.metric_entity import Metric_Entity
 
 
 class Metric():
 
-    __option_entity = None
-    __user_entity = None
-    __task_entity = None
-    __profile_entity = None
+    __metric_entity = None
     __helpers = None
     __logger = None
-    __app_name = ""
 
     def __init__(self):
-        self.__option_entity = Option_Entity()
-        self.__user_entity = User_Entity()
-        self.__task_entity = Task_Entity()
-        self.__profile_entity = Profile_Entity()
         self.__helpers = Helpers()
+        self.__metric_entity = Metric_Entity()
         self.__logger = self.__helpers.get_logger(__name__)
-        self.__app_name = self.__option_entity.get_value_by_key("app_name").lower()
 
-    def get_all_users(self):
+    def get_one_by_id(self, id):
+        metric = self.__metric_entity.get_one_by_id(id)
+
+        if not metric:
+            return False
+
         return {
-            "type": "count",
-            "record": "%s_all_users" % self.__app_name,
-            "count": self.__user_entity.count_all_users(),
-            "comment": "Current All Users on System"
+            "id": metric.id,
+            "title": metric.title,
+            "type": metric.type,
+            "source": metric.source
         }
 
-    def get_all_profiles(self):
-        return {
-            "type": "count",
-            "record": "%s_all_profiles" % self.__app_name,
-            "count": self.__profile_entity.count_all_profiles(),
-            "comment": "Current All Profiles on System"
-        }
+    def insert_one(self, metric):
+        return self.__metric_entity.insert_one(metric)
 
-    def get_all_tasks(self):
-        return {
-            "type": "count",
-            "record": "%s_all_tasks" % self.__app_name,
-            "count": self.__task_entity.count_all_tasks(),
-            "comment": "Current All Tasks on System"
-        }
+    def update_one_by_id(self, id, metric_data):
+        return self.__metric_entity.update_one_by_id(id, metric_data)
+
+    def count_all(self):
+        return self.__metric_entity.count_all()
+
+    def get_all(self, offset=None, limit=None):
+        return self.__metric_entity.get_all(offset, limit)
+
+    def delete_one_by_id(self, id):
+        return self.__metric_entity.delete_one_by_id(id)
