@@ -14,7 +14,7 @@ from app.controllers.web.login import Login as Login_View
 from app.controllers.web.register import Register as Register_View
 from app.controllers.web.forgot_password import Forgot_Password as Forgot_Password_View
 from app.controllers.web.reset_password import Reset_Password as Reset_Password_View
-from app.controllers.web.metric import Metric as Metric_View
+from app.controllers.web.statistics import Statistics as Statistics_View
 
 from app.controllers.web.admin.logout import Logout as Logout_View
 from app.controllers.web.admin.dashboard import Dashboard as Dashboard_View
@@ -38,6 +38,9 @@ from app.controllers.web.admin.incident import Incident_View as Incident_View_Vi
 from app.controllers.web.admin.incident_update import Incident_Update_Add as Incident_Update_Add_View
 from app.controllers.web.admin.incident_update import Incident_Update_Edit as Incident_Update_Edit_View
 from app.controllers.web.admin.incident_update import Incident_Update_View as Incident_Update_View_View
+from app.controllers.web.admin.metric import Metric_List as Metric_List_View
+from app.controllers.web.admin.metric import Metric_Add as Metric_Add_View
+from app.controllers.web.admin.metric import Metric_Edit as Metric_Edit_View
 
 from app.controllers.api.private.v1.install import Install as Install_V1_Endpoint_Private
 from app.controllers.api.private.v1.login import Login as Login_V1_Endpoint_Private
@@ -59,6 +62,8 @@ from app.controllers.api.private.v1.admin.incident import Incident as Incident_A
 from app.controllers.api.private.v1.admin.incident import Incidents as Incidents_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.incident_update import Incident_Update as Incident_Update_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.incident_update import Incident_Updates as Incident_Updates_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.metric import Metric as Metric_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.metric import Metrics as Metrics_Admin_V1_Endpoint_Private
 
 
 urlpatterns = [
@@ -69,7 +74,7 @@ urlpatterns = [
     path('register/<token>', Register_View.as_view(), name='app.web.register'),
     path('forgot-password', Forgot_Password_View.as_view(), name='app.web.forgot_password'),
     path('reset-password/<token>', Reset_Password_View.as_view(), name='app.web.reset_password'),
-    path('metrics/<type>', Metric_View.as_view(), name='app.web.metrics'),
+    path('statistics/<type>', Statistics_View.as_view(), name='app.web.statistics'),
 
     # Authenticated Users Views
     path('admin/', include([
@@ -100,6 +105,10 @@ urlpatterns = [
         path('incidents/view/<int:incident_id>/updates/add', Incident_Update_Add_View.as_view(), name='app.web.admin.incident_update.add'),
         path('incidents/view/<int:incident_id>/updates/edit/<int:update_id>', Incident_Update_Edit_View.as_view(), name='app.web.admin.incident_update.edit'),
         path('incidents/view/<int:incident_id>/updates/view/<int:update_id>', Incident_Update_View_View.as_view(), name='app.web.admin.incident_update.view'),
+
+        path('metrics', Metric_List_View.as_view(), name='app.web.admin.metric.list'),
+        path('metrics/add', Metric_Add_View.as_view(), name='app.web.admin.metric.add'),
+        path('metrics/edit/<int:metric_id>', Metric_Edit_View.as_view(), name='app.web.admin.metric.edit'),
 
     ])),
 
@@ -177,6 +186,16 @@ urlpatterns = [
                 'incident-update/<int:incident_id>/<int:update_id>',
                 Incident_Update_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.incident_update.endpoint'
+            ),
+            path(
+                'metric',
+                Metrics_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.metrics.endpoint'
+            ),
+            path(
+                'metric/<int:metric_id>',
+                Metric_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.metric.endpoint'
             ),
         ]))
 
