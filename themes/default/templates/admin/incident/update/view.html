@@ -15,7 +15,7 @@
                                     <i class="fe fe-bookmark"></i>
                                 </span>
                                 <div>
-                                    <h4 class="m-0"><small>{{ incident.name }}</small></h4>
+                                    <h4 class="m-0"><a href="{% url 'app.web.admin.incident.view' incident.id %}"><small>{{ incident.name }}</small></a></h4>
                                     <small class="text-muted">{{ incident.status }}</small>
                                 </div>
                             </div>

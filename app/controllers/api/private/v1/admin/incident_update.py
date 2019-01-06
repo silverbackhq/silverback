@@ -7,6 +7,7 @@ from django.views import View
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
 from django.urls import reverse
+from django.forms.fields import DateTimeField
 
 # local Django
 from app.modules.validation.form import Form
@@ -42,7 +43,7 @@ class Incident_Updates(View):
             "status": "",
             "notify_subscribers": "",
             "message": "",
-            "time": "",
+            "datetime": "",
         })
 
         self.__form.add_inputs({
@@ -53,8 +54,8 @@ class Incident_Updates(View):
                 },
                 'validate': {}
             },
-            'time': {
-                'value': request_data["time"],
+            'datetime': {
+                'value': request_data["datetime"],
                 'sanitize': {
                     'strip': {}
                 },
@@ -87,7 +88,7 @@ class Incident_Updates(View):
 
         result = self.__incident_update.insert_one({
             "notify_subscribers": self.__form.get_input_value("notify_subscribers"),
-            "time": self.__form.get_input_value("time"),
+            "datetime": DateTimeField().clean(self.__form.get_input_value("datetime")),
             "message": self.__form.get_input_value("message"),
             "status": self.__form.get_input_value("status"),
             "incident_id": incident_id
@@ -137,7 +138,7 @@ class Incident_Updates(View):
                 "id": update.id,
                 "status": update.status.title(),
                 "notify_subscribers": update.notify_subscribers.title(),
-                "time": update.time.strftime("%b %d %Y %H:%M:%S"),
+                "datetime": update.datetime.strftime("%b %d %Y %H:%M:%S"),
                 "progress": 95,
                 "created_at": update.created_at.strftime("%b %d %Y %H:%M:%S"),
                 "view_url": reverse("app.web.admin.incident_update.view", kwargs={'incident_id': incident_id, "update_id": update.id}),
@@ -174,7 +175,7 @@ class Incident_Update(View):
             "status": "",
             "notify_subscribers": "",
             "message": "",
-            "time": "",
+            "datetime": "",
         })
 
         self.__form.add_inputs({
@@ -185,8 +186,8 @@ class Incident_Update(View):
                 },
                 'validate': {}
             },
-            'time': {
-                'value': request_data["time"],
+            'datetime': {
+                'value': request_data["datetime"],
                 'sanitize': {
                     'strip': {}
                 },
@@ -219,7 +220,7 @@ class Incident_Update(View):
 
         result = self.__incident_update.update_one_by_id(update_id, {
             "notify_subscribers": self.__form.get_input_value("notify_subscribers"),
-            "time": self.__form.get_input_value("time"),
+            "datetime": DateTimeField().clean(self.__form.get_input_value("datetime")),
             "message": self.__form.get_input_value("message"),
             "status": self.__form.get_input_value("status")
         })

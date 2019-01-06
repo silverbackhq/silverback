@@ -22,9 +22,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="update_add_app">
+                <div class="row" id="update_edit_app">
                     <div class="col-12">
-                        <form class="card" v-on:submit.prevent="editUpdateAction" action="{% url 'app.api.private.v1.admin.incident_updates.endpoint' incident.id update.id %}" method="post" data-redirect-url="{% url 'app.web.admin.incident.view' incident.id %}" data-redirect-after="3000">
+                        <form class="card" v-on:submit.prevent="editUpdateAction" action="{% url 'app.api.private.v1.admin.incident_update.endpoint' incident.id update.id %}" method="post" data-redirect-url="{% url 'app.web.admin.incident.view' incident.id %}" data-redirect-after="3000">
                             {% csrf_token %}
                             <div class="card-header">
                                 <h3 class="card-title">{% trans "Edit Update" %}</h3>
@@ -34,7 +34,8 @@
                                     <div class="col-md-12 col-lg-12">
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Datetime" %}<span class="form-required">*</span></label>
-                                            <input type="text" value="{{ update.time }}" name="time" class="form-control" data-mask="00/00/0000 00:00:00" data-mask-clearifnotmatch="true" placeholder="00/00/0000 00:00:00" required>
+                                            <input type="text" value="{{ update.datetime|date:'Y-m-d H:i:s' }}" name="datetime" class="form-control" data-mask="0000-00-00 00:00:00" data-mask-clearifnotmatch="true" placeholder="0000-00-00 00:00:00" required>
+                                            <small class="form-text text-muted">{% trans "For example" %} <code>2019-01-15 19:00:00</code></small>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Status" %}<span class="form-required">*</span></label>
@@ -49,7 +50,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Notify Subscribers" %}<span class="form-required">*</span></label>
-                                            <select class="form-control" name="notify_subscribers" disabled required>
+                                            <select class="form-control" name="notify_subscribers" required>
                                                 <option value="">{% trans "Please Select a Value" %}</option>
                                                 <option value="on" {% if update.notify_subscribers == 'on' %}selected{% endif %}>{% trans "On" %}</option>
                                                 <option value="off" {% if update.notify_subscribers == 'off' %}selected{% endif %}>{% trans "Off" %}</option>
@@ -68,9 +69,6 @@
                                 </div>
                             </div>
                         </form>
-                      <script>
-                        require(['input-mask']);
-                      </script>
                     </div>
                 </div>
             </div>

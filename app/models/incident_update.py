@@ -34,7 +34,7 @@ class Incident_Update(models.Model):
 
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="open", verbose_name="Status")
     notify_subscribers = models.CharField(max_length=50, choices=NOTIFY_CHOICES, default="on", verbose_name="Notify Subscribers")
-    time = models.DateTimeField(auto_now_add=True, verbose_name="Time")
+    datetime = models.DateTimeField(verbose_name="Datetime")
     message = models.TextField(verbose_name="Message")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")

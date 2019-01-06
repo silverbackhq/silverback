@@ -26,6 +26,7 @@ class Errors():
         return response
 
     def process_exception(self, request, exception):
+
         self.__logger.error(
             _("The server encountered something unexpected! %s %s  - %s - %s") % (
                 request.method,
@@ -34,6 +35,8 @@ class Errors():
                 exception
             )
         )
+
+        self.__logger.exception(exception)
 
         if request.is_ajax():
             response = Response()

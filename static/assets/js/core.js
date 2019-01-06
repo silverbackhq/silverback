@@ -1,5 +1,7 @@
 require(['jscookie', 'toastr', 'pace', 'vue', 'axios']);
 
+$.jMaskGlobals.watchDataMask = true;
+
 var badger_app = badger_app || {};
 
 
@@ -2027,8 +2029,6 @@ $(document).ready(function() {
     $('[data-toggle="popover"]').popover({
         html: true
     });
-
-    $.applyDataMask('[data-mask]');
 
     /** Function for remove card */
     $('[data-toggle="card-remove"]').on('click', function(e) {

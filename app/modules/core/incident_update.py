@@ -35,7 +35,7 @@ class Incident_Update():
 
         return {
             "id": update.id,
-            "time": update.time,
+            "datetime": update.datetime,
             "message": update.message,
             "notify_subscribers": update.notify_subscribers,
             "status": update.status

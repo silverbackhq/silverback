@@ -9,8 +9,11 @@ import random
 import string
 from pprint import pprint
 from datetime import timedelta
+import pytz
+import os
 
 # Django
+from django.utils.dateparse import parse_datetime
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import activate
@@ -77,3 +80,7 @@ class Helpers():
 
     def random_generator(self, size=6, chars=string.ascii_lowercase + string.digits):
         return ''.join(random.choice(chars) for x in range(size))
+
+    def tz_aware_datetime(self, dt_str):
+        dt = parse_datetime(dt_str)
+        return pytz.timezone(os.getenv("APP_TIMEZONE", "UTC")).localize(dt, is_dst=None)

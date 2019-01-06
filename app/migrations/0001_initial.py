@@ -81,7 +81,7 @@ class Migration(migrations.Migration):
                     ('on', 'ON'),
                     ('off', 'OFF')
                 ], default='on', max_length=50, verbose_name='Notify Subscribers')),
-                ('time', models.DateTimeField(auto_now_add=True, verbose_name='Time')),
+                ('datetime', models.DateTimeField(verbose_name='Time')),
                 ('message', models.TextField(verbose_name='Message')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Updated at')),
