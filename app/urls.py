@@ -41,6 +41,9 @@ from app.controllers.web.admin.incident_update import Incident_Update_View as In
 from app.controllers.web.admin.metric import Metric_List as Metric_List_View
 from app.controllers.web.admin.metric import Metric_Add as Metric_Add_View
 from app.controllers.web.admin.metric import Metric_Edit as Metric_Edit_View
+from app.controllers.web.admin.subscriber import Subscriber_List as Subscriber_List_View
+from app.controllers.web.admin.subscriber import Subscriber_Add as Subscriber_Add_View
+from app.controllers.web.admin.subscriber import Subscriber_Edit as Subscriber_Edit_View
 
 from app.controllers.api.private.v1.install import Install as Install_V1_Endpoint_Private
 from app.controllers.api.private.v1.login import Login as Login_V1_Endpoint_Private
@@ -64,6 +67,8 @@ from app.controllers.api.private.v1.admin.incident_update import Incident_Update
 from app.controllers.api.private.v1.admin.incident_update import Incident_Updates as Incident_Updates_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metric as Metric_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metrics as Metrics_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.subscriber import Subscriber as Subscriber_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.subscriber import Subscribers as Subscribers_Admin_V1_Endpoint_Private
 
 
 urlpatterns = [
@@ -109,6 +114,10 @@ urlpatterns = [
         path('metrics', Metric_List_View.as_view(), name='app.web.admin.metric.list'),
         path('metrics/add', Metric_Add_View.as_view(), name='app.web.admin.metric.add'),
         path('metrics/edit/<int:metric_id>', Metric_Edit_View.as_view(), name='app.web.admin.metric.edit'),
+
+        path('subscribers', Subscriber_List_View.as_view(), name='app.web.admin.subscriber.list'),
+        path('subscribers/add', Subscriber_Add_View.as_view(), name='app.web.admin.subscriber.add'),
+        path('subscribers/edit/<int:subscriber_id>', Subscriber_Edit_View.as_view(), name='app.web.admin.subscriber.edit'),
 
     ])),
 
@@ -196,6 +205,16 @@ urlpatterns = [
                 'metric/<int:metric_id>',
                 Metric_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.metric.endpoint'
+            ),
+            path(
+                'subscriber',
+                Subscribers_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.subscribers.endpoint'
+            ),
+            path(
+                'subscriber/<int:subscriber_id>',
+                Subscriber_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.subscriber.endpoint'
             ),
         ]))
 
