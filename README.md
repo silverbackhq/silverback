@@ -4,15 +4,34 @@
     <p align="center">A Status and Incident Communication Tool.</p>
 </p>
 
-## Documentation
 
-### Config & Run The Application
+## Overview
 
-Setting up badger on your development environment:
+- Auto Installer.
+- Asynchronous Everything: Everything is asynchronous with ability to run any number of workers to scale. It can run as centralized or distributed application.
+
+
+## Requirements
+
+- Python 3 or later
+- A supported database: MySQL, PostgreSQL.
+- Redis Server.
+- RabbitMQ Server.
+
+
+## Installation, Upgrades and Documentation
+
+### Production
+
+### Docker
+
+### Development
+
+In order to run badger for development purposes, we will use `virtualenv`.
 
 ```bash
 # Install virtualenv
-$ pip install virtualenv
+$ pip3 install virtualenv
 $ virtualenv env
 $ source env/bin/activate
 
@@ -21,22 +40,22 @@ $ cd badger
 $ cp .env.example .env
 
 # Install dependencies
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 
 # Update .env file
-$ python manage.py badger update_env DB_HOST=127.0.0.1
-$ python manage.py badger update_env DB_PORT=3306
-$ python manage.py badger update_env DB_DATABASE=badger
-$ python manage.py badger update_env DB_USERNAME=root
-$ python manage.py badger update_env DB_PASSWORD=
-$ python manage.py badger update_app_key
-$ python manage.py badger update_env DB_CONNECTION=mysql
+$ python3 manage.py badger update_env DB_HOST=127.0.0.1
+$ python3 manage.py badger update_env DB_PORT=3306
+$ python3 manage.py badger update_env DB_DATABASE=badger
+$ python3 manage.py badger update_env DB_USERNAME=root
+$ python3 manage.py badger update_env DB_PASSWORD=
+$ python3 manage.py badger update_app_key
+$ python3 manage.py badger update_env DB_CONNECTION=mysql
 
 # Migrate DB
-$ python manage.py migrate
+$ python3 manage.py migrate
 
 # Run Application
-$ python manage.py runserver
+$ python3 manage.py runserver
 
 # Exit the virtualenv
 $ deactivate
