@@ -8,7 +8,7 @@
 ## Overview
 
 - Auto Installer.
-- Asynchronous Everything: Everything is asynchronous with ability to run any number of workers to scale. It can run as centralized or distributed application.
+- Asynchronous workers for notifications with ability to run any number to scale.
 
 
 ## Requirements
