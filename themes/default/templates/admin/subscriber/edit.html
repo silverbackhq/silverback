@@ -1,0 +1,82 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="page-main">
+        {% include 'partials/top-menu.html' %}
+        <div class="my-3 my-md-5">
+            <div class="container">
+                <div class="row" id="subscriber_edit_app">
+                    <div class="col-12">
+                        <form class="card" v-on:submit.prevent="editSubscriberAction" action="{% url 'app.api.private.v1.admin.subscriber.endpoint' subscriber.id %}" method="post" data-redirect-url="{% url 'app.web.admin.subscriber.list' %}" data-redirect-after="3000">
+                            {% csrf_token %}
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Edit Subscriber" %}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Type" %}<span class="form-required">*</span></label>
+                                            <select v-model="subscriptionType" class="form-control" name="type" required>
+                                                <option value="">{% trans "Please Select a Value" %}</option>
+                                                <option value="email" {% if subscriber.type == 'email' %}selected{% endif %}>{% trans "Email" %}</option>
+                                                <option value="phone" {% if subscriber.type == 'phone' %}selected{% endif %}>{% trans "Phone" %}</option>
+                                                <option value="endpoint" {% if subscriber.type == 'endpoint' %}selected{% endif %}>{% trans "Endpoint" %}</option>
+                                            </select>
+                                        </div>
+                                        <template v-if="subscriptionType === 'email'">
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Email" %}<span class="form-required">*</span></label>
+                                                <input type="text" name="email" class="form-control" value="{{ subscriber.email }}" placeholder="{% trans "Enter email" %}" required>
+                                            </div>
+                                        </template>
+                                        <template v-if="subscriptionType === 'phone'">
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Phone" %}<span class="form-required">*</span></label>
+                                                <input type="text" name="phone" class="form-control" value="{{ subscriber.phone }}" placeholder="{% trans "Enter phone" %}" required>
+                                            </div>
+                                        </template>
+                                        <template v-if="subscriptionType === 'endpoint'">
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Endpoint" %}<span class="form-required">*</span></label>
+                                                <input type="url" name="endpoint" class="form-control" value="{{ subscriber.endpoint }}" placeholder="{% trans "Enter endpoint URL" %}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Auth Token" %}</label>
+                                                <input type="text" name="auth_token" class="form-control" value="{{ subscriber.auth_token }}" placeholder="{% trans "Enter auth token" %}">
+                                                <small class="form-text text-muted">{% trans "We'll send this on header as" %} <code>X-AUTH-TOKEN</code></small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Email" %}<span class="form-required">*</span></label>
+                                                <input type="text" name="email" class="form-control" value="{{ subscriber.email }}" placeholder="{% trans "Enter email" %}" required>
+                                                <small class="form-text text-muted">{% trans "We'll send you email if your endpoint fails" %}</small>
+                                            </div>
+                                        </template>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Status" %}<span class="form-required">*</span></label>
+                                            <select class="form-control" name="status" required>
+                                                <option value="">{% trans "Please Select a Value" %}</option>
+                                                <option value="pending" {% if subscriber.status == 'pending' %}selected{% endif %}>{% trans "Pending" %}</option>
+                                                <option value="verified" {% if subscriber.status == 'verified' %}selected{% endif %}>{% trans "Verified" %}</option>
+                                                <option value="unverified" {% if subscriber.status == 'unverified' %}selected{% endif %}>{% trans "Unverified" %}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Save" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'partials/bottom-menu.html' %}
+
+{% endblock %}
