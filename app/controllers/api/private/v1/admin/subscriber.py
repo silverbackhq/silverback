@@ -39,39 +39,172 @@ class Subscribers(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
-            "title": "",
-            "type": ""
+            "type": "",
+            "email": "",
+            "phone": "",
+            "endpoint": "",
+            "auth_token": "",
+            "status": ""
         })
 
-        self.__form.add_inputs({
-            'title': {
-                'value': request_data["title"],
-                'sanitize': {
-                    'strip': {}
+        if request_data["type"] == "email":
+
+            self.__form.add_inputs({
+                'type': {
+                    'value': request_data["type"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["email", "phone", "endpoint"]],
+                            'error': _('Error! Type is invalid.')
+                        }
+                    }
                 },
-                'validate': {}
-            },
-            'type': {
-                'value': request_data["type"],
-                'validate': {
-                    'any_of': {
-                        'param': [["graphite", "prometheus"]],
-                        'error': _('Error! Type is invalid.')
+                'email': {
+                    'value': request_data["email"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'status': {
+                    'value': request_data["status"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["pending", "verified", "unverified"]],
+                            'error': _('Error! Status is invalid.')
+                        }
                     }
                 }
-            }
-        })
+            })
+
+        elif request_data["type"] == "phone":
+
+            self.__form.add_inputs({
+                'type': {
+                    'value': request_data["type"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["email", "phone", "endpoint"]],
+                            'error': _('Error! Type is invalid.')
+                        }
+                    }
+                },
+                'phone': {
+                    'value': request_data["phone"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'status': {
+                    'value': request_data["status"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["pending", "verified", "unverified"]],
+                            'error': _('Error! Status is invalid.')
+                        }
+                    }
+                }
+            })
+
+        else:
+
+            self.__form.add_inputs({
+                'type': {
+                    'value': request_data["type"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["email", "phone", "endpoint"]],
+                            'error': _('Error! Type is invalid.')
+                        }
+                    }
+                },
+                'email': {
+                    'value': request_data["email"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'endpoint': {
+                    'value': request_data["endpoint"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'auth_token': {
+                    'value': request_data["auth_token"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'status': {
+                    'value': request_data["status"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["pending", "verified", "unverified"]],
+                            'error': _('Error! Status is invalid.')
+                        }
+                    }
+                }
+            })
 
         self.__form.process()
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
 
-        result = self.__subscriber.insert_one({
-            "title": self.__form.get_input_value("title"),
-            "type": self.__form.get_input_value("type"),
-            "source": "{}"
-        })
+        if request_data["type"] == "email":
+
+            result = self.__subscriber.insert_one({
+                "status": self.__form.get_input_value("status"),
+                "type": self.__form.get_input_value("type"),
+                "email": self.__form.get_input_value("email"),
+                "phone": "",
+                "endpoint": "",
+                "auth_token": ""
+            })
+        elif request_data["type"] == "phone":
+
+            result = self.__subscriber.insert_one({
+                "status": self.__form.get_input_value("status"),
+                "type": self.__form.get_input_value("type"),
+                "email": "",
+                "phone": self.__form.get_input_value("phone"),
+                "endpoint": "",
+                "auth_token": ""
+            })
+
+        else:
+
+            result = self.__subscriber.insert_one({
+                "status": self.__form.get_input_value("status"),
+                "type": self.__form.get_input_value("type"),
+                "email": self.__form.get_input_value("email"),
+                "phone": "",
+                "endpoint": self.__form.get_input_value("endpoint"),
+                "auth_token": self.__form.get_input_value("auth_token")
+            })
 
         if result:
             return JsonResponse(self.__response.send_private_success([{
@@ -152,39 +285,173 @@ class Subscriber(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
-            "title": "",
-            "type": ""
+            "type": "",
+            "email": "",
+            "phone": "",
+            "endpoint": "",
+            "auth_token": "",
+            "status": ""
         })
 
-        self.__form.add_inputs({
-            'title': {
-                'value': request_data["title"],
-                'sanitize': {
-                    'strip': {}
+        if request_data["type"] == "email":
+
+            self.__form.add_inputs({
+                'type': {
+                    'value': request_data["type"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["email", "phone", "endpoint"]],
+                            'error': _('Error! Type is invalid.')
+                        }
+                    }
                 },
-                'validate': {}
-            },
-            'type': {
-                'value': request_data["type"],
-                'validate': {
-                    'any_of': {
-                        'param': [["graphite", "prometheus"]],
-                        'error': _('Error! Type is invalid.')
+                'email': {
+                    'value': request_data["email"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'status': {
+                    'value': request_data["status"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["pending", "verified", "unverified"]],
+                            'error': _('Error! Status is invalid.')
+                        }
                     }
                 }
-            }
-        })
+            })
+
+        elif request_data["type"] == "phone":
+
+            self.__form.add_inputs({
+                'type': {
+                    'value': request_data["type"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["email", "phone", "endpoint"]],
+                            'error': _('Error! Type is invalid.')
+                        }
+                    }
+                },
+                'phone': {
+                    'value': request_data["phone"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'status': {
+                    'value': request_data["status"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["pending", "verified", "unverified"]],
+                            'error': _('Error! Status is invalid.')
+                        }
+                    }
+                }
+            })
+
+        else:
+
+            self.__form.add_inputs({
+                'type': {
+                    'value': request_data["type"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["email", "phone", "endpoint"]],
+                            'error': _('Error! Type is invalid.')
+                        }
+                    }
+                },
+                'email': {
+                    'value': request_data["email"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'endpoint': {
+                    'value': request_data["endpoint"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'auth_token': {
+                    'value': request_data["auth_token"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {}
+                },
+                'status': {
+                    'value': request_data["status"],
+                    'sanitize': {
+                        'strip': {}
+                    },
+                    'validate': {
+                        'any_of': {
+                            'param': [["pending", "verified", "unverified"]],
+                            'error': _('Error! Status is invalid.')
+                        }
+                    }
+                }
+            })
 
         self.__form.process()
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
 
-        result = self.__subscriber.update_one_by_id(subscriber_id, {
-            "title": self.__form.get_input_value("title"),
-            "type": self.__form.get_input_value("type"),
-            "source": "{}"
-        })
+        if request_data["type"] == "email":
+
+            result = self.__subscriber.update_one_by_id(subscriber_id, {
+                "status": self.__form.get_input_value("status"),
+                "type": self.__form.get_input_value("type"),
+                "email": self.__form.get_input_value("email"),
+                "phone": "",
+                "endpoint": "",
+                "auth_token": ""
+            })
+
+        elif request_data["type"] == "phone":
+
+            result = self.__subscriber.update_one_by_id(subscriber_id, {
+                "status": self.__form.get_input_value("status"),
+                "type": self.__form.get_input_value("type"),
+                "email": "",
+                "phone": self.__form.get_input_value("phone"),
+                "endpoint": "",
+                "auth_token": ""
+            })
+
+        else:
+
+            result = self.__subscriber.update_one_by_id(subscriber_id, {
+                "status": self.__form.get_input_value("status"),
+                "type": self.__form.get_input_value("type"),
+                "email": self.__form.get_input_value("email"),
+                "phone": "",
+                "endpoint": self.__form.get_input_value("endpoint"),
+                "auth_token": self.__form.get_input_value("auth_token")
+            })
 
         if result:
             return JsonResponse(self.__response.send_private_success([{

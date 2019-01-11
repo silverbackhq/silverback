@@ -47,6 +47,12 @@
                                             <div class="form-group">
                                                 <label class="form-label">{% trans "Auth Token" %}</label>
                                                 <input type="text" name="auth_token" class="form-control" placeholder="{% trans "Enter auth token" %}">
+                                                <small class="form-text text-muted">{% trans "We'll send this on header as" %} <code>X-AUTH-TOKEN</code></small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Email" %}<span class="form-required">*</span></label>
+                                                <input type="text" name="email" class="form-control" placeholder="{% trans "Enter email" %}" required>
+                                                <small class="form-text text-muted">{% trans "We'll send you email if your endpoint fails" %}</small>
                                             </div>
                                         </template>
                                         <div class="form-group">

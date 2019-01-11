@@ -2047,7 +2047,7 @@ badger_app.edit_subscriber_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
         data() {
             return {
                 isInProgress: false,
-                subscriptionType: ""
+                subscriptionType: $('select[name="type"]').val()
             }
         },
         methods: {
