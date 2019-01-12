@@ -19,7 +19,7 @@
 - RabbitMQ Server.
 
 
-## Installation, Upgrades and Documentation
+## Installation
 
 ### Production
 

@@ -38,11 +38,23 @@ class Activity_Entity():
     def count_all(self):
         return Activity.objects.count()
 
+    def count(self, user_id=None):
+        if user_id is None:
+            return Activity.objects.count()
+        else:
+            return Activity.objects.filter(user_id=user_id).count()
+
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
             return Activity.objects.order_by('-created_at').get()
 
         return Activity.objects.order_by('-created_at')[offset:limit+offset]
+
+    def get(self, user_id, offset=None, limit=None):
+        if offset is None or limit is None:
+            return Activity.objects.filter(user_id=user_id).order_by('-created_at').get()
+
+        return Activity.objects.filter(user_id=user_id).order_by('-created_at')[offset:limit+offset]
 
     def get_one_by_id(self, incident_id):
         try:

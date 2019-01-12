@@ -2,17 +2,63 @@
 {% load staticfiles %}
 {% load i18n %}
 
+{% block customer_header %}
+    <script type="text/javascript">
+        var _list_view_i18n = {
+            noActivities: "{% trans "No activities yet!" %}"
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
-    <div class="page-main">
+   <div class="page-main">
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
             <div class="container">
-                <div class="page-header">
-                    <h1 class="page-title">
-                        {% trans "Activity" %}
-                    </h1>
+                <div class="row" id="activity_list" data-fetch-activities="{% url 'app.api.private.v1.admin.activities.endpoint' %}">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="dimmer" v-bind:class="{ active: isDimmerActive }">
+                                <div class="loader"></div>
+                                <div class="dimmer-content">
+                                    <div class="table-responsive">
+                                        <table class="table card-table table-vcenter text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="4">{% trans "Activity" %}</th>
+                                                    <th colspan="2">{% trans "Created" %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template v-if="Object.keys(items).length === 0">
+                                                    <tr>
+                                                        <td colspan="6" class="text-center small text-muted">
+                                                            <br/>
+                                                            ${i18n.noActivities}
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                                <template v-if="Object.keys(items).length > 0">
+                                                    <tr v-for="item in items">
+                                                        <td colspan="4">${item.activity}</td>
+                                                        <td colspan="2">${item.created_at}</td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                        <br/>
+                                    </div>
+                                    <template v-if="isLoadingActive">
+                                        <div class="text-center">
+                                            <a href="#" class="btn btn-pill btn-secondary" v-on:click="loadMetricsAction" v-bind:class="{ 'btn-loading': isLoadingDimmed }">Load More</a>
+                                            <br/><br/>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>

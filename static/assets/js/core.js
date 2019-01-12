@@ -2201,6 +2201,70 @@ badger_app.subscriber_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 }
 
 
+/**
+ * Activity List
+ */
+badger_app.activity_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#activity_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _list_view_i18n,
+                limit: 20,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#activity_list').attr('data-fetch-activities') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.activities);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadSubscribersAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
+            }
+        }
+    });
+
+}
+
+
 $(document).ready(() => {
 
     $(document).ajaxStart(() => {
@@ -2503,6 +2567,16 @@ $(document).ready(() => {
         }
         if (document.getElementById("subscriber_list")) {
             badger_app.subscriber_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("activity_list")) {
+            badger_app.activity_list_screen(
                 Vue,
                 axios,
                 $,

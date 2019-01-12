@@ -9,11 +9,11 @@ from django.contrib.auth.models import User
 
 class Activity(models.Model):
 
-    user = models.OneToOneField(
+    user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         db_index=True,
-        verbose_name="Related user"
+        verbose_name="Related User"
     )
 
     activity = models.TextField(verbose_name="Activity")

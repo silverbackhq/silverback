@@ -21,6 +21,7 @@ from app.controllers.web.admin.dashboard import Dashboard as Dashboard_View
 from app.controllers.web.admin.profile import Profile as Profile_View
 from app.controllers.web.admin.settings import Settings as Settings_View
 from app.controllers.web.admin.activity import Activity as Activity_View
+from app.controllers.web.admin.notification import Notification as Notification_View
 from app.controllers.web.admin.user import User_List as User_List_Web
 from app.controllers.web.admin.user import User_Edit as User_Edit_Web
 from app.controllers.web.admin.user import User_Add as User_Add_Web
@@ -69,6 +70,7 @@ from app.controllers.api.private.v1.admin.metric import Metric as Metric_Admin_V
 from app.controllers.api.private.v1.admin.metric import Metrics as Metrics_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscriber as Subscriber_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscribers as Subscribers_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.activity import Activities as Activities_Admin_V1_Endpoint_Private
 
 
 urlpatterns = [
@@ -88,6 +90,7 @@ urlpatterns = [
         path('dashboard', Dashboard_View.as_view(), name='app.web.admin.dashboard'),
         path('profile', Profile_View.as_view(), name='app.web.admin.profile'),
         path('activity', Activity_View.as_view(), name='app.web.admin.activity.list'),
+        path('notifications', Notification_View.as_view(), name='app.web.admin.notification.list'),
         path('settings', Settings_View.as_view(), name='app.web.admin.settings'),
 
         path('users', User_List_Web.as_view(), name='app.web.admin.user.list'),
@@ -215,6 +218,11 @@ urlpatterns = [
                 'subscriber/<int:subscriber_id>',
                 Subscriber_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.subscriber.endpoint'
+            ),
+            path(
+                'activity',
+                Activities_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.activities.endpoint'
             ),
         ]))
 
