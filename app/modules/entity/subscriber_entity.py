@@ -81,6 +81,13 @@ class Subscriber_Entity():
         except Exception:
             return False
 
+    def get_one_by_external_id(self, external_id):
+        try:
+            subscriber = Subscriber.objects.get(external_id=external_id)
+            return False if subscriber.pk is None else subscriber
+        except Exception:
+            return False
+
     def delete_one_by_id(self, id):
         subscriber = self.get_one_by_id(id)
         if subscriber is not False:

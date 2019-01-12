@@ -35,6 +35,9 @@ class Subscriber():
             "external_id": subscriber.external_id
         }
 
+    def get_one_by_external_id(self, external_id):
+        return self.__subscriber_entity.get_one_by_external_id(external_id)
+
     def insert_one(self, subscriber):
         return self.__subscriber_entity.insert_one(subscriber)
 

@@ -11,6 +11,7 @@ from pprint import pprint
 from datetime import timedelta
 import pytz
 import os
+import uuid
 
 # Django
 from django.utils.dateparse import parse_datetime
@@ -80,6 +81,9 @@ class Helpers():
 
     def random_generator(self, size=6, chars=string.ascii_lowercase + string.digits):
         return ''.join(random.choice(chars) for x in range(size))
+
+    def generate_uuid(self):
+        return str(uuid.uuid4())
 
     def tz_aware_datetime(self, dt_str):
         dt = parse_datetime(dt_str)
