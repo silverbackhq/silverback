@@ -54,6 +54,7 @@
                                                 <tr>
                                                     <th>{% trans "Type" %}</th>
                                                     <th>{% trans "Notifications" %}</th>
+                                                    <th>{% trans "Progress" %}</th>
                                                     <th>{% trans "Time" %}</th>
                                                     <th>{% trans "Created" %}</th>
                                                     <th></th>
@@ -73,6 +74,16 @@
                                                     <tr v-for="item in items">
                                                         <td><a v-bind:href="item.view_url" class="text-inherit">${item.status}</a></td>
                                                         <td>${item.notify_subscribers}</td>
+                                                        <td>
+                                                            <div class="clearfix">
+                                                                <div class="float-left">
+                                                                    <strong>${item.progress}%</strong>
+                                                                </div>
+                                                            </div>
+                                                            <div class="progress progress-xs">
+                                                                <div class="progress-bar bg-green" role="progressbar" v-bind:style="{ width: item.progress + '%'}" v-bind:aria-valuenow="item.progress" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            </div>
+                                                        </td>
                                                         <td>${item.datetime}</td>
                                                         <td>${item.created_at}</td>
                                                         <td colspan="2" class="text-right">
