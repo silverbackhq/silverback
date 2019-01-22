@@ -2265,6 +2265,132 @@ badger_app.activity_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 }
 
 
+/**
+ * Incident Update View
+ */
+badger_app.incident_update_view_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#incident_update_view',
+        data() {
+            return {
+
+            }
+        },
+        methods: {
+            addAffectedComponentAction(event){
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                if(_self.prop("tagName") == "I"){
+                    _self = _self.closest("a");
+                }
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _self.attr('data-url'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken'),
+                            "component_id": _self.closest("tr").find('[name="component"]').val(),
+                            "type":  _self.closest("tr").find('[name="type"]').val()
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            console.log(_self.attr('data-reload-after'));
+                            setTimeout(() => {
+                                location.reload();
+                            }, _self.attr('data-reload-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            },
+            deliverNotificationsAction(event){
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                if(_self.prop("tagName") == "I"){
+                    _self = _self.closest("a");
+                }
+            },
+            deleteAffectedComponentAction(event) {
+                event.preventDefault();
+
+                if (!confirm(_i18n.confirm_msg)) {
+                    return false;
+                }
+
+                var _self = $(event.target);
+
+                if(_self.prop("tagName") == "I"){
+                    _self = _self.closest("a");
+                }
+
+                _self.attr('disabled', 'disabled');
+                Pace.track(() => {
+                    $.ajax({
+                        method: "DELETE",
+                        url: _self.attr('data-url') + "?csrfmiddlewaretoken=" + Cookies.get('csrftoken'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            _self.closest("tr").remove();
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
+            }
+        }
+    });
+
+}
+
+
 $(document).ready(() => {
 
     $(document).ajaxStart(() => {
@@ -2577,6 +2703,16 @@ $(document).ready(() => {
         }
         if (document.getElementById("activity_list")) {
             badger_app.activity_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("incident_update_view")) {
+            badger_app.incident_update_view_screen(
                 Vue,
                 axios,
                 $,

@@ -341,6 +341,8 @@ class Incident_Updates_Components(View):
     def post(self, request, incident_id, update_id):
         self.__user_id = request.user.id
 
+        self.__request.set_request(request)
+
         request_data = self.__request.get_request_data("post", {
             "type": "",
             "component_id": ""
@@ -369,9 +371,9 @@ class Incident_Updates_Components(View):
             return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
 
         result = self.__incident_update_component.insert_one({
-            "component_id": self.__form.get_input_value("component_id"),
+            "component_id": int(self.__form.get_input_value("component_id")),
             "type": self.__form.get_input_value("type"),
-            "incident_update_id": update_id
+            "incident_update_id": int(update_id)
         })
 
         if result:

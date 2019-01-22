@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="update_view_app">
+                <div class="row" id="incident_update_view">
                     <div class="col-4">
                         <div class="card">
                             <div class="card-header">
@@ -165,7 +165,7 @@
                                                                 </select>
                                                             </td>
                                                             <td style="vertical-align: middle;">
-                                                                <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.incident_update.components.endpoint' incident.id update.id %}" v-on:click="addAffectedComponentAction" class="icon"><i class="fe fe-plus-square"></i></a>
+                                                                <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.incident_update.components.endpoint' incident.id update.id %}" v-on:click="addAffectedComponentAction" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
