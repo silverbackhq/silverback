@@ -53,39 +53,6 @@
                                 </div>
                             </div>
                         </div>
-                        <script>
-                            require(['c3', 'jquery'], function(c3, $) {
-                                $(document).ready(function(){
-                                    var chart = c3.generate({
-                                        bindto: '#chart-pie',
-                                        data: {
-                                            columns: [
-                                                ['delivered', {{ update.notified_subscribers }}],
-                                                ['failed', {{ update.failed_subscribers }}]
-                                            ],
-                                            type: 'pie',
-                                            colors: {
-                                                'delivered': tabler.colors["green"],
-                                                'failed': tabler.colors["red"]
-                                            },
-                                            names: {
-                                                'delivered': '{% trans "Delivered" %}',
-                                                'failed': '{% trans "Failed" %}'
-                                            }
-                                        },
-                                        axis: {
-                                        },
-                                        legend: {
-                                              show: true,
-                                        },
-                                        padding: {
-                                            bottom: 0,
-                                            top: 0
-                                        },
-                                    });
-                                });
-                            });
-                        </script>
                     </div>
                     <div class="col-8">
                         <div class="row">
@@ -182,6 +149,40 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        require(['c3', 'jquery'], function(c3, $) {
+            $(document).ready(function(){
+                var chart = c3.generate({
+                    bindto: '#chart-pie',
+                    data: {
+                        columns: [
+                            ['delivered', {{ update.notified_subscribers }}],
+                            ['failed', {{ update.failed_subscribers }}]
+                        ],
+                        type: 'pie',
+                        colors: {
+                            'delivered': tabler.colors["green"],
+                            'failed': tabler.colors["red"]
+                        },
+                        names: {
+                            'delivered': '{% trans "Delivered" %}',
+                            'failed': '{% trans "Failed" %}'
+                        }
+                    },
+                    axis: {
+                    },
+                    legend: {
+                          show: true,
+                    },
+                    padding: {
+                        bottom: 0,
+                        top: 0
+                    },
+                });
+            });
+        });
+    </script>
+
     {% include 'partials/bottom-menu.html' %}
 
 {% endblock %}
