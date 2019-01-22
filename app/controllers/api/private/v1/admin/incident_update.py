@@ -16,7 +16,9 @@ from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.core.task import Task as Task_Module
 from app.modules.core.notification import Notification as Notification_Module
+from app.modules.core.subscriber import Subscriber as Subscriber_Module
 from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
+from app.modules.core.incident_update_component import Incident_Update_Component as Incident_Update_Component_Module
 
 
 class Incident_Updates(View):
@@ -30,6 +32,7 @@ class Incident_Updates(View):
     __incident_update = None
     __task = None
     __notification = None
+    __subscriber = None
 
     def __init__(self):
         self.__request = Request()
@@ -39,6 +42,7 @@ class Incident_Updates(View):
         self.__incident_update = Incident_Update_Module()
         self.__task = Task_Module()
         self.__notification = Notification_Module()
+        self.__subscriber = Subscriber_Module()
         self.__logger = self.__helpers.get_logger(__name__)
 
     def post(self, request, incident_id):
@@ -97,26 +101,13 @@ class Incident_Updates(View):
         result = self.__incident_update.insert_one({
             "notify_subscribers": self.__form.get_input_value("notify_subscribers"),
             "datetime": DateTimeField().clean(self.__form.get_input_value("datetime")),
+            "total_suscribers": self.__subscriber.count_by_status(Subscriber_Module.VERIFIED),
+            "notified_subscribers": 0,
+            "failed_subscribers": 0,
             "message": self.__form.get_input_value("message"),
             "status": self.__form.get_input_value("status"),
             "incident_id": incident_id
         })
-
-        if self.__form.get_input_value("notify_subscribers") == "on":
-            task = self.__task.delay("incident_update", {
-                "incident_update_id": result.id
-            }, self.__user_id)
-
-            if task:
-                self.__notification.create_notification({
-                    "highlight": "Incident Update",
-                    "notification": "notifying subscribers with the incident update",
-                    "url": "#",
-                    "type": Notification_Module.PENDING,
-                    "delivered": False,
-                    "user_id": self.__user_id,
-                    "task_id": task.id
-                })
 
         if result:
             return JsonResponse(self.__response.send_private_success([{
@@ -163,7 +154,7 @@ class Incident_Updates(View):
                 "status": update.status.title(),
                 "notify_subscribers": update.notify_subscribers.title(),
                 "datetime": update.datetime.strftime("%b %d %Y %H:%M:%S"),
-                "progress": 90,
+                "progress": int(update.notified_subscribers/update.total_suscribers) * 100 if update.total_suscribers > 0 else 0,
                 "created_at": update.created_at.strftime("%b %d %Y %H:%M:%S"),
                 "view_url": reverse("app.web.admin.incident_update.view", kwargs={'incident_id': incident_id, "update_id": update.id}),
                 "edit_url": reverse("app.web.admin.incident_update.edit", kwargs={'incident_id': incident_id, "update_id": update.id}),
@@ -225,6 +216,15 @@ class Incident_Update(View):
                         'error': _('Error! Status is invalid.')
                     }
                 }
+            },
+            'notify_subscribers': {
+                'value': request_data["notify_subscribers"],
+                'validate': {
+                    'any_of': {
+                        'param': [["on", "off"]],
+                        'error': _('Error! Notify subscribers is invalid.')
+                    }
+                }
             }
         })
 
@@ -234,6 +234,7 @@ class Incident_Update(View):
             return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
 
         result = self.__incident_update.update_one_by_id(update_id, {
+            "notify_subscribers": self.__form.get_input_value("notify_subscribers"),
             "datetime": DateTimeField().clean(self.__form.get_input_value("datetime")),
             "message": self.__form.get_input_value("message"),
             "status": self.__form.get_input_value("status")
@@ -264,4 +265,156 @@ class Incident_Update(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting incident update.")
+            }]))
+
+
+class Incident_Updates_Notify(View):
+
+    __request = None
+    __response = None
+    __helpers = None
+    __form = None
+    __logger = None
+    __user_id = None
+    __incident_update = None
+    __task = None
+    __notification = None
+    __subscriber = None
+
+    def __init__(self):
+        self.__request = Request()
+        self.__response = Response()
+        self.__helpers = Helpers()
+        self.__form = Form()
+        self.__incident_update = Incident_Update_Module()
+        self.__task = Task_Module()
+        self.__notification = Notification_Module()
+        self.__subscriber = Subscriber_Module()
+        self.__logger = self.__helpers.get_logger(__name__)
+
+    def post(self, request, incident_id, update_id):
+
+        self.__user_id = request.user.id
+
+        task = self.__task.delay("incident_update", {
+            "incident_update_id": update_id
+        }, self.__user_id)
+
+        if task:
+            self.__notification.create_notification({
+                "highlight": "Incident Update",
+                "notification": "notifying subscribers with the incident update",
+                "url": "#",
+                "type": Notification_Module.PENDING,
+                "delivered": False,
+                "user_id": self.__user_id,
+                "task_id": task.id
+            })
+
+
+class Incident_Updates_Components(View):
+
+    __request = None
+    __response = None
+    __helpers = None
+    __form = None
+    __logger = None
+    __user_id = None
+    __incident_update = None
+    __task = None
+    __notification = None
+    __subscriber = None
+    __incident_update_component = None
+
+    def __init__(self):
+        self.__request = Request()
+        self.__response = Response()
+        self.__helpers = Helpers()
+        self.__form = Form()
+        self.__incident_update = Incident_Update_Module()
+        self.__task = Task_Module()
+        self.__notification = Notification_Module()
+        self.__subscriber = Subscriber_Module()
+        self.__logger = self.__helpers.get_logger(__name__)
+        self.__incident_update_component = Incident_Update_Component_Module()
+
+    def post(self, request, incident_id, update_id):
+        self.__user_id = request.user.id
+
+        request_data = self.__request.get_request_data("post", {
+            "type": "",
+            "component_id": ""
+        })
+
+        self.__form.add_inputs({
+            'component_id': {
+                'value': request_data["component_id"],
+                'sanitize': {},
+                'validate': {}
+            },
+            'type': {
+                'value': request_data["type"],
+                'validate': {
+                    'any_of': {
+                        'param': [["operational", "degraded_performance", "partial_outage", "major_outage", "maintenance"]],
+                        'error': _('Error! Type is invalid.')
+                    }
+                }
+            }
+        })
+
+        self.__form.process()
+
+        if not self.__form.is_passed():
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+
+        result = self.__incident_update_component.insert_one({
+            "component_id": self.__form.get_input_value("component_id"),
+            "type": self.__form.get_input_value("type"),
+            "incident_update_id": update_id
+        })
+
+        if result:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Affected component created successfully.")
+            }]))
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while creating affected component.")
+            }]))
+
+
+class Incident_Updates_Component(View):
+
+    __request = None
+    __response = None
+    __helpers = None
+    __form = None
+    __logger = None
+    __user_id = None
+    __incident_update_component = None
+
+    def __init__(self):
+        self.__request = Request()
+        self.__response = Response()
+        self.__helpers = Helpers()
+        self.__form = Form()
+        self.__incident_update_component = Incident_Update_Component_Module()
+        self.__logger = self.__helpers.get_logger(__name__)
+
+    def delete(self, request, incident_id, update_id, item_id):
+        self.__user_id = request.user.id
+
+        if self.__incident_update_component.delete_one_by_id(item_id):
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Affected component deleted successfully.")
+            }]))
+
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while deleting affected component.")
             }]))

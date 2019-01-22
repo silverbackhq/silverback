@@ -81,6 +81,9 @@ class Migration(migrations.Migration):
                     ('on', 'ON'),
                     ('off', 'OFF')
                 ], default='on', max_length=50, verbose_name='Notify Subscribers')),
+                ('failed_subscribers', models.IntegerField(default=0, verbose_name='Failed Subscribers')),
+                ('notified_subscribers', models.IntegerField(default=0, verbose_name='Notified Subscribers')),
+                ('total_suscribers', models.IntegerField(default=0, verbose_name='Total Subscribers')),
                 ('datetime', models.DateTimeField(verbose_name='Datetime')),
                 ('message', models.TextField(verbose_name='Message')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),

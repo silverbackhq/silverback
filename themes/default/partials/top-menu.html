@@ -15,7 +15,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                         <template v-for="notification in notifications">
-                            <a v-bind:href="notification.url" class="dropdown-item d-flex">
+                            <a class="dropdown-item d-flex">
                                 <span class="avatar mr-3 align-self-center" v-bind:class="{'avatar-yellow': notification.type == 'pending', 'btn-loading': notification.type == 'pending', 'avatar-orange': notification.type == 'failed','avatar-green': notification.type == 'passed','avatar-red': notification.type == 'error','avatar-blue': notification.type == 'message'}"><i class="fe" v-bind:class="{ 'fe-loader': notification.type == 'pending', 'fe-x': notification.type == 'failed', 'fe-check': notification.type == 'passed', 'fe-alert-circle': notification.type == 'error', 'fe-message-circle': notification.type == 'message' }"></i></span>
                                 <div v-on:mouseover="mouseOver(notification.id, notification.delivered)" v-bind:class="{'text-black':notification.delivered == false}">
                                     <strong>${notification.highlight}</strong> ${notification.description}

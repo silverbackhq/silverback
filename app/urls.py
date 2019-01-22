@@ -66,6 +66,9 @@ from app.controllers.api.private.v1.admin.incident import Incident as Incident_A
 from app.controllers.api.private.v1.admin.incident import Incidents as Incidents_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.incident_update import Incident_Update as Incident_Update_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.incident_update import Incident_Updates as Incident_Updates_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Notify as Incident_Updates_Notify_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Components as Incident_Updates_Components_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Component as Incident_Updates_Component_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metric as Metric_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metrics as Metrics_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscriber as Subscriber_Admin_V1_Endpoint_Private
@@ -198,6 +201,21 @@ urlpatterns = [
                 'incident-update/<int:incident_id>/<int:update_id>',
                 Incident_Update_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.incident_update.endpoint'
+            ),
+            path(
+                'incident-update/<int:incident_id>/<int:update_id>/notify',
+                Incident_Updates_Notify_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incident_update.notify.endpoint'
+            ),
+            path(
+                'incident-update/<int:incident_id>/<int:update_id>/components',
+                Incident_Updates_Components_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incident_update.components.endpoint'
+            ),
+            path(
+                'incident-update/<int:incident_id>/<int:update_id>/component/<int:item_id>',
+                Incident_Updates_Component_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incident_update.component.endpoint'
             ),
             path(
                 'metric',

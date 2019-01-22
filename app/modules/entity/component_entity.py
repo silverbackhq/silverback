@@ -66,7 +66,7 @@ class Component_Entity():
 
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
-            return Component.objects.order_by('-created_at').get()
+            return Component.objects.order_by('-created_at')
 
         return Component.objects.order_by('-created_at')[offset:limit+offset]
 

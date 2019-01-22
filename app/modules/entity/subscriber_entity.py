@@ -68,6 +68,9 @@ class Subscriber_Entity():
     def count_all(self):
         return Subscriber.objects.count()
 
+    def count_by_status(self, status):
+        return Subscriber.objects.filter(status=status).count()
+
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
             return Subscriber.objects.order_by('-created_at').get()

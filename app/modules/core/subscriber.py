@@ -9,6 +9,13 @@ from app.modules.entity.subscriber_entity import Subscriber_Entity
 
 class Subscriber():
 
+    PENDING = "pending"
+    VERIFIED = "verified"
+    UNVERIFIED = "unverified"
+    EMAIL = "email"
+    PHONE = "phone"
+    ENDPOINT = "endpoint"
+
     __subscriber_entity = None
     __helpers = None
     __logger = None
@@ -46,6 +53,9 @@ class Subscriber():
 
     def count_all(self):
         return self.__subscriber_entity.count_all()
+
+    def count_by_status(self, status):
+        return self.__subscriber_entity.count_by_status(status)
 
     def get_all(self, offset=None, limit=None):
         return self.__subscriber_entity.get_all(offset, limit)
