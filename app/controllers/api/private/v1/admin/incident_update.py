@@ -300,8 +300,10 @@ class Incident_Updates_Notify(View):
             "incident_update_id": update_id
         }, self.__user_id)
 
+        result = False
+
         if task:
-            self.__notification.create_notification({
+            result = self.__notification.create_notification({
                 "highlight": "Incident Update",
                 "notification": "notifying subscribers with the incident update",
                 "url": "#",
@@ -310,6 +312,17 @@ class Incident_Updates_Notify(View):
                 "user_id": self.__user_id,
                 "task_id": task.id
             })
+
+        if task and result:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Notification delivery started successfully.")
+            }]))
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while starting delivery.")
+            }]))
 
 
 class Incident_Updates_Components(View):

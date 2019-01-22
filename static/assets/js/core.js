@@ -2310,7 +2310,6 @@ badger_app.incident_update_view_screen = (Vue, axios, $, Pace, Cookies, toastr) 
                                 toastr.success(messageObj.message);
                                 break;
                             }
-                            console.log(_self.attr('data-reload-after'));
                             setTimeout(() => {
                                 location.reload();
                             }, _self.attr('data-reload-after'));
@@ -2340,6 +2339,40 @@ badger_app.incident_update_view_screen = (Vue, axios, $, Pace, Cookies, toastr) 
                 if(_self.prop("tagName") == "I"){
                     _self = _self.closest("a");
                 }
+
+                _self.attr('disabled', 'disabled');
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _self.attr('data-url'),
+                        data: {
+                            "csrfmiddlewaretoken": Cookies.get('csrftoken')
+                        }
+                    }).done((response) => {
+                        _self.removeAttr("disabled");
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                            setTimeout(() => {
+                                location.reload();
+                            }, _self.attr('data-reload-after'));
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    }).fail((jqXHR, textStatus, error) => {
+                        _self.removeAttr("disabled");
+                        toastr.clear();
+                        toastr.error(error);
+                    });
+                });
             },
             deleteAffectedComponentAction(event) {
                 event.preventDefault();

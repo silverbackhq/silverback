@@ -47,7 +47,7 @@
                                     {% if update.notify_subscribers == "on" %}
                                         <div class="col-md-12 col-lg-12 text-center">
                                             <br/>
-                                            <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.incident_update.notify.endpoint' incident.id update.id %}" v-on:click="deliverNotificationsAction" class="icon"><i class="fe fe-navigation"></i> {% trans "Deliver" %}</a>
+                                            <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.incident_update.notify.endpoint' incident.id update.id %}" v-on:click="deliverNotificationsAction" class="icon" data-reload-after="1000"><i class="fe fe-navigation"></i> {% trans "Deliver" %}</a>
                                         </div>
                                     {% endif %}
                                 </div>
