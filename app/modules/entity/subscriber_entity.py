@@ -77,6 +77,9 @@ class Subscriber_Entity():
 
         return Subscriber.objects.order_by('-created_at')[offset:limit+offset]
 
+    def get_iterator(self, status="verified"):
+        return Subscriber.objects.filter(status=status).iterator()
+
     def get_one_by_id(self, subscriber_id):
         try:
             subscriber = Subscriber.objects.get(id=subscriber_id)

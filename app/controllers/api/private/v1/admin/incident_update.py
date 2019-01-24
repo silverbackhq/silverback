@@ -297,7 +297,8 @@ class Incident_Updates_Notify(View):
         self.__user_id = request.user.id
 
         task = self.__task.delay("incident_update", {
-            "incident_update_id": update_id
+            "incident_update_id": update_id,
+            "user_id": self.__user_id
         }, self.__user_id)
 
         result = False

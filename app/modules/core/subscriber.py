@@ -57,6 +57,9 @@ class Subscriber():
     def count_by_status(self, status):
         return self.__subscriber_entity.count_by_status(status)
 
+    def get_iterator(self, status="verified"):
+        return self.__subscriber_entity.get_iterator(status)
+
     def get_all(self, offset=None, limit=None):
         return self.__subscriber_entity.get_all(offset, limit)
 
