@@ -55,11 +55,11 @@ from app.controllers.api.private.v1.reset_password import Reset_Password as Rese
 from app.controllers.api.private.v1.admin.settings import Settings as Settings_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.profile import Profile as Profile_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.notifications import Notifications as Notifications_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.notifications import LatestNotifications as LatestNotifications_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.user import User as User_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.user import Users as Users_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.component_group import Component_Group as Component_Group_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.component_group import Component_Groups as Component_Groups_Admin_V1_Endpoint_Private
-
 from app.controllers.api.private.v1.admin.component import Component as Component_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.component import Components as Components_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.incident import Incident as Incident_Admin_V1_Endpoint_Private
@@ -151,6 +151,11 @@ urlpatterns = [
                 'notification',
                 Notifications_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.notifications.endpoint'
+            ),
+            path(
+                'latest_notifications',
+                LatestNotifications_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.latest_notifications.endpoint'
             ),
             path(
                 'user',

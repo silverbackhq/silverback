@@ -72,3 +72,9 @@ class Notification():
             return self.__notification_entity.update_one_by_id(notification_id, {"delivered": True})
 
         return False
+
+    def get(self, user_id, offset=None, limit=None):
+        return self.__notification_entity.get(user_id, offset, limit)
+
+    def count(self, user_id=None):
+        return self.__notification_entity.count(user_id)

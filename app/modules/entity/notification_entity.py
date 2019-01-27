@@ -135,3 +135,15 @@ class Notification_Entity():
             count, deleted = notification.delete()
             return True if count > 0 else False
         return False
+
+    def count(self, user_id=None):
+        if user_id is None:
+            return Notification.objects.count()
+        else:
+            return Notification.objects.filter(user_id=user_id).count()
+
+    def get(self, user_id, offset=None, limit=None):
+        if offset is None or limit is None:
+            return Notification.objects.filter(user_id=user_id).order_by('-created_at')
+
+        return Notification.objects.filter(user_id=user_id).order_by('-created_at')[offset:limit+offset]

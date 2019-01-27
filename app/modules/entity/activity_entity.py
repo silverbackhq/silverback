@@ -52,7 +52,7 @@ class Activity_Entity():
 
     def get(self, user_id, offset=None, limit=None):
         if offset is None or limit is None:
-            return Activity.objects.filter(user_id=user_id).order_by('-created_at').get()
+            return Activity.objects.filter(user_id=user_id).order_by('-created_at')
 
         return Activity.objects.filter(user_id=user_id).order_by('-created_at')[offset:limit+offset]
 

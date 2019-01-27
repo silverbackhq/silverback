@@ -2254,7 +2254,7 @@ badger_app.activity_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                     })
                     .finally(() => this.isDimmerActive = false)
             },
-            loadSubscribersAction(event) {
+            loadActivitiesAction(event) {
                 event.preventDefault();
                 this.isLoadingDimmed = true
                 this.fetch();
@@ -2417,6 +2417,70 @@ badger_app.incident_update_view_screen = (Vue, axios, $, Pace, Cookies, toastr) 
                         toastr.error(error);
                     });
                 });
+            }
+        }
+    });
+
+}
+
+
+/**
+ * Notification List
+ */
+badger_app.notification_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#notification_list',
+        data() {
+            return {
+                items: [],
+                isDimmerActive: true,
+                isLoadingActive: false,
+                isLoadingDimmed: false,
+                errored: false,
+                i18n: _list_view_i18n,
+                limit: 20,
+                offset: 0
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+                axios.get($('#notification_list').attr('data-fetch-notifications') + "?limit=" + this.limit + "&offset=" + this.offset)
+                    .then(response => {
+                        if (response.data.status == "success") {
+                            this.items = this.items.concat(response.data.payload.notifications);
+                            this.offset += this.limit
+                            count = response.data.payload.metadata.count
+                            if (count > this.offset){
+                                this.isLoadingActive = true
+                                this.isLoadingDimmed = false
+                            }else{
+                                this.isLoadingActive = false
+                                this.isLoadingDimmed = false
+                            }
+                        } else {
+                            for (var messageObj of response.data.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        toastr.clear();
+                        toastr.error(error);
+                    })
+                    .finally(() => this.isDimmerActive = false)
+            },
+            loadNotificationsAction(event) {
+                event.preventDefault();
+                this.isLoadingDimmed = true
+                this.fetch();
             }
         }
     });
@@ -2746,6 +2810,16 @@ $(document).ready(() => {
         }
         if (document.getElementById("incident_update_view")) {
             badger_app.incident_update_view_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("notification_list")) {
+            badger_app.notification_list_screen(
                 Vue,
                 axios,
                 $,
