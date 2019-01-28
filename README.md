@@ -2,6 +2,11 @@
     <img alt="Badger Logo" src="https://raw.githubusercontent.com/Clivern/Badger/master/static/assets/images/logo.png" height="80" />
     <h3 align="center">Badger</h3>
     <p align="center">A Status and Incident Communication Tool.</p>
+    <p align="center">
+        <img src="https://travis-ci.org/Clivern/Badger.svg?branch=master">
+        <img src="https://img.shields.io/github/license/Clivern/Badger.svg">
+        <img src="https://img.shields.io/badge/Version-Under%20Development-red.svg">
+    </p>
 </p>
 
 
@@ -42,13 +47,6 @@ $ python manage.py runserver
 # Exit the virtualenv
 $ deactivate
 ```
-
-
-## Badges
-
-[![Build Status](https://travis-ci.org/Clivern/Badger.svg?branch=master)](https://travis-ci.org/Clivern/Badger)
-[![GitHub license](https://img.shields.io/github/license/Clivern/Badger.svg)](https://github.com/Clivern/Badger/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/Version-Under%20Development-red.svg)](https://github.com/Clivern/Badger/releases)
 
 
 ## Contributing
