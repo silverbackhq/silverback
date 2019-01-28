@@ -4,6 +4,7 @@
     <p align="center">A Status and Incident Communication Tool.</p>
 </p>
 
+
 ## Documentation
 
 ### Config & Run The Application
@@ -50,12 +51,9 @@ $ deactivate
 [![Version](https://img.shields.io/badge/Version-Under%20Development-red.svg)](https://github.com/Clivern/Badger/releases)
 
 
-## Changelog
+## Contributing
 
-* Version 1.0.0:
-```
-Initial Release.
-```
+For guidance on setting up a development environment and how to make a contribution to Badger, see the [contributing guidelines](CONTRIBUTING.md)
 
 
 ## Acknowledgements
