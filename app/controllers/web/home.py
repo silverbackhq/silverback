@@ -29,7 +29,7 @@ class Home(View):
 
         self.__context.autoload_options()
         self.__context.push({
-            "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "is_authenticated": request.user and request.user.is_authenticated
         })
 

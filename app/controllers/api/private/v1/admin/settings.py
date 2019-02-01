@@ -13,6 +13,7 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.core.settings import Settings as Settings_Module
+from app.modules.core.activity import Activity as Activity_Module
 from app.modules.core.acl import ACL
 
 
@@ -25,6 +26,7 @@ class Settings(View):
     __settings_module = None
     __logger = None
     __acl = None
+    __activity_module = Activity_Module()
 
     def __init__(self):
         self.__request = Request()
@@ -68,8 +70,8 @@ class Settings(View):
                         'error': _('Error! Application name must be alpha numeric.')
                     },
                     'length_between': {
-                        'param': [3, 10],
-                        'error': _('Error! Application name must be 5 to 10 characters long.')
+                        'param': [2, 30],
+                        'error': _('Error! Application name must be 2 to 30 characters long.')
                     }
                 }
             },
@@ -201,6 +203,9 @@ class Settings(View):
         })
 
         if result:
+
+            self.__activity_module.track(request.user.id, _('You updated application settings.'))
+
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Settings updated successfully.")

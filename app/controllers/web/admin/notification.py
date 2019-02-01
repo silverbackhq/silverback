@@ -1,5 +1,5 @@
 """
-Dashboard Web Controller
+Notification Web Controller
 """
 
 # standard library
@@ -12,21 +12,24 @@ from django.utils.translation import gettext as _
 
 # local Django
 from app.modules.core.context import Context
+from app.modules.core.acl import ACL
 from app.modules.core.decorators import login_if_not_authenticated
 
 
-class Dashboard(View):
+class Notification(View):
 
-    template_name = 'templates/admin/dashboard.html'
+    template_name = 'templates/admin/notification.html'
     __context = Context()
+    __acl = ACL()
 
     @login_if_not_authenticated
     def get(self, request):
 
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+
         self.__context.push({
-            "page_title": _("Dashboard · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
+            "page_title": _("Notification · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
         return render(request, self.template_name, self.__context.get())

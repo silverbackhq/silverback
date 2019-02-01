@@ -5,17 +5,18 @@
 {% block customer_header %}
     <script type="text/javascript">
         var _list_view_i18n = {
-            noActivities: "{% trans "No activities yet!" %}"
+            noNotifications: "{% trans "No notifications yet!" %}"
         }
     </script>
 {% endblock %}
+
 
 {% block content %}
    <div class="page-main">
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
             <div class="container">
-                <div class="row" id="activity_list" data-fetch-activities="{% url 'app.api.private.v1.admin.activities.endpoint' %}">
+                <div class="row" id="notification_list" data-fetch-notifications="{% url 'app.api.private.v1.admin.notifications.endpoint' %}">
                     <div class="col-12">
                         <div class="card">
                             <div class="dimmer" v-bind:class="{ active: isDimmerActive }">
@@ -25,8 +26,9 @@
                                         <table class="table card-table table-vcenter text-nowrap">
                                             <thead>
                                                 <tr>
-                                                    <th colspan="4">{% trans "Activity" %}</th>
-                                                    <th colspan="2">{% trans "Created" %}</th>
+                                                    <th colspan="1">{% trans "Status" %}</th>
+                                                    <th colspan="4">{% trans "Notification" %}</th>
+                                                    <th colspan="1">{% trans "Created" %}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -34,14 +36,17 @@
                                                     <tr>
                                                         <td colspan="6" class="text-center small text-muted">
                                                             <br/>
-                                                            ${i18n.noActivities}
+                                                            ${i18n.noNotifications}
                                                         </td>
                                                     </tr>
                                                 </template>
                                                 <template v-if="Object.keys(items).length > 0">
                                                     <tr v-for="item in items">
-                                                        <td colspan="4">${item.activity}</td>
-                                                        <td colspan="2">${item.created_at}</td>
+                                                        <td colspan="1">
+                                                            <span class="avatar mr-3 align-self-center" v-bind:class="{'avatar-yellow': item.type == 'pending', 'btn-loading': item.type == 'pending', 'avatar-orange': item.type == 'failed','avatar-green': item.type == 'passed','avatar-red': item.type == 'error','avatar-blue': item.type == 'message'}"><i class="fe" v-bind:class="{ 'fe-loader': item.type == 'pending', 'fe-x': item.type == 'failed', 'fe-check': item.type == 'passed', 'fe-alert-circle': item.type == 'error', 'fe-message-circle': item.type == 'message' }"></i></span>
+                                                        </td>
+                                                        <td colspan="4"><strong>${item.highlight}</strong> ${item.description}</td>
+                                                        <td colspan="1">${item.created_at}</td>
                                                     </tr>
                                                 </template>
                                             </tbody>
@@ -50,7 +55,7 @@
                                     </div>
                                     <template v-if="isLoadingActive">
                                         <div class="text-center">
-                                            <a href="#" class="btn btn-pill btn-secondary" v-on:click="loadActivitiesAction" v-bind:class="{ 'btn-loading': isLoadingDimmed }">Load More</a>
+                                            <a href="#" class="btn btn-pill btn-secondary" v-on:click="loadNotificationsAction" v-bind:class="{ 'btn-loading': isLoadingDimmed }">Load More</a>
                                             <br/><br/>
                                         </div>
                                     </template>

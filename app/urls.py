@@ -1,5 +1,5 @@
 """
-Routes For Badger
+Routes For Silverback
 """
 
 # Django
@@ -21,6 +21,7 @@ from app.controllers.web.admin.dashboard import Dashboard as Dashboard_View
 from app.controllers.web.admin.profile import Profile as Profile_View
 from app.controllers.web.admin.settings import Settings as Settings_View
 from app.controllers.web.admin.activity import Activity as Activity_View
+from app.controllers.web.admin.notification import Notification as Notification_View
 from app.controllers.web.admin.user import User_List as User_List_Web
 from app.controllers.web.admin.user import User_Edit as User_Edit_Web
 from app.controllers.web.admin.user import User_Add as User_Add_Web
@@ -54,21 +55,25 @@ from app.controllers.api.private.v1.reset_password import Reset_Password as Rese
 from app.controllers.api.private.v1.admin.settings import Settings as Settings_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.profile import Profile as Profile_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.notifications import Notifications as Notifications_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.notifications import LatestNotifications as LatestNotifications_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.user import User as User_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.user import Users as Users_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.component_group import Component_Group as Component_Group_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.component_group import Component_Groups as Component_Groups_Admin_V1_Endpoint_Private
-
 from app.controllers.api.private.v1.admin.component import Component as Component_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.component import Components as Components_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.incident import Incident as Incident_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.incident import Incidents as Incidents_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.incident_update import Incident_Update as Incident_Update_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.incident_update import Incident_Updates as Incident_Updates_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Notify as Incident_Updates_Notify_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Components as Incident_Updates_Components_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Component as Incident_Updates_Component_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metric as Metric_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metrics as Metrics_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscriber as Subscriber_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscribers as Subscribers_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.activity import Activities as Activities_Admin_V1_Endpoint_Private
 
 
 urlpatterns = [
@@ -88,6 +93,7 @@ urlpatterns = [
         path('dashboard', Dashboard_View.as_view(), name='app.web.admin.dashboard'),
         path('profile', Profile_View.as_view(), name='app.web.admin.profile'),
         path('activity', Activity_View.as_view(), name='app.web.admin.activity.list'),
+        path('notifications', Notification_View.as_view(), name='app.web.admin.notification.list'),
         path('settings', Settings_View.as_view(), name='app.web.admin.settings'),
 
         path('users', User_List_Web.as_view(), name='app.web.admin.user.list'),
@@ -147,6 +153,11 @@ urlpatterns = [
                 name='app.api.private.v1.admin.notifications.endpoint'
             ),
             path(
+                'latest_notifications',
+                LatestNotifications_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.latest_notifications.endpoint'
+            ),
+            path(
                 'user',
                 Users_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.users.endpoint'
@@ -197,6 +208,21 @@ urlpatterns = [
                 name='app.api.private.v1.admin.incident_update.endpoint'
             ),
             path(
+                'incident-update/<int:incident_id>/<int:update_id>/notify',
+                Incident_Updates_Notify_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incident_update.notify.endpoint'
+            ),
+            path(
+                'incident-update/<int:incident_id>/<int:update_id>/components',
+                Incident_Updates_Components_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incident_update.components.endpoint'
+            ),
+            path(
+                'incident-update/<int:incident_id>/<int:update_id>/component/<int:item_id>',
+                Incident_Updates_Component_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.incident_update.component.endpoint'
+            ),
+            path(
                 'metric',
                 Metrics_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.metrics.endpoint'
@@ -215,6 +241,11 @@ urlpatterns = [
                 'subscriber/<int:subscriber_id>',
                 Subscriber_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.subscriber.endpoint'
+            ),
+            path(
+                'activity',
+                Activities_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.activities.endpoint'
             ),
         ]))
 

@@ -165,7 +165,7 @@
                                                     <input type="text" name="access_token" class="form-control" value="{{ access_token }}" disabled>
                                                 </div>
                                                 <span class="col-auto">
-                                                    <button class="btn btn-pill btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateAccessToken" v-bind:disabled="isUpdateAccessTokenInProgress">{% trans "Update" %} <i class="fa fa-paper-plane"></i></button>
+                                                    <button class="btn btn-pill btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateAccessToken" v-bind:disabled="isUpdateAccessTokenInProgress">{% trans "Update" %}</button>
                                                 </span>
                                             </div>
                                         </div>
@@ -176,7 +176,7 @@
                                                     <input type="text" name="refresh_token" class="form-control" value="{{ refresh_token }}" disabled>
                                                 </div>
                                                 <span class="col-auto">
-                                                    <button class="btn btn-pill btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateRefreshToken" v-bind:disabled="isUpdateRefreshTokenInProgress">{% trans "Update" %} <i class="fa fa-paper-plane"></i></button>
+                                                    <button class="btn btn-pill btn-secondary" type="button" data-url="{% url 'app.api.private.v1.admin.profile.endpoint' %}" v-on:click="updateRefreshToken" v-bind:disabled="isUpdateRefreshTokenInProgress">{% trans "Update" %}</button>
                                                 </span>
                                             </div>
                                         </div>

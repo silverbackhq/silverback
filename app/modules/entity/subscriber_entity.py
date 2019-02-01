@@ -68,15 +68,28 @@ class Subscriber_Entity():
     def count_all(self):
         return Subscriber.objects.count()
 
+    def count_by_status(self, status):
+        return Subscriber.objects.filter(status=status).count()
+
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
             return Subscriber.objects.order_by('-created_at').get()
 
         return Subscriber.objects.order_by('-created_at')[offset:limit+offset]
 
+    def get_iterator(self, status="verified"):
+        return Subscriber.objects.filter(status=status).iterator()
+
     def get_one_by_id(self, subscriber_id):
         try:
             subscriber = Subscriber.objects.get(id=subscriber_id)
+            return False if subscriber.pk is None else subscriber
+        except Exception:
+            return False
+
+    def get_one_by_external_id(self, external_id):
+        try:
+            subscriber = Subscriber.objects.get(external_id=external_id)
             return False if subscriber.pk is None else subscriber
         except Exception:
             return False

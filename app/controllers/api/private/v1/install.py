@@ -14,6 +14,7 @@ from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.core.decorators import stop_request_if_installed
 from app.modules.core.install import Install as Install_Module
+from app.modules.core.notification import Notification as Notification_Module
 
 
 class Install(View):
@@ -24,6 +25,7 @@ class Install(View):
     __form = None
     __install = None
     __logger = None
+    __notification = None
 
     def __init__(self):
         self.__request = Request()
@@ -31,6 +33,7 @@ class Install(View):
         self.__helpers = Helpers()
         self.__form = Form()
         self.__install = Install_Module()
+        self.__notification = Notification_Module()
         self.__logger = self.__helpers.get_logger(__name__)
 
     @stop_request_if_installed
@@ -65,8 +68,8 @@ class Install(View):
                         'error': _('Error! Application name must be alpha numeric.')
                     },
                     'length_between': {
-                        'param': [3, 10],
-                        'error': _('Error! Application name must be 5 to 10 characters long.')
+                        'param': [2, 30],
+                        'error': _('Error! Application name must be 2 to 30 characters long.')
                     }
                 }
             },
@@ -152,7 +155,20 @@ class Install(View):
             self.__form.get_input_value("admin_password")
         )
 
-        if self.__install.install():
+        user_id = self.__install.install()
+
+        if user_id:
+
+            self.__notification.create_notification({
+                "highlight": _('Installation'),
+                "notification": _('Silverback installed successfully'),
+                "url": "#",
+                "type": Notification_Module.MESSAGE,
+                "delivered": False,
+                "user_id": user_id,
+                "task_id": None
+            })
+
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Application installed successfully.")

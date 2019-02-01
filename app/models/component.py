@@ -16,7 +16,7 @@ class Component(models.Model):
         ('off', 'OFF')
     )
 
-    group = models.OneToOneField(
+    group = models.ForeignKey(
         Component_Group,
         on_delete=models.CASCADE,
         db_index=True,

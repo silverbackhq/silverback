@@ -81,4 +81,4 @@ class Install():
         if user is not False:
             status &= self.init_base_acl(user.id)
 
-        return status
+        return user.id if status else False

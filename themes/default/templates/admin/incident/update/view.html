@@ -22,14 +22,167 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="update_view_app">
-                    <div class="col-12">
-
+                <div class="row" id="incident_update_view">
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Notification" %}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-12">
+                                        <div id="chart-pie" style="height: 12rem;"></div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-12">
+                                        <br/>
+                                        {% if update.notify_subscribers == "on" %}
+                                            <strong>{% trans "Notify Subscribers:" %}</strong> {% trans "On" %}<br/>
+                                        {% else %}
+                                            <strong>{% trans "Notify Subscribers:" %}</strong> {% trans "Off" %}<br/>
+                                        {% endif %}
+                                        <strong>{% trans "Total Subscribers:" %}</strong> {{ update.total_suscribers }}<br/>
+                                        <strong>{% trans "Delivered Notifications:" %}</strong> {{ update.notified_subscribers }}<br/>
+                                        <strong>{% trans "Failed Notifications:" %}</strong> {{ update.failed_subscribers }}<br/>
+                                    </div>
+                                    {% if update.notify_subscribers == "on" and update.total_suscribers > 0 %}
+                                        <div class="col-md-12 col-lg-12 text-center">
+                                            <br/>
+                                            <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.incident_update.notify.endpoint' incident.id update.id %}" v-on:click="deliverNotificationsAction" class="icon" data-reload-after="1000"><i class="fe fe-navigation"></i> {% trans "Deliver" %}</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">{% trans "Incident Update" %}</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-12">
+                                                <strong>Status:</strong> {{ update.status|title }}<br/>
+                                                <strong>Datetime:</strong> {{ update.datetime }}<br/>
+                                                <strong>Message:</strong><br/>
+                                                {% autoescape off %}
+                                                    {{ update.message }}
+                                                {% endautoescape %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="dimmer">
+                                        <div class="loader"></div>
+                                        <div class="dimmer-content">
+                                            <div class="table-responsive">
+                                                <table class="table card-table table-vcenter text-nowrap">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{% trans "Affected Component" %}</th>
+                                                            <th>{% trans "Type" %}</th>
+                                                            <th>{% trans "Actions" %}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for affected_component in affected_components %}
+                                                            <tr>
+                                                                <td>
+                                                                    <select name="component" class="custom-select" disabled>
+                                                                        <option value="{{ affected_component.component_id }}" selected>{{ affected_component.component_name }}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <select name="type" class="custom-select" disabled>
+                                                                        <option value="">{% trans "N/A" %}</option>
+                                                                        <option value="operational" {% if affected_component.type == 'operational' %}selected{% endif %}>{% trans "Operational" %}</option>
+                                                                        <option value="degraded_performance" {% if affected_component.type == 'degraded_performance' %}selected{% endif %}>{% trans "Degraded Performance" %}</option>
+                                                                        <option value="partial_outage" {% if affected_component.type == 'partial_outage' %}selected{% endif %}>{% trans "Partial Outage" %}</option>
+                                                                        <option value="major_outage" {% if affected_component.type == 'major_outage' %}selected{% endif %}>{% trans "Major Outage" %}</option>
+                                                                        <option value="maintenance" {% if affected_component.type == 'maintenance' %}selected{% endif %}>{% trans "Maintenance" %}</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td style="vertical-align: middle;">
+                                                                    <a href="javascript:void(0)" href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.incident_update.component.endpoint' incident.id update.id affected_component.id %}" class="icon" v-on:click="deleteAffectedComponentAction"><i class="fe fe-x-square"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        <tr>
+                                                            <td>
+                                                                <select name="component" class="custom-select">
+                                                                    <option value="">{% trans "Please select a component" %}</option>
+                                                                    {% for component in components %}
+                                                                        <option value="{{ component.id }}">{{ component.name }}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="type" class="custom-select">
+                                                                    <option value="">{% trans "Please select a type" %}</option>
+                                                                    <option value="operational">{% trans "Operational" %}</option>
+                                                                    <option value="degraded_performance">{% trans "Degraded Performance" %}</option>
+                                                                    <option value="partial_outage">{% trans "Partial Outage" %}</option>
+                                                                    <option value="major_outage">{% trans "Major Outage" %}</option>
+                                                                    <option value="maintenance">{% trans "Maintenance" %}</option>
+                                                                </select>
+                                                            </td>
+                                                            <td style="vertical-align: middle;">
+                                                                <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.incident_update.components.endpoint' incident.id update.id %}" v-on:click="addAffectedComponentAction" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        require(['c3', 'jquery'], function(c3, $) {
+            $(document).ready(function(){
+                var chart = c3.generate({
+                    bindto: '#chart-pie',
+                    data: {
+                        columns: [
+                            ['delivered', {{ update.notified_subscribers }}],
+                            ['failed', {{ update.failed_subscribers }}]
+                        ],
+                        type: 'pie',
+                        colors: {
+                            'delivered': tabler.colors["green"],
+                            'failed': tabler.colors["red"]
+                        },
+                        names: {
+                            'delivered': '{% trans "Delivered" %}',
+                            'failed': '{% trans "Failed" %}'
+                        }
+                    },
+                    axis: {
+                    },
+                    legend: {
+                          show: true,
+                    },
+                    padding: {
+                        bottom: 0,
+                        top: 0
+                    },
+                });
+            });
+        });
+    </script>
+
     {% include 'partials/bottom-menu.html' %}
 
 {% endblock %}

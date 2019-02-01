@@ -29,7 +29,7 @@ class Component_Group_List(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Component Groups · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger"))
+            "page_title": _("Component Groups · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -47,7 +47,7 @@ class Component_Group_Add(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Add a Component Group · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger"))
+            "page_title": _("Add a Component Group · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -70,7 +70,7 @@ class Component_Group_Edit(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Edit Component Group · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "page_title": _("Edit Component Group · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "group": group
         })
 

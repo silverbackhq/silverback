@@ -51,7 +51,7 @@ class Settings(View):
         })
 
         self.__context.push({
-            "page_title": _("Settings · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger"))
+            "page_title": _("Settings · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
         return render(request, self.template_name, self.__context.get())

@@ -1,0 +1,47 @@
+"""
+Incident Update Module
+"""
+
+# local Django
+from app.modules.util.helpers import Helpers
+from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
+
+
+class Incident_Update_Component():
+
+    __incident_update_component_entity = None
+    __helpers = None
+    __logger = None
+
+    def __init__(self):
+        self.__incident_update_component_entity = Incident_Update_Component_Entity()
+        self.__helpers = Helpers()
+        self.__logger = self.__helpers.get_logger(__name__)
+
+    def get_one_by_id(self, id):
+        item = self.__incident_update_component_entity.get_one_by_id(id)
+
+        if not item:
+            return False
+
+        return {
+            "id": item.id,
+            "incident_update": item.incident_update,
+            "component": item.component,
+            "type": item.type
+        }
+
+    def insert_one(self, item):
+        return self.__incident_update_component_entity.insert_one(item)
+
+    def update_one_by_id(self, id, item_data):
+        return self.__incident_update_component_entity.update_one_by_id(id, item_data)
+
+    def count_all(self, update_id):
+        return self.__incident_update_component_entity.count_all(update_id)
+
+    def get_all(self, update_id):
+        return self.__incident_update_component_entity.get_all(update_id)
+
+    def delete_one_by_id(self, id):
+        return self.__incident_update_component_entity.delete_one_by_id(id)

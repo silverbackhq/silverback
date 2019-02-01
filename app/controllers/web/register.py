@@ -41,7 +41,7 @@ class Register(View):
 
         self.__context.autoload_options()
         self.__context.push({
-            "page_title": _("Register · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "page_title": _("Register · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "register_request": self.__user.get_register_request_by_token(token)
         })
 

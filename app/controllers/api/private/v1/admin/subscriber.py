@@ -174,6 +174,11 @@ class Subscribers(View):
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
 
+        external_id = self.__helpers.generate_uuid()
+
+        while self.__subscriber.get_one_by_external_id(external_id) is not False:
+            external_id = self.__helpers.generate_uuid()
+
         if request_data["type"] == "email":
 
             result = self.__subscriber.insert_one({
@@ -182,7 +187,8 @@ class Subscribers(View):
                 "email": self.__form.get_input_value("email"),
                 "phone": "",
                 "endpoint": "",
-                "auth_token": ""
+                "auth_token": "",
+                "external_id": external_id
             })
         elif request_data["type"] == "phone":
 
@@ -192,7 +198,8 @@ class Subscribers(View):
                 "email": "",
                 "phone": self.__form.get_input_value("phone"),
                 "endpoint": "",
-                "auth_token": ""
+                "auth_token": "",
+                "external_id": external_id
             })
 
         else:
@@ -203,7 +210,8 @@ class Subscribers(View):
                 "email": self.__form.get_input_value("email"),
                 "phone": "",
                 "endpoint": self.__form.get_input_value("endpoint"),
-                "auth_token": self.__form.get_input_value("auth_token")
+                "auth_token": self.__form.get_input_value("auth_token"),
+                "external_id": external_id
             })
 
         if result:
