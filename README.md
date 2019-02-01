@@ -2,8 +2,12 @@
     <img alt="Silverback Logo" src="https://raw.githubusercontent.com/Clivern/Silverback/master/static/assets/images/logo.png" height="80" />
     <h3 align="center">Silverback</h3>
     <p align="center">A Status and Incident Communication Tool.</p>
+    <p align="center">
+        <img src="https://travis-ci.org/Clivern/Badger.svg?branch=master">
+        <img src="https://img.shields.io/github/license/Clivern/Badger.svg">
+        <img src="https://img.shields.io/badge/Version-Under%20Development-red.svg">
+    </p>
 </p>
-
 
 ## Overview
 
@@ -62,23 +66,13 @@ $ deactivate
 ```
 
 
-## Badges
+## Contributing
 
-[![Build Status](https://travis-ci.org/Clivern/Silverback.svg?branch=master)](https://travis-ci.org/Clivern/Silverback)
-[![GitHub license](https://img.shields.io/github/license/Clivern/Silverback.svg)](https://github.com/Clivern/Silverback/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/Version-Under%20Development-red.svg)](https://github.com/Clivern/Silverback/releases)
-
-
-## Changelog
-
-* Version 1.0.0:
-```
-Initial Release.
-```
+For guidance on setting up a development environment and how to make a contribution to Badger, see the [contributing guidelines](CONTRIBUTING.md)
 
 
 ## Acknowledgements
 
-© 2018, Clivern. Released under [MIT License](https://opensource.org/licenses/mit-license.php).
+© 2019, Silverback. Released under [MIT License](https://opensource.org/licenses/mit-license.php).
 
-**Silverback** is authored and maintained by [@Clivern](http://github.com/clivern).
+**Silverback** is authored and maintained by [@silverbackhq](https://github.com/silverbackhq).
