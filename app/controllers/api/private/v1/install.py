@@ -68,8 +68,8 @@ class Install(View):
                         'error': _('Error! Application name must be alpha numeric.')
                     },
                     'length_between': {
-                        'param': [3, 10],
-                        'error': _('Error! Application name must be 5 to 10 characters long.')
+                        'param': [2, 30],
+                        'error': _('Error! Application name must be 2 to 30 characters long.')
                     }
                 }
             },
@@ -161,7 +161,7 @@ class Install(View):
 
             self.__notification.create_notification({
                 "highlight": _('Installation'),
-                "notification": _('Badger installed successfully'),
+                "notification": _('Silverback installed successfully'),
                 "url": "#",
                 "type": Notification_Module.MESSAGE,
                 "delivered": False,

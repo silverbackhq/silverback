@@ -1,5 +1,5 @@
 """
-Badger Info Command
+Silverback Info Command
 
 see https://docs.djangoproject.com/en/2.0/howto/custom-management-commands/
 """
@@ -18,7 +18,7 @@ from app.settings.info import VERSION
 
 class Command(BaseCommand):
 
-    help = "Play around with Badger Application!"
+    help = "Play around with Silverback Application!"
 
     available = [
         "info",
@@ -33,7 +33,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """Command Handle"""
         if len(options['command']) == 0 or options['command'][0] not in self.available:
-            raise CommandError('Command Does not exist! Please use one of the following: python manage.py badger [%s]' % ", ".join(self.available))
+            raise CommandError('Command Does not exist! Please use one of the following: python manage.py silverback [%s]' % ", ".join(self.available))
 
         if options['command'][0] == "update_env" and (len(options['command']) != 2 or not options['command'][1].find("=") > 1):
             raise CommandError('Error! Invalid command format.')

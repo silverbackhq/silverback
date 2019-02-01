@@ -1,5 +1,5 @@
 """
-Django Settings for Badger
+Django Settings for Silverback
 
 
 For more information on this file, see

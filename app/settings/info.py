@@ -1,5 +1,5 @@
 """
-Badger Info
+Silverback Info
 """
 
 # standard library
@@ -13,11 +13,11 @@ AUTHOR = "Clivern"
 COPYRIGHT = "Copyright 2018, Clivern"
 LICENSE = "Apache Version 2.0"
 VERSION = "1.0.0"
-DOWNLOAD_URL = "https://github.com/Clivern/Badger/releases/tag/%s" % VERSION
+DOWNLOAD_URL = "https://github.com/Clivern/Silverback/releases/tag/%s" % VERSION
 MAINTAINER = "A. F"
 EMAIL = "hello@clivern.com"
 STATUS = "basic"
-REPO_URL = "https://github.com/Clivern/Badger"
+REPO_URL = "https://github.com/Clivern/Silverback"
 AUTHOR_URL = "http://clivern.com"
-RELEASES = "https://api.github.com/repos/Clivern/Badger/releases"
-SUPPORT_URL = "https://github.com/Clivern/Badger/issues"
+RELEASES = "https://api.github.com/repos/Clivern/Silverback/releases"
+SUPPORT_URL = "https://github.com/Clivern/Silverback/issues"

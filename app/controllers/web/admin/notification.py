@@ -29,7 +29,7 @@ class Notification(View):
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
 
         self.__context.push({
-            "page_title": _("Notification · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger"))
+            "page_title": _("Notification · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
         return render(request, self.template_name, self.__context.get())

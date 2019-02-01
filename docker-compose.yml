@@ -24,20 +24,20 @@ services:
         image: 'mysql:5.6'
         environment:
             - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=badger
-            - MYSQL_USER=badger
+            - MYSQL_DATABASE=silverback
+            - MYSQL_USER=silverback
             - MYSQL_PASSWORD=secret
             - MYSQL_ALLOW_EMPTY_PASSWORD=yes
         restart: always
         healthcheck:
-            test: '/usr/bin/mysql --user=badger --password=secret --execute "SHOW DATABASES;"'
+            test: '/usr/bin/mysql --user=silverback --password=secret --execute "SHOW DATABASES;"'
             interval: 3s
             timeout: 1s
             retries: 5
 
     # Web UI Service
     web:
-        image: "clivern_badger:1.0.0"
+        image: "clivern_silverback:1.0.0"
         build: .
         command: 'gunicorn --bind 0.0.0.0:8000 app.wsgi'
         volumes:
@@ -55,7 +55,7 @@ services:
 
     # Worker Service
     worker1:
-        image: "clivern_badger:1.0.0"
+        image: "clivern_silverback:1.0.0"
         build: .
         command: 'celery -A app worker --loglevel=info -n worker1'
         volumes:

@@ -1,5 +1,5 @@
 """
-WSGI Config for Badger
+WSGI Config for Silverback
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 For more information on this file, see

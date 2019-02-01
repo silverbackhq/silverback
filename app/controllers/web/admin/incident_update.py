@@ -41,7 +41,7 @@ class Incident_Update_Add(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "incident": incident
         })
 
@@ -80,7 +80,7 @@ class Incident_Update_View(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("View Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "page_title": _("View Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "update": update,
             "incident": incident,
             "components": components,
@@ -139,7 +139,7 @@ class Incident_Update_Edit(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Edit Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "page_title": _("Edit Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "update": update,
             "incident": incident
         })

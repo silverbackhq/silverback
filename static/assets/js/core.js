@@ -2,13 +2,13 @@ require(['jscookie', 'toastr', 'pace', 'vue', 'axios']);
 
 $.jMaskGlobals.watchDataMask = true;
 
-var badger_app = badger_app || {};
+var silverback_app = silverback_app || {};
 
 
 /**
  * App Install
  */
-badger_app.install_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.install_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -69,7 +69,7 @@ badger_app.install_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Notifications
  */
-badger_app.notifications = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.notifications = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -126,7 +126,7 @@ badger_app.notifications = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Manage Settings
  */
-badger_app.manage_settings_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.manage_settings_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -184,7 +184,7 @@ badger_app.manage_settings_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Login
  */
-badger_app.login_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.login_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -245,7 +245,7 @@ badger_app.login_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Register
  */
-badger_app.register_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.register_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -306,7 +306,7 @@ badger_app.register_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Forgot Password
  */
-badger_app.forgot_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.forgot_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -367,7 +367,7 @@ badger_app.forgot_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Reset Password
  */
-badger_app.reset_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.reset_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -428,7 +428,7 @@ badger_app.reset_password_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App Profile
  */
-badger_app.profile_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.profile_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -622,7 +622,7 @@ badger_app.profile_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * User Add
  */
-badger_app.add_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.add_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -684,7 +684,7 @@ badger_app.add_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * User Edit
  */
-badger_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -746,7 +746,7 @@ badger_app.edit_user_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * App User List
  */
-badger_app.user_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.user_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -850,7 +850,7 @@ badger_app.user_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Component Group Add
  */
-badger_app.add_component_group_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.add_component_group_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -911,7 +911,7 @@ badger_app.add_component_group_screen = (Vue, axios, $, Pace, Cookies, toastr) =
 /**
  * Component Group Edit
  */
-badger_app.edit_component_group_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.edit_component_group_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -973,7 +973,7 @@ badger_app.edit_component_group_screen = (Vue, axios, $, Pace, Cookies, toastr) 
 /**
  * Component Group List
  */
-badger_app.component_group_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.component_group_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1077,7 +1077,7 @@ badger_app.component_group_list_screen = (Vue, axios, $, Pace, Cookies, toastr) 
 /**
  * Component Add
  */
-badger_app.add_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.add_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1138,7 +1138,7 @@ badger_app.add_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Component Edit
  */
-badger_app.edit_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.edit_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1198,7 +1198,7 @@ badger_app.edit_component_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Component List
  */
-badger_app.component_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.component_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1302,7 +1302,7 @@ badger_app.component_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Incident Add
  */
-badger_app.add_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.add_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1363,7 +1363,7 @@ badger_app.add_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Incident Edit
  */
-badger_app.edit_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.edit_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1423,7 +1423,7 @@ badger_app.edit_incident_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Incident List
  */
-badger_app.incident_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.incident_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1527,7 +1527,7 @@ badger_app.incident_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Update Add
  */
-badger_app.add_update_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.add_update_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1588,7 +1588,7 @@ badger_app.add_update_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Update Edit
  */
-badger_app.edit_update_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.edit_update_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1648,7 +1648,7 @@ badger_app.edit_update_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Update List
  */
-badger_app.update_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.update_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1752,7 +1752,7 @@ badger_app.update_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Metric Add
  */
-badger_app.add_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.add_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1813,7 +1813,7 @@ badger_app.add_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Metric Edit
  */
-badger_app.edit_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.edit_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1873,7 +1873,7 @@ badger_app.edit_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Metric List
  */
-badger_app.metric_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.metric_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -1977,7 +1977,7 @@ badger_app.metric_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Subscriber Add
  */
-badger_app.add_subscriber_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.add_subscriber_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -2039,7 +2039,7 @@ badger_app.add_subscriber_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Subscriber Edit
  */
-badger_app.edit_subscriber_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.edit_subscriber_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -2100,7 +2100,7 @@ badger_app.edit_subscriber_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Subscriber List
  */
-badger_app.subscriber_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.subscriber_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -2204,7 +2204,7 @@ badger_app.subscriber_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Activity List
  */
-badger_app.activity_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.activity_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -2268,7 +2268,7 @@ badger_app.activity_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 /**
  * Incident Update View
  */
-badger_app.incident_update_view_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.incident_update_view_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -2427,7 +2427,7 @@ badger_app.incident_update_view_screen = (Vue, axios, $, Pace, Cookies, toastr) 
 /**
  * Notification List
  */
-badger_app.notification_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+silverback_app.notification_list_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 
     return new Vue({
         delimiters: ['${', '}'],
@@ -2509,7 +2509,7 @@ $(document).ready(() => {
         });
 
         if (document.getElementById("app_notifications")) {
-            badger_app.notifications(
+            silverback_app.notifications(
                 Vue,
                 axios,
                 $,
@@ -2519,7 +2519,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("manage_settings")) {
-            badger_app.manage_settings_screen(
+            silverback_app.manage_settings_screen(
                 Vue,
                 axios,
                 $,
@@ -2529,7 +2529,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_login")) {
-            badger_app.login_screen(
+            silverback_app.login_screen(
                 Vue,
                 axios,
                 $,
@@ -2539,7 +2539,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_register")) {
-            badger_app.register_screen(
+            silverback_app.register_screen(
                 Vue,
                 axios,
                 $,
@@ -2549,7 +2549,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_forgot_password")) {
-            badger_app.forgot_password_screen(
+            silverback_app.forgot_password_screen(
                 Vue,
                 axios,
                 $,
@@ -2559,7 +2559,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_reset_password")) {
-            badger_app.reset_password_screen(
+            silverback_app.reset_password_screen(
                 Vue,
                 axios,
                 $,
@@ -2569,7 +2569,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_install")) {
-            badger_app.install_screen(
+            silverback_app.install_screen(
                 Vue,
                 axios,
                 $,
@@ -2579,7 +2579,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("app_profile")) {
-            badger_app.profile_screen(
+            silverback_app.profile_screen(
                 Vue,
                 axios,
                 $,
@@ -2589,7 +2589,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("user_add_app")) {
-            badger_app.add_user_screen(
+            silverback_app.add_user_screen(
                 Vue,
                 axios,
                 $,
@@ -2599,7 +2599,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("user_edit_app")) {
-            badger_app.edit_user_screen(
+            silverback_app.edit_user_screen(
                 Vue,
                 axios,
                 $,
@@ -2609,7 +2609,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("user_list")) {
-            badger_app.user_list_screen(
+            silverback_app.user_list_screen(
                 Vue,
                 axios,
                 $,
@@ -2619,7 +2619,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("component_group_add_app")) {
-            badger_app.add_component_group_screen(
+            silverback_app.add_component_group_screen(
                 Vue,
                 axios,
                 $,
@@ -2629,7 +2629,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("component_group_edit_app")) {
-            badger_app.edit_component_group_screen(
+            silverback_app.edit_component_group_screen(
                 Vue,
                 axios,
                 $,
@@ -2639,7 +2639,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("component_group_list")) {
-            badger_app.component_group_list_screen(
+            silverback_app.component_group_list_screen(
                 Vue,
                 axios,
                 $,
@@ -2649,7 +2649,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("component_add_app")) {
-            badger_app.add_component_screen(
+            silverback_app.add_component_screen(
                 Vue,
                 axios,
                 $,
@@ -2659,7 +2659,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("component_edit_app")) {
-            badger_app.edit_component_screen(
+            silverback_app.edit_component_screen(
                 Vue,
                 axios,
                 $,
@@ -2669,7 +2669,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("component_list")) {
-            badger_app.component_list_screen(
+            silverback_app.component_list_screen(
                 Vue,
                 axios,
                 $,
@@ -2679,7 +2679,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("incident_add_app")) {
-            badger_app.add_incident_screen(
+            silverback_app.add_incident_screen(
                 Vue,
                 axios,
                 $,
@@ -2689,7 +2689,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("incident_edit_app")) {
-            badger_app.edit_incident_screen(
+            silverback_app.edit_incident_screen(
                 Vue,
                 axios,
                 $,
@@ -2699,7 +2699,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("incident_list")) {
-            badger_app.incident_list_screen(
+            silverback_app.incident_list_screen(
                 Vue,
                 axios,
                 $,
@@ -2709,7 +2709,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("update_add_app")) {
-            badger_app.add_update_screen(
+            silverback_app.add_update_screen(
                 Vue,
                 axios,
                 $,
@@ -2719,7 +2719,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("update_edit_app")) {
-            badger_app.edit_update_screen(
+            silverback_app.edit_update_screen(
                 Vue,
                 axios,
                 $,
@@ -2729,7 +2729,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("update_list")) {
-            badger_app.update_list_screen(
+            silverback_app.update_list_screen(
                 Vue,
                 axios,
                 $,
@@ -2739,7 +2739,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("metric_add_app")) {
-            badger_app.add_metric_screen(
+            silverback_app.add_metric_screen(
                 Vue,
                 axios,
                 $,
@@ -2749,7 +2749,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("metric_edit_app")) {
-            badger_app.edit_metric_screen(
+            silverback_app.edit_metric_screen(
                 Vue,
                 axios,
                 $,
@@ -2759,7 +2759,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("metric_list")) {
-            badger_app.metric_list_screen(
+            silverback_app.metric_list_screen(
                 Vue,
                 axios,
                 $,
@@ -2769,7 +2769,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("subscriber_add_app")) {
-            badger_app.add_subscriber_screen(
+            silverback_app.add_subscriber_screen(
                 Vue,
                 axios,
                 $,
@@ -2779,7 +2779,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("subscriber_edit_app")) {
-            badger_app.edit_subscriber_screen(
+            silverback_app.edit_subscriber_screen(
                 Vue,
                 axios,
                 $,
@@ -2789,7 +2789,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("subscriber_list")) {
-            badger_app.subscriber_list_screen(
+            silverback_app.subscriber_list_screen(
                 Vue,
                 axios,
                 $,
@@ -2799,7 +2799,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("activity_list")) {
-            badger_app.activity_list_screen(
+            silverback_app.activity_list_screen(
                 Vue,
                 axios,
                 $,
@@ -2809,7 +2809,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("incident_update_view")) {
-            badger_app.incident_update_view_screen(
+            silverback_app.incident_update_view_screen(
                 Vue,
                 axios,
                 $,
@@ -2819,7 +2819,7 @@ $(document).ready(() => {
             );
         }
         if (document.getElementById("notification_list")) {
-            badger_app.notification_list_screen(
+            silverback_app.notification_list_screen(
                 Vue,
                 axios,
                 $,

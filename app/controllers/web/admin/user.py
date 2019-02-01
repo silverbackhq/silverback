@@ -29,7 +29,7 @@ class User_List(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Users · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger"))
+            "page_title": _("Users · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -47,7 +47,7 @@ class User_Add(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Add a User · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger"))
+            "page_title": _("Add a User · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -70,7 +70,7 @@ class User_Edit(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Edit User · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Badger")),
+            "page_title": _("Edit User · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "user": user
         })
 

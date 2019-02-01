@@ -70,8 +70,8 @@ class Settings(View):
                         'error': _('Error! Application name must be alpha numeric.')
                     },
                     'length_between': {
-                        'param': [3, 10],
-                        'error': _('Error! Application name must be 5 to 10 characters long.')
+                        'param': [2, 30],
+                        'error': _('Error! Application name must be 2 to 30 characters long.')
                     }
                 }
             },

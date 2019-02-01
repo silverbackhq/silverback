@@ -27,7 +27,7 @@ def handler500(request, exception=None, template_name='templates/500.html'):
 
     context.autoload_options()
     context.push({
-        "page_title": _("500 · %s") % context.get("app_name", os.getenv("APP_NAME", "Badger"))
+        "page_title": _("500 · %s") % context.get("app_name", os.getenv("APP_NAME", "Silverback"))
     })
 
     return render(request, template_name, context.get(), status=500)
