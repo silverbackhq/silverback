@@ -2,11 +2,12 @@
 {% load staticfiles %}
 {% load i18n %}
 
+
 {% block content %}
     <div class="page-main">
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
-            <div class="container">
+            <div class="container" id="dashboard">
                 <div class="page-header">
                     <h1 class="page-title">
                         {% trans "Dashboard" %}
@@ -17,8 +18,8 @@
                         <div class="card">
                             <div class="card-body p-3 text-center">
                                 <br/>
-                                <div class="h1 m-0">43</div>
-                                <div class="text-muted mb-4">Incidents</div>
+                                <div class="h1 m-0">{{ count.incidents }}</div>
+                                <div class="text-muted mb-4">{% trans "Incidents" %}</div>
                             </div>
                         </div>
                     </div>
@@ -26,8 +27,8 @@
                         <div class="card">
                             <div class="card-body p-3 text-center">
                                 <br/>
-                                <div class="h1 m-0">17</div>
-                                <div class="text-muted mb-4">Subscribers</div>
+                                <div class="h1 m-0">{{ count.subscribers }}</div>
+                                <div class="text-muted mb-4">{% trans "Subscribers" %}</div>
                             </div>
                         </div>
                     </div>
@@ -35,8 +36,8 @@
                         <div class="card">
                             <div class="card-body p-3 text-center">
                                 <br/>
-                                <div class="h1 m-0">7</div>
-                                <div class="text-muted mb-4">Components</div>
+                                <div class="h1 m-0">{{ count.components }}</div>
+                                <div class="text-muted mb-4">{% trans "Components" %}</div>
                             </div>
                         </div>
                     </div>
@@ -44,8 +45,8 @@
                         <div class="card">
                             <div class="card-body p-3 text-center">
                                 <br/>
-                                <div class="h1 m-0">27</div>
-                                <div class="text-muted mb-4">Component Groups</div>
+                                <div class="h1 m-0">{{ count.component_groups }}</div>
+                                <div class="text-muted mb-4">{% trans "Component Groups" %}</div>
                             </div>
                         </div>
                     </div>
@@ -53,8 +54,8 @@
                         <div class="card">
                             <div class="card-body p-3 text-center">
                                 <br/>
-                                <div class="h1 m-0">95</div>
-                                <div class="text-muted mb-4">Metrics</div>
+                                <div class="h1 m-0">{{ count.metrics }}</div>
+                                <div class="text-muted mb-4">{% trans "Metrics" %}</div>
                             </div>
                         </div>
                     </div>
@@ -62,8 +63,8 @@
                         <div class="card">
                             <div class="card-body p-3 text-center">
                                 <br/>
-                                <div class="h1 m-0">61</div>
-                                <div class="text-muted mb-4">Users</div>
+                                <div class="h1 m-0">{{ count.users }}</div>
+                                <div class="text-muted mb-4">{% trans "Users" %}</div>
                             </div>
                         </div>
                     </div>
@@ -72,94 +73,25 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Subscribers</h3>
+                                <h3 class="card-title">{% trans "Subscribers" %}</h3>
                             </div>
-                            <div id="chart-subscribers-activity" style="height: 10rem"></div>
+                            <div id="chart-subscribers" style="height: 10rem"></div>
                         </div>
-                        <script>
-                            require(['c3', 'jquery'], function(c3, $) {
-                                $(document).ready(function(){
-                                    var chart = c3.generate({
-                                        bindto: '#chart-subscribers-activity', // id of chart wrapper
-                                        data: {
-                                            columns: [
-                                                // each columns data
-                                                ['data1', 0, 5, 1, 2, 7, 5, 6, 8, 24, 7, 12, 5, 6, 3, 2, 2, 6, 30, 10, 10, 15, 14, 47, 65, 55]
-                                            ],
-                                            type: 'area', // default type of chart
-                                            groups: [
-                                                [ 'data1', 'data2', 'data3']
-                                            ],
-                                            colors: {
-                                                'data1': tabler.colors["green"]
-                                            },
-                                            names: {
-                                                // name of each serie
-                                                'data1': 'Subscribers'
-                                            }
-                                        },
-                                        axis: {
-                                            y: {
-                                                padding: {
-                                                    bottom: 0,
-                                                },
-                                                show: false,
-                                                    tick: {
-                                                    outer: false
-                                                }
-                                            },
-                                            x: {
-                                                padding: {
-                                                    left: 0,
-                                                    right: 0
-                                                },
-                                                show: false
-                                            }
-                                        },
-                                        legend: {
-                                            position: 'inset',
-                                            padding: 0,
-                                            inset: {
-                                                  anchor: 'top-left',
-                                                x: 20,
-                                                y: 8,
-                                                step: 10
-                                            }
-                                        },
-                                        tooltip: {
-                                            format: {
-                                                title: function (x) {
-                                                    return '';
-                                                }
-                                            }
-                                        },
-                                        padding: {
-                                            bottom: 0,
-                                            left: -1,
-                                            right: -1
-                                        },
-                                        point: {
-                                            show: false
-                                        }
-                                    });
-                                });
-                            });
-                        </script>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Affected Components</h3>
+                                <h3 class="card-title">{% trans "Affected Components" %}</h3>
                             </div>
-                            <div id="chart-development-activity" style="height: 10rem"></div>
+                            <div id="chart-components" style="height: 10rem"></div>
                             <div class="table-responsive">
                                 <table class="table card-table table-striped table-vcenter">
                                     <thead>
                                         <tr>
-                                            <th colspan="2">Component</th>
-                                            <th>Status</th>
+                                            <th colspan="2">{% trans "Component" %}</th>
+                                            <th>{% trans "Status" %}</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -173,157 +105,16 @@
                                 </table>
                             </div>
                         </div>
-                        <script>
-                            require(['c3', 'jquery'], function(c3, $) {
-                                $(document).ready(function(){
-                                    var chart = c3.generate({
-                                        bindto: '#chart-development-activity', // id of chart wrapper
-                                        data: {
-                                            columns: [
-                                                // each columns data
-                                                ['data1', 0, 5, 1, 2, 7, 5, 6, 8, 24, 7, 12, 5, 6, 3, 2, 2, 6, 30, 10, 10, 15, 14, 47, 65, 55]
-                                            ],
-                                            type: 'area', // default type of chart
-                                            groups: [
-                                                [ 'data1', 'data2', 'data3']
-                                            ],
-                                            colors: {
-                                                'data1': tabler.colors["red"]
-                                            },
-                                            names: {
-                                                // name of each serie
-                                                'data1': 'Affected Components'
-                                            }
-                                        },
-                                        axis: {
-                                            y: {
-                                                padding: {
-                                                    bottom: 0,
-                                                },
-                                                show: false,
-                                                    tick: {
-                                                    outer: false
-                                                }
-                                            },
-                                            x: {
-                                                padding: {
-                                                    left: 0,
-                                                    right: 0
-                                                },
-                                                show: false
-                                            }
-                                        },
-                                        legend: {
-                                            position: 'inset',
-                                            padding: 0,
-                                            inset: {
-                                                  anchor: 'top-left',
-                                                x: 20,
-                                                y: 8,
-                                                step: 10
-                                            }
-                                        },
-                                        tooltip: {
-                                            format: {
-                                                title: function (x) {
-                                                    return '';
-                                                }
-                                            }
-                                        },
-                                        padding: {
-                                            bottom: 0,
-                                            left: -1,
-                                            right: -1
-                                        },
-                                        point: {
-                                            show: false
-                                        }
-                                    });
-                                });
-                            });
-                        </script>
                     </div>
                     <div class="col-lg-6">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">Notifications</h3>
+                                        <h3 class="card-title">{% trans "Notifications" %}</h3>
                                     </div>
-                                    <div id="chart-notifications-activity" style="height: 10rem"></div>
+                                    <div id="chart-notifications" style="height: 10rem"></div>
                                 </div>
-                                <script>
-                                    require(['c3', 'jquery'], function(c3, $) {
-                                        $(document).ready(function(){
-                                            var chart = c3.generate({
-                                                bindto: '#chart-notifications-activity', // id of chart wrapper
-                                                data: {
-                                                    columns: [
-                                                        // each columns data
-                                                        ['data1', 0, 5, 1, 2, 7, 5, 6, 8, 24, 7, 12, 5, 6, 3, 2, 2, 6, 30, 10, 10, 15, 14, 47, 65, 55],
-                                                        ['data2', 0, 1, 0, 1, 3, 2, 3, 2, 1, 6, 3, 3, 2, 3, 0, 0, 0, 0, 0, 0, 5, 4, 7, 5, 5]
-                                                    ],
-                                                    type: 'area', // default type of chart
-                                                    groups: [
-                                                        [ 'data1', 'data2']
-                                                    ],
-                                                    colors: {
-                                                        'data1': tabler.colors["green"],
-                                                        'data2': tabler.colors["red"]
-                                                    },
-                                                    names: {
-                                                        // name of each serie
-                                                        'data1': 'Deliverd',
-                                                        'data2': 'Failed'
-                                                    }
-                                                },
-                                                axis: {
-                                                    y: {
-                                                        padding: {
-                                                            bottom: 0,
-                                                        },
-                                                        show: false,
-                                                            tick: {
-                                                            outer: false
-                                                        }
-                                                    },
-                                                    x: {
-                                                        padding: {
-                                                            left: 0,
-                                                            right: 0
-                                                        },
-                                                        show: false
-                                                    }
-                                                },
-                                                legend: {
-                                                    position: 'inset',
-                                                    padding: 0,
-                                                    inset: {
-                                                          anchor: 'top-left',
-                                                        x: 20,
-                                                        y: 8,
-                                                        step: 10
-                                                    }
-                                                },
-                                                tooltip: {
-                                                    format: {
-                                                        title: function (x) {
-                                                            return '';
-                                                        }
-                                                    }
-                                                },
-                                                padding: {
-                                                    bottom: 0,
-                                                    left: -1,
-                                                    right: -1
-                                                },
-                                                point: {
-                                                    show: false
-                                                }
-                                            });
-                                        });
-                                    });
-                                </script>
                             </div>
                         </div>
                         <div class="row">
@@ -334,7 +125,7 @@
                                             <i class="fe fe-send"></i>
                                         </span>
                                         <div>
-                                            <h4 class="m-0">78 <small>Total Sent</small></h4>
+                                            <h4 class="m-0">{{ count.delivered_notifications }} <small>{% trans "Total Delivered" %}</small></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -346,7 +137,7 @@
                                             <i class="fe fe-x"></i>
                                         </span>
                                         <div>
-                                            <h4 class="m-0">78 <small>Total Failed</small></h4>
+                                            <h4 class="m-0">{{ count.failed_notifications }} <small>{% trans "Total Failed" %}</small></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -358,86 +149,17 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Incidents</h3>
+                                <h3 class="card-title">{% trans "Incidents" %}</h3>
                             </div>
-                            <div id="chart-incidents-activity" style="height: 10rem"></div>
+                            <div id="chart-incidents" style="height: 10rem"></div>
                         </div>
-                        <script>
-                            require(['c3', 'jquery'], function(c3, $) {
-                                $(document).ready(function(){
-                                    var chart = c3.generate({
-                                        bindto: '#chart-incidents-activity', // id of chart wrapper
-                                        data: {
-                                            columns: [
-                                                // each columns data
-                                                ['data1', 0, 5, 1, 2, 7, 5, 6, 8, 24, 7, 12, 5, 6, 3, 2, 2, 6, 30, 10, 10, 15, 14, 47, 65, 55]
-                                            ],
-                                            type: 'area', // default type of chart
-                                            groups: [
-                                                [ 'data1']
-                                            ],
-                                            colors: {
-                                                'data1': tabler.colors["red"]
-                                            },
-                                            names: {
-                                                // name of each serie
-                                                'data1': 'Incidents'
-                                            }
-                                        },
-                                        axis: {
-                                            y: {
-                                                padding: {
-                                                    bottom: 0,
-                                                },
-                                                show: false,
-                                                    tick: {
-                                                    outer: false
-                                                }
-                                            },
-                                            x: {
-                                                padding: {
-                                                    left: 0,
-                                                    right: 0
-                                                },
-                                                show: false
-                                            }
-                                        },
-                                        legend: {
-                                            position: 'inset',
-                                            padding: 0,
-                                            inset: {
-                                                  anchor: 'top-left',
-                                                x: 20,
-                                                y: 8,
-                                                step: 10
-                                            }
-                                        },
-                                        tooltip: {
-                                            format: {
-                                                title: function (x) {
-                                                    return '';
-                                                }
-                                            }
-                                        },
-                                        padding: {
-                                            bottom: 0,
-                                            left: -1,
-                                            right: -1
-                                        },
-                                        point: {
-                                            show: false
-                                        }
-                                    });
-                                });
-                            });
-                        </script>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Open Incidents</h3>
+                                <h3 class="card-title">{% trans "Open Incidents" %}</h3>
                             </div>
                             <div class="table-responsive">
                                 <table class="table card-table table-vcenter text-nowrap">
@@ -465,9 +187,273 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+    <script type="text/javascript">
+        require(['c3', 'jquery'], function(c3, $) {
+            $(document).ready(function(){
+
+                var subscribers_chart = c3.generate({
+                    bindto: '#chart-subscribers', // id of chart wrapper
+                    data: {
+                        columns: [
+                            // each columns data
+                            ['data1', {{ chart.subscribers }}]
+                        ],
+                        type: 'area', // default type of chart
+                        groups: [
+                            [ 'data1', 'data2', 'data3']
+                        ],
+                        colors: {
+                            'data1': tabler.colors["green"]
+                        },
+                        names: {
+                            // name of each serie
+                            'data1': '{% trans "Subscribers" %}'
+                        }
+                    },
+                    axis: {
+                        y: {
+                            padding: {
+                                bottom: 0,
+                            },
+                            show: false,
+                                tick: {
+                                outer: false
+                            }
+                        },
+                        x: {
+                            padding: {
+                                left: 0,
+                                right: 0
+                            },
+                            show: false
+                        }
+                    },
+                    legend: {
+                        position: 'inset',
+                        padding: 0,
+                        inset: {
+                              anchor: 'top-left',
+                            x: 20,
+                            y: 8,
+                            step: 10
+                        }
+                    },
+                    tooltip: {
+                        format: {
+                            title: function (x) {
+                                return '';
+                            }
+                        }
+                    },
+                    padding: {
+                        bottom: 0,
+                        left: -1,
+                        right: -1
+                    },
+                    point: {
+                        show: false
+                    }
+                });
+
+                var components_chart = c3.generate({
+                    bindto: '#chart-components', // id of chart wrapper
+                    data: {
+                        columns: [
+                            // each columns data
+                            ['data1', {{ chart.components }}]
+                        ],
+                        type: 'area', // default type of chart
+                        groups: [
+                            [ 'data1', 'data2', 'data3']
+                        ],
+                        colors: {
+                            'data1': tabler.colors["red"]
+                        },
+                        names: {
+                            // name of each serie
+                            'data1': '{% trans "Affected Components" %}'
+                        }
+                    },
+                    axis: {
+                        y: {
+                            padding: {
+                                bottom: 0,
+                            },
+                            show: false,
+                                tick: {
+                                outer: false
+                            }
+                        },
+                        x: {
+                            padding: {
+                                left: 0,
+                                right: 0
+                            },
+                            show: false
+                        }
+                    },
+                    legend: {
+                        position: 'inset',
+                        padding: 0,
+                        inset: {
+                              anchor: 'top-left',
+                            x: 20,
+                            y: 8,
+                            step: 10
+                        }
+                    },
+                    tooltip: {
+                        format: {
+                            title: function (x) {
+                                return '';
+                            }
+                        }
+                    },
+                    padding: {
+                        bottom: 0,
+                        left: -1,
+                        right: -1
+                    },
+                    point: {
+                        show: false
+                    }
+                });
+
+                var notifications_chart = c3.generate({
+                    bindto: '#chart-notifications', // id of chart wrapper
+                    data: {
+                        columns: [
+                            // each columns data
+                            ['data1', {{ chart.delivered_notifications }}],
+                            ['data2', {{ chart.failed_notifications }}]
+                        ],
+                        type: 'area', // default type of chart
+                        groups: [
+                            [ 'data1', 'data2']
+                        ],
+                        colors: {
+                            'data1': tabler.colors["green"],
+                            'data2': tabler.colors["red"]
+                        },
+                        names: {
+                            // name of each serie
+                            'data1': '{% trans "Deliverd" %}',
+                            'data2': '{% trans "Failed" %}'
+                        }
+                    },
+                    axis: {
+                        y: {
+                            padding: {
+                                bottom: 0,
+                            },
+                            show: false,
+                                tick: {
+                                outer: false
+                            }
+                        },
+                        x: {
+                            padding: {
+                                left: 0,
+                                right: 0
+                            },
+                            show: false
+                        }
+                    },
+                    legend: {
+                        position: 'inset',
+                        padding: 0,
+                        inset: {
+                              anchor: 'top-left',
+                            x: 20,
+                            y: 8,
+                            step: 10
+                        }
+                    },
+                    tooltip: {
+                        format: {
+                            title: function (x) {
+                                return '';
+                            }
+                        }
+                    },
+                    padding: {
+                        bottom: 0,
+                        left: -1,
+                        right: -1
+                    },
+                    point: {
+                        show: false
+                    }
+                });
+
+                var incidents_chart = c3.generate({
+                    bindto: '#chart-incidents', // id of chart wrapper
+                    data: {
+                        columns: [
+                            // each columns data
+                            ['data1', {{ chart.incidents }}]
+                        ],
+                        type: 'area', // default type of chart
+                        groups: [
+                            [ 'data1']
+                        ],
+                        colors: {
+                            'data1': tabler.colors["red"]
+                        },
+                        names: {
+                            // name of each serie
+                            'data1': '{% trans "Incidents" %}'
+                        }
+                    },
+                    axis: {
+                        y: {
+                            padding: {
+                                bottom: 0,
+                            },
+                            show: false,
+                                tick: {
+                                outer: false
+                            }
+                        },
+                        x: {
+                            padding: {
+                                left: 0,
+                                right: 0
+                            },
+                            show: false
+                        }
+                    },
+                    legend: {
+                        position: 'inset',
+                        padding: 0,
+                        inset: {
+                              anchor: 'top-left',
+                            x: 20,
+                            y: 8,
+                            step: 10
+                        }
+                    },
+                    tooltip: {
+                        format: {
+                            title: function (x) {
+                                return '';
+                            }
+                        }
+                    },
+                    padding: {
+                        bottom: 0,
+                        left: -1,
+                        right: -1
+                    },
+                    point: {
+                        show: false
+                    }
+                });
+            });
+        });
+    </script>
     {% include 'partials/bottom-menu.html' %}
 
 {% endblock %}

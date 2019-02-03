@@ -2488,6 +2488,36 @@ silverback_app.notification_list_screen = (Vue, axios, $, Pace, Cookies, toastr)
 }
 
 
+/**
+ * Dashboard
+ */
+silverback_app.dashboard_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#dashboard',
+        data() {
+            return {
+                count: {
+                    incidents: 2
+                },
+                color: "red"
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+
+            }
+        }
+    });
+
+}
+
+
 $(document).ready(() => {
 
     $(document).ajaxStart(() => {
@@ -2820,6 +2850,16 @@ $(document).ready(() => {
         }
         if (document.getElementById("notification_list")) {
             silverback_app.notification_list_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("dashboard")) {
+            silverback_app.dashboard_screen(
                 Vue,
                 axios,
                 $,
