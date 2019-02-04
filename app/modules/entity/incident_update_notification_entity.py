@@ -70,6 +70,9 @@ class Incident_Update_Notification_Entity():
             return True if count > 0 else False
         return False
 
+    def count_by_status(self, status):
+        return Incident_Update_Notification.objects.filter(status=status).count()
+
     def count_over_days(self, status, days=7):
         last_x_days = timezone.now() - datetime.timedelta(days)
         return Incident_Update_Notification.objects.filter(

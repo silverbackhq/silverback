@@ -36,14 +36,14 @@ class Dashboard(View):
                 "component_groups": self.__dashboard.component_groups_count(),
                 "metrics": self.__dashboard.metrics_count(),
                 "users": self.__dashboard.users_count(),
-                "delivered_notifications": self.__dashboard.delivered_notifications_count(),
-                "failed_notifications": self.__dashboard.failed_notifications_count()
+                "delivered_notifications": self.__dashboard.notifications_count("success"),
+                "failed_notifications": self.__dashboard.notifications_count("failed")
             },
             "chart": {
                 "subscribers": self.__dashboard.subscribers_chart(),
                 "components": self.__dashboard.components_chart(),
-                "delivered_notifications": self.__dashboard.delivered_notifications_chart(),
-                "failed_notifications": self.__dashboard.failed_notifications_chart(),
+                "delivered_notifications": self.__dashboard.notifications_chart("success", 14),
+                "failed_notifications": self.__dashboard.notifications_chart("failed", 14),
                 "incidents": self.__dashboard.incidents_chart()
             }
         })
