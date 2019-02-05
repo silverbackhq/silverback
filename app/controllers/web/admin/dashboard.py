@@ -45,7 +45,9 @@ class Dashboard(View):
                 "delivered_notifications": self.__dashboard.notifications_chart("success", 14),
                 "failed_notifications": self.__dashboard.notifications_chart("failed", 14),
                 "incidents": self.__dashboard.incidents_chart()
-            }
+            },
+            "open_incidents": self.__dashboard.get_open_incidents(),
+            "affected_components": self.__dashboard.get_affected_components()
         })
 
         return render(request, self.template_name, self.__context.get())

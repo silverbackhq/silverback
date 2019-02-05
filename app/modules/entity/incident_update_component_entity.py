@@ -3,6 +3,7 @@ Incident Update Component Module
 """
 
 import datetime
+import pytz
 
 from django.db.models.aggregates import Count
 from django.utils import timezone
@@ -58,6 +59,15 @@ class Incident_Update_Component_Entity():
             return False if item.pk is None else item
         except Exception:
             return False
+
+    def get_affected_components(self, days=0):
+        last_x_days = timezone.now() - datetime.timedelta(days)
+        return Incident_Update_Component.objects.filter(created_at__gte=datetime.datetime(
+            last_x_days.year,
+            last_x_days.month,
+            last_x_days.day,
+            tzinfo=pytz.UTC
+        )).order_by('-created_at')
 
     def delete_one_by_id(self, id):
         item = self.get_one_by_id(id)

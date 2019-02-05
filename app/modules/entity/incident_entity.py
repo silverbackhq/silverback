@@ -54,6 +54,9 @@ class Incident_Entity():
 
         return Incident.objects.order_by('-created_at')[offset:limit+offset]
 
+    def get_by_status(self, status):
+        return Incident.objects.filter(status=status).order_by('-created_at')
+
     def get_one_by_id(self, incident_id):
         try:
             incident = Incident.objects.get(id=incident_id)

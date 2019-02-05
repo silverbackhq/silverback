@@ -96,13 +96,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td colspan="2">Cloud API</td>
-                                            <td>Major Outage</td>
-                                            <td class="w-1"><a href="#" class="icon"><i class="fe fe-link"></i></a></td>
-                                        </tr>
+                                        {% if affected_components %}
+                                            {% for affected_component in affected_components %}
+                                                <tr>
+                                                    <td colspan="2">{{ affected_component.name }}</td>
+                                                    <td>{{ affected_component.type }}</td>
+                                                    <td class="w-1"><a href="{% url 'app.web.admin.incident_update.view' affected_component.incident_id affected_component.update_id %}" class="icon"><i class="fe fe-link"></i></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="4" class="text-center small text-muted">
+                                                    {% trans "Nice! No affected components today!" %}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
                                     </tbody>
                                 </table>
+                                <br/>
                             </div>
                         </div>
                     </div>
@@ -173,12 +184,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td colspan="5" class="text-center small text-muted">
-                                                <br/>
-                                                {% trans "Nice! No open incidents." %}
-                                            </td>
-                                        </tr>
+                                        {% if open_incidents %}
+                                            {% for open_incident in open_incidents %}
+                                                <tr>
+                                                    <td><a href="{% url 'app.web.admin.incident.view' open_incident.id %}" class="text-inherit">{{ open_incident.name }}</a></td>
+                                                    <td>{{ open_incident.status }}</td>
+                                                    <td>{{ open_incident.created_at }}</td>
+                                                    <td colspan="2" class="text-right">
+                                                        <a href="{% url 'app.web.admin.incident.view' open_incident.id %}" class="btn btn-secondary btn-sm">{% trans "Manage" %}</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="5" class="text-center small text-muted">
+                                                    <br/>
+                                                    {% trans "Nice! No open incidents." %}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
                                     </tbody>
                                 </table>
                                 <br/><br/>

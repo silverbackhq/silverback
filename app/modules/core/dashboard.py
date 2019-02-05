@@ -102,6 +102,36 @@ class Dashboard():
                 points[key] = incident["count"]
         return ", ".join(str(x) for x in list(points.values()))
 
+    def get_open_incidents(self):
+        incidents = self.__incident.get_by_status("open")
+        incidents_list = []
+
+        for incident in incidents:
+            incidents_list.append({
+                "id": incident.id,
+                "name": incident.name,
+                "uri": incident.uri,
+                "status": incident.status.title(),
+                "created_at": incident.created_at.strftime("%b %d %Y %H:%M:%S")
+            })
+
+        return incidents_list
+
+    def get_affected_components(self):
+        affected_components = self.__incident_update_component.get_affected_components(0)
+        affected_components_list = []
+
+        for affected_component in affected_components:
+            affected_components_list.append({
+                "id": affected_component.id,
+                "name": affected_component.component.name,
+                "type": affected_component.type.replace("_", " ").title(),
+                "update_id": affected_component.incident_update.id,
+                "incident_id": affected_component.incident_update.incident.id
+            })
+
+        return affected_components_list
+
     def __build_points(self, days):
         i = days
         points = {}
