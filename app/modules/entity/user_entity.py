@@ -1,10 +1,13 @@
 """
 User Entity Module
 """
+import datetime
 
 # Django
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.db.models.aggregates import Count
+from django.utils import timezone
 
 
 class User_Entity():
@@ -146,3 +149,9 @@ class User_Entity():
             return User.objects.order_by('-date_joined').get()
 
         return User.objects.order_by('-date_joined')[offset:limit+offset]
+
+    def count_over_days(self, days=7):
+        last_x_days = timezone.now() - datetime.timedelta(days)
+        return User.objects.filter(
+            date_joined__gte=last_x_days
+        ).extra({"day": "date(date_joined)"}).values("day").order_by('-day').annotate(count=Count("id"))

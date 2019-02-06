@@ -2,6 +2,12 @@
 Incident Update Component Module
 """
 
+import datetime
+import pytz
+
+from django.db.models.aggregates import Count
+from django.utils import timezone
+
 from app.models import Component
 from app.models import Incident_Update
 from app.models import Incident_Update_Component
@@ -54,9 +60,24 @@ class Incident_Update_Component_Entity():
         except Exception:
             return False
 
+    def get_affected_components(self, days=0):
+        last_x_days = timezone.now() - datetime.timedelta(days)
+        return Incident_Update_Component.objects.filter(created_at__gte=datetime.datetime(
+            last_x_days.year,
+            last_x_days.month,
+            last_x_days.day,
+            tzinfo=pytz.UTC
+        )).order_by('-created_at')
+
     def delete_one_by_id(self, id):
         item = self.get_one_by_id(id)
         if item is not False:
             count, deleted = item.delete()
             return True if count > 0 else False
         return False
+
+    def count_over_days(self, days=7):
+        last_x_days = timezone.now() - datetime.timedelta(days)
+        return Incident_Update_Component.objects.filter(
+            created_at__gte=last_x_days
+        ).extra({"day": "date(created_at)"}).values("day").order_by('-day').annotate(count=Count("id"))

@@ -2,6 +2,11 @@
 Incident Update Notification Module
 """
 
+import datetime
+
+from django.db.models.aggregates import Count
+from django.utils import timezone
+
 from app.models import Subscriber
 from app.models import Incident_Update
 from app.models import Incident_Update_Notification
@@ -64,3 +69,13 @@ class Incident_Update_Notification_Entity():
             count, deleted = item.delete()
             return True if count > 0 else False
         return False
+
+    def count_by_status(self, status):
+        return Incident_Update_Notification.objects.filter(status=status).count()
+
+    def count_over_days(self, status, days=7):
+        last_x_days = timezone.now() - datetime.timedelta(days)
+        return Incident_Update_Notification.objects.filter(
+            created_at__gte=last_x_days,
+            status=status
+        ).extra({"day": "date(created_at)"}).values("day").order_by('-day').annotate(count=Count("id"))

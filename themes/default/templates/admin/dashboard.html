@@ -2,20 +2,482 @@
 {% load staticfiles %}
 {% load i18n %}
 
+
 {% block content %}
     <div class="page-main">
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
-            <div class="container">
+            <div class="container" id="dashboard">
                 <div class="page-header">
                     <h1 class="page-title">
                         {% trans "Dashboard" %}
                     </h1>
                 </div>
-
+                <div class="row row-cards">
+                    <div class="col-6 col-sm-4 col-lg-2">
+                        <div class="card">
+                            <div class="card-body p-3 text-center">
+                                <br/>
+                                <div class="h1 m-0">{{ count.incidents }}</div>
+                                <div class="text-muted mb-4">{% trans "Incidents" %}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-2">
+                        <div class="card">
+                            <div class="card-body p-3 text-center">
+                                <br/>
+                                <div class="h1 m-0">{{ count.subscribers }}</div>
+                                <div class="text-muted mb-4">{% trans "Subscribers" %}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-2">
+                        <div class="card">
+                            <div class="card-body p-3 text-center">
+                                <br/>
+                                <div class="h1 m-0">{{ count.components }}</div>
+                                <div class="text-muted mb-4">{% trans "Components" %}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-2">
+                        <div class="card">
+                            <div class="card-body p-3 text-center">
+                                <br/>
+                                <div class="h1 m-0">{{ count.component_groups }}</div>
+                                <div class="text-muted mb-4">{% trans "Component Groups" %}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-2">
+                        <div class="card">
+                            <div class="card-body p-3 text-center">
+                                <br/>
+                                <div class="h1 m-0">{{ count.metrics }}</div>
+                                <div class="text-muted mb-4">{% trans "Metrics" %}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-lg-2">
+                        <div class="card">
+                            <div class="card-body p-3 text-center">
+                                <br/>
+                                <div class="h1 m-0">{{ count.users }}</div>
+                                <div class="text-muted mb-4">{% trans "Users" %}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Subscribers" %}</h3>
+                            </div>
+                            <div id="chart-subscribers" style="height: 10rem"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Affected Components" %}</h3>
+                            </div>
+                            <div id="chart-components" style="height: 10rem"></div>
+                            <div class="table-responsive">
+                                <table class="table card-table table-striped table-vcenter">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">{% trans "Component" %}</th>
+                                            <th>{% trans "Status" %}</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if affected_components %}
+                                            {% for affected_component in affected_components %}
+                                                <tr>
+                                                    <td colspan="2">{{ affected_component.name }}</td>
+                                                    <td>{{ affected_component.type }}</td>
+                                                    <td class="w-1"><a href="{% url 'app.web.admin.incident_update.view' affected_component.incident_id affected_component.update_id %}" class="icon"><i class="fe fe-link"></i></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="4" class="text-center small text-muted">
+                                                    {% trans "Nice! No affected components today!" %}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">{% trans "Notifications" %}</h3>
+                                    </div>
+                                    <div id="chart-notifications" style="height: 10rem"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card p-3">
+                                    <div class="d-flex align-items-center">
+                                        <span class="stamp stamp-md bg-green mr-3">
+                                            <i class="fe fe-send"></i>
+                                        </span>
+                                        <div>
+                                            <h4 class="m-0">{{ count.delivered_notifications }} <small>{% trans "Total Delivered" %}</small></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card p-3">
+                                    <div class="d-flex align-items-center">
+                                        <span class="stamp stamp-md bg-red mr-3">
+                                            <i class="fe fe-x"></i>
+                                        </span>
+                                        <div>
+                                            <h4 class="m-0">{{ count.failed_notifications }} <small>{% trans "Total Failed" %}</small></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Incidents" %}</h3>
+                            </div>
+                            <div id="chart-incidents" style="height: 10rem"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Open Incidents" %}</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table card-table table-vcenter text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>{% trans "Name" %}</th>
+                                            <th>{% trans "Status" %}</th>
+                                            <th>{% trans "Created" %}</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if open_incidents %}
+                                            {% for open_incident in open_incidents %}
+                                                <tr>
+                                                    <td><a href="{% url 'app.web.admin.incident.view' open_incident.id %}" class="text-inherit">{{ open_incident.name }}</a></td>
+                                                    <td>{{ open_incident.status }}</td>
+                                                    <td>{{ open_incident.created_at }}</td>
+                                                    <td colspan="2" class="text-right">
+                                                        <a href="{% url 'app.web.admin.incident.view' open_incident.id %}" class="btn btn-secondary btn-sm">{% trans "Manage" %}</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="5" class="text-center small text-muted">
+                                                    <br/>
+                                                    {% trans "Nice! No open incidents." %}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                                <br/><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        require(['c3', 'jquery'], function(c3, $) {
+            $(document).ready(function(){
+
+                var subscribers_chart = c3.generate({
+                    bindto: '#chart-subscribers', // id of chart wrapper
+                    data: {
+                        columns: [
+                            // each columns data
+                            ['data1', {{ chart.subscribers }}]
+                        ],
+                        type: 'area', // default type of chart
+                        groups: [
+                            [ 'data1', 'data2', 'data3']
+                        ],
+                        colors: {
+                            'data1': tabler.colors["green"]
+                        },
+                        names: {
+                            // name of each serie
+                            'data1': '{% trans "Subscribers" %}'
+                        }
+                    },
+                    axis: {
+                        y: {
+                            padding: {
+                                bottom: 0,
+                            },
+                            show: false,
+                                tick: {
+                                outer: false
+                            }
+                        },
+                        x: {
+                            padding: {
+                                left: 0,
+                                right: 0
+                            },
+                            show: false
+                        }
+                    },
+                    legend: {
+                        position: 'inset',
+                        padding: 0,
+                        inset: {
+                              anchor: 'top-left',
+                            x: 20,
+                            y: 8,
+                            step: 10
+                        }
+                    },
+                    tooltip: {
+                        format: {
+                            title: function (x) {
+                                return '';
+                            }
+                        }
+                    },
+                    padding: {
+                        bottom: 0,
+                        left: -1,
+                        right: -1
+                    },
+                    point: {
+                        show: false
+                    }
+                });
+
+                var components_chart = c3.generate({
+                    bindto: '#chart-components', // id of chart wrapper
+                    data: {
+                        columns: [
+                            // each columns data
+                            ['data1', {{ chart.components }}]
+                        ],
+                        type: 'area', // default type of chart
+                        groups: [
+                            [ 'data1', 'data2', 'data3']
+                        ],
+                        colors: {
+                            'data1': tabler.colors["red"]
+                        },
+                        names: {
+                            // name of each serie
+                            'data1': '{% trans "Affected Components" %}'
+                        }
+                    },
+                    axis: {
+                        y: {
+                            padding: {
+                                bottom: 0,
+                            },
+                            show: false,
+                                tick: {
+                                outer: false
+                            }
+                        },
+                        x: {
+                            padding: {
+                                left: 0,
+                                right: 0
+                            },
+                            show: false
+                        }
+                    },
+                    legend: {
+                        position: 'inset',
+                        padding: 0,
+                        inset: {
+                              anchor: 'top-left',
+                            x: 20,
+                            y: 8,
+                            step: 10
+                        }
+                    },
+                    tooltip: {
+                        format: {
+                            title: function (x) {
+                                return '';
+                            }
+                        }
+                    },
+                    padding: {
+                        bottom: 0,
+                        left: -1,
+                        right: -1
+                    },
+                    point: {
+                        show: false
+                    }
+                });
+
+                var notifications_chart = c3.generate({
+                    bindto: '#chart-notifications', // id of chart wrapper
+                    data: {
+                        columns: [
+                            // each columns data
+                            ['data1', {{ chart.delivered_notifications }}],
+                            ['data2', {{ chart.failed_notifications }}]
+                        ],
+                        type: 'area', // default type of chart
+                        groups: [
+                            [ 'data1', 'data2']
+                        ],
+                        colors: {
+                            'data1': tabler.colors["green"],
+                            'data2': tabler.colors["red"]
+                        },
+                        names: {
+                            // name of each serie
+                            'data1': '{% trans "Deliverd" %}',
+                            'data2': '{% trans "Failed" %}'
+                        }
+                    },
+                    axis: {
+                        y: {
+                            padding: {
+                                bottom: 0,
+                            },
+                            show: false,
+                                tick: {
+                                outer: false
+                            }
+                        },
+                        x: {
+                            padding: {
+                                left: 0,
+                                right: 0
+                            },
+                            show: false
+                        }
+                    },
+                    legend: {
+                        position: 'inset',
+                        padding: 0,
+                        inset: {
+                              anchor: 'top-left',
+                            x: 20,
+                            y: 8,
+                            step: 10
+                        }
+                    },
+                    tooltip: {
+                        format: {
+                            title: function (x) {
+                                return '';
+                            }
+                        }
+                    },
+                    padding: {
+                        bottom: 0,
+                        left: -1,
+                        right: -1
+                    },
+                    point: {
+                        show: false
+                    }
+                });
+
+                var incidents_chart = c3.generate({
+                    bindto: '#chart-incidents', // id of chart wrapper
+                    data: {
+                        columns: [
+                            // each columns data
+                            ['data1', {{ chart.incidents }}]
+                        ],
+                        type: 'area', // default type of chart
+                        groups: [
+                            [ 'data1']
+                        ],
+                        colors: {
+                            'data1': tabler.colors["red"]
+                        },
+                        names: {
+                            // name of each serie
+                            'data1': '{% trans "Incidents" %}'
+                        }
+                    },
+                    axis: {
+                        y: {
+                            padding: {
+                                bottom: 0,
+                            },
+                            show: false,
+                                tick: {
+                                outer: false
+                            }
+                        },
+                        x: {
+                            padding: {
+                                left: 0,
+                                right: 0
+                            },
+                            show: false
+                        }
+                    },
+                    legend: {
+                        position: 'inset',
+                        padding: 0,
+                        inset: {
+                              anchor: 'top-left',
+                            x: 20,
+                            y: 8,
+                            step: 10
+                        }
+                    },
+                    tooltip: {
+                        format: {
+                            title: function (x) {
+                                return '';
+                            }
+                        }
+                    },
+                    padding: {
+                        bottom: 0,
+                        left: -1,
+                        right: -1
+                    },
+                    point: {
+                        show: false
+                    }
+                });
+            });
+        });
+    </script>
     {% include 'partials/bottom-menu.html' %}
 
 {% endblock %}
