@@ -22,7 +22,8 @@ def forgot_password_email(app_name, app_email, app_url, recipient_list, token, s
             html_message=render_to_string(template, {
                 "app_url": app_url,
                 "token": token,
-                "app_name": app_name
+                "app_name": app_name,
+                "subject": subject
             }))
         return {
             "status": "passed",
