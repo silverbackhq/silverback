@@ -12,11 +12,11 @@ from .incident import Incident
 class Incident_Update(models.Model):
 
     STATUS_CHOICES = (
-        ('Investigating', 'INVESTIGATING'),
-        ('Identified', 'IDENTIFIED'),
-        ('Monitoring', 'MONITORING'),
-        ('Update', 'UPDATE'),
-        ('Resolved', 'RESOLVED')
+        ('investigating', 'INVESTIGATING'),
+        ('identified', 'IDENTIFIED'),
+        ('monitoring', 'MONITORING'),
+        ('update', 'UPDATE'),
+        ('resolved', 'RESOLVED')
     )
 
     NOTIFY_CHOICES = (
@@ -32,7 +32,7 @@ class Incident_Update(models.Model):
         null=True
     )
 
-    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="open", verbose_name="Status")
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="update", verbose_name="Status")
     notify_subscribers = models.CharField(max_length=50, choices=NOTIFY_CHOICES, default="on", verbose_name="Notify Subscribers")
     total_suscribers = models.IntegerField(default=0, verbose_name="Total Subscribers")
     datetime = models.DateTimeField(verbose_name="Datetime")

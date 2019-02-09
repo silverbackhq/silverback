@@ -6,9 +6,39 @@
         <tr>
             <td>
                 <p>{% trans "Hi there," %}</p>
-                <p>{% trans "Incident report for" %}</p>
+                <table border="0" cellpadding="4" cellspacing="4">
+                    <tbody>
+                        <tr>
+                            <td><strong>{{ incident_type }}</strong></td>
+                            <td>
+                                {% autoescape off %}
+                                    {{ incident_update }}
+                                {% endautoescape %}
+                                <p><small>{% trans "Posted" %} {{ incident_update_time }}</small></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                    <tbody>
+                        <tr>
+                            <td align="center">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="{{ app_url }}{{ incident_uri }}" target="_blank">{% trans "Incident Report" %}</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <p>{% trans "Thanks," %}<br/>{{ app_name }} {% trans "Team" %}.</p>
             </td>
         </tr>
     </table>
 {% endblock %}
+
+
+

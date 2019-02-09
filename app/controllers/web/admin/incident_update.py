@@ -4,6 +4,7 @@ Components Web Controller
 
 # standard library
 import os
+import markdown2
 
 # Django
 from django.views import View
@@ -74,7 +75,7 @@ class Incident_Update_View(View):
             raise Http404("Incident update not found.")
 
         update["datetime"] = update["datetime"].strftime("%b %d %Y %H:%M:%S")
-        update["message"] = update["message"].replace("\n", "<br/>")
+        update["message"] = markdown2.markdown(update["message"])
         update["notified_subscribers"] = self.__incident_update_notification.count_by_update_status(
             update["id"],
             Incident_Update_Notification_Module.SUCCESS

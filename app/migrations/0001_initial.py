@@ -71,11 +71,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('status', models.CharField(choices=[
-                    ('Investigating', 'INVESTIGATING'),
-                    ('Identified', 'IDENTIFIED'),
-                    ('Monitoring', 'MONITORING'),
-                    ('Update', 'UPDATE'),
-                    ('Resolved', 'RESOLVED')
+                    ('investigating', 'INVESTIGATING'),
+                    ('identified', 'IDENTIFIED'),
+                    ('monitoring', 'MONITORING'),
+                    ('update', 'UPDATE'),
+                    ('resolved', 'RESOLVED')
                 ], default='open', max_length=50, verbose_name='Status')),
                 ('notify_subscribers', models.CharField(choices=[
                     ('on', 'ON'),

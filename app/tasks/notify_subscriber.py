@@ -9,6 +9,7 @@ from django.utils.translation import gettext as _
 
 # Third party
 import requests
+import markdown2
 from celery import shared_task
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
@@ -30,6 +31,12 @@ def notify_subscriber(notification_id):
     incident = notification["incident_update"].incident
     subscriber = notification["subscriber"]
 
+    data = {}
+    data["incident_uri"] = incident.uri
+    data["incident_update_time"] = incident_update.datetime.strftime("%b %d %Y %H:%M:%S")
+    data["incident_type"] = incident_update.status.title()
+    data["incident_update"] = markdown2.markdown(incident_update.message)
+
     if notification["status"] == "pending":
         # send the notification for the first time
         if subscriber.type == Subscriber_Module.EMAIL:
@@ -40,12 +47,7 @@ def notify_subscriber(notification_id):
                 [subscriber.email],
                 _("%s Incident Update: %s") % (app_name, incident.name),
                 "mails/incident_update.html",
-                {
-                    "notification": notification,
-                    "incident_update": incident_update,
-                    "incident": incident,
-                    "subscriber": subscriber
-                },
+                data,
                 False
             )
         elif subscriber.type == Subscriber_Module.PHONE:
@@ -82,12 +84,7 @@ def notify_subscriber(notification_id):
                 [subscriber.email],
                 _("%s Incident Update: %s") % (app_name, incident.name),
                 "mails/incident_update.html",
-                {
-                    "notification": notification,
-                    "incident_update": incident_update,
-                    "incident": incident,
-                    "subscriber": subscriber
-                },
+                data,
                 False
             )
         elif subscriber.type == Subscriber_Module.PHONE:
@@ -126,7 +123,11 @@ def __deliver_email(app_name, app_email, app_url, recipients, subject, template,
             html_message=render_to_string(template, {
                 "app_url": app_url,
                 "app_name": app_name,
-                "subject": subject
+                "subject": subject,
+                "incident_type": data["incident_type"],
+                "incident_update": data["incident_update"],
+                "incident_update_time": data["incident_update_time"],
+                "incident_uri": data["incident_uri"]
             })
         )
         return True
