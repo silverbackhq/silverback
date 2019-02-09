@@ -22,23 +22,10 @@ def incident_update(incident_update_id, user_id):
             subscriber.id
         )
         if notification:
-            if notification.status == "failed":
-                # Update as Pending and send to queue
-                result = incident_update_notification_module.update_one_by_id(notification.id, {
-                    "status": "pending"
-                })
-
-                if result:
-                    # Send notification.id to the Queue
-                    task_module.delay("notify_subscriber", {
-                        "notification_id": notification.id
-                    }, user_id)
-
-            elif notification.status == "pending":
-                # Send notification.id to the Queue
-                task_module.delay("notify_subscriber", {
-                    "notification_id": notification.id
-                }, user_id)
+            # Send notification.id to the queue again
+            task_module.delay("notify_subscriber", {
+                "notification_id": notification.id
+            }, user_id)
 
         else:
             # Create new notification and send to queue

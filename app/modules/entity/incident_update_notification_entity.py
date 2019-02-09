@@ -56,6 +56,9 @@ class Incident_Update_Notification_Entity():
         except Exception:
             return False
 
+    def count_by_update_status(self, update_id, status):
+        return Incident_Update_Notification.objects.filter(status=status, incident_update_id=update_id).count()
+
     def get_one_by_id(self, id):
         try:
             item = Incident_Update_Notification.objects.get(id=id)

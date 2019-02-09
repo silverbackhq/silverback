@@ -9,6 +9,10 @@ from app.modules.entity.incident_update_notification_entity import Incident_Upda
 
 class Incident_Update_Notification():
 
+    PENDING = "pending"
+    FAILED = "failed"
+    SUCCESS = "success"
+
     __incident_update_notification_entity = None
     __helpers = None
     __logger = None
@@ -30,6 +34,9 @@ class Incident_Update_Notification():
             "subscriber": item.subscriber,
             "status": item.status
         }
+
+    def count_by_update_status(self, update_id, status):
+        return self.__incident_update_notification_entity.count_by_update_status(update_id, status)
 
     def insert_one(self, item):
         return self.__incident_update_notification_entity.insert_one(item)

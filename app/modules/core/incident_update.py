@@ -33,8 +33,6 @@ class Incident_Update():
             "message": update.message,
             "notify_subscribers": update.notify_subscribers,
             "total_suscribers": update.total_suscribers,
-            "notified_subscribers": update.notified_subscribers,
-            "failed_subscribers": update.failed_subscribers,
             "status": update.status
         }
 

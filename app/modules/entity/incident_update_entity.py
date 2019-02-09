@@ -26,12 +26,6 @@ class Incident_Update_Entity():
         if "total_suscribers" in update:
             new_update.total_suscribers = update["total_suscribers"]
 
-        if "notified_subscribers" in update:
-            new_update.notified_subscribers = update["notified_subscribers"]
-
-        if "failed_subscribers" in update:
-            new_update.failed_subscribers = update["failed_subscribers"]
-
         if "datetime" in update:
             new_update.datetime = update["datetime"]
 
@@ -56,12 +50,6 @@ class Incident_Update_Entity():
 
             if "total_suscribers" in update_data:
                 update.total_suscribers = update_data["total_suscribers"]
-
-            if "notified_subscribers" in update_data:
-                update.notified_subscribers = update_data["notified_subscribers"]
-
-            if "failed_subscribers" in update_data:
-                update.failed_subscribers = update_data["failed_subscribers"]
 
             if "datetime" in update_data:
                 update.datetime = update_data["datetime"]

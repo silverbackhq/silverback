@@ -11,7 +11,6 @@ from django.utils.translation import gettext as _
 import requests
 from celery import shared_task
 from app.modules.entity.option_entity import Option_Entity
-from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
 from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
 from app.modules.core.subscriber import Subscriber as Subscriber_Module
 
@@ -21,7 +20,6 @@ def notify_subscriber(notification_id):
 
     option_entity = Option_Entity()
     incident_update_notification_module = Incident_Update_Notification_Module()
-    incident_update_module = Incident_Update_Module()
 
     app_name = option_entity.get_value_by_key("app_name")
     app_email = option_entity.get_value_by_key("app_email")
@@ -39,7 +37,7 @@ def notify_subscriber(notification_id):
                 app_name,
                 app_email,
                 app_url,
-                subscriber.email,
+                [subscriber.email],
                 _("%s Incident Update: %s") % (app_name, incident.name),
                 "mails/incident_update.html",
                 {
@@ -67,17 +65,11 @@ def notify_subscriber(notification_id):
             incident_update_notification_module.update_one_by_id(notification["id"], {
                 "status": "success"
             })
-            incident_update_module.update_one_by_id(incident_update["id"], {
-                "notified_subscribers": incident_update["notified_subscribers"] + 1
-            })
 
         else:
             # message failed
             incident_update_notification_module.update_one_by_id(notification["id"], {
                 "status": "failed"
-            })
-            incident_update_module.update_one_by_id(incident_update["id"], {
-                "failed_subscribers": incident_update["failed_subscribers"] - 1
             })
 
     elif notification["status"] == "failed":
@@ -87,7 +79,7 @@ def notify_subscriber(notification_id):
                 app_name,
                 app_email,
                 app_url,
-                subscriber.email,
+                [subscriber.email],
                 _("%s Incident Update: %s") % (app_name, incident.name),
                 "mails/incident_update.html",
                 {
@@ -115,10 +107,6 @@ def notify_subscriber(notification_id):
             incident_update_notification_module.update_one_by_id(notification["id"], {
                 "status": "success"
             })
-            incident_update_module.update_one_by_id(incident_update["id"], {
-                "notified_subscribers": incident_update.notified_subscribers + 1,
-                "failed_subscribers": incident_update["failed_subscribers"] - 1
-            })
 
     return {
         "status": "passed",
@@ -127,13 +115,13 @@ def notify_subscriber(notification_id):
     }
 
 
-def __deliver_email(app_name, app_email, app_url, recipient, subject, template, data={}, fail_silently=False):
+def __deliver_email(app_name, app_email, app_url, recipients, subject, template, data={}, fail_silently=False):
     try:
         send_mail(
             subject,
             "",
             app_email,
-            recipient,
+            recipients,
             fail_silently=fail_silently,
             html_message=render_to_string(template, {
                 "app_url": app_url,

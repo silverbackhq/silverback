@@ -19,6 +19,7 @@ from app.modules.core.notification import Notification as Notification_Module
 from app.modules.core.subscriber import Subscriber as Subscriber_Module
 from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
 from app.modules.core.incident_update_component import Incident_Update_Component as Incident_Update_Component_Module
+from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
 
 
 class Incident_Updates(View):
@@ -33,6 +34,7 @@ class Incident_Updates(View):
     __task = None
     __notification = None
     __subscriber = None
+    __incident_update_notification = None
 
     def __init__(self):
         self.__request = Request()
@@ -43,6 +45,7 @@ class Incident_Updates(View):
         self.__task = Task_Module()
         self.__notification = Notification_Module()
         self.__subscriber = Subscriber_Module()
+        self.__incident_update_notification = Incident_Update_Notification_Module()
         self.__logger = self.__helpers.get_logger(__name__)
 
     def post(self, request, incident_id):
@@ -102,8 +105,6 @@ class Incident_Updates(View):
             "notify_subscribers": self.__form.get_input_value("notify_subscribers"),
             "datetime": DateTimeField().clean(self.__form.get_input_value("datetime")),
             "total_suscribers": self.__subscriber.count_by_status(Subscriber_Module.VERIFIED),
-            "notified_subscribers": 0,
-            "failed_subscribers": 0,
             "message": self.__form.get_input_value("message"),
             "status": self.__form.get_input_value("status"),
             "incident_id": incident_id
@@ -149,12 +150,19 @@ class Incident_Updates(View):
         updates_list = []
 
         for update in updates:
+
+            notified_subscribers = self.__incident_update_notification.count_by_update_status(
+                update.id,
+                Incident_Update_Notification_Module.SUCCESS
+            )
+            progress = int(notified_subscribers/update.total_suscribers) * 100 if update.total_suscribers > 0 else 0
+
             updates_list.append({
                 "id": update.id,
                 "status": update.status.title(),
                 "notify_subscribers": update.notify_subscribers.title(),
                 "datetime": update.datetime.strftime("%b %d %Y %H:%M:%S"),
-                "progress": int(update.notified_subscribers/update.total_suscribers) * 100 if update.total_suscribers > 0 else 0,
+                "progress": progress if progress <= 100 else 100,
                 "created_at": update.created_at.strftime("%b %d %Y %H:%M:%S"),
                 "view_url": reverse("app.web.admin.incident_update.view", kwargs={'incident_id': incident_id, "update_id": update.id}),
                 "edit_url": reverse("app.web.admin.incident_update.edit", kwargs={'incident_id': incident_id, "update_id": update.id}),
