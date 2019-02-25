@@ -49,8 +49,16 @@ coverage:
 	$(COVERAGE) report -m
 
 
-liteci: test coverage lint
+create-env:
+	cp .env.example .env
+
+gh-config: config create-env migrate
+  	$(PYTHON) manage.py silverback update_env DB_CONNECTION=sqlite
+
+
+liteci: gh-config test coverage lint
 	@echo "\n==> All quality checks passed"
+
 
 ci: config test coverage lint
 	@echo "\n==> All quality checks passed"

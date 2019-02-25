@@ -15,8 +15,11 @@ class Test_Option_Entity(TestCase):
             "value": "value1",
             "autoload": True
         })
+
+        print(option.id)
+
         self.assertTrue(option)
-        self.assertTrue(option.id > 1)
+        self.assertTrue(option.id >= 1)
 
     def test_insert_many(self):
         option_entity = Option_Entity()
