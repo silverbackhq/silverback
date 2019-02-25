@@ -54,7 +54,7 @@ create-env:
 
 
 gh-config: config create-env migrate
-  	$(PYTHON) manage.py silverback update_env DB_CONNECTION=sqlite
+	$(PYTHON) manage.py silverback update_env DB_CONNECTION=sqlite
 
 
 liteci: gh-config test coverage lint
