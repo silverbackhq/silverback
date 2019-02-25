@@ -5,6 +5,5 @@ workflow "Testing" {
 
 action "https://github.com/Clivern/gh-action-python" {
   uses = "https://github.com/Clivern/gh-action-python"
-  runs = "make"
-  args = "ci"
+  runs = "make ci"
 }
