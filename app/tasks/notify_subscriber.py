@@ -3,11 +3,14 @@ Notify Subscriber Tasks
 """
 
 # Django
+import os
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
+from django.urls import reverse
 
 # Third party
+import messagebird
 import requests
 import markdown2
 from celery import shared_task
@@ -52,8 +55,9 @@ def notify_subscriber(notification_id):
             )
         elif subscriber.type == Subscriber_Module.PHONE:
             status = __deliver_sms(
+                app_name,
                 subscriber.phone,
-                ""
+                reverse("app.web.incidents", kwargs={'uri': incident.uri})
             )
         elif subscriber.type == Subscriber_Module.ENDPOINT:
             status = __deliver_webhook(
@@ -89,8 +93,9 @@ def notify_subscriber(notification_id):
             )
         elif subscriber.type == Subscriber_Module.PHONE:
             status = __deliver_sms(
+                app_name,
                 subscriber.phone,
-                ""
+                reverse("app.web.incidents", kwargs={'uri': incident.uri})
             )
         elif subscriber.type == Subscriber_Module.ENDPOINT:
             status = __deliver_webhook(
@@ -98,7 +103,6 @@ def notify_subscriber(notification_id):
                 subscriber.auth_token,
                 '{}' % ()
             )
-
         if status:
             # message sent again
             incident_update_notification_module.update_one_by_id(notification["id"], {
@@ -135,9 +139,14 @@ def __deliver_email(app_name, app_email, app_url, recipients, subject, template,
         return False
 
 
-def __deliver_sms(phone_number, message):
-    # Not Supported Yet
-    return False
+def __deliver_sms(app_name, phone_number, message):
+    if os.getenv("TEXT_MESSAGING_DRIVER", "messagebird") == "messagebird":
+        try:
+            client = messagebird.Client(os.getenv("MESSAGEBIRD_API_KEY", ""))
+            msg = client.message_create(app_name, phone_number, message, {})
+            return True if msg.id else False
+        except Exception:
+            return False
 
 
 def __deliver_webhook(endpoint, auth_token, payload):

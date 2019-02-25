@@ -15,11 +15,13 @@ from app.controllers.web.register import Register as Register_View
 from app.controllers.web.forgot_password import Forgot_Password as Forgot_Password_View
 from app.controllers.web.reset_password import Reset_Password as Reset_Password_View
 from app.controllers.web.statistics import Statistics as Statistics_View
+from app.controllers.web.incidents import Incidents as Incidents_View
 
 from app.controllers.web.admin.logout import Logout as Logout_View
 from app.controllers.web.admin.dashboard import Dashboard as Dashboard_View
 from app.controllers.web.admin.profile import Profile as Profile_View
 from app.controllers.web.admin.settings import Settings as Settings_View
+from app.controllers.web.admin.builder import Builder as Builder_View
 from app.controllers.web.admin.activity import Activity as Activity_View
 from app.controllers.web.admin.notification import Notification as Notification_View
 from app.controllers.web.admin.user import User_List as User_List_Web
@@ -79,6 +81,7 @@ from app.controllers.api.private.v1.admin.activity import Activities as Activiti
 urlpatterns = [
     # Public Views
     path('', Home_View.as_view(), name='app.web.home'),
+    path('incidents/<uri>', Incidents_View.as_view(), name='app.web.incidents'),
     path('install', Install_View.as_view(), name='app.web.install'),
     path('login', Login_View.as_view(), name='app.web.login'),
     path('register/<token>', Register_View.as_view(), name='app.web.register'),
@@ -95,7 +98,7 @@ urlpatterns = [
         path('activity', Activity_View.as_view(), name='app.web.admin.activity.list'),
         path('notifications', Notification_View.as_view(), name='app.web.admin.notification.list'),
         path('settings', Settings_View.as_view(), name='app.web.admin.settings'),
-
+        path('builder', Builder_View.as_view(), name='app.web.admin.builder'),
         path('users', User_List_Web.as_view(), name='app.web.admin.user.list'),
         path('users/add', User_Add_Web.as_view(), name='app.web.admin.user.add'),
         path('users/edit/<int:user_id>', User_Edit_Web.as_view(), name='app.web.admin.user.edit'),

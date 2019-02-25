@@ -49,7 +49,10 @@ coverage:
 	$(COVERAGE) report -m
 
 
-ci: test coverage lint
+liteci: test coverage lint
+	@echo "\n==> All quality checks passed"
+
+ci: config test coverage lint
 	@echo "\n==> All quality checks passed"
 
 
