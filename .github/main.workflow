@@ -1,9 +1,10 @@
-workflow "Testing" {
+workflow "New workflow" {
   on = "push"
-  resolves = ["https://github.com/Clivern/gh-action-python"]
+  resolves = ["Testing"]
 }
 
-action "https://github.com/Clivern/gh-action-python" {
+action "Testing" {
   uses = "https://github.com/Clivern/gh-action-python"
-  runs = "make ci"
+  args = "make"
+  runs = "ci"
 }
