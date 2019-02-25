@@ -1,10 +1,10 @@
 workflow "New workflow" {
   on = "push"
-  resolves = ["Testing"]
+  resolves = ["clivern/gh-action-python@baedab7975be47bfcafebb87323b01469cd10e2b"]
 }
 
-action "Testing" {
-  uses = "https://github.com/Clivern/gh-action-python"
-  args = "make"
-  runs = "ci"
+action "clivern/gh-action-python@baedab7975be47bfcafebb87323b01469cd10e2b" {
+  uses = "clivern/gh-action-python@baedab7975be47bfcafebb87323b01469cd10e2b"
+  runs = "make"
+  args = "ci"
 }
