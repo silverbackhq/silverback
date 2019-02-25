@@ -1,6 +1,6 @@
 workflow "Testing" {
-  resolves = ["https://github.com/Clivern/gh-action-python"]
   on = "push"
+  resolves = ["https://github.com/Clivern/gh-action-python"]
 }
 
 action "https://github.com/Clivern/gh-action-python" {
