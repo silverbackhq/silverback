@@ -52,6 +52,7 @@ coverage:
 create-env:
 	cp .env.example .env
 
+
 gh-config: config create-env migrate
   	$(PYTHON) manage.py silverback update_env DB_CONNECTION=sqlite
 
