@@ -10,8 +10,8 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 
 # Third party
-import messagebird
 import requests
+from twilio.rest import Client
 import markdown2
 from celery import shared_task
 from app.modules.entity.option_entity import Option_Entity
@@ -139,12 +139,19 @@ def __deliver_email(app_name, app_email, app_url, recipients, subject, template,
         return False
 
 
-def __deliver_sms(app_name, phone_number, message):
-    if os.getenv("TEXT_MESSAGING_DRIVER", "messagebird") == "messagebird":
+def __deliver_sms(app_name, phone_number, body):
+    if os.getenv("TEXT_MESSAGING_DRIVER", "twilio") == "twilio":
         try:
-            client = messagebird.Client(os.getenv("MESSAGEBIRD_API_KEY", ""))
-            msg = client.message_create(app_name, phone_number, message, {})
-            return True if msg.id else False
+            client = Client(
+                os.getenv("TWILIO_ACCOUNT_SID"),
+                os.getenv("TWILIO_AUTH_TOKEN")
+            )
+            message = client.messages.create(
+                to=phone_number,
+                from_=app_name,
+                body=body
+            )
+            return True if message.sid else False
         except Exception:
             return False
 

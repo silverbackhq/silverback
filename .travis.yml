@@ -26,4 +26,4 @@ before_script:
 
 # command to run tests
 script:
-  - make liteci
+  - make ci

@@ -61,7 +61,7 @@ liteci: gh-config test coverage lint
 	@echo "\n==> All quality checks passed"
 
 
-ci: config test coverage lint
+ci: test coverage lint
 	@echo "\n==> All quality checks passed"
 
 
