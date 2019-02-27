@@ -10,3 +10,4 @@ redis==3.0.1
 cryptography==2.4.2
 markdown2==2.3.7
 twilio==6.24.1
+pyumetric==0.0.3
