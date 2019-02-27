@@ -57,7 +57,7 @@ def notify_subscriber(notification_id):
             status = __deliver_sms(
                 app_name,
                 subscriber.phone,
-                reverse("app.web.incidents", kwargs={'uri': incident.uri})
+                "%s%s" % (app_url.strip("/"), reverse("app.web.incidents", kwargs={'uri': incident.uri}))
             )
         elif subscriber.type == Subscriber_Module.ENDPOINT:
             status = __deliver_webhook(
@@ -95,7 +95,7 @@ def notify_subscriber(notification_id):
             status = __deliver_sms(
                 app_name,
                 subscriber.phone,
-                reverse("app.web.incidents", kwargs={'uri': incident.uri})
+                "%s%s" % (app_url.strip("/"), reverse("app.web.incidents", kwargs={'uri': incident.uri}))
             )
         elif subscriber.type == Subscriber_Module.ENDPOINT:
             status = __deliver_webhook(
@@ -108,6 +108,8 @@ def notify_subscriber(notification_id):
             incident_update_notification_module.update_one_by_id(notification["id"], {
                 "status": "success"
             })
+    else:
+        print("skip subscriber#%s!" % subscriber.id)
 
     return {
         "status": "passed",
