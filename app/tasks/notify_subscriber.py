@@ -156,6 +156,8 @@ def __deliver_sms(app_name, phone_number, body):
             return True if message.sid else False
         except Exception:
             return False
+    # No Active SMS Driver
+    return False
 
 
 def __deliver_webhook(endpoint, auth_token, payload):
