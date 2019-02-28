@@ -257,7 +257,7 @@ class Subscribers(View):
             subscribers_list.append({
                 "id": subscriber.id,
                 "status": subscriber.status.title(),
-                "type": subscriber.type.title(),
+                "type": subscriber.type,
                 "email": subscriber.email,
                 "phone": subscriber.phone,
                 "endpoint": subscriber.endpoint,

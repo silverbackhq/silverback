@@ -55,7 +55,8 @@ class Settings(View):
             "reset_mails_messages_count": "",
             "reset_mails_expire_after": "",
             "access_tokens_expire_after": "",
-            "prometheus_token": ""
+            "prometheus_token": "",
+            "newrelic_api_key": ""
         })
 
         self.__form.add_inputs({
@@ -114,6 +115,19 @@ class Settings(View):
             },
             "prometheus_token": {
                 'value': request_data["prometheus_token"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {
+                    'length_between': {
+                        'param': [0, 100],
+                        'error': _('Error! Prometheus token is invalid.')
+                    },
+                    'optional': {}
+                }
+            },
+            "newrelic_api_key": {
+                'value': request_data["newrelic_api_key"],
                 'sanitize': {
                     'strip': {}
                 },
@@ -199,7 +213,8 @@ class Settings(View):
             "reset_mails_messages_count": self.__form.get_input_value("reset_mails_messages_count"),
             "reset_mails_expire_after": self.__form.get_input_value("reset_mails_expire_after"),
             "access_tokens_expire_after": self.__form.get_input_value("access_tokens_expire_after"),
-            "prometheus_token": self.__form.get_input_value("prometheus_token")
+            "prometheus_token": self.__form.get_input_value("prometheus_token"),
+            "newrelic_api_key":  self.__form.get_input_value("newrelic_api_key")
         })
 
         if result:

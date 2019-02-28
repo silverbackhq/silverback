@@ -25,8 +25,7 @@
                                             <label class="form-label">{% trans "Type" %}<span class="form-required">*</span></label>
                                             <select class="form-control" name="type" required>
                                                 <option value="">{% trans "Please Select a Value" %}</option>
-                                                <option value="graphite" {% if metric.type == 'graphite' %}selected{% endif %}>{% trans "Graphite" %}</option>
-                                                <option value="prometheus" {% if metric.type == 'prometheus' %}selected{% endif %}>{% trans "Prometheus" %}</option>
+                                                <option value="newrelic" {% if metric.type == 'newrelic' %}selected{% endif %}>{% trans "New Relic" %}</option>
                                             </select>
                                         </div>
                                     </div>

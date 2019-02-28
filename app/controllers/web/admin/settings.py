@@ -42,7 +42,8 @@ class Settings(View):
             "reset_mails_messages_count": "",
             "reset_mails_expire_after": "",
             "access_tokens_expire_after": "",
-            "prometheus_token": ""
+            "prometheus_token": "",
+            "newrelic_api_key": ""
         })
 
         self.__context.push({

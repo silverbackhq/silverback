@@ -55,7 +55,7 @@ class Metrics(View):
                 'value': request_data["type"],
                 'validate': {
                     'any_of': {
-                        'param': [["graphite", "prometheus"]],
+                        'param': [["newrelic"]],
                         'error': _('Error! Type is invalid.')
                     }
                 }
@@ -164,7 +164,7 @@ class Metric(View):
                 'value': request_data["type"],
                 'validate': {
                     'any_of': {
-                        'param': [["graphite", "prometheus"]],
+                        'param': [["newrelic"]],
                         'error': _('Error! Type is invalid.')
                     }
                 }
@@ -208,3 +208,47 @@ class Metric(View):
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting metric.")
             }]))
+
+
+class NewRelic_Apps(View):
+
+    __request = None
+    __response = None
+    __helpers = None
+    __form = None
+    __logger = None
+    __user_id = None
+    __metric = None
+
+    def __init__(self):
+        self.__request = Request()
+        self.__response = Response()
+        self.__helpers = Helpers()
+        self.__form = Form()
+        self.__metric = Metric_Module()
+        self.__logger = self.__helpers.get_logger(__name__)
+
+    def get(self, request):
+
+        self.__request.set_request(request)
+
+        request_data = self.__request.get_request_data("get", {
+            "offset": "",
+            "limit": ""
+        })
+
+        try:
+            offset = int(request_data["offset"])
+            limit = int(request_data["limit"])
+        except Exception:
+            offset = 0
+            limit = 0
+
+        return JsonResponse(self.__response.send_private_success([], {
+            'metrics': self.__format_metrics(self.__metric.get_all(offset, limit)),
+            'metadata': {
+                'offset': offset,
+                'limit': limit,
+                'count': self.__metric.count_all()
+            }
+        }))
