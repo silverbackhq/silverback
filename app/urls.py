@@ -73,6 +73,7 @@ from app.controllers.api.private.v1.admin.incident_update import Incident_Update
 from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Component as Incident_Updates_Component_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metric as Metric_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metrics as Metrics_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.metric import NewRelic_Apps as NewRelic_Apps_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscriber as Subscriber_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscribers as Subscribers_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.activity import Activities as Activities_Admin_V1_Endpoint_Private
@@ -249,6 +250,11 @@ urlpatterns = [
                 'activity',
                 Activities_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.activities.endpoint'
+            ),
+            path(
+                'action/metric/new-relic-apps',
+                NewRelic_Apps_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.metric.action.new_relic_apps.endpoint'
             ),
         ]))
 

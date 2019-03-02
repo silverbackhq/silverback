@@ -4,6 +4,7 @@ Metrics Web Controller
 
 # standard library
 import os
+import json
 
 # Django
 from django.views import View
@@ -73,5 +74,7 @@ class Metric_Edit(View):
             "page_title": _("Edit Metric · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "metric": metric
         })
+
+        metric["data"] = json.loads(metric["data"])
 
         return render(request, self.template_name, self.__context.get())

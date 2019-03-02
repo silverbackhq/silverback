@@ -3,8 +3,8 @@
     <h3 align="center">Silverback</h3>
     <p align="center">A Status and Incident Communication Tool.</p>
     <p align="center">
-        <img src="https://travis-ci.org/Clivern/Badger.svg?branch=master">
-        <img src="https://img.shields.io/github/license/Clivern/Badger.svg">
+        <img src="https://travis-ci.org/Clivern/Silverback.svg?branch=master">
+        <img src="https://img.shields.io/github/license/Clivern/Silverback.svg">
         <img src="https://img.shields.io/badge/Version-Under%20Development-red.svg">
     </p>
 </p>
@@ -68,7 +68,7 @@ $ deactivate
 
 ## Contributing
 
-For guidance on setting up a development environment and how to make a contribution to Badger, see the [contributing guidelines](CONTRIBUTING.md)
+For guidance on setting up a development environment and how to make a contribution to Silverback, see the [contributing guidelines](CONTRIBUTING.md)
 
 
 ## Acknowledgements

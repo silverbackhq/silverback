@@ -2,9 +2,12 @@
 Metric Module
 """
 
+from pyumetric import NewRelic_Provider
+
 # local Django
 from app.modules.util.helpers import Helpers
 from app.modules.entity.metric_entity import Metric_Entity
+from app.modules.entity.option_entity import Option_Entity
 
 
 class Metric():
@@ -12,11 +15,17 @@ class Metric():
     __metric_entity = None
     __helpers = None
     __logger = None
+    __option_entity = None
+    __newrelic = None
 
     def __init__(self):
         self.__helpers = Helpers()
+        self.__option_entity = Option_Entity()
         self.__metric_entity = Metric_Entity()
         self.__logger = self.__helpers.get_logger(__name__)
+        new_relic_api = self.__option_entity.get_one_by_key("newrelic_api_key")
+        if new_relic_api:
+            self.__newrelic = NewRelic_Provider(new_relic_api.value)
 
     def get_one_by_id(self, id):
         metric = self.__metric_entity.get_one_by_id(id)
@@ -27,8 +36,9 @@ class Metric():
         return {
             "id": metric.id,
             "title": metric.title,
-            "type": metric.type,
-            "source": metric.source
+            "description": metric.description,
+            "source": metric.source,
+            "data": metric.data
         }
 
     def insert_one(self, metric):
@@ -45,3 +55,13 @@ class Metric():
 
     def delete_one_by_id(self, id):
         return self.__metric_entity.delete_one_by_id(id)
+
+    def get_new_relic_apps(self):
+        result = []
+        try:
+            apps = self.__newrelic.get_apps().json()
+            for app in apps["applications"]:
+                result.append({"key": app["id"], "value": app["name"]})
+            return result
+        except Exception:
+            return False

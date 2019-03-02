@@ -1759,7 +1759,9 @@ silverback_app.add_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
         el: '#metric_add_app',
         data() {
             return {
-                isInProgress: false
+                isInProgress: false,
+                newRelicApps: [],
+                source: ""
             }
         },
         methods: {
@@ -1804,6 +1806,33 @@ silverback_app.add_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                         this.isInProgress = false;
                     });
                 });
+            },
+            onSourceChange(event) {
+                _item = $(event.target);
+                if (event.target.value == "newrelic" && this.newRelicApps.length == 0) {
+                    this.isInProgress = true;
+                    Pace.track(() => {
+                        $.ajax({
+                            method: "GET",
+                            url: _metric_data.newrelic_apps_fetch
+                        }).done((response, textStatus, jqXHR) => {
+                            if (response.status == "success") {
+                                this.newRelicApps = response.payload.apps;
+                            } else {
+                                for (var messageObj of response.messages) {
+                                    toastr.clear();
+                                    toastr.error(messageObj.message);
+                                    break;
+                                }
+                            }
+                            this.isInProgress = false;
+                        }).fail((jqXHR, textStatus, error) => {
+                            toastr.clear();
+                            toastr.error(error);
+                            this.isInProgress = false;
+                        });
+                    });
+                }
             }
         }
     });
@@ -1820,7 +1849,41 @@ silverback_app.edit_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
         el: '#metric_edit_app',
         data() {
             return {
-                isInProgress: false
+                isInProgress: false,
+                newRelicApps: [],
+                source: ""
+            }
+        },
+        mounted(){
+            if(_metric_data.source == "newrelic"){
+                $('select[name="source"]').val(_metric_data.source);
+                this.source = _metric_data.source;
+                Pace.track(() => {
+                    $.ajax({
+                        method: "GET",
+                        url: _metric_data.newrelic_apps_fetch
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            this.newRelicApps = response.payload.apps;
+                            setTimeout(() => {
+                                $('select[name="metric"]').val(_metric_data.metric);
+                                $('input[name="display_suffix"]').val(_metric_data.display_suffix);
+                                $('select[name="application"]').val(_metric_data.application);
+                            }, 50);
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                        this.isInProgress = false;
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
             }
         },
         methods: {
@@ -1865,6 +1928,33 @@ silverback_app.edit_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                         this.isInProgress = false;
                     });
                 });
+            },
+            onSourceChange(event) {
+                _item = $(event.target);
+                if (event.target.value == "newrelic" && this.newRelicApps.length == 0) {
+                    this.isInProgress = true;
+                    Pace.track(() => {
+                        $.ajax({
+                            method: "GET",
+                            url: _metric_data.newrelic_apps_fetch
+                        }).done((response, textStatus, jqXHR) => {
+                            if (response.status == "success") {
+                                this.newRelicApps = response.payload.apps;
+                            } else {
+                                for (var messageObj of response.messages) {
+                                    toastr.clear();
+                                    toastr.error(messageObj.message);
+                                    break;
+                                }
+                            }
+                            this.isInProgress = false;
+                        }).fail((jqXHR, textStatus, error) => {
+                            toastr.clear();
+                            toastr.error(error);
+                            this.isInProgress = false;
+                        });
+                    });
+                }
             }
         }
     });
