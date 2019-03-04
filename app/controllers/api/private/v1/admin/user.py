@@ -9,7 +9,8 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -33,6 +34,7 @@ class Users(View):
         self.__form = Form()
         self.__user = User_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request):
 
@@ -161,15 +163,15 @@ class Users(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
 
-        if self.__user.email_used(self.__form.get_input_value("email")):
+        if self.__user.email_used(self.__form.get_sinput("email")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
             }]))
 
-        if request_data["invitation"] != "" and self.__user.username_used(self.__form.get_input_value("username")):
+        if request_data["invitation"] != "" and self.__user.username_used(self.__form.get_sinput("username")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
@@ -178,14 +180,14 @@ class Users(View):
         if request_data["invitation"] != "":
 
             result = self.__user.insert_one({
-                "username": self.__form.get_input_value("username"),
-                "email": self.__form.get_input_value("email"),
-                "first_name": self.__form.get_input_value("first_name"),
-                "last_name": self.__form.get_input_value("last_name"),
-                "password": self.__form.get_input_value("password"),
+                "username": self.__form.get_sinput("username"),
+                "email": self.__form.get_sinput("email"),
+                "first_name": self.__form.get_sinput("first_name"),
+                "last_name": self.__form.get_sinput("last_name"),
+                "password": self.__form.get_sinput("password"),
                 "is_staff": False,
                 "is_active": True,
-                "is_superuser": True if self.__form.get_input_value("role") == "admin" else False
+                "is_superuser": True if self.__form.get_sinput("role") == "admin" else False
             })
 
             if result:
@@ -200,11 +202,11 @@ class Users(View):
                 }]))
         else:
 
-            self.__user.delete_register_request_by_email(self.__form.get_input_value("email"))
+            self.__user.delete_register_request_by_email(self.__form.get_sinput("email"))
 
             token = self.__user.create_register_request(
-                self.__form.get_input_value("email"),
-                self.__form.get_input_value("role")
+                self.__form.get_sinput("email"),
+                self.__form.get_sinput("role")
             )
 
             if not token:
@@ -213,7 +215,7 @@ class Users(View):
                     "message": _("Error! Something goes wrong while creating reset request.")
                 }]))
 
-            message = self.__user.send_register_request_message(self.__form.get_input_value("email"), token)
+            message = self.__user.send_register_request_message(self.__form.get_sinput("email"), token)
 
             if not message:
                 return JsonResponse(self.__response.send_private_failure([{
@@ -287,6 +289,7 @@ class User(View):
         self.__form = Form()
         self.__user = User_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, user_id):
 
@@ -458,15 +461,15 @@ class User(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
 
-        if self.__user.username_used_elsewhere(user_id, self.__form.get_input_value("username")):
+        if self.__user.username_used_elsewhere(user_id, self.__form.get_sinput("username")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
             }]))
 
-        if self.__user.email_used_elsewhere(user_id, self.__form.get_input_value("email")):
+        if self.__user.email_used_elsewhere(user_id, self.__form.get_sinput("email")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
@@ -475,22 +478,22 @@ class User(View):
         if request_data["update_password"] == "":
 
             result = self.__user.update_one_by_id(user_id, {
-                "username": self.__form.get_input_value("username"),
-                "email": self.__form.get_input_value("email"),
-                "first_name": self.__form.get_input_value("first_name"),
-                "last_name": self.__form.get_input_value("last_name"),
-                "is_superuser": True if self.__form.get_input_value("role") == "admin" else False
+                "username": self.__form.get_sinput("username"),
+                "email": self.__form.get_sinput("email"),
+                "first_name": self.__form.get_sinput("first_name"),
+                "last_name": self.__form.get_sinput("last_name"),
+                "is_superuser": True if self.__form.get_sinput("role") == "admin" else False
             })
 
         else:
 
             result = self.__user.update_one_by_id(user_id, {
-                "username": self.__form.get_input_value("username"),
-                "email": self.__form.get_input_value("email"),
-                "first_name": self.__form.get_input_value("first_name"),
-                "last_name": self.__form.get_input_value("last_name"),
-                "password": self.__form.get_input_value("password"),
-                "is_superuser": True if self.__form.get_input_value("role") == "admin" else False
+                "username": self.__form.get_sinput("username"),
+                "email": self.__form.get_sinput("email"),
+                "first_name": self.__form.get_sinput("first_name"),
+                "last_name": self.__form.get_sinput("last_name"),
+                "password": self.__form.get_sinput("password"),
+                "is_superuser": True if self.__form.get_sinput("role") == "admin" else False
             })
 
         if result:

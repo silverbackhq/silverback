@@ -8,7 +8,8 @@ from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -32,6 +33,7 @@ class Login(View):
         self.__form = Form()
         self.__login = Login_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     @stop_request_if_authenticated
     def post(self, request):
@@ -78,9 +80,9 @@ class Login(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
 
-        if self.__login.authenticate(self.__form.get_input_value("username"), self.__form.get_input_value("password"), request):
+        if self.__login.authenticate(self.__form.get_sinput("username"), self.__form.get_sinput("password"), request):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("You logged in successfully.")

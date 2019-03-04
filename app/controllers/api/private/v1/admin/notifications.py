@@ -7,7 +7,8 @@ from django.views import View
 from django.http import JsonResponse
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.util.humanize import Humanize
 from app.modules.core.request import Request
@@ -32,6 +33,7 @@ class LatestNotifications(View):
         self.__response = Response()
         self.__request = Request()
         self.__notification = Notification_Module()
+        self.__form.add_validator(ExtraRules())
 
     def get(self, request):
         self.__user_id = request.user.id
@@ -80,6 +82,7 @@ class Notifications(View):
         self.__request = Request()
         self.__notification = Notification_Module()
         self.__humanize = Humanize()
+        self.__form.add_validator(ExtraRules())
 
     def get(self, request):
         self.__user_id = request.user.id

@@ -8,10 +8,132 @@
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
             <div class="container" id="dashboard">
-                <div class="page-header">
-                    <h1 class="page-title">
-                        {% trans "Status Page Builder" %}
-                    </h1>
+                <div class="row" id="manage_settings">
+                    <div class="col-12">
+                        <form class="card" v-on:submit.prevent="updateSettingsAction" action="{% url 'app.api.private.v1.admin.settings.endpoint' %}" method="post">
+                            {% csrf_token %}
+                            <div class="card-header">
+                                <h3 class="card-title">{% trans "Status Page Builder" %}</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Headline" %}<span class="form-required">*</span></label>
+                                            <input type="text" class="form-control" name="headline" value="">
+                                            <small class="form-text text-muted">{% trans "This text will appear at the top of your page. It's set to your service name by default." %}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Fav icon" %}</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="fav_icon">
+                                                <label class="custom-file-label">{% trans "Choose image" %}</label>
+                                            </div>
+                                            <small class="form-text text-muted">{% trans "Suggested size " %} <code>96x96</code></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Cover image" %}</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="cover_image">
+                                                <label class="custom-file-label">{% trans "Choose image" %}</label>
+                                            </div>
+                                            <small class="form-text text-muted">{% trans "Suggested size " %} <code>850x315 or 1700x630</code></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "About" %}</label>
+                                            <textarea class="form-control" name="about" rows="5"></textarea>
+                                            <small class="form-text text-muted">{% trans "This text is placed at the top of the status page for your visitors." %}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table card-table table-vcenter text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>{% trans "Component / Component Group" %}</th>
+                                                    <th class="text-center">{% trans "Actions" %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <select name="component" class="custom-select" disabled>
+                                                            <option value="">{% trans "Please select a component" %}</option>
+                                                            <option value="1" selected>API</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center" style="vertical-align: middle;">
+                                                        <a href="javascript:void(0)" href="javascript:void(0)" data-url="" class="icon" v-on:click=""><i class="fe fe-x-square"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <select name="component" class="custom-select">
+                                                            <option value="">{% trans "Please select a component" %}</option>
+                                                            <option value="1">API</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center" style="vertical-align: middle;">
+                                                        <a href="javascript:void(0)" data-url="" v-on:click="" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table card-table table-vcenter text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>{% trans "System Metrics" %}</th>
+                                                    <th class="text-center">{% trans "Actions" %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <select name="component" class="custom-select" disabled>
+                                                            <option value="">{% trans "Please select a component" %}</option>
+                                                            <option value="1" selected>API</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center" style="vertical-align: middle;">
+                                                        <a href="javascript:void(0)" href="javascript:void(0)" data-url="" class="icon" v-on:click=""><i class="fe fe-x-square"></i></a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <select name="component" class="custom-select">
+                                                            <option value="">{% trans "Please select a component" %}</option>
+                                                            <option value="1">API</option>
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center" style="vertical-align: middle;">
+                                                        <a href="javascript:void(0)" data-url="" v-on:click="" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Submit" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

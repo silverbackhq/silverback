@@ -16,8 +16,6 @@ class Test_Option_Entity(TestCase):
             "autoload": True
         })
 
-        print(option.id)
-
         self.assertTrue(option)
         self.assertTrue(option.id >= 1)
 

@@ -8,7 +8,8 @@ from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.profile import Profile as Profile_Module
 from app.modules.core.request import Request
@@ -32,6 +33,7 @@ class Profile(View):
         self.__form = Form()
         self.__profile_module = Profile_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request):
 
@@ -57,15 +59,15 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
-        if self.__form.get_input_value("action") == "_update_profile":
+        if self.__form.get_sinput("action") == "_update_profile":
             return self.__update_profile(request)
-        elif self.__form.get_input_value("action") == "_update_password":
+        elif self.__form.get_sinput("action") == "_update_password":
             return self.__update_password(request)
-        elif self.__form.get_input_value("action") == "_update_access_token":
+        elif self.__form.get_sinput("action") == "_update_access_token":
             return self.__update_access_token(request)
-        elif self.__form.get_input_value("action") == "_update_refresh_token":
+        elif self.__form.get_sinput("action") == "_update_refresh_token":
             return self.__update_refresh_token(request)
 
     def __update_profile(self, request):
@@ -238,31 +240,31 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
-        if self.__profile_module.username_used_elsewhere(self.__user_id, self.__form.get_input_value("username")):
+        if self.__profile_module.username_used_elsewhere(self.__user_id, self.__form.get_sinput("username")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
             }]))
 
-        if self.__profile_module.email_used_elsewhere(self.__user_id, self.__form.get_input_value("email")):
+        if self.__profile_module.email_used_elsewhere(self.__user_id, self.__form.get_sinput("email")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Email is already used.")
             }]))
 
         result = self.__profile_module.update_profile(self.__user_id, {
-            "first_name": self.__form.get_input_value("first_name"),
-            "last_name": self.__form.get_input_value("last_name"),
-            "username": self.__form.get_input_value("username"),
-            "email": self.__form.get_input_value("email"),
-            "job_title": self.__form.get_input_value("job_title"),
-            "company": self.__form.get_input_value("company"),
-            "address": self.__form.get_input_value("address"),
-            "github_url": self.__form.get_input_value("github_url"),
-            "twitter_url": self.__form.get_input_value("twitter_url"),
-            "facebook_url": self.__form.get_input_value("facebook_url")
+            "first_name": self.__form.get_sinput("first_name"),
+            "last_name": self.__form.get_sinput("last_name"),
+            "username": self.__form.get_sinput("username"),
+            "email": self.__form.get_sinput("email"),
+            "job_title": self.__form.get_sinput("job_title"),
+            "company": self.__form.get_sinput("company"),
+            "address": self.__form.get_sinput("address"),
+            "github_url": self.__form.get_sinput("github_url"),
+            "twitter_url": self.__form.get_sinput("twitter_url"),
+            "facebook_url": self.__form.get_sinput("facebook_url")
         })
 
         if result:
@@ -315,15 +317,15 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
-        if not self.__profile_module.validate_password(self.__user_id, self.__form.get_input_value("old_password")):
+        if not self.__profile_module.validate_password(self.__user_id, self.__form.get_sinput("old_password")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Old password is invalid.")
             }]))
 
-        result = self.__profile_module.change_password(self.__user_id, self.__form.get_input_value("new_password"))
+        result = self.__profile_module.change_password(self.__user_id, self.__form.get_sinput("new_password"))
 
         if result:
             self.__profile_module.restore_session(self.__user_id, request)
@@ -359,7 +361,7 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed() and request_data["token"] != "":
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__profile_module.update_access_token(self.__user_id)
 
@@ -395,7 +397,7 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed() and request_data["token"] != "":
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
 
         result = self.__profile_module.update_refresh_token(self.__user_id)
 

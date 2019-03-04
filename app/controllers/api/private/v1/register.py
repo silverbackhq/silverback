@@ -10,7 +10,8 @@ from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -34,6 +35,7 @@ class Register(View):
         self.__form = Form()
         self.__user = User_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     @stop_request_if_authenticated
     def post(self, request):
@@ -125,7 +127,7 @@ class Register(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
 
         register_request = self.__user.get_register_request_by_token(request_data["register_request_token"])
 
@@ -137,24 +139,24 @@ class Register(View):
 
         payload = json.loads(register_request.payload)
 
-        if self.__user.username_used(self.__form.get_input_value("username")):
+        if self.__user.username_used(self.__form.get_sinput("username")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
             }]))
 
-        if self.__user.email_used(self.__form.get_input_value("email")):
+        if self.__user.email_used(self.__form.get_sinput("email")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
             }]))
 
         result = self.__user.insert_one({
-            "username": self.__form.get_input_value("username"),
-            "email": self.__form.get_input_value("email"),
-            "first_name": self.__form.get_input_value("first_name"),
-            "last_name": self.__form.get_input_value("last_name"),
-            "password": self.__form.get_input_value("password"),
+            "username": self.__form.get_sinput("username"),
+            "email": self.__form.get_sinput("email"),
+            "first_name": self.__form.get_sinput("first_name"),
+            "last_name": self.__form.get_sinput("last_name"),
+            "password": self.__form.get_sinput("password"),
             "is_staff": False,
             "is_active": True,
             "is_superuser": True if payload["role"] == "admin" else False

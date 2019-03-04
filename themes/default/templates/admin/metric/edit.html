@@ -24,7 +24,7 @@
                         <form class="card" v-on:submit.prevent="editMetricAction" action="{% url 'app.api.private.v1.admin.metric.endpoint' metric.id %}" method="post" data-redirect-url="{% url 'app.web.admin.metric.list' %}" data-redirect-after="3000">
                             {% csrf_token %}
                             <div class="card-header">
-                                <h3 class="card-title">{% trans "Edit Metric" %}</h3>
+                                <h3 class="card-title">{% trans "Edit System Metric" %}</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">

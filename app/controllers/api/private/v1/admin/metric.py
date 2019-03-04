@@ -9,7 +9,8 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -33,6 +34,7 @@ class Metrics(View):
         self.__form = Form()
         self.__metric = Metric_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request):
 
@@ -97,16 +99,16 @@ class Metrics(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__metric.insert_one({
-            "title": self.__form.get_input_value("title"),
-            "description": self.__form.get_input_value("description"),
-            "source": self.__form.get_input_value("source"),
+            "title": self.__form.get_sinput("title"),
+            "description": self.__form.get_sinput("description"),
+            "source": self.__form.get_sinput("source"),
             "data": '{"application":"%s", "metric":"%s","display_suffix":"%s"}' % (
-                self.__form.get_input_value("application"),
-                self.__form.get_input_value("metric"),
-                self.__form.get_input_value("display_suffix")
+                self.__form.get_sinput("application"),
+                self.__form.get_sinput("metric"),
+                self.__form.get_sinput("display_suffix")
             )
         })
 
@@ -179,6 +181,7 @@ class Metric(View):
         self.__form = Form()
         self.__metric = Metric_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, metric_id):
 
@@ -243,16 +246,16 @@ class Metric(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__metric.update_one_by_id(metric_id, {
-            "title": self.__form.get_input_value("title"),
-            "description": self.__form.get_input_value("description"),
-            "source": self.__form.get_input_value("source"),
+            "title": self.__form.get_sinput("title"),
+            "description": self.__form.get_sinput("description"),
+            "source": self.__form.get_sinput("source"),
             "data": '{"application":"%s", "metric":"%s","display_suffix":"%s"}' % (
-                self.__form.get_input_value("application"),
-                self.__form.get_input_value("metric"),
-                self.__form.get_input_value("display_suffix")
+                self.__form.get_sinput("application"),
+                self.__form.get_sinput("metric"),
+                self.__form.get_sinput("display_suffix")
             )
         })
 
@@ -300,6 +303,7 @@ class NewRelic_Apps(View):
         self.__helpers = Helpers()
         self.__metric = Metric_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def get(self, request):
 

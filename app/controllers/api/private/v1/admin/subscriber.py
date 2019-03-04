@@ -9,7 +9,8 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -33,6 +34,7 @@ class Subscribers(View):
         self.__form = Form()
         self.__subscriber = Subscriber_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request):
 
@@ -172,7 +174,7 @@ class Subscribers(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         external_id = self.__helpers.generate_uuid()
 
@@ -182,9 +184,9 @@ class Subscribers(View):
         if request_data["type"] == "email":
 
             result = self.__subscriber.insert_one({
-                "status": self.__form.get_input_value("status"),
-                "type": self.__form.get_input_value("type"),
-                "email": self.__form.get_input_value("email"),
+                "status": self.__form.get_sinput("status"),
+                "type": self.__form.get_sinput("type"),
+                "email": self.__form.get_sinput("email"),
                 "phone": "",
                 "endpoint": "",
                 "auth_token": "",
@@ -193,10 +195,10 @@ class Subscribers(View):
         elif request_data["type"] == "phone":
 
             result = self.__subscriber.insert_one({
-                "status": self.__form.get_input_value("status"),
-                "type": self.__form.get_input_value("type"),
+                "status": self.__form.get_sinput("status"),
+                "type": self.__form.get_sinput("type"),
                 "email": "",
-                "phone": self.__form.get_input_value("phone"),
+                "phone": self.__form.get_sinput("phone"),
                 "endpoint": "",
                 "auth_token": "",
                 "external_id": external_id
@@ -205,12 +207,12 @@ class Subscribers(View):
         else:
 
             result = self.__subscriber.insert_one({
-                "status": self.__form.get_input_value("status"),
-                "type": self.__form.get_input_value("type"),
-                "email": self.__form.get_input_value("email"),
+                "status": self.__form.get_sinput("status"),
+                "type": self.__form.get_sinput("type"),
+                "email": self.__form.get_sinput("email"),
                 "phone": "",
-                "endpoint": self.__form.get_input_value("endpoint"),
-                "auth_token": self.__form.get_input_value("auth_token"),
+                "endpoint": self.__form.get_sinput("endpoint"),
+                "auth_token": self.__form.get_sinput("auth_token"),
                 "external_id": external_id
             })
 
@@ -287,6 +289,7 @@ class Subscriber(View):
         self.__form = Form()
         self.__subscriber = Subscriber_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, subscriber_id):
 
@@ -426,14 +429,14 @@ class Subscriber(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         if request_data["type"] == "email":
 
             result = self.__subscriber.update_one_by_id(subscriber_id, {
-                "status": self.__form.get_input_value("status"),
-                "type": self.__form.get_input_value("type"),
-                "email": self.__form.get_input_value("email"),
+                "status": self.__form.get_sinput("status"),
+                "type": self.__form.get_sinput("type"),
+                "email": self.__form.get_sinput("email"),
                 "phone": "",
                 "endpoint": "",
                 "auth_token": ""
@@ -442,10 +445,10 @@ class Subscriber(View):
         elif request_data["type"] == "phone":
 
             result = self.__subscriber.update_one_by_id(subscriber_id, {
-                "status": self.__form.get_input_value("status"),
-                "type": self.__form.get_input_value("type"),
+                "status": self.__form.get_sinput("status"),
+                "type": self.__form.get_sinput("type"),
                 "email": "",
-                "phone": self.__form.get_input_value("phone"),
+                "phone": self.__form.get_sinput("phone"),
                 "endpoint": "",
                 "auth_token": ""
             })
@@ -453,12 +456,12 @@ class Subscriber(View):
         else:
 
             result = self.__subscriber.update_one_by_id(subscriber_id, {
-                "status": self.__form.get_input_value("status"),
-                "type": self.__form.get_input_value("type"),
-                "email": self.__form.get_input_value("email"),
+                "status": self.__form.get_sinput("status"),
+                "type": self.__form.get_sinput("type"),
+                "email": self.__form.get_sinput("email"),
                 "phone": "",
-                "endpoint": self.__form.get_input_value("endpoint"),
-                "auth_token": self.__form.get_input_value("auth_token")
+                "endpoint": self.__form.get_sinput("endpoint"),
+                "auth_token": self.__form.get_sinput("auth_token")
             })
 
         if result:
