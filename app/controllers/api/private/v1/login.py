@@ -58,7 +58,7 @@ class Login(View):
                     'strip': {}
                 },
                 'validate': {
-                    'username_or_email': {
+                    'sv_username_or_email': {
                         'error': _("Error! Username or password is invalid.")
                     }
                 }
@@ -66,7 +66,7 @@ class Login(View):
             'password': {
                 'value': request_data["password"],
                 'validate': {
-                    'password': {
+                    'sv_password': {
                         'error': _("Error! Username or password is invalid.")
                     },
                     'length_between': {

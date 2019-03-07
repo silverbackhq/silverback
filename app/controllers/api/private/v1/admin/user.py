@@ -59,7 +59,7 @@ class Users(View):
                         'strip': {}
                     },
                     'validate': {
-                        'names': {
+                        'sv_names': {
                             'error': _('Error! First name contains invalid characters.')
                         },
                         'length_between': {
@@ -74,7 +74,7 @@ class Users(View):
                         'strip': {}
                     },
                     'validate': {
-                        'names': {
+                        'sv_names': {
                             'error': _('Error! Last name contains invalid characters.')
                         },
                         'length_between': {
@@ -106,7 +106,7 @@ class Users(View):
                         'strip': {}
                     },
                     'validate': {
-                        'email': {
+                        'sv_email': {
                             'error': _('Error! User email is invalid.')
                         }
                     }
@@ -114,7 +114,7 @@ class Users(View):
                 'password': {
                     'value': request_data["password"],
                     'validate': {
-                        'password': {
+                        'sv_password': {
                             'error': _('Error! Password must contain at least uppercase letter, lowercase letter, numbers and special character.')
                         },
                         'length_between': {
@@ -144,7 +144,7 @@ class Users(View):
                         'strip': {}
                     },
                     'validate': {
-                        'email': {
+                        'sv_email': {
                             'error': _('Error! User email is invalid.')
                         }
                     }
@@ -313,7 +313,7 @@ class User(View):
                         'strip': {}
                     },
                     'validate': {
-                        'names': {
+                        'sv_names': {
                             'error': _('Error! First name contains invalid characters.')
                         },
                         'length_between': {
@@ -328,7 +328,7 @@ class User(View):
                         'strip': {}
                     },
                     'validate': {
-                        'names': {
+                        'sv_names': {
                             'error': _('Error! Last name contains invalid characters.')
                         },
                         'length_between': {
@@ -360,7 +360,7 @@ class User(View):
                         'strip': {}
                     },
                     'validate': {
-                        'email': {
+                        'sv_email': {
                             'error': _('Error! Email is invalid.')
                         }
                     }
@@ -383,7 +383,7 @@ class User(View):
                         'strip': {}
                     },
                     'validate': {
-                        'names': {
+                        'sv_names': {
                             'error': _('Error! First name contains invalid characters.')
                         },
                         'length_between': {
@@ -398,7 +398,7 @@ class User(View):
                         'strip': {}
                     },
                     'validate': {
-                        'names': {
+                        'sv_names': {
                             'error': _('Error! Last name contains invalid characters.')
                         },
                         'length_between': {
@@ -430,7 +430,7 @@ class User(View):
                         'strip': {}
                     },
                     'validate': {
-                        'email': {
+                        'sv_email': {
                             'error': _('Error! Email is invalid.')
                         }
                     }
@@ -438,7 +438,7 @@ class User(View):
                 'password': {
                     'value': request_data["password"],
                     'validate': {
-                        'password': {
+                        'sv_password': {
                             'error': _('Error! Password must contain at least uppercase letter, lowercase letter, numbers and special character.')
                         },
                         'length_between': {

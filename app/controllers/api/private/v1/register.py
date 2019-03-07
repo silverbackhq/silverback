@@ -58,7 +58,7 @@ class Register(View):
                     'strip': {}
                 },
                 'validate': {
-                    'names': {
+                    'sv_names': {
                         'error': _('Error! First name contains invalid characters.')
                     },
                     'length_between': {
@@ -73,7 +73,7 @@ class Register(View):
                     'strip': {}
                 },
                 'validate': {
-                    'names': {
+                    'sv_names': {
                         'error': _('Error! Last name contains invalid characters.')
                     },
                     'length_between': {
@@ -105,7 +105,7 @@ class Register(View):
                     'strip': {}
                 },
                 'validate': {
-                    'email': {
+                    'sv_email': {
                         'error': _('Error! Admin email is invalid.')
                     }
                 }
@@ -113,7 +113,7 @@ class Register(View):
             'password': {
                 'value': request_data["password"],
                 'validate': {
-                    'password': {
+                    'sv_password': {
                         'error': _('Error! Password must contain at least uppercase letter, lowercase letter, numbers and special character.')
                     },
                     'length_between': {

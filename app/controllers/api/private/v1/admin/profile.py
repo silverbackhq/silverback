@@ -93,7 +93,7 @@ class Profile(View):
                     'strip': {}
                 },
                 'validate': {
-                    'names': {
+                    'sv_names': {
                         'error': _('Error! First name contains invalid characters.')
                     },
                     'length_between': {
@@ -108,7 +108,7 @@ class Profile(View):
                     'strip': {}
                 },
                 'validate': {
-                    'names': {
+                    'sv_names': {
                         'error': _('Error! Last name contains invalid characters.')
                     },
                     'length_between': {
@@ -140,7 +140,7 @@ class Profile(View):
                     'strip': {}
                 },
                 'validate': {
-                    'email': {
+                    'sv_email': {
                         'error': _('Error! Admin email is invalid.')
                     }
                 }
@@ -191,7 +191,7 @@ class Profile(View):
                     'strip': {}
                 },
                 'validate': {
-                    'url': {
+                    'sv_url': {
                         'error': _('Error! Github url is invalid.')
                     },
                     'length_between': {
@@ -208,7 +208,7 @@ class Profile(View):
                     'strip': {}
                 },
                 'validate': {
-                    'url': {
+                    'sv_url': {
                         'error': _('Error! Twitter url is invalid.')
                     },
                     'length_between': {
@@ -225,7 +225,7 @@ class Profile(View):
                     'strip': {}
                 },
                 'validate': {
-                    'url': {
+                    'sv_url': {
                         'error': _('Error! Facebook url is invalid.')
                     },
                     'length_between': {
@@ -291,7 +291,7 @@ class Profile(View):
             'old_password': {
                 'value': request_data["old_password"],
                 'validate': {
-                    'password': {
+                    'sv_password': {
                         'error': _("Error! Old password is invalid.")
                     },
                     'length_between': {
@@ -303,7 +303,7 @@ class Profile(View):
             'new_password': {
                 'value': request_data["new_password"],
                 'validate': {
-                    'password': {
+                    'sv_password': {
                         'error': _('Error! New Password must contain at least uppercase letter, lowercase letter, numbers and special character.')
                     },
                     'length_between': {
@@ -351,7 +351,7 @@ class Profile(View):
             'token': {
                 'value': request_data["token"],
                 'validate': {
-                    'token': {
+                    'sv_token': {
                         'error': _("Error! The provided token invalid, Please refresh the page.")
                     }
                 }
@@ -387,7 +387,7 @@ class Profile(View):
             'token': {
                 'value': request_data["token"],
                 'validate': {
-                    'token': {
+                    'sv_token': {
                         'error': _("Error! The provided token invalid, Please refresh the page.")
                     }
                 }

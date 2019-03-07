@@ -11,4 +11,4 @@ cryptography==2.4.2
 markdown2==2.3.7
 twilio==6.24.1
 pyumetric==0.0.3
-pyvalitron==1.1.2
+pyvalitron==1.1.3

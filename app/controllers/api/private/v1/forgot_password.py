@@ -52,7 +52,7 @@ class Forgot_Password(View):
                     'strip': {}
                 },
                 'validate': {
-                    'email': {
+                    'sv_email': {
                         'error': _('Error! Email is invalid.')
                     }
                 }

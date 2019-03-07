@@ -86,7 +86,7 @@ class Settings(View):
                     'strip': {}
                 },
                 'validate': {
-                    'email': {
+                    'sv_email': {
                         'error': _('Error! Application email is invalid.')
                     }
                 }
@@ -98,7 +98,7 @@ class Settings(View):
                     'strip': {}
                 },
                 'validate': {
-                    'url': {
+                    'sv_url': {
                         'error': _('Error! Application url is invalid.')
                     }
                 }
@@ -156,14 +156,11 @@ class Settings(View):
                 }
             },
             'reset_mails_messages_count': {
-                'value': request_data["reset_mails_messages_count"],
+                'value': int(request_data["reset_mails_messages_count"]),
                 'sanitize': {
                     'strip': {}
                 },
                 'validate': {
-                    'digit': {
-                        'error': _('Error! Reset mails count is invalid.')
-                    },
                     'greater_than': {
                         'error': _('Error! Reset mails count is invalid.'),
                         'param': [0]
@@ -171,14 +168,11 @@ class Settings(View):
                 }
             },
             'reset_mails_expire_after': {
-                'value': request_data["reset_mails_expire_after"],
+                'value': int(request_data["reset_mails_expire_after"]),
                 'sanitize': {
                     'strip': {}
                 },
                 'validate': {
-                    'digit': {
-                        'error': _('Error! Reset mails expiry interval is invalid.')
-                    },
                     'greater_than': {
                         'error': _('Error! Reset mails count is invalid.'),
                         'param': [0]
@@ -186,14 +180,11 @@ class Settings(View):
                 }
             },
             'access_tokens_expire_after': {
-                'value': request_data["access_tokens_expire_after"],
+                'value': int(request_data["access_tokens_expire_after"]),
                 'sanitize': {
                     'strip': {}
                 },
                 'validate': {
-                    'digit': {
-                        'error': _('Error! Access token expiry interval is invalid.')
-                    },
                     'greater_than': {
                         'error': _('Error! Access token expiry interval is invalid.'),
                         'param': [0]

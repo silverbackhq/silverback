@@ -82,7 +82,7 @@ class Install(View):
                     'strip': {}
                 },
                 'validate': {
-                    'email': {
+                    'sv_email': {
                         'error': _('Error! Application email is invalid.')
                     }
                 }
@@ -94,7 +94,7 @@ class Install(View):
                     'strip': {}
                 },
                 'validate': {
-                    'url': {
+                    'sv_url': {
                         'error': _('Error! Application url is invalid.')
                     }
                 }
@@ -122,7 +122,7 @@ class Install(View):
                     'strip': {}
                 },
                 'validate': {
-                    'email': {
+                    'sv_email': {
                         'error': _('Error! Admin email is invalid.')
                     }
                 }
@@ -130,7 +130,7 @@ class Install(View):
             'admin_password': {
                 'value': request_data["admin_password"],
                 'validate': {
-                    'password': {
+                    'sv_password': {
                         'error': _('Error! Password must contain at least uppercase letter, lowercase letter, numbers and special character.')
                     },
                     'length_between': {

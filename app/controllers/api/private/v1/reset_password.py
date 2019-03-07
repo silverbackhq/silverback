@@ -57,7 +57,7 @@ class Reset_Password(View):
             'new_password': {
                 'value': request_data["new_password"],
                 'validate': {
-                    'password': {
+                    'sv_password': {
                         'error': _('Error! Password must contain at least uppercase letter, lowercase letter, numbers and special character.')
                     },
                     'length_between': {
