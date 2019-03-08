@@ -378,15 +378,18 @@ class Incident_Updates_Components(View):
         self.__form.add_inputs({
             'component_id': {
                 'value': request_data["component_id"],
-                'sanitize': {},
-                'validate': {}
+                'validate': {
+                    'sv_numeric': {
+                        'error': _('Error! Component is required.')
+                    }
+                }
             },
             'type': {
                 'value': request_data["type"],
                 'validate': {
                     'any_of': {
                         'param': [["operational", "degraded_performance", "partial_outage", "major_outage", "maintenance"]],
-                        'error': _('Error! Type is invalid.')
+                        'error': _('Error! Type is required.')
                     }
                 }
             }
