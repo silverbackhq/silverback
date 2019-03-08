@@ -4,7 +4,6 @@ Validation Extensions
 
 # standard library
 import re
-import uuid
 
 from pyvalitron.validator import Validator
 
