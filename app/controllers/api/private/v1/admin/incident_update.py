@@ -18,6 +18,7 @@ from app.modules.core.response import Response
 from app.modules.core.task import Task as Task_Module
 from app.modules.core.notification import Notification as Notification_Module
 from app.modules.core.subscriber import Subscriber as Subscriber_Module
+from app.modules.core.incident import Incident as Incident_Module
 from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
 from app.modules.core.incident_update_component import Incident_Update_Component as Incident_Update_Component_Module
 from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
@@ -31,6 +32,7 @@ class Incident_Updates(View):
     __form = None
     __logger = None
     __user_id = None
+    __incident = None
     __incident_update = None
     __task = None
     __notification = None
@@ -42,6 +44,7 @@ class Incident_Updates(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
+        self.__incident = Incident_Module()
         self.__incident_update = Incident_Update_Module()
         self.__task = Task_Module()
         self.__notification = Notification_Module()
@@ -111,6 +114,15 @@ class Incident_Updates(View):
             "status": self.__form.get_sinput("status"),
             "incident_id": incident_id
         })
+
+        if self.__form.get_sinput("status") == "resolved":
+            self.__incident.update_one_by_id(incident_id, {
+                "status": "closed"
+            })
+        else:
+            self.__incident.update_one_by_id(incident_id, {
+                "status": "open"
+            })
 
         if result:
             return JsonResponse(self.__response.send_private_success([{
