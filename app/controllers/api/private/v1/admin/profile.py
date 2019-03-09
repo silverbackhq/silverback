@@ -397,7 +397,7 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed() and request_data["token"] != "":
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__profile_module.update_refresh_token(self.__user_id)
 

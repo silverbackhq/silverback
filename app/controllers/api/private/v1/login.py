@@ -80,7 +80,7 @@ class Login(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         if self.__login.authenticate(self.__form.get_sinput("username"), self.__form.get_sinput("password"), request):
             return JsonResponse(self.__response.send_private_success([{

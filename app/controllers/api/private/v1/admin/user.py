@@ -163,7 +163,7 @@ class Users(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         if self.__user.email_used(self.__form.get_sinput("email")):
             return JsonResponse(self.__response.send_private_failure([{
@@ -461,7 +461,7 @@ class User(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         if self.__user.username_used_elsewhere(user_id, self.__form.get_sinput("username")):
             return JsonResponse(self.__response.send_private_failure([{

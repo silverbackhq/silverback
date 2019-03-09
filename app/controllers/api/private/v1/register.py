@@ -127,7 +127,7 @@ class Register(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         register_request = self.__user.get_register_request_by_token(request_data["register_request_token"])
 
