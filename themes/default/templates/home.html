@@ -1,26 +1,8 @@
-{% extends 'layouts/landing.html' %}
+{% extends 'layouts/home.html' %}
 {% load staticfiles %}
 {% load i18n %}
 
 {% block content %}
-		<section class="welcome">
-			<div class="container">
-				<div class="welcome-header">
-					<img src="{% static 'assets/images/logo.png' %}" width="100"><br/><br/>
-					<p class="welcome-description">{% trans "A Status and Incident Communication Tool" %}</p>
-					{% if is_authenticated %}
-						<div class="mt-6">
-							<a href="{% url 'app.web.admin.dashboard' %}" class="btn btn-green">{% trans "Dashboard" %}</a>
-						</div>
-					{% else %}
-						<div class="mt-6">
-							<a href="{% url 'app.web.login' %}" class="btn btn-green">{% trans "Login" %}</a>
-						</div>
-					{% endif %}
-				</div>
-			</div>
-		</section>
 
-		<script src="{% static 'assets/js/vendors/jquery-3.3.1.slim.min.js' %}"></script>
 
 {% endblock %}

@@ -2608,6 +2608,35 @@ silverback_app.dashboard_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 }
 
 
+/**
+ * Status Builder
+ */
+silverback_app.app_status_builder_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#app_status_builder',
+        data() {
+            return {
+                favIconSource: "upload",
+                coverImageSource: "upload",
+                isInProgress: false
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+
+            }
+        }
+    });
+
+}
+
+
 $(document).ready(() => {
 
     $(document).ajaxStart(() => {
@@ -2950,6 +2979,16 @@ $(document).ready(() => {
         }
         if (document.getElementById("dashboard")) {
             silverback_app.dashboard_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("app_status_builder")) {
+            silverback_app.app_status_builder_screen(
                 Vue,
                 axios,
                 $,

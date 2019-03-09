@@ -7,8 +7,8 @@
     <div class="page-main">
         {% include 'partials/top-menu.html' %}
         <div class="my-3 my-md-5">
-            <div class="container" id="dashboard">
-                <div class="row" id="manage_settings">
+            <div class="container" id="app_status_builder">
+                <div class="row">
                     <div class="col-12">
                         <form class="card" v-on:submit.prevent="updateSettingsAction" action="{% url 'app.api.private.v1.admin.settings.endpoint' %}" method="post">
                             {% csrf_token %}
@@ -26,24 +26,62 @@
                                     </div>
                                     <div class="col-md-12 col-lg-12">
                                         <div class="form-group">
-                                            <label class="form-label">{% trans "Fav icon" %}</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="fav_icon">
-                                                <label class="custom-file-label">{% trans "Choose image" %}</label>
-                                            </div>
-                                            <small class="form-text text-muted">{% trans "Suggested size " %} <code>96x96</code></small>
+                                            <label class="form-label">{% trans "Fav icon source" %}</label>
+                                            <select class="form-control" v-model="favIconSource" name="fav_icon_source" required>
+                                                <option value="upload">{% trans "Upload" %}</option>
+                                                <option value="url">{% trans "URL" %}</option>
+                                            </select>
                                         </div>
                                     </div>
+                                    <template v-if="favIconSource === 'url'">
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Fav icon URL" %}</label>
+                                                <input type="url" class="form-control" name="fav_icon_url" value="">
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template v-if="favIconSource === 'upload'">
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Fav icon" %}</label>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" name="fav_icon_file">
+                                                    <label class="custom-file-label">{% trans "Choose image" %}</label>
+                                                </div>
+                                                <small class="form-text text-muted">{% trans "Suggested size " %} <code>96x96</code></small>
+                                            </div>
+                                        </div>
+                                    </template>
                                     <div class="col-md-12 col-lg-12">
                                         <div class="form-group">
-                                            <label class="form-label">{% trans "Cover image" %}</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="cover_image">
-                                                <label class="custom-file-label">{% trans "Choose image" %}</label>
-                                            </div>
-                                            <small class="form-text text-muted">{% trans "Suggested size " %} <code>850x315 or 1700x630</code></small>
+                                            <label class="form-label">{% trans "Cover image source" %}</label>
+                                            <select class="form-control" v-model="coverImageSource" name="cover_image_source" required>
+                                                <option value="upload">{% trans "Upload" %}</option>
+                                                <option value="url">{% trans "URL" %}</option>
+                                            </select>
                                         </div>
                                     </div>
+                                    <template v-if="coverImageSource === 'url'">
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Cover image URL" %}</label>
+                                                <input type="url" class="form-control" name="fav_icon_url" value="">
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template v-if="coverImageSource === 'upload'">
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Cover image" %}</label>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" name="cover_image_file">
+                                                    <label class="custom-file-label">{% trans "Choose image" %}</label>
+                                                </div>
+                                                <small class="form-text text-muted">{% trans "Suggested size " %} <code>850x315 or 1700x630</code></small>
+                                            </div>
+                                        </div>
+                                    </template>
                                     <div class="col-md-12 col-lg-12">
                                         <div class="form-group">
                                             <label class="form-label">{% trans "About" %}</label>
@@ -52,8 +90,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br/>
-                                <div class="row">
+                            </div>
+                            <div class="card-footer text-right">
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Submit" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="dimmer">
+                                <div class="loader"></div>
+                                <div class="dimmer-content">
                                     <div class="table-responsive">
                                         <table class="table card-table table-vcenter text-nowrap">
                                             <thead>
@@ -66,8 +117,13 @@
                                                 <tr>
                                                     <td>
                                                         <select name="component" class="custom-select" disabled>
-                                                            <option value="">{% trans "Please select a component" %}</option>
-                                                            <option value="1" selected>API</option>
+                                                            <option value="">{% trans "Please select a component or a group" %}</option>
+                                                            {% for group in groups %}
+                                                                <option value="g-{{ group.id }}">{{ group.name }}</option>
+                                                            {% endfor %}
+                                                            {% for component in components %}
+                                                                <option value="g-{{ component.id }}">{{ component.name }}</option>
+                                                            {% endfor %}
                                                         </select>
                                                     </td>
                                                     <td class="text-center" style="vertical-align: middle;">
@@ -78,7 +134,12 @@
                                                     <td>
                                                         <select name="component" class="custom-select">
                                                             <option value="">{% trans "Please select a component" %}</option>
-                                                            <option value="1">API</option>
+                                                            {% for group in groups %}
+                                                                <option value="g-{{ group.id }}">{{ group.name }}</option>
+                                                            {% endfor %}
+                                                            {% for component in components %}
+                                                                <option value="g-{{ component.id }}">{{ component.name }}</option>
+                                                            {% endfor %}
                                                         </select>
                                                     </td>
                                                     <td class="text-center" style="vertical-align: middle;">
@@ -89,8 +150,16 @@
                                         </table>
                                     </div>
                                 </div>
-                                <br/>
-                                <div class="row">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="dimmer">
+                                <div class="loader"></div>
+                                <div class="dimmer-content">
                                     <div class="table-responsive">
                                         <table class="table card-table table-vcenter text-nowrap">
                                             <thead>
@@ -114,8 +183,10 @@
                                                 <tr>
                                                     <td>
                                                         <select name="component" class="custom-select">
-                                                            <option value="">{% trans "Please select a component" %}</option>
-                                                            <option value="1">API</option>
+                                                            <option value="">{% trans "Please select a metric" %}</option>
+                                                            {% for metric in metrics %}
+                                                                <option value="g-{{ metric.id }}">{{ metric.title }}</option>
+                                                            {% endfor %}
                                                         </select>
                                                     </td>
                                                     <td class="text-center" style="vertical-align: middle;">
@@ -127,12 +198,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer text-right">
-                                <div class="d-flex">
-                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Submit" %}</button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

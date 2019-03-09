@@ -51,7 +51,7 @@ class Metric_Entity():
 
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
-            return Metric.objects.order_by('-created_at').get()
+            return Metric.objects.order_by('-created_at')
 
         return Metric.objects.order_by('-created_at')[offset:limit+offset]
 
