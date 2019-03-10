@@ -7,7 +7,6 @@ import os
 
 # Django
 from django.views import View
-from django.shortcuts import render
 from django.http import HttpResponse
 
 # local Django
@@ -40,11 +39,11 @@ class AtomHistory(View):
 
         self.__fg.id('http://silverbackhq.org')
         self.__fg.title('Some Testfeed')
-        self.__fg.author( {'name':'John Doe','email':'john@silverbackhq.org'} )
-        self.__fg.link( href='http://example.com', rel='alternate' )
+        self.__fg.author({'name': 'John Doe', 'email': 'john@silverbackhq.org'})
+        self.__fg.link(href='http://example.com', rel='alternate')
         self.__fg.logo('http://ex.com/logo.jpg')
         self.__fg.subtitle('This is a cool feed!')
-        self.__fg.link( href='http://silverbackhq.org/test.atom', rel='self' )
+        self.__fg.link(href='http://silverbackhq.org/test.atom', rel='self')
         self.__fg.language('en')
 
         return HttpResponse(self.__fg.atom_str(), content_type='text/xml')
@@ -71,11 +70,11 @@ class RssHistory(View):
 
         self.__fg.id('http://silverbackhq.org')
         self.__fg.title('Some Testfeed')
-        self.__fg.author( {'name':'John Doe','email':'john@silverbackhq.org'} )
-        self.__fg.link( href='http://example.com', rel='alternate' )
+        self.__fg.author({'name': 'John Doe', 'email': 'john@silverbackhq.org'})
+        self.__fg.link(href='http://example.com', rel='alternate')
         self.__fg.logo('http://ex.com/logo.jpg')
         self.__fg.subtitle('This is a cool feed!')
-        self.__fg.link( href='http://silverbackhq.org/test.atom', rel='self' )
+        self.__fg.link(href='http://silverbackhq.org/test.atom', rel='self')
         self.__fg.language('en')
 
         return HttpResponse(self.__fg.atom_str(), content_type='text/xml')

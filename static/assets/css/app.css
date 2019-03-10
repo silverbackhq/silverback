@@ -71,3 +71,19 @@
 .highcharts-credits{
     display: none !important;
 }
+
+.uptime-90-days-wrapper {
+    padding-top: 5px;
+    margin-bottom: -2px;
+}
+.uptime-90-days-wrapper svg {
+    margin: 0;
+    padding: 0;
+    height: 34px;
+    width: 100%;
+}
+
+.link-reset {
+    text-decoration: none;
+    color:#495057;
+}
