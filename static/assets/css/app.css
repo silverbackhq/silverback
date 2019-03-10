@@ -67,3 +67,7 @@
 .toast-error .toast-progress {
     background-color: #e74c3c
 }
+
+.highcharts-credits{
+    display: none !important;
+}

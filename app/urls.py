@@ -16,6 +16,8 @@ from app.controllers.web.forgot_password import Forgot_Password as Forgot_Passwo
 from app.controllers.web.reset_password import Reset_Password as Reset_Password_View
 from app.controllers.web.statistics import Statistics as Statistics_View
 from app.controllers.web.incidents import Incidents as Incidents_View
+from app.controllers.web.history import AtomHistory as AtomHistory_View
+from app.controllers.web.history import RssHistory as RssHistory_View
 
 from app.controllers.web.admin.logout import Logout as Logout_View
 from app.controllers.web.admin.dashboard import Dashboard as Dashboard_View
@@ -89,6 +91,8 @@ urlpatterns = [
     path('forgot-password', Forgot_Password_View.as_view(), name='app.web.forgot_password'),
     path('reset-password/<token>', Reset_Password_View.as_view(), name='app.web.reset_password'),
     path('statistics/<type>', Statistics_View.as_view(), name='app.web.statistics'),
+    path('history.atom', AtomHistory_View.as_view(), name='app.web.history_atom'),
+    path('history.rss', RssHistory_View.as_view(), name='app.web.history_rss'),
 
     # Authenticated Users Views
     path('admin/', include([
