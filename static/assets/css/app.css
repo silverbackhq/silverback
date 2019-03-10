@@ -87,3 +87,19 @@
     text-decoration: none;
     color:#495057;
 }
+
+.incidents {
+    margin-bottom: 25px;
+}
+.incident {
+    margin-bottom: 15px;
+}
+.incident .incident_subject {
+    margin-bottom: 5px;
+}
+.incident .incident_body {
+    margin-bottom: 5px;
+}
+.incident_time {
+
+}
