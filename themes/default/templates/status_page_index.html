@@ -454,51 +454,8 @@
 	                </div>
 	            </div>
 	            <div class="row">
-	                <div class="col-sm-12 col-lg-12">
-	                    <div class="card">
-	                        <div class="card-header">
-	                            <h3 class="card-title">Incident History</h3>
-	                            <div class="card-options">
-	                                <a href="#" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-arrow-left"></i></a>
-	                                <button href="#" disabled class="btn btn-secondary btn-sm ml-2">May 2019 - July 2019</button>
-	                                <a href="#" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-arrow-right"></i></a>
-	                            </div>
-	                        </div>
-	                        <div class="card-body">
-	                            <div class="incidents">
-	                                <h4>March 2019</h4>
-	                                <p>
-	                                    <span class="text-muted">No incidents reported for this month.</span>
-	                                </p>
-	                            </div>
-	                            <div class="incidents">
-	                                <h4>February, 2019</h4>
-	                                <div class="incident">
-	                                    <div class="incident_subject">
-	                                        <a href="#" class="text-warning">
-	                                            <strong>Partial network outage at one of our network suppliers</strong>
-	                                        </a>
-	                                    </div>
-	                                    <div class="incident_body">
-	                                        This incident has been resolved.
-	                                        <br/>
-	                                        <small>March 7, 08:56 CET - March 8, 2:56 CET</small>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <div class="incidents">
-	                                <h4>March 6, 2019</h4>
-	                                <p>
-	                                    <span class="text-muted">No incidents reported.</span>
-	                                </p>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="row">
 	                <div class="col-sm-6 col-lg-6 text-left">
-	                    <a href="#">
+	                    <a href="{% url 'app.web.status_page_history' %}">
 	                        <span style="font-family:arial">←</span> {% trans "Incident History" %}
 	                    </a>
 	                </div>

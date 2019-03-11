@@ -1,0 +1,119 @@
+{% extends 'layouts/base.html' %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="page-main">
+        <div class="my-3 my-md-5">
+            <div class="container" style="width: 50%;">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <a href="#">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="{{ app_name }}">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-lg-6 text-right" style="margin-top: 40px">
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">Subscribe to Updates</a>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="alert alert-icon alert-success" role="alert" style="width: 100%;">
+                            <i class="fe fe-check mr-2" aria-hidden="true"></i> All Systems Operational
+                        </div>
+                        <div class="alert alert-warning" role="alert" style="width: 100%;">
+                            <i class="fe fe-bell mr-2" aria-hidden="true"></i> Some services are experiencing interruptions
+                        </div>
+                        <div class="alert alert-danger" role="alert" style="width: 100%;">
+                            <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i>Many services are experiencing interruptions
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>About This Site</h4>
+                                <br/> This is silverback's status page, where you can get updates on how our systems are doing. If there are interruptions to service, we will post a note here. As always, if you are experiencing any issues with silverback, don't hesitate to get in touch with us at team@silverbackhq.org and we'll get back to you as soon as we can.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Incident History</h3>
+                                <div class="card-options">
+                                    <a href="#" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-arrow-left"></i></a>
+                                    <button href="#" disabled class="btn btn-secondary btn-sm ml-2">May 2019 - July 2019</button>
+                                    <a href="#" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-arrow-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="incidents">
+                                    <h4>March 2019</h4>
+                                    <p>
+                                        <span class="text-muted">No incidents reported for this month.</span>
+                                    </p>
+                                </div>
+                                <div class="incidents">
+                                    <h4>February, 2019</h4>
+                                    <div class="incident">
+                                        <div class="incident_subject">
+                                            <a href="#" class="text-warning">
+                                                <strong>Partial network outage at one of our network suppliers</strong>
+                                            </a>
+                                        </div>
+                                        <div class="incident_body">
+                                            This incident has been resolved.
+                                            <br/>
+                                            <small>March 7, 08:56 CET - March 8, 2:56 CET</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="incidents">
+                                    <h4>March 6, 2019</h4>
+                                    <p>
+                                        <span class="text-muted">No incidents reported.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6 text-left"></div>
+                    <div class="col-sm-6 col-lg-6 text-right">
+                        <a href="https://github.com/silverbackhq/silverback" target="__blank">
+                            <span class="text-muted">{% trans "Powered by Silverback" %}</span>
+                        </a>
+                    </div>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Subscribe to Updates</h5>
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
