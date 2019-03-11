@@ -1,5 +1,5 @@
 """
-Home Web Controller
+Status Page Index Web Controller
 """
 
 # standard library
@@ -15,9 +15,9 @@ from app.modules.entity.option_entity import Option_Entity
 from app.modules.core.decorators import redirect_if_not_installed
 
 
-class Home(View):
+class Status_Page_Index(View):
 
-    template_name = 'templates/home.html'
+    template_name = 'templates/status_page_index.html'
     __context = None
     __option_entity = None
 
