@@ -17,7 +17,6 @@ from app.controllers.web.register import Register as Register_View
 from app.controllers.web.forgot_password import Forgot_Password as Forgot_Password_View
 from app.controllers.web.reset_password import Reset_Password as Reset_Password_View
 from app.controllers.web.statistics import Statistics as Statistics_View
-from app.controllers.web.incidents import Incidents as Incidents_View
 from app.controllers.web.history import AtomHistory as AtomHistory_View
 from app.controllers.web.history import RssHistory as RssHistory_View
 
