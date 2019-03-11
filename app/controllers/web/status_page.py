@@ -55,3 +55,25 @@ class Status_Page_History(View):
         })
 
         return render(request, self.template_name, self.__context.get())
+
+
+class Status_Page_Single(View):
+
+    template_name = 'templates/status_page_single.html'
+    __context = None
+    __option_entity = None
+
+    @redirect_if_not_installed
+    def get(self, request, uri):
+
+        self.__context = Context()
+        self.__option_entity = Option_Entity()
+
+        self.__context.autoload_options()
+        self.__context.push({
+            "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+            "is_authenticated": request.user and request.user.is_authenticated,
+            "uri": uri
+        })
+
+        return render(request, self.template_name, self.__context.get())

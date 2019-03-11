@@ -8,6 +8,7 @@ from django.urls import include, path
 # local Django
 from app.controllers.web.status_page import Status_Page_Index as Status_Page_Index_View
 from app.controllers.web.status_page import Status_Page_History as Status_Page_History_View
+from app.controllers.web.status_page import Status_Page_Single as Status_Page_Single_View
 from app.controllers.web.install import Install as Install_View
 from app.controllers.web.not_found import handler404 as handler404_view
 from app.controllers.web.error import handler500 as handler500_view
@@ -86,7 +87,7 @@ urlpatterns = [
     # Public Views
     path('', Status_Page_Index_View.as_view(), name='app.web.status_page_index'),
     path('history', Status_Page_History_View.as_view(), name='app.web.status_page_history'),
-    path('incidents/<uri>', Incidents_View.as_view(), name='app.web.incidents'),
+    path('incidents/<uri>', Status_Page_Single_View.as_view(), name='app.web.status_page_single'),
     path('install', Install_View.as_view(), name='app.web.install'),
     path('login', Login_View.as_view(), name='app.web.login'),
     path('register/<token>', Register_View.as_view(), name='app.web.register'),
