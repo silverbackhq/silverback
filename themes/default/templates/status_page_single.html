@@ -14,22 +14,47 @@
                         </a>
                     </div>
                     <div class="col-sm-6 col-lg-6 text-right" style="margin-top: 40px">
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">Subscribe to Updates</a>
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">
+                            {% trans "Subscribe to Updates" %}
+                        </a>
+                    </div>
+                </div>
+                <div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{% trans "Subscribe to Updates" %}</h5>
+                                <button type="button" class="close" data-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-primary">{% trans "Submit" %}</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br/>
                 <br/>
                 <div class="row">
                     <div class="col-sm-12 col-lg-12">
-                        <div class="alert alert-icon alert-success" role="alert" style="width: 100%;">
-                            <i class="fe fe-check mr-2" aria-hidden="true"></i> All Systems Operational
-                        </div>
-                        <div class="alert alert-warning" role="alert" style="width: 100%;">
-                            <i class="fe fe-bell mr-2" aria-hidden="true"></i> Some services are experiencing interruptions
-                        </div>
-                        <div class="alert alert-danger" role="alert" style="width: 100%;">
-                            <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i>Many services are experiencing interruptions
-                        </div>
+                        {% if system_status == "operational" %}
+                            <div class="alert alert-icon alert-success" role="alert" style="width: 100%;">
+                                <i class="fe fe-check mr-2" aria-hidden="true"></i> {% trans "All Systems Operational" %}
+                            </div>
+                        {% endif %}
+                        {% if system_status == "warning" %}
+                            <div class="alert alert-warning" role="alert" style="width: 100%;">
+                                <i class="fe fe-bell mr-2" aria-hidden="true"></i> {% trans "Some services are experiencing interruptions" %}
+                            </div>
+                        {% endif %}
+                        {% if system_status == "error" %}
+                            <div class="alert alert-danger" role="alert" style="width: 100%;">
+                                <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {% trans "Many services are experiencing interruptions" %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 <br/>
@@ -56,24 +81,6 @@
                     </div>
                 </div>
                 <br/>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Subscribe to Updates</h5>
-                    <button type="button" class="close" data-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
-                </div>
             </div>
         </div>
     </div>

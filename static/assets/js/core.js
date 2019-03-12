@@ -2637,6 +2637,58 @@ silverback_app.app_status_builder_screen = (Vue, axios, $, Pace, Cookies, toastr
 }
 
 
+/**
+ * Status Page Index
+ */
+silverback_app.app_status_page_index_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    if ($('a[data-id="day_metric"]').length) {
+        $('a[data-id="day_metric"]').on("click", function(event){
+            event.preventDefault();
+            $('div.system_metric').hide();
+            $('div[data-target="day_metric"]').show();
+        });
+    }
+
+    if ($('a[data-id="week_metric"]').length) {
+        $('a[data-id="week_metric"]').on("click", function(event){
+            event.preventDefault();
+            $('div.system_metric').hide();
+            $('div[data-target="week_metric"]').show();
+        });
+    }
+
+    if ($('a[data-id="month_metric"]').length) {
+        $('a[data-id="month_metric"]').on("click", function(event){
+            event.preventDefault();
+            $('div.system_metric').hide();
+            $('div[data-target="month_metric"]').show();
+        });
+    }
+
+    /*
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#app_status_page_index',
+        data() {
+            return {
+                systemMetricsPeriod: "day"
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+
+            }
+        }
+    });
+    */
+}
+
+
 $(document).ready(() => {
 
     $(document).ajaxStart(() => {
@@ -2989,6 +3041,16 @@ $(document).ready(() => {
         }
         if (document.getElementById("app_status_builder")) {
             silverback_app.app_status_builder_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("app_status_page_index")) {
+            silverback_app.app_status_page_index_screen(
                 Vue,
                 axios,
                 $,

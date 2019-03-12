@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block content %}
-	<div class="page-main">
+	<div class="page-main" id="app_status_page_index">
 	    <div class="my-3 my-md-5">
 	        <div class="container" style="width: 50%;">
 	            <div class="row">
@@ -14,22 +14,47 @@
 	                    </a>
 	                </div>
 	                <div class="col-sm-6 col-lg-6 text-right" style="margin-top: 40px">
-	                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">Subscribe to Updates</a>
+	                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">
+	                    	{% trans "Subscribe to Updates" %}
+	                	</a>
 	                </div>
+					<div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <h5 class="modal-title" id="exampleModalLabel">{% trans "Subscribe to Updates" %}</h5>
+					                <button type="button" class="close" data-dismiss="modal"></button>
+					            </div>
+					            <div class="modal-body">
+
+					            </div>
+					            <div class="modal-footer">
+					                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+					                <button type="button" class="btn btn-primary">{% trans "Submit" %}</button>
+					            </div>
+					        </div>
+					    </div>
+					</div>
 	            </div>
 	            <br/>
 	            <br/>
 	            <div class="row">
 	                <div class="col-sm-12 col-lg-12">
-	                    <div class="alert alert-icon alert-success" role="alert" style="width: 100%;">
-	                        <i class="fe fe-check mr-2" aria-hidden="true"></i> All Systems Operational
-	                    </div>
-	                    <div class="alert alert-warning" role="alert" style="width: 100%;">
-	                        <i class="fe fe-bell mr-2" aria-hidden="true"></i> Some services are experiencing interruptions
-	                    </div>
-	                    <div class="alert alert-danger" role="alert" style="width: 100%;">
-	                        <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i>Many services are experiencing interruptions
-	                    </div>
+	                	{% if system_status == "operational" %}
+		                    <div class="alert alert-icon alert-success" role="alert" style="width: 100%;">
+		                        <i class="fe fe-check mr-2" aria-hidden="true"></i> {% trans "All Systems Operational" %}
+		                    </div>
+		                {% endif %}
+		                {% if system_status == "warning" %}
+		                    <div class="alert alert-warning" role="alert" style="width: 100%;">
+		                        <i class="fe fe-bell mr-2" aria-hidden="true"></i> {% trans "Some services are experiencing interruptions" %}
+		                    </div>
+	                    {% endif %}
+	                    {% if system_status == "error" %}
+		                    <div class="alert alert-danger" role="alert" style="width: 100%;">
+		                        <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {% trans "Many services are experiencing interruptions" %}
+		                    </div>
+	                    {% endif %}
 	                </div>
 	            </div>
 	            <br/>
@@ -37,8 +62,8 @@
 	                <div class="col-sm-12 col-lg-12">
 	                    <div class="card">
 	                        <div class="card-body">
-	                            <h4>About This Site</h4>
-	                            <br/> This is silverback's status page, where you can get updates on how our systems are doing. If there are interruptions to service, we will post a note here. As always, if you are experiencing any issues with silverback, don't hesitate to get in touch with us at team@silverbackhq.org and we'll get back to you as soon as we can.
+	                            <h4>{% trans "About This Site" %}</h4><br/>
+	                            {{ about_site }}
 	                        </div>
 	                    </div>
 	                </div>
@@ -297,99 +322,27 @@
 	                <div class="col-sm-12 col-lg-12">
 	                    <div class="card">
 	                        <div class="card-header">
-	                            <h3 class="card-title">System Metrics</h3>
+	                            <h3 class="card-title">{% trans "System Metrics" %}</h3>
 	                            <div class="card-options">
-	                                <a href="#" class="btn btn-secondary btn-sm ml-2">Day</a>
-	                                <a href="#" class="btn btn-secondary btn-sm ml-2">Week</a>
-	                                <a href="#" class="btn btn-secondary btn-sm ml-2">Month</a>
+	                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="day_metric">{% trans "Day" %}</a>
+	                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="week_metric">{% trans "Week" %}</a>
+	                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="month_metric">{% trans "Month" %}</a>
 	                            </div>
 	                        </div>
-
 	                        <div class="card-body">
-	                            <div id="container" style="height: 16rem"></div>
+	                        	{% for system_metric in system_metrics %}
+		                        	<div class="system_metric" data-target="day_metric">
+	                        			<div id="{{ system_metric.id }}_day" style="height: 16rem"></div>
+	                        		</div>
+	                        		<div class="system_metric" style="display: none" data-target="week_metric">
+		                            	<div id="{{ system_metric.id }}_week" style="height: 16rem"></div>
+		                        	</div>
+		                            <div class="system_metric" style="display: none" data-target="month_metric">
+		                            	<div id="{{ system_metric.id }}_month" style="height: 16rem"></div>
+		                        	</div>
+	                        	{% endfor %}
 	                        </div>
 	                    </div>
-	                    <script>
-	                        Highcharts.chart('container', {
-	                            chart: {
-	                                type: 'spline'
-	                            },
-	                            title: {
-	                                text: 'Website Dashboard - Average response time'
-	                            },
-	                            xAxis: {
-	                                type: 'datetime',
-	                                dateTimeLabelFormats: { // don't display the dummy year
-	                                    month: '%e. %b',
-	                                    year: '%b'
-	                                },
-	                                title: {
-	                                    text: 'Date'
-	                                }
-	                            },
-	                            yAxis: {
-	                                title: {
-	                                    text: 'Time (m)'
-	                                },
-	                                min: 0
-	                            },
-	                            plotOptions: {
-	                                spline: {
-	                                    marker: {
-	                                        enabled: true
-	                                    }
-	                                }
-	                            },
-	                            series: [{
-	                                name: 'Date',
-	                                data: [
-	                                    [Date.UTC(2019, 3, 10, 1, 1), 0.25],
-	                                    [Date.UTC(2019, 3, 10, 1, 2), 0.26],
-	                                    [Date.UTC(2019, 3, 10, 1, 3), 0.27],
-	                                    [Date.UTC(2019, 3, 10, 1, 4), 0.28],
-	                                    [Date.UTC(2019, 3, 10, 1, 5), 0.29],
-	                                    [Date.UTC(2019, 3, 10, 1, 6), 0.20],
-	                                    [Date.UTC(2019, 3, 10, 1, 7), 0.30],
-	                                    [Date.UTC(2019, 3, 10, 1, 8), 0.25],
-	                                    [Date.UTC(2019, 3, 10, 1, 9), 0.25],
-	                                    [Date.UTC(2019, 3, 10, 1, 10), 1],
-	                                    [Date.UTC(2019, 3, 10, 1, 11), 1.2],
-	                                    [Date.UTC(2019, 3, 10, 1, 12), 1.02],
-	                                    [Date.UTC(2019, 3, 10, 1, 13), 1.3],
-	                                    [Date.UTC(2019, 3, 10, 1, 14), 1],
-	                                    [Date.UTC(2019, 3, 10, 1, 15), 1.09],
-	                                    [Date.UTC(2019, 3, 10, 1, 16), 1.08],
-	                                    [Date.UTC(2019, 3, 10, 1, 17), 1.5],
-	                                    [Date.UTC(2019, 3, 10, 1, 18), 1.08],
-	                                    [Date.UTC(2019, 3, 10, 1, 19), 1.05],
-	                                    [Date.UTC(2019, 3, 10, 1, 20), 0.8],
-	                                    [Date.UTC(2019, 3, 10, 1, 21), 0.40],
-	                                    [Date.UTC(2019, 3, 10, 1, 22), 0.50],
-	                                    [Date.UTC(2019, 3, 10, 1, 23), 0.77],
-	                                    [Date.UTC(2019, 3, 10, 1, 24), 0.9],
-	                                    [Date.UTC(2019, 3, 10, 1, 25), 0.44],
-	                                    [Date.UTC(2019, 3, 10, 1, 26), 0.34],
-	                                    [Date.UTC(2019, 3, 10, 1, 27), 0.23],
-	                                    [Date.UTC(2019, 3, 10, 1, 28), 0.45],
-	                                    [Date.UTC(2019, 3, 10, 1, 29), 0.33],
-	                                    [Date.UTC(2019, 3, 10, 1, 30), 0.22],
-	                                    [Date.UTC(2019, 3, 10, 1, 31), 0.98],
-	                                    [Date.UTC(2019, 3, 10, 1, 32), 0.8],
-	                                    [Date.UTC(2019, 3, 10, 1, 33), 0.53],
-	                                    [Date.UTC(2019, 3, 10, 1, 34), 0.34],
-	                                    [Date.UTC(2019, 3, 10, 1, 35), 0.32],
-	                                    [Date.UTC(2019, 3, 10, 1, 36), 0.344],
-	                                ]
-	                            }],
-	                            responsive: {
-	                                rules: [{
-	                                    condition: {
-	                                        maxWidth: 500
-	                                    }
-	                                }]
-	                            }
-	                        });
-	                    </script>
 	                </div>
 	            </div>
 	            <br/>
@@ -397,58 +350,41 @@
 	                <div class="col-sm-12 col-lg-12">
 	                    <div class="card">
 	                        <div class="card-header">
-	                            <h3 class="card-title">Past Incidents</h3>
+	                            <h3 class="card-title">{% trans "Past Incidents" %}</h3>
 	                        </div>
 	                        <div class="card-body">
-	                            <div class="incidents">
-	                                <h4>March 8, 2019</h4>
-	                                <p>
-	                                    <span class="text-muted">No incidents reported.</span>
-	                                </p>
-	                            </div>
-	                            <div class="incidents">
-	                                <h4>March 7, 2019</h4>
-	                                <div class="incident">
-	                                    <div class="incident_subject">
-	                                        <a href="#" class="text-danger">
-	                                            <strong>Partial network outage at one of our network suppliers</strong>
-	                                        </a>
-	                                    </div>
-	                                    <div class="incident_body">
-	                                        <strong>Resolved</strong> - we had a partial network outage at one of our network suppliers. During this time we were unable to send and receive SMS to and from a small set of carriers. During this outage, SMS was either delayed or sent via an alternative route.
-	                                        <br/>
-	                                        <small>March 7, 08:56 CET</small>
-	                                    </div>
-	                                    <div class="incident_body">
-	                                        <strong>Update</strong> - we had a partial network outage at one of our network suppliers. During this time we were unable to send and receive SMS to and from a small set of carriers. During this outage, SMS was either delayed or sent via an alternative route.
-	                                        <br/>
-	                                        <small>March 7, 08:56 CET</small>
-	                                    </div>
-	                                </div>
-	                                <div class="incident">
-	                                    <div class="incident_subject">
-	                                        <a href="#" class="text-danger">
-	                                            <strong>Partial network outage at one of our network suppliers</strong>
-	                                        </a>
-	                                    </div>
-	                                    <div class="incident_body">
-	                                        <strong>Resolved</strong> - we had a partial network outage at one of our network suppliers. During this time we were unable to send and receive SMS to and from a small set of carriers. During this outage, SMS was either delayed or sent via an alternative route.
-	                                        <br/>
-	                                        <small>March 7, 08:56 CET</small>
-	                                    </div>
-	                                    <div class="incident_body">
-	                                        <strong>Update</strong> - we had a partial network outage at one of our network suppliers. During this time we were unable to send and receive SMS to and from a small set of carriers. During this outage, SMS was either delayed or sent via an alternative route.
-	                                        <br/>
-	                                        <small>March 7, 08:56 CET</small>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <div class="incidents">
-	                                <h4>March 6, 2019</h4>
-	                                <p>
-	                                    <span class="text-muted">No incidents reported.</span>
-	                                </p>
-	                            </div>
+	                        	{% for past_incident in past_incidents %}
+		                            <div class="incidents">
+		                                <h4>{{ past_incident.date }}</h4>
+		                                {% if past_incident.incidents %}
+		                                	{% for incident in past_incident.incidents %}
+				                                <div class="incident">
+				                                    <div class="incident_subject">
+				                                        <a href="{{ incident.uri }}" class="{{ incident.class }}">
+				                                            <strong>{{ incident.subject }}</strong>
+				                                        </a>
+				                                    </div>
+				                                    {% if incident.updates %}
+				                                    	{% for update in incident.updates %}
+						                                    <div class="incident_body">
+						                                        <strong>{{ update.type }}</strong> - {{ update.body }}<br/>
+						                                        <small>{{ update.date }}</small>
+						                                    </div>
+						                                {% endfor %}
+				                                    {% else %}
+                                        				<div class="incident_body">
+                                        					{% trans "No updates reported." %}
+                                        				</div>
+				                                    {% endif %}
+				                                </div>
+			                                {% endfor %}
+		                                {% else %}
+			                                <p>
+			                                    <span class="text-muted">{% trans "No incidents reported." %}</span>
+			                                </p>
+			                           	{% endif %}
+		                            </div>
+	                        	{% endfor %}
 	                        </div>
 	                    </div>
 	                </div>
@@ -469,22 +405,146 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-hidden="true">
-	    <div class="modal-dialog">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <h5 class="modal-title" id="exampleModalLabel">Subscribe to Updates</h5>
-	                <button type="button" class="close" data-dismiss="modal"></button>
-	            </div>
-	            <div class="modal-body">
-
-
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	                <button type="button" class="btn btn-primary">Submit</button>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+    <script>
+		{% for system_metric in system_metrics %}
+	        Highcharts.chart('{{ system_metric.id }}_day', {
+	            chart: {
+	                type: 'spline'
+	            },
+	            title: {
+	                text: '{{ system_metric.title }}'
+	            },
+	            xAxis: {
+	                type: 'datetime',
+	                dateTimeLabelFormats: {
+	                    month: '%e. %b',
+	                    year: '%b'
+	                },
+	                title: {
+	                    text: '{{ system_metric.xtitle }}'
+	                }
+	            },
+	            yAxis: {
+	                title: {
+	                    text: '{{ system_metric.ytitle }}'
+	                },
+	                min: 0
+	            },
+	            plotOptions: {
+	                spline: {
+	                    marker: {
+	                        enabled: true
+	                    }
+	                }
+	            },
+	            series: [{
+	                name: '{{ system_metric.xtitle }}',
+	                data: [
+	                	{% for day in system_metric.day_data %}
+	                    	[{{ day.timestamp }}, {{ day.value }}],
+	               	 	{% endfor %}
+	                ]
+	            }],
+	            responsive: {
+	                rules: [{
+	                    condition: {
+	                        maxWidth: 500
+	                    }
+	                }]
+	            }
+	        });
+	        Highcharts.chart('{{ system_metric.id }}_week', {
+	            chart: {
+	                type: 'spline'
+	            },
+	            title: {
+	                text: '{{ system_metric.title }}'
+	            },
+	            xAxis: {
+	                type: 'datetime',
+	                dateTimeLabelFormats: {
+	                    month: '%e. %b',
+	                    year: '%b'
+	                },
+	                title: {
+	                    text: '{{ system_metric.xtitle }}'
+	                }
+	            },
+	            yAxis: {
+	                title: {
+	                    text: '{{ system_metric.ytitle }}'
+	                },
+	                min: 0
+	            },
+	            plotOptions: {
+	                spline: {
+	                    marker: {
+	                        enabled: true
+	                    }
+	                }
+	            },
+	            series: [{
+	                name: '{{ system_metric.xtitle }}',
+	                data: [
+	                	{% for week in system_metric.week_data %}
+	                    	[{{ week.timestamp }}, {{ week.value }}],
+	               	 	{% endfor %}
+	                ]
+	            }],
+	            responsive: {
+	                rules: [{
+	                    condition: {
+	                        maxWidth: 500
+	                    }
+	                }]
+	            }
+	        });
+	        Highcharts.chart('{{ system_metric.id }}_month', {
+	            chart: {
+	                type: 'spline'
+	            },
+	            title: {
+	                text: '{{ system_metric.title }}'
+	            },
+	            xAxis: {
+	                type: 'datetime',
+	                dateTimeLabelFormats: {
+	                    month: '%e. %b',
+	                    year: '%b'
+	                },
+	                title: {
+	                    text: '{{ system_metric.xtitle }}'
+	                }
+	            },
+	            yAxis: {
+	                title: {
+	                    text: '{{ system_metric.ytitle }}'
+	                },
+	                min: 0
+	            },
+	            plotOptions: {
+	                spline: {
+	                    marker: {
+	                        enabled: true
+	                    }
+	                }
+	            },
+	            series: [{
+	                name: '{{ system_metric.xtitle }}',
+	                data: [
+	                	{% for month in system_metric.month_data %}
+	                    	[{{ month.timestamp }}, {{ month.value }}],
+	               	 	{% endfor %}
+	                ]
+	            }],
+	            responsive: {
+	                rules: [{
+	                    condition: {
+	                        maxWidth: 500
+	                    }
+	                }]
+	            }
+	        });
+     	{% endfor %}
+    </script>
 {% endblock %}
