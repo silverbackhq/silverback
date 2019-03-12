@@ -159,8 +159,6 @@ class Status_Page_History(View):
         self.__context.push({
             "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "is_authenticated": request.user and request.user.is_authenticated,
-            "system_status": "operational",
-            "about_site": "",
             "prev_link": "#prev",
             "next_link": "#next",
             "history_period": "May 2019 - July 2019",
@@ -215,7 +213,18 @@ class Status_Page_Single(View):
             "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "is_authenticated": request.user and request.user.is_authenticated,
             "uri": uri,
-            "system_status": "operational"
+            "incident": {
+                "headline": "Facebook Integration Issue",
+                "headline_class": "text-danger",
+                "sub_headline": "Incident Report for Silverback",
+                "updates": [
+                    {
+                        "type": "Resolved",
+                        "body": "we began to see interruptions to Facebook integrations",
+                        "date": "Feb 01, 2019 - 22:43 UTC"
+                    }
+                ]
+            }
         })
 
         return render(request, self.template_name, self.__context.get())

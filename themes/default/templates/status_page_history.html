@@ -40,36 +40,6 @@
                 <br/>
                 <div class="row">
                     <div class="col-sm-12 col-lg-12">
-                        {% if system_status == "operational" %}
-                            <div class="alert alert-icon alert-success" role="alert" style="width: 100%;">
-                                <i class="fe fe-check mr-2" aria-hidden="true"></i> {% trans "All Systems Operational" %}
-                            </div>
-                        {% endif %}
-                        {% if system_status == "warning" %}
-                            <div class="alert alert-warning" role="alert" style="width: 100%;">
-                                <i class="fe fe-bell mr-2" aria-hidden="true"></i> {% trans "Some services are experiencing interruptions" %}
-                            </div>
-                        {% endif %}
-                        {% if system_status == "error" %}
-                            <div class="alert alert-danger" role="alert" style="width: 100%;">
-                                <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {% trans "Many services are experiencing interruptions" %}
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="col-sm-12 col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>{% trans "About This Site" %}</h4><br/>
-                                {{ about_site }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 col-lg-12">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">{% trans "Incident History" %}</h3>
