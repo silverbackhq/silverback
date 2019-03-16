@@ -2666,26 +2666,26 @@ silverback_app.app_status_page_index_screen = (Vue, axios, $, Pace, Cookies, toa
         });
     }
 
-    /*
-    return new Vue({
-        delimiters: ['${', '}'],
-        el: '#app_status_page_index',
-        data() {
-            return {
-                systemMetricsPeriod: "day"
+    if ($('a.expand_service').length) {
+        $('a.expand_service').on("click", function(event){
+            event.preventDefault();
+            var _self = $(this);
+            var parent = _self.closest("td");
+            var icon = _self.find("i");
+            if (icon.hasClass("fe-plus-square")) {
+                icon.removeClass("fe-plus-square");
+                icon.addClass("fe-minus-square");
+                parent.find("table").show();
+                parent.find("div.parent_uptime").hide();
+            } else {
+                icon.removeClass("fe-minus-square");
+                icon.addClass("fe-plus-square");
+                parent.find("table").hide();
+                parent.find("div.parent_uptime").show();
             }
-        },
-        mounted() {
-            this.fetch();
-        },
+        });
+    }
 
-        methods: {
-            fetch() {
-
-            }
-        }
-    });
-    */
 }
 
 
