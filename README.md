@@ -73,6 +73,6 @@ For guidance on setting up a development environment and how to make a contribut
 
 ## Acknowledgements
 
-© 2019, Silverback. Released under [MIT License](https://opensource.org/licenses/mit-license.php).
+© 2019, Silverback. Released under [BSD-3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
 
 **Silverback** is authored and maintained by [@silverbackhq](https://github.com/silverbackhq).
