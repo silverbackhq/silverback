@@ -1,5 +1,5 @@
 """
-Components Web Controller
+Incident Web Controller
 """
 
 # standard library

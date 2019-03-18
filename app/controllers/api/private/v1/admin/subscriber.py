@@ -1,5 +1,5 @@
 """
-User API Endpoint
+Subscriber API Endpoint
 """
 
 # Django

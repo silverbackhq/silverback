@@ -1,5 +1,5 @@
 """
-Forgot Password API Endpoint
+Reset Password API Endpoint
 """
 
 # Django

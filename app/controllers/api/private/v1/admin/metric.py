@@ -1,5 +1,5 @@
 """
-User API Endpoint
+Metrics API Endpoint
 """
 
 # Django

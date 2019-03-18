@@ -1,5 +1,5 @@
 """
-Metrics Web Controller
+Metric Web Controller
 """
 
 # standard library

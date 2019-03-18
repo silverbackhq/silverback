@@ -1,5 +1,5 @@
 """
-User API Endpoint
+Component API Endpoint
 """
 
 # Django

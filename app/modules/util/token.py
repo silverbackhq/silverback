@@ -1,5 +1,5 @@
 """
-Sign Module
+Token Module
 """
 
 # standard library

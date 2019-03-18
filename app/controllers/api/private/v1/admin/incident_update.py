@@ -1,5 +1,5 @@
 """
-User API Endpoint
+Incident Updates API Endpoint
 """
 
 # Django

@@ -1,5 +1,5 @@
 """
-Components Web Controller
+Subscriber Web Controller
 """
 
 # standard library
