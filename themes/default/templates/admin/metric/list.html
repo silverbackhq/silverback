@@ -23,7 +23,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{% trans "Metrics" %}</h3>
+                                <h3 class="card-title">{% trans "System Metrics" %}</h3>
                                 <div class="card-options">
                                     <a href="{% url 'app.web.admin.metric.add' %}" class="btn btn-secondary btn-sm"><i class="fe fe-plus mr-2"></i> {% trans "New Metric" %}</a>
                                 </div>
@@ -37,7 +37,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>{% trans "Title" %}</th>
-                                                    <th>{% trans "Type" %}</th>
+                                                    <th>{% trans "Source" %}</th>
                                                     <th>{% trans "Created" %}</th>
                                                     <th></th>
                                                     <th></th>
@@ -55,7 +55,7 @@
                                                 <template v-if="Object.keys(items).length > 0">
                                                     <tr v-for="item in items">
                                                         <td>${item.title}</td>
-                                                        <td>${item.type}</td>
+                                                        <td>${item.source}</td>
                                                         <td>${item.created_at}</td>
                                                         <td colspan="2" class="text-right">
                                                             <div class="dropdown">

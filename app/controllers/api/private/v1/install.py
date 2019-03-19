@@ -8,7 +8,8 @@ from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -35,6 +36,7 @@ class Install(View):
         self.__install = Install_Module()
         self.__notification = Notification_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     @stop_request_if_installed
     def post(self, request):
@@ -80,7 +82,7 @@ class Install(View):
                     'strip': {}
                 },
                 'validate': {
-                    'email': {
+                    'sv_email': {
                         'error': _('Error! Application email is invalid.')
                     }
                 }
@@ -92,7 +94,7 @@ class Install(View):
                     'strip': {}
                 },
                 'validate': {
-                    'url': {
+                    'sv_url': {
                         'error': _('Error! Application url is invalid.')
                     }
                 }
@@ -120,7 +122,7 @@ class Install(View):
                     'strip': {}
                 },
                 'validate': {
-                    'email': {
+                    'sv_email': {
                         'error': _('Error! Admin email is invalid.')
                     }
                 }
@@ -128,7 +130,7 @@ class Install(View):
             'admin_password': {
                 'value': request_data["admin_password"],
                 'validate': {
-                    'password': {
+                    'sv_password': {
                         'error': _('Error! Password must contain at least uppercase letter, lowercase letter, numbers and special character.')
                     },
                     'length_between': {
@@ -142,17 +144,17 @@ class Install(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         self.__install.set_app_data(
-            self.__form.get_input_value("app_name"),
-            self.__form.get_input_value("app_email"),
-            self.__form.get_input_value("app_url")
+            self.__form.get_sinput("app_name"),
+            self.__form.get_sinput("app_email"),
+            self.__form.get_sinput("app_url")
         )
         self.__install.set_admin_data(
-            self.__form.get_input_value("admin_username"),
-            self.__form.get_input_value("admin_email"),
-            self.__form.get_input_value("admin_password")
+            self.__form.get_sinput("admin_username"),
+            self.__form.get_sinput("admin_email"),
+            self.__form.get_sinput("admin_password")
         )
 
         user_id = self.__install.install()

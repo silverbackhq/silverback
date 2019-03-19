@@ -1,0 +1,363 @@
+{% extends 'layouts/base.html' %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+	<div class="page-main" id="app_status_page_index">
+	    <div class="my-3 my-md-5">
+	        <div class="container" style="width: 50%;">
+	            <div class="row">
+	                <div class="col-sm-6 col-lg-6">
+	                    <a href="#">
+	                        <img src="{% static 'assets/images/logo.png' %}" alt="{{ app_name }}" style="width: 25%">
+	                    </a>
+	                </div>
+	                <div class="col-sm-6 col-lg-6 text-right" style="margin-top: 40px">
+	                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">
+	                    	{% trans "Subscribe to Updates" %}
+	                	</a>
+	                </div>
+					<div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <h5 class="modal-title" id="exampleModalLabel">{% trans "Subscribe to Updates" %}</h5>
+					                <button type="button" class="close" data-dismiss="modal"></button>
+					            </div>
+					            <div class="modal-body">
+
+					            </div>
+					            <div class="modal-footer">
+					                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+					                <button type="button" class="btn btn-primary">{% trans "Submit" %}</button>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+	            </div>
+	            <br/>
+	            <br/>
+	            <div class="row">
+	                <div class="col-sm-12 col-lg-12">
+	                	{% if system_status == "operational" %}
+		                    <div class="alert alert-icon alert-success" role="alert" style="width: 100%;">
+		                        <i class="fe fe-check mr-2" aria-hidden="true"></i> {% trans "All Systems Operational" %}
+		                    </div>
+		                {% endif %}
+		                {% if system_status == "warning" %}
+		                    <div class="alert alert-warning" role="alert" style="width: 100%;">
+		                        <i class="fe fe-bell mr-2" aria-hidden="true"></i> {% trans "Some services are experiencing interruptions" %}
+		                    </div>
+	                    {% endif %}
+	                    {% if system_status == "error" %}
+		                    <div class="alert alert-danger" role="alert" style="width: 100%;">
+		                        <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {% trans "Many services are experiencing interruptions" %}
+		                    </div>
+	                    {% endif %}
+	                </div>
+	            </div>
+	            <br/>
+	            <div class="row">
+	                <div class="col-sm-12 col-lg-12">
+	                    <div class="card">
+	                        <div class="card-body">
+	                            <h4>{% trans "About This Site" %}</h4><br/>
+	                            {{ about_site }}
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <br/>
+	            <div class="row">
+	                <div class="col-sm-12 col-lg-12">
+	                    <div class="card">
+	                        <table class="table card-table">
+	                        	{% for service in services %}
+	                        		<tr>
+	                        			<td>
+		                        			{% if service.sub_services %}
+		                        				<a href="javascript:void(0);" style="text-decoration: none;color:#495057;" class="expand_service"><i class="fe fe-plus-square"></i> <strong>{{ service.name }}</strong></a>
+		                        			{% else %}
+		                        				<strong>{{ service.name }}</strong>
+		                        			{% endif %}
+		                        			{% if service.description %}
+		                        				 <i class="fe fe-help-circle" data-toggle="tooltip" title="{{ service.description }}"></i>
+		                        			{% endif %}
+		                        			{% if service.uptime_chart %}
+                                                <div class="parent_uptime shared-partial uptime-90-days-wrapper">
+                                                    <svg class="availability-time-line-graphic" preserveAspectRatio="none" height="34" viewBox="0 0 448 34">
+                                                    	{% for chart_bar in service.uptime_chart %}
+                                                    		<rect height="{{ chart_bar.height }}" width="{{ chart_bar.width }}" x="{{ chart_bar.x }}"
+                                                    		y="{{ chart_bar.y }}" fill="{{ chart_bar.fill }}" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="{{ chart_bar.content }}"></rect>
+                                                    	{% endfor %}
+                                                    </svg>
+                                                </div>
+		                        			{% endif %}
+		                        			{% if service.sub_services %}
+			                                    <table class="table card-table" style="background-color:white;display:none;">
+		                                        	{% for sub_service in service.sub_services %}
+		                                        		<tr>
+		                                        			<td>
+		                                        				<strong>{{ sub_service.name }}</strong>
+		                                        			{% if sub_service.description %}
+		                        								 <i class="fe fe-help-circle" data-toggle="tooltip" title="{{ sub_service.description }}"></i>
+		                        							{% endif %}
+		                        							{% if sub_service.uptime_chart %}
+				                                                <div class="shared-partial uptime-90-days-wrapper">
+				                                                    <svg class="availability-time-line-graphic" preserveAspectRatio="none" height="34" viewBox="0 0 448 34">
+				                                                    	{% for sub_chart_bar in sub_service.uptime_chart %}
+				                                                    		<rect height="{{ sub_chart_bar.height }}" width="{{ sub_chart_bar.width }}" x="{{ sub_chart_bar.x }}"
+				                                                    		y="{{ sub_chart_bar.y }}" fill="{{ sub_chart_bar.fill }}" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="{{ sub_chart_bar.content }}"></rect>
+				                                                    	{% endfor %}
+				                                                    </svg>
+				                                                </div>
+			                                                {% endif %}
+		                        							</td>
+		                               	 					<td class="text-right align-top">
+		                               	 						<span class="text-muted"><span class="status-icon {{ sub_service.current_status_class }}"  data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="{{ sub_service.current_status }}"></span></span>
+		                        							</td>
+		                                        		</tr>
+		                                        	{% endfor %}
+			                                    </table>
+		                        			{% endif %}
+	                        			</td>
+		                                <td class="text-right align-top">
+		                                	<span class="text-muted"><span class="status-icon {{ service.current_status_class }}"  data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="{{ service.current_status }}"></span></span>
+		                                </td>
+	                        		</tr>
+	                        	{% endfor %}
+	                        </table>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-sm-12 col-lg-12">
+	                    <div class="card">
+	                        <div class="card-header">
+	                            <h3 class="card-title">{% trans "System Metrics" %}</h3>
+	                            <div class="card-options">
+	                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="day_metric">{% trans "Day" %}</a>
+	                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="week_metric">{% trans "Week" %}</a>
+	                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="month_metric">{% trans "Month" %}</a>
+	                            </div>
+	                        </div>
+	                        <div class="card-body">
+	                        	{% for system_metric in system_metrics %}
+		                        	<div class="system_metric" data-target="day_metric">
+	                        			<div id="{{ system_metric.id }}_day" style="height: 16rem"></div>
+	                        		</div>
+	                        		<div class="system_metric" style="display: none" data-target="week_metric">
+		                            	<div id="{{ system_metric.id }}_week" style="height: 16rem"></div>
+		                        	</div>
+		                            <div class="system_metric" style="display: none" data-target="month_metric">
+		                            	<div id="{{ system_metric.id }}_month" style="height: 16rem"></div>
+		                        	</div>
+	                        	{% endfor %}
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <br/>
+	            <div class="row">
+	                <div class="col-sm-12 col-lg-12">
+	                    <div class="card">
+	                        <div class="card-header">
+	                            <h3 class="card-title">{% trans "Past Incidents" %}</h3>
+	                        </div>
+	                        <div class="card-body">
+	                        	{% for past_incident in past_incidents %}
+		                            <div class="incidents">
+		                                <h4>{{ past_incident.date }}</h4>
+		                                {% if past_incident.incidents %}
+		                                	{% for incident in past_incident.incidents %}
+				                                <div class="incident">
+				                                    <div class="incident_subject">
+				                                        <a href="{{ incident.uri }}" class="{{ incident.class }}">
+				                                            <strong>{{ incident.subject }}</strong>
+				                                        </a>
+				                                    </div>
+				                                    {% if incident.updates %}
+				                                    	{% for update in incident.updates %}
+						                                    <div class="incident_body">
+						                                        <strong>{{ update.type }}</strong> - {{ update.body }}<br/>
+						                                        <small>{{ update.date }}</small>
+						                                    </div>
+						                                {% endfor %}
+				                                    {% else %}
+                                        				<div class="incident_body">
+                                        					{% trans "No updates reported." %}
+                                        				</div>
+				                                    {% endif %}
+				                                </div>
+			                                {% endfor %}
+		                                {% else %}
+			                                <p>
+			                                    <span class="text-muted">{% trans "No incidents reported." %}</span>
+			                                </p>
+			                           	{% endif %}
+		                            </div>
+	                        	{% endfor %}
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="row">
+	                <div class="col-sm-6 col-lg-6 text-left">
+	                    <a href="{% url 'app.web.status_page_history' %}">
+	                        <span style="font-family:arial">←</span> {% trans "Incident History" %}
+	                    </a>
+	                </div>
+	                <div class="col-sm-6 col-lg-6 text-right">
+	                    <a href="https://github.com/silverbackhq/silverback" target="__blank">
+	                        <span class="text-muted">{% trans "Powered by Silverback" %}</span>
+	                    </a>
+	                </div>
+	            </div>
+	            <br/>
+	        </div>
+	    </div>
+	</div>
+    <script>
+		{% for system_metric in system_metrics %}
+	        Highcharts.chart('{{ system_metric.id }}_day', {
+	            chart: {
+	                type: 'spline'
+	            },
+	            title: {
+	                text: '{{ system_metric.title }}'
+	            },
+	            xAxis: {
+	                type: 'datetime',
+	                dateTimeLabelFormats: {
+	                    month: '%e. %b',
+	                    year: '%b'
+	                },
+	                title: {
+	                    text: '{{ system_metric.xtitle }}'
+	                }
+	            },
+	            yAxis: {
+	                title: {
+	                    text: '{{ system_metric.ytitle }}'
+	                },
+	                min: 0
+	            },
+	            plotOptions: {
+	                spline: {
+	                    marker: {
+	                        enabled: true
+	                    }
+	                }
+	            },
+	            series: [{
+	                name: '{{ system_metric.xtitle }}',
+	                data: [
+	                	{% for day in system_metric.day_data %}
+	                    	[{{ day.timestamp }}, {{ day.value }}],
+	               	 	{% endfor %}
+	                ]
+	            }],
+	            responsive: {
+	                rules: [{
+	                    condition: {
+	                        maxWidth: 500
+	                    }
+	                }]
+	            }
+	        });
+	        Highcharts.chart('{{ system_metric.id }}_week', {
+	            chart: {
+	                type: 'spline'
+	            },
+	            title: {
+	                text: '{{ system_metric.title }}'
+	            },
+	            xAxis: {
+	                type: 'datetime',
+	                dateTimeLabelFormats: {
+	                    month: '%e. %b',
+	                    year: '%b'
+	                },
+	                title: {
+	                    text: '{{ system_metric.xtitle }}'
+	                }
+	            },
+	            yAxis: {
+	                title: {
+	                    text: '{{ system_metric.ytitle }}'
+	                },
+	                min: 0
+	            },
+	            plotOptions: {
+	                spline: {
+	                    marker: {
+	                        enabled: true
+	                    }
+	                }
+	            },
+	            series: [{
+	                name: '{{ system_metric.xtitle }}',
+	                data: [
+	                	{% for week in system_metric.week_data %}
+	                    	[{{ week.timestamp }}, {{ week.value }}],
+	               	 	{% endfor %}
+	                ]
+	            }],
+	            responsive: {
+	                rules: [{
+	                    condition: {
+	                        maxWidth: 500
+	                    }
+	                }]
+	            }
+	        });
+	        Highcharts.chart('{{ system_metric.id }}_month', {
+	            chart: {
+	                type: 'spline'
+	            },
+	            title: {
+	                text: '{{ system_metric.title }}'
+	            },
+	            xAxis: {
+	                type: 'datetime',
+	                dateTimeLabelFormats: {
+	                    month: '%e. %b',
+	                    year: '%b'
+	                },
+	                title: {
+	                    text: '{{ system_metric.xtitle }}'
+	                }
+	            },
+	            yAxis: {
+	                title: {
+	                    text: '{{ system_metric.ytitle }}'
+	                },
+	                min: 0
+	            },
+	            plotOptions: {
+	                spline: {
+	                    marker: {
+	                        enabled: true
+	                    }
+	                }
+	            },
+	            series: [{
+	                name: '{{ system_metric.xtitle }}',
+	                data: [
+	                	{% for month in system_metric.month_data %}
+	                    	[{{ month.timestamp }}, {{ month.value }}],
+	               	 	{% endfor %}
+	                ]
+	            }],
+	            responsive: {
+	                rules: [{
+	                    condition: {
+	                        maxWidth: 500
+	                    }
+	                }]
+	            }
+	        });
+     	{% endfor %}
+    </script>
+{% endblock %}

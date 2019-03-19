@@ -1,5 +1,5 @@
 """
-User API Endpoint
+Activities API Endpoint
 """
 
 # Django
@@ -7,7 +7,8 @@ from django.views import View
 from django.http import JsonResponse
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -31,6 +32,7 @@ class Activities(View):
         self.__form = Form()
         self.__activity = Activity_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def get(self, request):
 

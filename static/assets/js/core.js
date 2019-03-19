@@ -1759,7 +1759,9 @@ silverback_app.add_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
         el: '#metric_add_app',
         data() {
             return {
-                isInProgress: false
+                isInProgress: false,
+                newRelicApps: [],
+                source: ""
             }
         },
         methods: {
@@ -1804,6 +1806,33 @@ silverback_app.add_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                         this.isInProgress = false;
                     });
                 });
+            },
+            onSourceChange(event) {
+                _item = $(event.target);
+                if (event.target.value == "newrelic" && this.newRelicApps.length == 0) {
+                    this.isInProgress = true;
+                    Pace.track(() => {
+                        $.ajax({
+                            method: "GET",
+                            url: _metric_data.newrelic_apps_fetch
+                        }).done((response, textStatus, jqXHR) => {
+                            if (response.status == "success") {
+                                this.newRelicApps = response.payload.apps;
+                            } else {
+                                for (var messageObj of response.messages) {
+                                    toastr.clear();
+                                    toastr.error(messageObj.message);
+                                    break;
+                                }
+                            }
+                            this.isInProgress = false;
+                        }).fail((jqXHR, textStatus, error) => {
+                            toastr.clear();
+                            toastr.error(error);
+                            this.isInProgress = false;
+                        });
+                    });
+                }
             }
         }
     });
@@ -1820,7 +1849,41 @@ silverback_app.edit_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
         el: '#metric_edit_app',
         data() {
             return {
-                isInProgress: false
+                isInProgress: false,
+                newRelicApps: [],
+                source: ""
+            }
+        },
+        mounted(){
+            if(_metric_data.source == "newrelic"){
+                $('select[name="source"]').val(_metric_data.source);
+                this.source = _metric_data.source;
+                Pace.track(() => {
+                    $.ajax({
+                        method: "GET",
+                        url: _metric_data.newrelic_apps_fetch
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            this.newRelicApps = response.payload.apps;
+                            setTimeout(() => {
+                                $('select[name="metric"]').val(_metric_data.metric);
+                                $('input[name="display_suffix"]').val(_metric_data.display_suffix);
+                                $('select[name="application"]').val(_metric_data.application);
+                            }, 50);
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                        this.isInProgress = false;
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
             }
         },
         methods: {
@@ -1865,6 +1928,33 @@ silverback_app.edit_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                         this.isInProgress = false;
                     });
                 });
+            },
+            onSourceChange(event) {
+                _item = $(event.target);
+                if (event.target.value == "newrelic" && this.newRelicApps.length == 0) {
+                    this.isInProgress = true;
+                    Pace.track(() => {
+                        $.ajax({
+                            method: "GET",
+                            url: _metric_data.newrelic_apps_fetch
+                        }).done((response, textStatus, jqXHR) => {
+                            if (response.status == "success") {
+                                this.newRelicApps = response.payload.apps;
+                            } else {
+                                for (var messageObj of response.messages) {
+                                    toastr.clear();
+                                    toastr.error(messageObj.message);
+                                    break;
+                                }
+                            }
+                            this.isInProgress = false;
+                        }).fail((jqXHR, textStatus, error) => {
+                            toastr.clear();
+                            toastr.error(error);
+                            this.isInProgress = false;
+                        });
+                    });
+                }
             }
         }
     });
@@ -2518,6 +2608,87 @@ silverback_app.dashboard_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
 }
 
 
+/**
+ * Status Builder
+ */
+silverback_app.app_status_builder_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    return new Vue({
+        delimiters: ['${', '}'],
+        el: '#app_status_builder',
+        data() {
+            return {
+                favIconSource: "upload",
+                coverImageSource: "upload",
+                isInProgress: false
+            }
+        },
+        mounted() {
+            this.fetch();
+        },
+
+        methods: {
+            fetch() {
+
+            }
+        }
+    });
+
+}
+
+
+/**
+ * Status Page Index
+ */
+silverback_app.app_status_page_index_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
+
+    if ($('a[data-id="day_metric"]').length) {
+        $('a[data-id="day_metric"]').on("click", function(event){
+            event.preventDefault();
+            $('div.system_metric').hide();
+            $('div[data-target="day_metric"]').show();
+        });
+    }
+
+    if ($('a[data-id="week_metric"]').length) {
+        $('a[data-id="week_metric"]').on("click", function(event){
+            event.preventDefault();
+            $('div.system_metric').hide();
+            $('div[data-target="week_metric"]').show();
+        });
+    }
+
+    if ($('a[data-id="month_metric"]').length) {
+        $('a[data-id="month_metric"]').on("click", function(event){
+            event.preventDefault();
+            $('div.system_metric').hide();
+            $('div[data-target="month_metric"]').show();
+        });
+    }
+
+    if ($('a.expand_service').length) {
+        $('a.expand_service').on("click", function(event){
+            event.preventDefault();
+            var _self = $(this);
+            var parent = _self.closest("td");
+            var icon = _self.find("i");
+            if (icon.hasClass("fe-plus-square")) {
+                icon.removeClass("fe-plus-square");
+                icon.addClass("fe-minus-square");
+                parent.find("table").show();
+                parent.find("div.parent_uptime").hide();
+            } else {
+                icon.removeClass("fe-minus-square");
+                icon.addClass("fe-plus-square");
+                parent.find("table").hide();
+                parent.find("div.parent_uptime").show();
+            }
+        });
+    }
+
+}
+
+
 $(document).ready(() => {
 
     $(document).ajaxStart(() => {
@@ -2868,6 +3039,26 @@ $(document).ready(() => {
                 toastr
             );
         }
+        if (document.getElementById("app_status_builder")) {
+            silverback_app.app_status_builder_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
+        if (document.getElementById("app_status_page_index")) {
+            silverback_app.app_status_page_index_screen(
+                Vue,
+                axios,
+                $,
+                Pace,
+                Cookies,
+                toastr
+            );
+        }
     });
 
 });
@@ -2897,6 +3088,10 @@ $(document).ready(function() {
     /** Initialize popovers */
     $('[data-toggle="popover"]').popover({
         html: true
+    });
+
+    $('.dropdown-menu>form').click(function(e){
+        e.stopPropagation();
     });
 
     /** Function for remove card */

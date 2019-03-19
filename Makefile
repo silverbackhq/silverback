@@ -7,6 +7,7 @@ config:
 	$(PIP) install pycodestyle
 	$(PIP) install coverage
 	$(PIP) install flake8
+	$(PIP) install flake8-comprehensions
 	$(PIP) install -r requirements.txt
 
 

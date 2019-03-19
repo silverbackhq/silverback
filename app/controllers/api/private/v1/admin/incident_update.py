@@ -1,5 +1,5 @@
 """
-User API Endpoint
+Incident Updates API Endpoint
 """
 
 # Django
@@ -10,13 +10,15 @@ from django.urls import reverse
 from django.forms.fields import DateTimeField
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.core.task import Task as Task_Module
 from app.modules.core.notification import Notification as Notification_Module
 from app.modules.core.subscriber import Subscriber as Subscriber_Module
+from app.modules.core.incident import Incident as Incident_Module
 from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
 from app.modules.core.incident_update_component import Incident_Update_Component as Incident_Update_Component_Module
 from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
@@ -30,6 +32,7 @@ class Incident_Updates(View):
     __form = None
     __logger = None
     __user_id = None
+    __incident = None
     __incident_update = None
     __task = None
     __notification = None
@@ -41,12 +44,14 @@ class Incident_Updates(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
+        self.__incident = Incident_Module()
         self.__incident_update = Incident_Update_Module()
         self.__task = Task_Module()
         self.__notification = Notification_Module()
         self.__subscriber = Subscriber_Module()
         self.__incident_update_notification = Incident_Update_Notification_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, incident_id):
 
@@ -99,16 +104,25 @@ class Incident_Updates(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__incident_update.insert_one({
-            "notify_subscribers": self.__form.get_input_value("notify_subscribers"),
-            "datetime": DateTimeField().clean(self.__form.get_input_value("datetime")),
+            "notify_subscribers": self.__form.get_sinput("notify_subscribers"),
+            "datetime": DateTimeField().clean(self.__form.get_sinput("datetime")),
             "total_suscribers": self.__subscriber.count_by_status(Subscriber_Module.VERIFIED),
-            "message": self.__form.get_input_value("message"),
-            "status": self.__form.get_input_value("status"),
+            "message": self.__form.get_sinput("message"),
+            "status": self.__form.get_sinput("status"),
             "incident_id": incident_id
         })
+
+        if self.__form.get_sinput("status") == "resolved":
+            self.__incident.update_one_by_id(incident_id, {
+                "status": "closed"
+            })
+        else:
+            self.__incident.update_one_by_id(incident_id, {
+                "status": "open"
+            })
 
         if result:
             return JsonResponse(self.__response.send_private_success([{
@@ -189,6 +203,7 @@ class Incident_Update(View):
         self.__form = Form()
         self.__incident_update = Incident_Update_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, incident_id, update_id):
 
@@ -239,13 +254,13 @@ class Incident_Update(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__incident_update.update_one_by_id(update_id, {
-            "notify_subscribers": self.__form.get_input_value("notify_subscribers"),
-            "datetime": DateTimeField().clean(self.__form.get_input_value("datetime")),
-            "message": self.__form.get_input_value("message"),
-            "status": self.__form.get_input_value("status")
+            "notify_subscribers": self.__form.get_sinput("notify_subscribers"),
+            "datetime": DateTimeField().clean(self.__form.get_sinput("datetime")),
+            "message": self.__form.get_sinput("message"),
+            "status": self.__form.get_sinput("status")
         })
 
         if result:
@@ -299,6 +314,7 @@ class Incident_Updates_Notify(View):
         self.__notification = Notification_Module()
         self.__subscriber = Subscriber_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, incident_id, update_id):
 
@@ -359,6 +375,7 @@ class Incident_Updates_Components(View):
         self.__subscriber = Subscriber_Module()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__incident_update_component = Incident_Update_Component_Module()
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, incident_id, update_id):
         self.__user_id = request.user.id
@@ -373,15 +390,18 @@ class Incident_Updates_Components(View):
         self.__form.add_inputs({
             'component_id': {
                 'value': request_data["component_id"],
-                'sanitize': {},
-                'validate': {}
+                'validate': {
+                    'sv_numeric': {
+                        'error': _('Error! Component is required.')
+                    }
+                }
             },
             'type': {
                 'value': request_data["type"],
                 'validate': {
                     'any_of': {
                         'param': [["operational", "degraded_performance", "partial_outage", "major_outage", "maintenance"]],
-                        'error': _('Error! Type is invalid.')
+                        'error': _('Error! Type is required.')
                     }
                 }
             }
@@ -390,11 +410,11 @@ class Incident_Updates_Components(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__incident_update_component.insert_one({
-            "component_id": int(self.__form.get_input_value("component_id")),
-            "type": self.__form.get_input_value("type"),
+            "component_id": int(self.__form.get_sinput("component_id")),
+            "type": self.__form.get_sinput("type"),
             "incident_update_id": int(update_id)
         })
 
@@ -427,6 +447,7 @@ class Incident_Updates_Component(View):
         self.__form = Form()
         self.__incident_update_component = Incident_Update_Component_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def delete(self, request, incident_id, update_id, item_id):
         self.__user_id = request.user.id

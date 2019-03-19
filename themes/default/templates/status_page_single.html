@@ -1,0 +1,81 @@
+{% extends 'layouts/base.html' %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="page-main">
+        <div class="my-3 my-md-5">
+            <div class="container" style="width: 50%;">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <a href="#">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="{{ app_name }}" style="width: 25%">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-lg-6 text-right" style="margin-top: 40px">
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">
+                            {% trans "Subscribe to Updates" %}
+                        </a>
+                    </div>
+                </div>
+                <div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{% trans "Subscribe to Updates" %}</h5>
+                                <button type="button" class="close" data-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-primary">{% trans "Submit" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="text-center {{ incident.headline_class }}">{{ incident.headline }}</h3>
+                                <h4 class="text-center" style="color: #8DA2B5">{{ incident.sub_headline }}</h4>
+                                {% if incident.updates %}
+                                    <table class="table card-table">
+                                        <tbody>
+                                            {% for update in incident.updates %}
+                                                <tr>
+                                                    <td><strong>{{ update.type }}</strong></td>
+                                                    <td>{{ update.body }}<br/>
+                                                        <span class="text-muted"><small>{% trans "Posted at" %} {{ update.date }}</small></span>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6 text-left">
+                        <a href="{% url 'app.web.status_page_index' %}">
+                            <span style="font-family:arial">←</span> {% trans "Current Status" %}
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-lg-6 text-right">
+                        <a href="https://github.com/silverbackhq/silverback" target="__blank">
+                            <span class="text-muted">{% trans "Powered by Silverback" %}</span>
+                        </a>
+                    </div>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </div>
+{% endblock %}

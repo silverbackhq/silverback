@@ -2,6 +2,14 @@
 {% load staticfiles %}
 {% load i18n %}
 
+{% block customer_header %}
+    <script type="text/javascript">
+        var _metric_data = {
+            newrelic_apps_fetch: "{% url 'app.api.private.v1.admin.metric.action.new_relic_apps.endpoint' %}"
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
     <div class="page-main">
         {% include 'partials/top-menu.html' %}
@@ -12,7 +20,7 @@
                         <form class="card" v-on:submit.prevent="addMetricAction" action="{% url 'app.api.private.v1.admin.metrics.endpoint' %}" method="post" data-redirect-url="{% url 'app.web.admin.metric.list' %}" data-redirect-after="3000">
                             {% csrf_token %}
                             <div class="card-header">
-                                <h3 class="card-title">{% trans "Add a New Metric" %}</h3>
+                                <h3 class="card-title">{% trans "Add a New System Metric" %}</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -22,13 +30,44 @@
                                             <input type="text" name="title" class="form-control" placeholder="{% trans "Enter title" %}" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="form-label">{% trans "Type" %}<span class="form-required">*</span></label>
-                                            <select class="form-control" name="type" required>
+                                            <label class="form-label">{% trans "Description" %}</label>
+                                            <input type="text" name="description" class="form-control" placeholder="{% trans "Enter description" %}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Source" %}<span class="form-required">*</span></label>
+                                            <select class="form-control" name="source" @change="onSourceChange($event)" data-fetch="{% url 'app.api.private.v1.admin.metric.action.new_relic_apps.endpoint' %}" v-model="source" required>
                                                 <option value="">{% trans "Please Select a Value" %}</option>
-                                                <option value="graphite">{% trans "Graphite" %}</option>
-                                                <option value="prometheus">{% trans "Prometheus" %}</option>
+                                                <option value="newrelic">{% trans "New Relic" %}</option>
                                             </select>
                                         </div>
+                                        <template v-if="source == 'newrelic'">
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Application" %}<span class="form-required">*</span></label>
+                                                <select class="form-control" name="application" required>
+                                                    <option value="">{% trans "Please Select a Value" %}</option>
+                                                    <option v-for="app in newRelicApps" v-bind:value="app.key" >
+                                                        ${app.value}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "APM Metric" %}<span class="form-required">*</span></label>
+                                                <select class="form-control" name="metric" required>
+                                                    <option value="">{% trans "Please Select a Value" %}</option>
+                                                    <option value="apdex">{% trans "Apdex" %}</option>
+                                                    <option value="error_rate">{% trans "Error Rate" %}</option>
+                                                    <option value="throughput">{% trans "Throughput" %}</option>
+                                                    <option value="errors">{% trans "Errors" %}</option>
+                                                    <option value="response_time">{% trans "Response Time" %}</option>
+                                                    <option value="real_user_response_time">{% trans "Real User Response Time" %}</option>
+                                                    <option value="real_user_apdex">{% trans "Real User Apdex" %}</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label">{% trans "Display Suffix" %}<span class="form-required">*</span></label>
+                                                <input type="text" name="display_suffix" class="form-control" placeholder="{% trans "ms" %}" required>
+                                            </div>
+                                        </template>
                                     </div>
                                 </div>
                             </div>

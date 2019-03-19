@@ -8,13 +8,16 @@ from django.db import models
 
 class Metric(models.Model):
 
-    TYPE_CHOICES = (
-        ('graphite', 'GRAPHITE'),
-        ('prometheus', 'PROMETHEUS')
+    SOURCE_CHOICES = (
+        ('newrelic', 'NEW_RELIC'),
+        ('librato', 'LIBRATO'),
+        ('datadog', 'DATADOG'),
+        ('pingdom', 'PINGDOM')
     )
 
-    title = models.CharField(max_length=200, verbose_name="Title")
-    type = models.CharField(max_length=50, choices=TYPE_CHOICES, default="graphite", verbose_name="Type")
-    source = models.TextField(verbose_name="Source")
+    title = models.CharField(max_length=150, verbose_name="Title")
+    description = models.CharField(max_length=200, verbose_name="Description")
+    source = models.CharField(max_length=50, choices=SOURCE_CHOICES, default="newrelic", verbose_name="Source")
+    data = models.TextField(verbose_name="Data")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")

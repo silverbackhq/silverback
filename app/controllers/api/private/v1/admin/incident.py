@@ -1,5 +1,5 @@
 """
-User API Endpoint
+Incident API Endpoint
 """
 
 # Django
@@ -9,7 +9,8 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -33,6 +34,7 @@ class Incidents(View):
         self.__form = Form()
         self.__incident = Incident_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request):
 
@@ -70,11 +72,11 @@ class Incidents(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__incident.insert_one({
-            "name": self.__form.get_input_value("name"),
-            "status": self.__form.get_input_value("status"),
+            "name": self.__form.get_sinput("name"),
+            "status": self.__form.get_sinput("status"),
             "uri": self.__incident.generate_uri(6)
         })
 
@@ -149,6 +151,7 @@ class Incident(View):
         self.__form = Form()
         self.__incident = Incident_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, incident_id):
 
@@ -186,11 +189,11 @@ class Incident(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__incident.update_one_by_id(incident_id, {
-            "name": self.__form.get_input_value("name"),
-            "status": self.__form.get_input_value("status")
+            "name": self.__form.get_sinput("name"),
+            "status": self.__form.get_sinput("status")
         })
 
         if result:
