@@ -85,7 +85,7 @@ from app.controllers.api.private.v1.admin.activity import Activities as Activiti
 urlpatterns = [
     # Public Views
     path('', Status_Page_Index_View.as_view(), name='app.web.status_page_index'),
-    path('history', Status_Page_History_View.as_view(), name='app.web.status_page_history'),
+    path('history/<int:period>', Status_Page_History_View.as_view(), name='app.web.status_page_history'),
     path('incidents/<uri>', Status_Page_Single_View.as_view(), name='app.web.status_page_single'),
     path('install', Install_View.as_view(), name='app.web.install'),
     path('login', Login_View.as_view(), name='app.web.login'),

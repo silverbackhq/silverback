@@ -58,6 +58,9 @@
                                         </tbody>
                                     </table>
                                 {% endif %}
+                                {% if incident.affected_components %}
+                                    <br/><p style="color: #8DA2B5">This incident affected: {{ incident.affected_components }}.</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
