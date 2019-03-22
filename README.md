@@ -4,8 +4,8 @@
     <p align="center">A Status and Incident Communication Tool.</p>
     <p align="center">
         <img src="https://travis-ci.org/Clivern/Silverback.svg?branch=master">
-        <img src="https://img.shields.io/github/license/Clivern/Silverback.svg">
-        <img src="https://img.shields.io/badge/Version-Under%20Development-red.svg">
+        <img src="https://img.shields.io/badge/Version-1.0.0-red.svg">
+        <img src="https://img.shields.io/badge/LICENSE-BSD%203--Clause%20-orange.svg">
     </p>
 </p>
 
