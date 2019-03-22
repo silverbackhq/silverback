@@ -40,55 +40,6 @@ class Incident():
             "status": incident.status
         }
 
-    def get_one_by_uri(self, uri):
-        return {
-            "headline": "Facebook Integration Issue",
-            "headline_class": "text-danger",
-            "sub_headline": "Incident Report for Silverback",
-            "affected_components": ", ".join(["Cloud API", "Bmp API"]),
-            "updates": [
-                {
-                    "type": "Resolved",
-                    "body": "we began to see interruptions to Facebook integrations",
-                    "date": "Feb 01, 2019 - 22:43 UTC"
-                }
-            ]
-        }
-
-    def get_many_for_period(self, period):
-        return {
-            "period": "May 2019 - July 2019",
-            "incidents": [
-                {
-                    "date": "March 2019",
-                    "incidents": [
-                        {
-                            "uri": "123",
-                            "subject": "Partial network outage at one of our network suppliers",
-                            "class": "text-danger",
-                            "final_update": "This incident has been resolved.",
-                            "period": "March 7, 08:56 CET - March 8, 2:56 CET"
-                        },
-                        {
-                            "uri": "123",
-                            "subject": "Partial network outage at one of our network suppliers",
-                            "class": "text-danger",
-                            "final_update": "This incident has been resolved.",
-                            "period": "March 7, 08:56 CET - March 8, 2:56 CET"
-                        },
-                    ]
-                },
-                {
-                    "date": "February 2019",
-                    "incidents": []
-                },
-                {
-                    "date": "January 2019",
-                    "incidents": []
-                }
-            ]
-        }
-
     def generate_uri(self, size=6):
 
         uri = self.__helpers.random_generator(size)
