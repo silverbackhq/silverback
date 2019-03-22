@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Silverback Logo" src="https://silverbackhq.org/logo.png" height="80" />
+    <img alt="Silverback Logo" src="https://silverbackhq.org/logo.png" height="120" />
     <h3 align="center">Silverback</h3>
     <p align="center">A Status and Incident Communication Tool.</p>
     <p align="center">
