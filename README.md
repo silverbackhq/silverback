@@ -30,7 +30,7 @@ Silverback is a free and open source project for web infrastructure, developer A
 
 - Install [for development purposes](INSTALLATION_GUIDE.md#development) ([see requirements details](INSTALLATION_GUIDE.md#requirements)).
 - Install [on production](INSTALLATION_GUIDE.md#production) ([see requirements details](INSTALLATION_GUIDE.md#requirements)).
-- [Run with Docker](INSTALLATION_GUIDE.md#run-with-docker)
+- [Run with Docker.](INSTALLATION_GUIDE.md#run-with-docker)
 
 
 ## Versioning
