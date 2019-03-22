@@ -25,16 +25,28 @@ Silverback is a free and open source project for web infrastructure, developer A
 - Asynchronous workers for subscriber notifications with ability to run any number to scale.
 - and much more ...
 
+
 ## Installation
 
 - Install [for development purposes](INSTALLATION_GUIDE.md#development) ([see requirements details](INSTALLATION_GUIDE.md#development-requirements)).
 - Install [on production](INSTALLATION_GUIDE.md#production) ([see requirements details](INSTALLATION_GUIDE.md#production-requirements)).
-- We follow the [semantic versioning strictly](https://semver.org/) and release process is predictable and business-friendly.
+
+
+## Versioning
+
+For transparency into our release cycle and in striving to maintain backward compatibility, Silverback is maintained under the [Semantic Versioning guidelines](https://semver.org/) and release process is predictable and business-friendly.
+
+See the [Releases section of our GitHub project](https://github.com/silverbackhq/silverback/releases) for changelogs for each release version of Silverback. It contains summaries of the most noteworthy changes made in each release.
 
 
 ## Bug tracker
 
 If you have any suggestions, bug reports, or annoyances please report them to our issue tracker at https://github.com/silverbackhq/silverback/issues
+
+
+## Security Issues
+
+If you discover a security vulnerability within Silverback, please send an email to [hello@clivern.com](mailto:hello@clivern.com)
 
 
 ## Contributing
@@ -51,6 +63,7 @@ Shoutout to these awesome open source projects and their maintainers.
 - [Tabler.](https://github.com/tabler/tabler)
 - [VueJs.](https://vuejs.org/)
 - [and other projects ...](requirements.txt)
+
 
 ## License
 
