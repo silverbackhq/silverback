@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Silverback Logo" src="https://raw.githubusercontent.com/Clivern/Silverback/master/static/assets/images/logo.png" height="80" />
+    <img alt="Silverback Logo" src="https://silverbackhq.org/logo.png" height="80" />
     <h3 align="center">Silverback</h3>
     <p align="center">A Status and Incident Communication Tool.</p>
     <p align="center">
@@ -16,19 +16,20 @@ Silverback is a free and open source project for web infrastructure, developer A
 
 - Auto Installer.
 - User management with different roles.
-- Services and services group statuses.
-- Incident management.
+- Services and service groups statuses.
+- Uptime charts for services and service groups.
+- Incidents and incident updates management.
 - Metrics with third party integrations (NewRelic and more..).
-- Multi-lingual.
-- Subscriber notifications via email, SMS, Endpoint, RSS feed and Atom Feed.
-- Asynchronous workers for Subscriber notifications with ability to run any number to scale.
+- Multilingual.
+- Subscriber notifications via email, SMS, customer endpoint, RSS feed and Atom Feed.
+- Asynchronous workers for subscriber notifications with ability to run any number to scale.
 - and much more ...
 
 ## Installation
 
-- Install [for Development Purposes](INSTALLATION_GUIDE.md#development) ([see requirements details](INSTALLATION_GUIDE.md#development-requirements)).
-- Install [on Production](INSTALLATION_GUIDE.md#production) ([see requirements details](INSTALLATION_GUIDE.md#production-requirements)).
-- We follow the [Semantic Versioning strictly](https://semver.org/) and release process is predictable and business-friendly.
+- Install [for development purposes](INSTALLATION_GUIDE.md#development) ([see requirements details](INSTALLATION_GUIDE.md#development-requirements)).
+- Install [on production](INSTALLATION_GUIDE.md#production) ([see requirements details](INSTALLATION_GUIDE.md#production-requirements)).
+- We follow the [semantic versioning strictly](https://semver.org/) and release process is predictable and business-friendly.
 
 
 ## Bug tracker
