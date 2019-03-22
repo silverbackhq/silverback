@@ -9,69 +9,49 @@
     </p>
 </p>
 
+Silverback is a free and open source project for web infrastructure, developer APIs, Services and SaaS companies to set up their very own status page in minutes.
+
+
 ## Overview
 
 - Auto Installer.
-- Asynchronous workers for notifications with ability to run any number to scale.
-
-
-## Requirements
-
-- Python 3 or later
-- A supported database: MySQL, PostgreSQL.
-- Redis Server.
-- RabbitMQ Server.
-
+- User management with different roles.
+- Services and services group statuses.
+- Incident management.
+- Metrics with third party integrations (NewRelic and more..).
+- Multi-lingual.
+- Subscriber notifications via email, SMS, Endpoint, RSS feed and Atom Feed.
+- Asynchronous workers for Subscriber notifications with ability to run any number to scale.
+- and much more ...
 
 ## Installation
 
-### Production
+- Install [for Development Purposes](INSTALLATION_GUIDE.md#development) ([see requirements details](INSTALLATION_GUIDE.md#development-requirements)).
+- Install [on Production](INSTALLATION_GUIDE.md#production) ([see requirements details](INSTALLATION_GUIDE.md#production-requirements)).
+- We follow the [Semantic Versioning strictly](https://semver.org/) and release process is predictable and business-friendly.
 
-### Docker
 
-### Development
+## Bug tracker
 
-In order to run silverback for development purposes, we will use `virtualenv`.
-
-```bash
-# Install virtualenv
-$ pip3 install virtualenv
-$ virtualenv env
-$ source env/bin/activate
-
-$ git clone https://github.com/Clivern/Silverback.git silverback
-$ cd silverback
-$ cp .env.example .env
-
-# Install dependencies
-$ pip3 install -r requirements.txt
-
-# Update .env file
-$ python3 manage.py silverback update_env DB_HOST=127.0.0.1
-$ python3 manage.py silverback update_env DB_PORT=3306
-$ python3 manage.py silverback update_env DB_DATABASE=silverback
-$ python3 manage.py silverback update_env DB_USERNAME=root
-$ python3 manage.py silverback update_env DB_PASSWORD=
-$ python3 manage.py silverback update_app_key
-$ python3 manage.py silverback update_env DB_CONNECTION=mysql
-
-# Migrate DB
-$ python3 manage.py migrate
-
-# Run Application
-$ python3 manage.py runserver
-
-# Exit the virtualenv
-$ deactivate
-```
+If you have any suggestions, bug reports, or annoyances please report them to our issue tracker at https://github.com/silverbackhq/silverback/issues
 
 
 ## Contributing
 
-For guidance on setting up a development environment and how to make a contribution to Silverback, see the [contributing guidelines](CONTRIBUTING.md)
+We are an open source, community-driven project so please feel free to join us. see the [contributing guidelines](CONTRIBUTING.md) for more details.
 
 
-## Acknowledgements
+## Credits
+
+Shoutout to these awesome open source projects and their maintainers.
+- [Django.](https://www.djangoproject.com/)
+- [Celery.](http://www.celeryproject.org/)
+- [Requests.](https://github.com/kennethreitz/requests)
+- [Tabler.](https://github.com/tabler/tabler)
+- [VueJs.](https://vuejs.org/)
+- [and other projects ...](requirements.txt)
+
+## License
 
 © 2019, Silverback. Released under [BSD-3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
 
