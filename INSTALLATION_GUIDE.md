@@ -1,6 +1,11 @@
+## Development Requirements
 
+- Python 3 or later
+- A supported database: MySQL, PostgreSQL.
+- Redis Server.
+- RabbitMQ Server.
 
-### Development
+## Development
 
 In order to run silverback for development purposes, we will use `virtualenv`.
 
@@ -35,3 +40,14 @@ $ python3 manage.py runserver
 # Exit the virtualenv
 $ deactivate
 ```
+
+
+## Production Requirements
+
+- Python 3 or later
+- A supported database: MySQL, PostgreSQL.
+- Redis Server.
+- RabbitMQ Server.
+
+
+## Production
