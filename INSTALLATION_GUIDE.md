@@ -1,9 +1,10 @@
-## Development Requirements
+## Requirements
 
 - Python 3 or later
 - A supported database: MySQL, PostgreSQL.
 - Redis Server.
 - RabbitMQ Server.
+
 
 ## Development
 
@@ -42,12 +43,7 @@ $ deactivate
 ```
 
 
-## Production Requirements
-
-- Python 3 or later
-- A supported database: MySQL, PostgreSQL.
-- Redis Server.
-- RabbitMQ Server.
-
-
 ## Production
+
+
+## Run with Docker
