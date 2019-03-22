@@ -19,10 +19,11 @@ Silverback is a free and open source project for web infrastructure, developer A
 - Services and service groups statuses.
 - Uptime charts for services and service groups.
 - Incidents and incident updates management.
-- Metrics with third party integrations (NewRelic and more..).
-- Multilingual.
+- Metrics with third party integrations (NewRelic and more ...).
 - Subscriber notifications via email, SMS, customer endpoint, RSS feed and Atom Feed.
 - Asynchronous workers for subscriber notifications with ability to run any number to scale.
+- Realtime administration dashboard.
+- Multilingual.
 - and much more ...
 
 
