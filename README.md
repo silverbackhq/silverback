@@ -9,7 +9,7 @@
     </p>
 </p>
 
-**Silverback** is a free and open source project for web infrastructure, developer APIs, Services and SaaS companies to set up their very own status page in minutes.
+**Silverback** is a **free** and **open source** project for web infrastructure, developer APIs, Services and SaaS companies to set up their very own **status page** in minutes.
 
 
 ## Overview
