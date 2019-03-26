@@ -70,7 +70,7 @@ class Incident_Update_Entity():
 
     def get_all(self, incident_id, offset=None, limit=None):
         if offset is None or limit is None:
-            return Incident_Update.objects.filter(incident_id=incident_id).order_by('-created_at').get()
+            return Incident_Update.objects.filter(incident_id=incident_id).order_by('-created_at')
 
         return Incident_Update.objects.filter(incident_id=incident_id).order_by('-created_at')[offset:limit+offset]
 

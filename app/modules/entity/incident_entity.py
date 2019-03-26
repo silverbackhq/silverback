@@ -50,7 +50,7 @@ class Incident_Entity():
 
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
-            return Incident.objects.order_by('-created_at').get()
+            return Incident.objects.order_by('-created_at')
 
         return Incident.objects.order_by('-created_at')[offset:limit+offset]
 

@@ -173,7 +173,7 @@
 		                                	{% for incident in past_incident.incidents %}
 				                                <div class="incident">
 				                                    <div class="incident_subject">
-				                                        <a href="{{ incident.uri }}" class="{{ incident.class }}">
+				                                        <a href="{% url 'app.web.status_page_single' incident.uri %}" class="{{ incident.class }}">
 				                                            <strong>{{ incident.subject }}</strong>
 				                                        </a>
 				                                    </div>
@@ -204,12 +204,13 @@
 	            </div>
 	            <div class="row">
 	                <div class="col-sm-6 col-lg-6 text-left">
-	                    <a href="{% url 'app.web.status_page_history' %}">
+	                    <a href="{% url 'app.web.status_page_history' 1 %}">
 	                        <span style="font-family:arial">←</span> {% trans "Incident History" %}
 	                    </a>
 	                </div>
 	                <div class="col-sm-6 col-lg-6 text-right">
 	                    <a href="https://github.com/silverbackhq/silverback" target="__blank">
+	                    	<!-- Share some love by keeping copyrights -->
 	                        <span class="text-muted">{% trans "Powered by Silverback" %}</span>
 	                    </a>
 	                </div>
