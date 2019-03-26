@@ -4,37 +4,70 @@ Status Page Module
 
 # local Django
 from app.modules.util.helpers import Helpers
+from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.incident_entity import Incident_Entity
+from app.modules.entity.incident_update_entity import Incident_Update_Entity
+from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
+from django.utils.translation import gettext as _
 
 
 class Status_Page():
 
     __helpers = None
     __logger = None
+    __option_entity = None
+    __incident_entity = None
+    __incident_update_entity = None
+    __incident_update_component_entity = None
 
     def __init__(self):
         self.__helpers = Helpers()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__option_entity = Option_Entity()
+        self.__incident_entity = Incident_Entity()
+        self.__incident_update_entity = Incident_Update_Entity()
+        self.__incident_update_component_entity = Incident_Update_Component_Entity()
 
     def get_system_status(self):
         return "operational"
 
     def get_about_site(self):
-        return ""
+        option = self.__option_entity.get_one_by_key("builder_about_site")
+        return option.value if option else ""
 
     def get_incident_by_uri(self, uri):
-        return {
-            "headline": "Facebook Integration Issue",
-            "headline_class": "text-danger",
-            "sub_headline": "Incident Report for Silverback",
-            "affected_components": ", ".join(["Cloud API", "Bmp API"]),
-            "updates": [
-                {
-                    "type": "Resolved",
-                    "body": "we began to see interruptions to Facebook integrations",
-                    "date": "Feb 01, 2019 - 22:43 UTC"
-                }
-            ]
-        }
+        incident = self.__incident_entity.get_one_by_uri(uri)
+        app_name = self.__option_entity.get_one_by_key("app_name")
+
+        if incident:
+            incident_data = {
+                "headline": incident.name,
+                "headline_class": "text-danger",
+                "sub_headline": _("Incident Report for %s") % (app_name.value),
+                "affected_components": [],
+                "updates": []
+            }
+
+            updates = self.__incident_update_entity.get_all(incident.id)
+
+            for update in updates:
+                incident_data["updates"].append({
+                    "type": update.status.title(),
+                    "body": update.message,
+                    "date": update.datetime
+                })
+
+                components = self.__incident_update_component_entity.get_all(update.id)
+
+                for component in components:
+                    if component.component.name not in incident_data["affected_components"]:
+                        incident_data["affected_components"].append(component.component.name)
+
+            incident_data["affected_components"] = ", ".join(incident_data["affected_components"])
+
+            return incident_data
+
+        return False
 
     def get_incidents_for_period(self, period):
         return {
