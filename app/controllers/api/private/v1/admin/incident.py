@@ -127,6 +127,7 @@ class Incidents(View):
                 "status": incident.status.title(),
                 "created_at": incident.created_at.strftime("%b %d %Y %H:%M:%S"),
                 "view_url": reverse("app.web.admin.incident.view", kwargs={'incident_id': incident.id}),
+                "view_status_url": reverse("app.web.status_page_single", kwargs={'uri': incident.uri}),
                 "edit_url": reverse("app.web.admin.incident.edit", kwargs={'incident_id': incident.id}),
                 "delete_url": reverse("app.api.private.v1.admin.incident.endpoint", kwargs={'incident_id': incident.id})
             })
