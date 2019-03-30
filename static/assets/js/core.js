@@ -2630,6 +2630,45 @@ silverback_app.app_status_builder_screen = (Vue, axios, $, Pace, Cookies, toastr
         methods: {
             fetch() {
 
+            },
+            updateBuilderSettingsAction(event) {
+                event.preventDefault();
+                this.isInProgress = true;
+
+                var _self = $(event.target);
+                var _form = _self.closest("form");
+
+                var inputs = {};
+                _form.serializeArray().map((item, index) => {
+                    inputs[item.name] = item.value;
+                });
+
+                Pace.track(() => {
+                    $.ajax({
+                        method: "POST",
+                        url: _form.attr('action'),
+                        data: inputs
+                    }).done((response, textStatus, jqXHR) => {
+                        if (response.status == "success") {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.success(messageObj.message);
+                                break;
+                            }
+                        } else {
+                            for (var messageObj of response.messages) {
+                                toastr.clear();
+                                toastr.error(messageObj.message);
+                                break;
+                            }
+                        }
+                        this.isInProgress = false;
+                    }).fail((jqXHR, textStatus, error) => {
+                        toastr.clear();
+                        toastr.error(error);
+                        this.isInProgress = false;
+                    });
+                });
             }
         }
     });

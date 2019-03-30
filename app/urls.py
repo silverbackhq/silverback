@@ -80,6 +80,9 @@ from app.controllers.api.private.v1.admin.metric import NewRelic_Apps as NewReli
 from app.controllers.api.private.v1.admin.subscriber import Subscriber as Subscriber_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscribers as Subscribers_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.activity import Activities as Activities_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.builder import Builder_Settings as Builder_Settings_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.builder import Builder_Components as Builder_Components_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.builder import Builder_System_Metrics as Builder_System_Metrics_Admin_V1_Endpoint_Private
 
 
 urlpatterns = [
@@ -261,6 +264,31 @@ urlpatterns = [
                 'action/metric/new-relic-apps',
                 NewRelic_Apps_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.metric.action.new_relic_apps.endpoint'
+            ),
+            path(
+                'builder/settings',
+                Builder_Settings_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.settings.endpoint'
+            ),
+            path(
+                'builder/component',
+                Builder_Components_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.components.endpoint'
+            ),
+            path(
+                'builder/component/<component_id>',
+                Builder_Components_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.component.endpoint'
+            ),
+            path(
+                'builder/metric',
+                Builder_System_Metrics_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.metrics.endpoint'
+            ),
+            path(
+                'builder/metric/<int:metric_id>',
+                Builder_System_Metrics_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.metric.endpoint'
             ),
         ]))
 

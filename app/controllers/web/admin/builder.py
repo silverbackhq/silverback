@@ -31,6 +31,12 @@ class Builder(View):
 
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.__context.load_options({
+            "builder_headline": "",
+            "builder_fav_icon_url": "",
+            "builder_cover_image_url": "",
+            "builder_about": ""
+        })
         self.__context.push({
             "page_title": _("Status Page Builder · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "groups": self.__format_groups(self.__component.get_all_groups()),
