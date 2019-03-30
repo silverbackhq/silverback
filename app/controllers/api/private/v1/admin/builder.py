@@ -2,6 +2,8 @@
 Builder API Endpoint
 """
 
+import json
+
 # Django
 from django.views import View
 from django.http import JsonResponse
@@ -24,20 +26,89 @@ class Builder_System_Metrics(View):
     __form = None
     __logger = None
     __user_id = None
+    __settings = None
 
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
         self.__helpers = Helpers()
+        self.__settings = Settings()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
     def post(self, request):
-        pass
+
+        self.__request.set_request(request)
+        request_data = self.__request.get_request_data("post", {
+            "metric_id": ""
+        })
+
+        metrics = self.__settings.get_value_by_key(
+            "builder_metrics",
+            json.dumps([])
+        )
+
+        metrics = json.loads(metrics)
+
+        if request_data["metric_id"] in metrics:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Metric added successfully.")
+            }]))
+
+        metrics.append(request_data["metric_id"])
+
+        result = self.__settings.update_options({
+            "builder_metrics": json.dumps(metrics)
+        })
+
+        if result:
+
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Metric added successfully.")
+            }]))
+
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while adding metric.")
+            }]))
 
     def delete(self, request, metric_id):
-        pass
+
+        metrics = self.__settings.get_value_by_key(
+            "builder_metrics",
+            json.dumps([])
+        )
+
+        metrics = json.loads(metrics)
+
+        if metric_id not in metrics:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Metric added successfully.")
+            }]))
+
+        metrics.remove(metric_id)
+
+        result = self.__settings.update_options({
+            "builder_metrics": json.dumps(metrics)
+        })
+
+        if result:
+
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Metric removed successfully.")
+            }]))
+
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while removing metric.")
+            }]))
 
 
 class Builder_Components(View):
@@ -48,20 +119,89 @@ class Builder_Components(View):
     __form = None
     __logger = None
     __user_id = None
+    __settings = None
 
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
         self.__helpers = Helpers()
+        self.__settings = Settings()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
     def post(self, request):
-        pass
+
+        self.__request.set_request(request)
+        request_data = self.__request.get_request_data("post", {
+            "component_id": ""
+        })
+
+        components = self.__settings.get_value_by_key(
+            "builder_components",
+            json.dumps([])
+        )
+
+        components = json.loads(components)
+
+        if request_data["component_id"] in components:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Component added successfully.")
+            }]))
+
+        components.append(request_data["component_id"])
+
+        result = self.__settings.update_options({
+            "builder_components": json.dumps(components)
+        })
+
+        if result:
+
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Component added successfully.")
+            }]))
+
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while adding component.")
+            }]))
 
     def delete(self, request, component_id):
-        pass
+
+        components = self.__settings.get_value_by_key(
+            "builder_components",
+            json.dumps([])
+        )
+
+        components = json.loads(components)
+
+        if component_id not in components:
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Component added successfully.")
+            }]))
+
+        components.remove(component_id)
+
+        result = self.__settings.update_options({
+            "builder_components": json.dumps(components)
+        })
+
+        if result:
+
+            return JsonResponse(self.__response.send_private_success([{
+                "type": "success",
+                "message": _("Component removed successfully.")
+            }]))
+
+        else:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Something goes wrong while removing component.")
+            }]))
 
 
 class Builder_Settings(View):
@@ -115,7 +255,7 @@ class Builder_Settings(View):
                 },
                 'validate': {
                     'sv_url': {
-                        'error': _('Error! Favicon url is invalid.')
+                        'error': _('Error! Favicon URL is invalid.')
                     }
                 }
             },
@@ -127,7 +267,7 @@ class Builder_Settings(View):
                 },
                 'validate': {
                     'sv_url': {
-                        'error': _('Error! Image url is invalid.')
+                        'error': _('Error! Image URL is invalid.')
                     }
                 }
             },

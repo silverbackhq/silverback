@@ -23,3 +23,6 @@ class Settings():
         for key, value in options.items():
             status &= self.__option_entity.update_value_by_key(key, value)
         return status
+
+    def get_value_by_key(self, key, default=""):
+        return self.__option_entity.get_value_by_key(key, default)
