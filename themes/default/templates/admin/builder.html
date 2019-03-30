@@ -185,7 +185,7 @@
                                                         <select name="component" class="custom-select">
                                                             <option value="">{% trans "Please select a metric" %}</option>
                                                             {% for metric in metrics %}
-                                                                <option value="g-{{ metric.id }}">{{ metric.title }}</option>
+                                                                <option value="{{ metric.id }}">{{ metric.title }}</option>
                                                             {% endfor %}
                                                         </select>
                                                     </td>
