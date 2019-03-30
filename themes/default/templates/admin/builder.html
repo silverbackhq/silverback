@@ -69,36 +69,38 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% for builder_component in builder_components %}
+                                                    <tr>
+                                                        <td>
+                                                            <select name="component" class="custom-select" disabled>
+                                                                <option value="">{% trans "Please select a component or a group" %}</option>
+                                                                {% for group in groups %}
+                                                                    <option value="{{ group.id }}" {% if builder_component == group.id %}selected{% endif %}>{{ group.name }}</option>
+                                                                {% endfor %}
+                                                                {% for component in components %}
+                                                                    <option value="{{ component.id }}" {% if builder_component ==  component.id %}selected{% endif %}>{{ component.name }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </td>
+                                                        <td class="text-center" style="vertical-align: middle;">
+                                                            <a href="javascript:void(0)" href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.builder.component.endpoint' builder_component %}" class="icon" v-on:click="deleteComponentBuilderAction"><i class="fe fe-x-square"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
                                                 <tr>
                                                     <td>
-                                                        <select name="component" class="custom-select" disabled>
-                                                            <option value="">{% trans "Please select a component or a group" %}</option>
-                                                            {% for group in groups %}
-                                                                <option value="g-{{ group.id }}">{{ group.name }}</option>
-                                                            {% endfor %}
-                                                            {% for component in components %}
-                                                                <option value="c-{{ component.id }}">{{ component.name }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </td>
-                                                    <td class="text-center" style="vertical-align: middle;">
-                                                        <a href="javascript:void(0)" href="javascript:void(0)" data-url="" class="icon" v-on:click=""><i class="fe fe-x-square"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <select name="component" class="custom-select">
+                                                        <select name="component" class="custom-select" required>
                                                             <option value="">{% trans "Please select a component" %}</option>
                                                             {% for group in groups %}
-                                                                <option value="g-{{ group.id }}">{{ group.name }}</option>
+                                                                <option value="{{ group.id }}">{{ group.name }}</option>
                                                             {% endfor %}
                                                             {% for component in components %}
-                                                                <option value="c-{{ component.id }}">{{ component.name }}</option>
+                                                                <option value="{{ component.id }}">{{ component.name }}</option>
                                                             {% endfor %}
                                                         </select>
                                                     </td>
                                                     <td class="text-center" style="vertical-align: middle;">
-                                                        <a href="javascript:void(0)" data-url="" v-on:click="" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
+                                                        <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.builder.components.endpoint' %}" v-on:click="addComponentBuilderAction" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -124,20 +126,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% for builder_metric in builder_metrics %}
+                                                    <tr>
+                                                        <td>
+                                                            <select name="metric" class="custom-select" disabled>
+                                                                <option value="">{% trans "Please select a metric" %}</option>
+                                                                {% for metric in metrics %}
+                                                                    <option value="{{ metric.id }}" {% if builder_metric ==  metric.id %}selected{% endif %}>{{ metric.title }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </td>
+                                                        <td class="text-center" style="vertical-align: middle;">
+                                                            <a href="javascript:void(0)" href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.builder.metric.endpoint' builder_metric %}" class="icon" v-on:click="deleteMetricBuilderAction"><i class="fe fe-x-square"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
                                                 <tr>
                                                     <td>
-                                                        <select name="metric" class="custom-select" disabled>
-                                                            <option value="">{% trans "Please select a metric" %}</option>
-                                                            <option value="1" selected>API</option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="text-center" style="vertical-align: middle;">
-                                                        <a href="javascript:void(0)" href="javascript:void(0)" data-url="" class="icon" v-on:click=""><i class="fe fe-x-square"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <select name="metric" class="custom-select">
+                                                        <select name="metric" class="custom-select" required>
                                                             <option value="">{% trans "Please select a metric" %}</option>
                                                             {% for metric in metrics %}
                                                                 <option value="{{ metric.id }}">{{ metric.title }}</option>
@@ -145,7 +151,7 @@
                                                         </select>
                                                     </td>
                                                     <td class="text-center" style="vertical-align: middle;">
-                                                        <a href="javascript:void(0)" data-url="" v-on:click="" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
+                                                        <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.builder.metrics.endpoint' %}" v-on:click="addMetricBuilderAction" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
                                                     </td>
                                                 </tr>
                                             </tbody>

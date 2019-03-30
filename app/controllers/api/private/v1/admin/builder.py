@@ -64,7 +64,6 @@ class Builder_System_Metrics(View):
         })
 
         if result:
-
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric added successfully.")
@@ -88,7 +87,7 @@ class Builder_System_Metrics(View):
         if metric_id not in metrics:
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
-                "message": _("Metric added successfully.")
+                "message": _("Metric deleted successfully.")
             }]))
 
         metrics.remove(metric_id)
@@ -98,16 +97,15 @@ class Builder_System_Metrics(View):
         })
 
         if result:
-
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
-                "message": _("Metric removed successfully.")
+                "message": _("Metric deleted successfully.")
             }]))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Something goes wrong while removing metric.")
+                "message": _("Error! Something goes wrong while deleting metric.")
             }]))
 
 
@@ -157,7 +155,6 @@ class Builder_Components(View):
         })
 
         if result:
-
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component added successfully.")
@@ -181,7 +178,7 @@ class Builder_Components(View):
         if component_id not in components:
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
-                "message": _("Component added successfully.")
+                "message": _("Component deleted successfully.")
             }]))
 
         components.remove(component_id)
@@ -191,16 +188,15 @@ class Builder_Components(View):
         })
 
         if result:
-
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
-                "message": _("Component removed successfully.")
+                "message": _("Component deleted successfully.")
             }]))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Something goes wrong while removing component.")
+                "message": _("Error! Something goes wrong while deleting component.")
             }]))
 
 
@@ -299,7 +295,6 @@ class Builder_Settings(View):
         })
 
         if result:
-
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Builder Settings updated successfully.")

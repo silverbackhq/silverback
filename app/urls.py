@@ -286,7 +286,7 @@ urlpatterns = [
                 name='app.api.private.v1.admin.builder.metrics.endpoint'
             ),
             path(
-                'builder/metric/<int:metric_id>',
+                'builder/metric/<metric_id>',
                 Builder_System_Metrics_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.builder.metric.endpoint'
             ),
