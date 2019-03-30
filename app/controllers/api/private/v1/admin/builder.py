@@ -297,7 +297,7 @@ class Builder_Settings(View):
         if result:
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
-                "message": _("Builder Settings updated successfully.")
+                "message": _("Settings updated successfully.")
             }]))
 
         else:
