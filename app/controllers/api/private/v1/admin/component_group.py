@@ -42,7 +42,8 @@ class Component_Groups(View):
 
         request_data = self.__request.get_request_data("post", {
             "name": "",
-            "description": ""
+            "description": "",
+            "uptime": "",
         })
 
         self.__form.add_inputs({
@@ -64,6 +65,15 @@ class Component_Groups(View):
                     'strip': {}
                 },
                 'validate': {}
+            },
+            'uptime': {
+                'value': request_data["uptime"],
+                'validate': {
+                    'any_of': {
+                        'param': [["on", "off"]],
+                        'error': _('Error! Uptime is invalid.')
+                    }
+                }
             }
         })
 
@@ -74,7 +84,8 @@ class Component_Groups(View):
 
         result = self.__component_group.insert_one({
             "name": self.__form.get_sinput("name"),
-            "description": self.__form.get_sinput("description")
+            "description": self.__form.get_sinput("description"),
+            "uptime": self.__form.get_sinput("uptime")
         })
 
         if result:
@@ -155,7 +166,8 @@ class Component_Group(View):
 
         request_data = self.__request.get_request_data("post", {
             "name": "",
-            "description": ""
+            "description": "",
+            "uptime": ""
         })
 
         self.__form.add_inputs({
@@ -177,6 +189,15 @@ class Component_Group(View):
                     'strip': {}
                 },
                 'validate': {}
+            },
+            'uptime': {
+                'value': request_data["uptime"],
+                'validate': {
+                    'any_of': {
+                        'param': [["on", "off"]],
+                        'error': _('Error! Uptime is invalid.')
+                    }
+                }
             }
         })
 
@@ -187,7 +208,8 @@ class Component_Group(View):
 
         result = self.__component_group.update_one_by_id(group_id, {
             "name": self.__form.get_sinput("name"),
-            "description": self.__form.get_sinput("description")
+            "description": self.__form.get_sinput("description"),
+            "uptime": self.__form.get_sinput("uptime")
         })
 
         if result:

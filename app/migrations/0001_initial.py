@@ -55,6 +55,12 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100, verbose_name='Name')),
                 ('description', models.CharField(max_length=200, verbose_name='Description')),
+                ('uptime', models.CharField(
+                    choices=[('on', 'ON'), ('off', 'OFF')],
+                    default='off',
+                    max_length=50,
+                    verbose_name='Uptime'
+                )),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Updated at')),
             ],

@@ -17,6 +17,9 @@ class Component_Group_Entity():
         if "description" in group:
             new_group.description = group["description"]
 
+        if "uptime" in group:
+            new_group.uptime = group["uptime"]
+
         new_group.save()
         return False if new_group.pk is None else new_group
 
@@ -29,6 +32,9 @@ class Component_Group_Entity():
 
             if "description" in group_data:
                 group.description = group_data["description"]
+
+            if "uptime" in group_data:
+                group.uptime = group_data["uptime"]
 
             group.save()
             return True
