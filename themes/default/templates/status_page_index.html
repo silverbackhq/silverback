@@ -57,17 +57,19 @@
 	                    {% endif %}
 	                </div>
 	            </div>
-	            <br/>
-	            <div class="row">
-	                <div class="col-sm-12 col-lg-12">
-	                    <div class="card">
-	                        <div class="card-body">
-	                            <h4>{% trans "About This Site" %}</h4><br/>
-	                            {{ about_site }}
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
+	            {% if about_site %}
+		            <br/>
+		            <div class="row">
+		                <div class="col-sm-12 col-lg-12">
+		                    <div class="card">
+		                        <div class="card-body">
+		                            <h4>{% trans "About This Site" %}</h4><br/>
+		                            {{ about_site }}
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+	            {% endif %}
 	            <br/>
 	            <div class="row">
 	                <div class="col-sm-12 col-lg-12">

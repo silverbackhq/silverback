@@ -48,8 +48,8 @@ class Builder(View):
         })
 
         self.__context.push({
-            "builder_components": json.loads(self.__context.get("builder_components")),
-            "builder_metrics": json.loads(self.__context.get("builder_metrics"))
+            "builder_components": json.loads(str(self.__context.get("builder_components"))),
+            "builder_metrics": json.loads(str(self.__context.get("builder_metrics")))
         })
 
         return render(request, self.template_name, self.__context.get())
