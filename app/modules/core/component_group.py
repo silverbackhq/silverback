@@ -30,6 +30,7 @@ class Component_Group():
         return {
             "id": group.id,
             "name": group.name,
+            "uptime": group.uptime,
             "description": group.description,
         }
 

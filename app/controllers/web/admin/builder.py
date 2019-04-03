@@ -4,6 +4,7 @@ Builder Web Controller
 
 # standard library
 import os
+import json
 
 # Django
 from django.views import View
@@ -31,11 +32,24 @@ class Builder(View):
 
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.__context.load_options({
+            "builder_headline": "",
+            "builder_fav_icon_url": "",
+            "builder_cover_image_url": "",
+            "builder_about": "",
+            "builder_components": json.dumps([]),
+            "builder_metrics": json.dumps([])
+        })
         self.__context.push({
             "page_title": _("Status Page Builder · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "groups": self.__format_groups(self.__component.get_all_groups()),
             "components": self.__format_components(self.__component.get_all()),
             "metrics": self.__format_metrics(self.__metric.get_all())
+        })
+
+        self.__context.push({
+            "builder_components": json.loads(str(self.__context.get("builder_components"))),
+            "builder_metrics": json.loads(str(self.__context.get("builder_metrics")))
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -45,7 +59,7 @@ class Builder(View):
 
         for component in components:
             components_list.append({
-                "id": component.id,
+                "id": "c-%d" % component.id,
                 "name": component.name
             })
 
@@ -56,7 +70,7 @@ class Builder(View):
 
         for group in groups:
             groups_list.append({
-                "id": group.id,
+                "id": "g-%d" % group.id,
                 "name": group.name
             })
 
@@ -67,7 +81,7 @@ class Builder(View):
 
         for metric in metrics:
             metrics_list.append({
-                "id": metric.id,
+                "id": "m-%d" % metric.id,
                 "title": metric.title
             })
 
