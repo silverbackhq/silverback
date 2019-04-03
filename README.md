@@ -1,78 +1,74 @@
 <p align="center">
-    <img alt="Silverback Logo" src="https://silverbackhq.org/logo.png" height="90" />
+    <img alt="Silverback Logo" src="https://silverbackhq.org/logo.png" height="120" />
     <h3 align="center">Silverback</h3>
     <p align="center">A Status and Incident Communication Tool.</p>
     <p align="center">
-        <img src="https://travis-ci.org/Clivern/Badger.svg?branch=master">
-        <img src="https://img.shields.io/github/license/Clivern/Badger.svg">
-        <img src="https://img.shields.io/badge/Version-Under%20Development-red.svg">
+        <img src="https://travis-ci.org/Clivern/Silverback.svg?branch=master">
+        <img src="https://img.shields.io/badge/Version-1.0.0-red.svg">
+        <img src="https://img.shields.io/badge/LICENSE-BSD%203--Clause%20-orange.svg">
     </p>
 </p>
+
+**Silverback** is a **free** and **open source** project for web infrastructure, developer APIs, services and SaaS companies to set up their very own **status page** in minutes.
+
 
 ## Overview
 
 - Auto Installer.
-- Asynchronous workers for notifications with ability to run any number to scale.
-
-
-## Requirements
-
-- Python 3 or later
-- A supported database: MySQL, PostgreSQL.
-- Redis Server.
-- RabbitMQ Server.
+- User management with different roles.
+- Services and service groups statuses.
+- Uptime charts for services and service groups.
+- Incidents and incident updates management.
+- Metrics with third party integrations (NewRelic and more ...).
+- Subscriber notifications via email, SMS, customer endpoint, RSS feed and Atom Feed.
+- Asynchronous workers for subscriber notifications with ability to run any number to scale.
+- Realtime administration dashboard.
+- Multilingual.
+- and much more ...
 
 
 ## Installation
 
-### Production
+- Install [for development purposes](INSTALLATION_GUIDE.md#development) ([see requirements details](INSTALLATION_GUIDE.md#requirements)).
+- Install [on production](INSTALLATION_GUIDE.md#production) ([see requirements details](INSTALLATION_GUIDE.md#requirements)).
+- [Run with Docker.](INSTALLATION_GUIDE.md#run-with-docker)
 
-### Docker
 
-### Development
+## Versioning
 
-In order to run silverback for development purposes, we will use `virtualenv`.
+For transparency into our release cycle and in striving to maintain backward compatibility, Silverback is maintained under the [Semantic Versioning guidelines](https://semver.org/) and release process is predictable and business-friendly.
 
-```bash
-# Install virtualenv
-$ pip3 install virtualenv
-$ virtualenv env
-$ source env/bin/activate
+See the [Releases section of our GitHub project](https://github.com/silverbackhq/silverback/releases) for changelogs for each release version of Silverback. It contains summaries of the most noteworthy changes made in each release.
 
-$ git clone https://github.com/Clivern/Silverback.git silverback
-$ cd silverback
-$ cp .env.example .env
 
-# Install dependencies
-$ pip3 install -r requirements.txt
+## Bug tracker
 
-# Update .env file
-$ python3 manage.py silverback update_env DB_HOST=127.0.0.1
-$ python3 manage.py silverback update_env DB_PORT=3306
-$ python3 manage.py silverback update_env DB_DATABASE=silverback
-$ python3 manage.py silverback update_env DB_USERNAME=root
-$ python3 manage.py silverback update_env DB_PASSWORD=
-$ python3 manage.py silverback update_app_key
-$ python3 manage.py silverback update_env DB_CONNECTION=mysql
+If you have any suggestions, bug reports, or annoyances please report them to our issue tracker at https://github.com/silverbackhq/silverback/issues
 
-# Migrate DB
-$ python3 manage.py migrate
 
-# Run Application
-$ python3 manage.py runserver
+## Security Issues
 
-# Exit the virtualenv
-$ deactivate
-```
+If you discover a security vulnerability within Silverback, please send an email to [hello@clivern.com](mailto:hello@clivern.com)
 
 
 ## Contributing
 
-For guidance on setting up a development environment and how to make a contribution to Badger, see the [contributing guidelines](CONTRIBUTING.md)
+We are an open source, community-driven project so please feel free to join us. see the [contributing guidelines](CONTRIBUTING.md) for more details.
 
 
-## Acknowledgements
+## Credits
 
-© 2019, Silverback. Released under [MIT License](https://opensource.org/licenses/mit-license.php).
+Shoutout to these awesome open source projects and their maintainers.
+- [Django.](https://www.djangoproject.com/)
+- [Celery.](http://www.celeryproject.org/)
+- [Requests.](https://github.com/kennethreitz/requests)
+- [Tabler.](https://github.com/tabler/tabler)
+- [VueJs.](https://vuejs.org/)
+- [and other projects ...](requirements.txt)
+
+
+## License
+
+© 2019, Silverback. Released under [BSD-3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
 
 **Silverback** is authored and maintained by [@silverbackhq](https://github.com/silverbackhq).

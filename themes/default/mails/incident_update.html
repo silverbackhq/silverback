@@ -6,7 +6,19 @@
         <tr>
             <td>
                 <p>{% trans "Hi there," %}</p>
-                <p>{% trans "Someone requested a new password for your account." %}</p>
+                <table border="0" cellpadding="4" cellspacing="4">
+                    <tbody>
+                        <tr>
+                            <td><strong>{{ incident_type }}</strong></td>
+                            <td>
+                                {% autoescape off %}
+                                    {{ incident_update }}
+                                {% endautoescape %}
+                                <p><small>{% trans "Posted" %} {{ incident_update_time }}</small></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                     <tbody>
                         <tr>
@@ -14,7 +26,7 @@
                                 <table border="0" cellpadding="0" cellspacing="0">
                                     <tbody>
                                         <tr>
-                                            <td><a href="{{ app_url }}{% url 'app.web.reset_password' token %}" target="_blank">{% trans "Reset Your Password" %}</a></td>
+                                            <td><a href="{{ app_url }}{{ incident_uri }}" target="_blank">{% trans "Incident Report" %}</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -22,9 +34,11 @@
                         </tr>
                     </tbody>
                 </table>
-                <p>{% trans "If you didn't make this request then you can safely ignore this email :)" %}</p>
                 <p>{% trans "Thanks," %}<br/>{{ app_name }} {% trans "Team" %}.</p>
             </td>
         </tr>
     </table>
 {% endblock %}
+
+
+

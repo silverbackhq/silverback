@@ -6,7 +6,9 @@ Routes For Silverback
 from django.urls import include, path
 
 # local Django
-from app.controllers.web.home import Home as Home_View
+from app.controllers.web.status_page import Status_Page_Index as Status_Page_Index_View
+from app.controllers.web.status_page import Status_Page_History as Status_Page_History_View
+from app.controllers.web.status_page import Status_Page_Single as Status_Page_Single_View
 from app.controllers.web.install import Install as Install_View
 from app.controllers.web.not_found import handler404 as handler404_view
 from app.controllers.web.error import handler500 as handler500_view
@@ -15,11 +17,14 @@ from app.controllers.web.register import Register as Register_View
 from app.controllers.web.forgot_password import Forgot_Password as Forgot_Password_View
 from app.controllers.web.reset_password import Reset_Password as Reset_Password_View
 from app.controllers.web.statistics import Statistics as Statistics_View
+from app.controllers.web.history import AtomHistory as AtomHistory_View
+from app.controllers.web.history import RssHistory as RssHistory_View
 
 from app.controllers.web.admin.logout import Logout as Logout_View
 from app.controllers.web.admin.dashboard import Dashboard as Dashboard_View
 from app.controllers.web.admin.profile import Profile as Profile_View
 from app.controllers.web.admin.settings import Settings as Settings_View
+from app.controllers.web.admin.builder import Builder as Builder_View
 from app.controllers.web.admin.activity import Activity as Activity_View
 from app.controllers.web.admin.notification import Notification as Notification_View
 from app.controllers.web.admin.user import User_List as User_List_Web
@@ -71,20 +76,28 @@ from app.controllers.api.private.v1.admin.incident_update import Incident_Update
 from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Component as Incident_Updates_Component_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metric as Metric_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.metric import Metrics as Metrics_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.metric import NewRelic_Apps as NewRelic_Apps_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscriber as Subscriber_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.subscriber import Subscribers as Subscribers_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.activity import Activities as Activities_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.builder import Builder_Settings as Builder_Settings_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.builder import Builder_Components as Builder_Components_Admin_V1_Endpoint_Private
+from app.controllers.api.private.v1.admin.builder import Builder_System_Metrics as Builder_System_Metrics_Admin_V1_Endpoint_Private
 
 
 urlpatterns = [
     # Public Views
-    path('', Home_View.as_view(), name='app.web.home'),
+    path('', Status_Page_Index_View.as_view(), name='app.web.status_page_index'),
+    path('history/<int:period>', Status_Page_History_View.as_view(), name='app.web.status_page_history'),
+    path('incidents/<uri>', Status_Page_Single_View.as_view(), name='app.web.status_page_single'),
     path('install', Install_View.as_view(), name='app.web.install'),
     path('login', Login_View.as_view(), name='app.web.login'),
     path('register/<token>', Register_View.as_view(), name='app.web.register'),
     path('forgot-password', Forgot_Password_View.as_view(), name='app.web.forgot_password'),
     path('reset-password/<token>', Reset_Password_View.as_view(), name='app.web.reset_password'),
     path('statistics/<type>', Statistics_View.as_view(), name='app.web.statistics'),
+    path('history.atom', AtomHistory_View.as_view(), name='app.web.history_atom'),
+    path('history.rss', RssHistory_View.as_view(), name='app.web.history_rss'),
 
     # Authenticated Users Views
     path('admin/', include([
@@ -95,7 +108,7 @@ urlpatterns = [
         path('activity', Activity_View.as_view(), name='app.web.admin.activity.list'),
         path('notifications', Notification_View.as_view(), name='app.web.admin.notification.list'),
         path('settings', Settings_View.as_view(), name='app.web.admin.settings'),
-
+        path('builder', Builder_View.as_view(), name='app.web.admin.builder'),
         path('users', User_List_Web.as_view(), name='app.web.admin.user.list'),
         path('users/add', User_Add_Web.as_view(), name='app.web.admin.user.add'),
         path('users/edit/<int:user_id>', User_Edit_Web.as_view(), name='app.web.admin.user.edit'),
@@ -246,6 +259,36 @@ urlpatterns = [
                 'activity',
                 Activities_Admin_V1_Endpoint_Private.as_view(),
                 name='app.api.private.v1.admin.activities.endpoint'
+            ),
+            path(
+                'action/metric/new-relic-apps',
+                NewRelic_Apps_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.metric.action.new_relic_apps.endpoint'
+            ),
+            path(
+                'builder/settings',
+                Builder_Settings_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.settings.endpoint'
+            ),
+            path(
+                'builder/component',
+                Builder_Components_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.components.endpoint'
+            ),
+            path(
+                'builder/component/<component_id>',
+                Builder_Components_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.component.endpoint'
+            ),
+            path(
+                'builder/metric',
+                Builder_System_Metrics_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.metrics.endpoint'
+            ),
+            path(
+                'builder/metric/<metric_id>',
+                Builder_System_Metrics_Admin_V1_Endpoint_Private.as_view(),
+                name='app.api.private.v1.admin.builder.metric.endpoint'
             ),
         ]))
 

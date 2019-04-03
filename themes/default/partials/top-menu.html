@@ -44,24 +44,27 @@
                         <a class="dropdown-item" href="{% url 'app.web.admin.activity.list' %}">
                             <i class="dropdown-icon fe fe-zap"></i> {% trans "Activity" %}
                         </a>
+                        <a class="dropdown-item" href="{% url 'app.web.admin.component_group.list' %}">
+                            <i class="dropdown-icon fe fe-tag"></i> {% trans "Component Groups" %}
+                        </a>
+                        <a class="dropdown-item" href="{% url 'app.web.admin.component.list' %}">
+                            <i class="dropdown-icon fe fe-layers"></i> {% trans "Components" %}
+                        </a>
+                        <a class="dropdown-item" href="{% url 'app.web.admin.incident.list' %}">
+                            <i class="dropdown-icon fe fe-flag"></i> {% trans "Incidents" %}
+                        </a>
+                        <a class="dropdown-item" href="{% url 'app.web.admin.metric.list' %}">
+                            <i class="dropdown-icon fe fe-trending-up"></i> {% trans "System Metrics" %}
+                        </a>
+                        <a class="dropdown-item" href="{% url 'app.web.admin.subscriber.list' %}">
+                            <i class="dropdown-icon fe fe-mail"></i> {% trans "Subscribers" %}
+                        </a>
                         {% if perms.auth.manage_settings %}
-                            <a class="dropdown-item" href="{% url 'app.web.admin.component_group.list' %}">
-                                <i class="dropdown-icon fe fe-tag"></i> {% trans "Component Groups" %}
-                            </a>
-                            <a class="dropdown-item" href="{% url 'app.web.admin.component.list' %}">
-                                <i class="dropdown-icon fe fe-layers"></i> {% trans "Components" %}
-                            </a>
-                            <a class="dropdown-item" href="{% url 'app.web.admin.incident.list' %}">
-                                <i class="dropdown-icon fe fe-flag"></i> {% trans "Incidents" %}
-                            </a>
-                            <a class="dropdown-item" href="{% url 'app.web.admin.metric.list' %}">
-                                <i class="dropdown-icon fe fe-trending-up"></i> {% trans "Metrics" %}
+                            <a class="dropdown-item" href="{% url 'app.web.admin.builder' %}">
+                                <i class="dropdown-icon fe fe-layers"></i> {% trans "Status Page Builder" %}
                             </a>
                             <a class="dropdown-item" href="{% url 'app.web.admin.user.list' %}">
                                 <i class="dropdown-icon fe fe-users"></i> {% trans "Users" %}
-                            </a>
-                            <a class="dropdown-item" href="{% url 'app.web.admin.subscriber.list' %}">
-                                <i class="dropdown-icon fe fe-mail"></i> {% trans "Subscribers" %}
                             </a>
                             <a class="dropdown-item" href="{% url 'app.web.admin.settings' %}">
                                 <i class="dropdown-icon fe fe-settings"></i> {% trans "Settings" %}

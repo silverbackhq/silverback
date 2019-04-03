@@ -67,3 +67,39 @@
 .toast-error .toast-progress {
     background-color: #e74c3c
 }
+
+.highcharts-credits{
+    display: none !important;
+}
+
+.uptime-90-days-wrapper {
+    padding-top: 5px;
+    margin-bottom: -2px;
+}
+.uptime-90-days-wrapper svg {
+    margin: 0;
+    padding: 0;
+    height: 34px;
+    width: 100%;
+}
+
+.link-reset {
+    text-decoration: none;
+    color:#495057;
+}
+
+.incidents {
+    margin-bottom: 25px;
+}
+.incident {
+    margin-bottom: 15px;
+}
+.incident .incident_subject {
+    margin-bottom: 5px;
+}
+.incident .incident_body {
+    margin-bottom: 5px;
+}
+.incident_time {
+
+}

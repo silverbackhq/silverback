@@ -25,6 +25,14 @@
                                             <label class="form-label">{% trans "Description" %}</label>
                                             <textarea name="description" rows="4" class="form-control" placeholder="{% trans "Enter group description" %}">{{ group.description }}</textarea>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Uptime" %}<span class="form-required">*</span></label>
+                                            <select class="form-control" name="uptime" required>
+                                                <option value="">{% trans "Please Select a Value" %}</option>
+                                                <option value="on" {% if group.uptime == 'on' %}selected{% endif %}>{% trans "On" %}</option>
+                                                <option value="off" {% if group.uptime == 'off' %}selected{% endif %}>{% trans "Off" %}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

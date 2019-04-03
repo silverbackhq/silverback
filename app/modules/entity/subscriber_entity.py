@@ -78,7 +78,7 @@ class Subscriber_Entity():
 
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
-            return Subscriber.objects.order_by('-created_at').get()
+            return Subscriber.objects.order_by('-created_at')
 
         return Subscriber.objects.order_by('-created_at')[offset:limit+offset]
 

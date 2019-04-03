@@ -8,7 +8,8 @@ from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -26,7 +27,7 @@ class Settings(View):
     __settings_module = None
     __logger = None
     __acl = None
-    __activity_module = Activity_Module()
+    __activity_module = None
 
     def __init__(self):
         self.__request = Request()
@@ -35,7 +36,9 @@ class Settings(View):
         self.__form = Form()
         self.__settings_module = Settings_Module()
         self.__acl = ACL()
+        self.__activity_module = Activity_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request):
 
@@ -55,7 +58,8 @@ class Settings(View):
             "reset_mails_messages_count": "",
             "reset_mails_expire_after": "",
             "access_tokens_expire_after": "",
-            "prometheus_token": ""
+            "prometheus_token": "",
+            "newrelic_api_key": ""
         })
 
         self.__form.add_inputs({
@@ -82,7 +86,7 @@ class Settings(View):
                     'strip': {}
                 },
                 'validate': {
-                    'email': {
+                    'sv_email': {
                         'error': _('Error! Application email is invalid.')
                     }
                 }
@@ -94,7 +98,7 @@ class Settings(View):
                     'strip': {}
                 },
                 'validate': {
-                    'url': {
+                    'sv_url': {
                         'error': _('Error! Application url is invalid.')
                     }
                 }
@@ -125,6 +129,19 @@ class Settings(View):
                     'optional': {}
                 }
             },
+            "newrelic_api_key": {
+                'value': request_data["newrelic_api_key"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {
+                    'length_between': {
+                        'param': [0, 100],
+                        'error': _('Error! Prometheus token is invalid.')
+                    },
+                    'optional': {}
+                }
+            },
             'google_analytics_account': {
                 'value': request_data["google_analytics_account"],
                 'sanitize': {
@@ -139,14 +156,11 @@ class Settings(View):
                 }
             },
             'reset_mails_messages_count': {
-                'value': request_data["reset_mails_messages_count"],
+                'value': int(request_data["reset_mails_messages_count"]),
                 'sanitize': {
                     'strip': {}
                 },
                 'validate': {
-                    'digit': {
-                        'error': _('Error! Reset mails count is invalid.')
-                    },
                     'greater_than': {
                         'error': _('Error! Reset mails count is invalid.'),
                         'param': [0]
@@ -154,14 +168,11 @@ class Settings(View):
                 }
             },
             'reset_mails_expire_after': {
-                'value': request_data["reset_mails_expire_after"],
+                'value': int(request_data["reset_mails_expire_after"]),
                 'sanitize': {
                     'strip': {}
                 },
                 'validate': {
-                    'digit': {
-                        'error': _('Error! Reset mails expiry interval is invalid.')
-                    },
                     'greater_than': {
                         'error': _('Error! Reset mails count is invalid.'),
                         'param': [0]
@@ -169,14 +180,11 @@ class Settings(View):
                 }
             },
             'access_tokens_expire_after': {
-                'value': request_data["access_tokens_expire_after"],
+                'value': int(request_data["access_tokens_expire_after"]),
                 'sanitize': {
                     'strip': {}
                 },
                 'validate': {
-                    'digit': {
-                        'error': _('Error! Access token expiry interval is invalid.')
-                    },
                     'greater_than': {
                         'error': _('Error! Access token expiry interval is invalid.'),
                         'param': [0]
@@ -188,18 +196,19 @@ class Settings(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__settings_module.update_options({
-            "app_name": self.__form.get_input_value("app_name"),
-            "app_email": self.__form.get_input_value("app_email"),
-            "app_url": self.__form.get_input_value("app_url"),
-            "app_description": self.__form.get_input_value("app_description"),
-            "google_analytics_account": self.__form.get_input_value("google_analytics_account"),
-            "reset_mails_messages_count": self.__form.get_input_value("reset_mails_messages_count"),
-            "reset_mails_expire_after": self.__form.get_input_value("reset_mails_expire_after"),
-            "access_tokens_expire_after": self.__form.get_input_value("access_tokens_expire_after"),
-            "prometheus_token": self.__form.get_input_value("prometheus_token")
+            "app_name": self.__form.get_sinput("app_name"),
+            "app_email": self.__form.get_sinput("app_email"),
+            "app_url": self.__form.get_sinput("app_url"),
+            "app_description": self.__form.get_sinput("app_description"),
+            "google_analytics_account": self.__form.get_sinput("google_analytics_account"),
+            "reset_mails_messages_count": self.__form.get_sinput("reset_mails_messages_count"),
+            "reset_mails_expire_after": self.__form.get_sinput("reset_mails_expire_after"),
+            "access_tokens_expire_after": self.__form.get_sinput("access_tokens_expire_after"),
+            "prometheus_token": self.__form.get_sinput("prometheus_token"),
+            "newrelic_api_key":  self.__form.get_sinput("newrelic_api_key")
         })
 
         if result:

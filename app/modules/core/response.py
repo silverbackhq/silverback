@@ -38,6 +38,20 @@ class Response():
         self.__logger.debug(_("App Response: ") + self.__helpers.json_dumps(__private) + "\n")
         return __private
 
+    def send_errors_failure(self, messages, payload={}):
+        __private = {}
+        errors = []
+        for input_key, error_list in messages.items():
+            for error in error_list:
+                errors.append({"type": "error", "message": error})
+        __private["status"] = "failure"
+        __private["messages"] = errors
+        if len(payload) > 0:
+            __private["payload"] = payload
+
+        self.__logger.debug(_("App Response: ") + self.__helpers.json_dumps(__private) + "\n")
+        return __private
+
     def send_public_success(self, messages, payload={}):
         __public = {}
         __public["status"] = "success"

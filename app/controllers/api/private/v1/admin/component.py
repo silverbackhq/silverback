@@ -1,5 +1,5 @@
 """
-User API Endpoint
+Component API Endpoint
 """
 
 # Django
@@ -9,7 +9,8 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -33,6 +34,7 @@ class Components(View):
         self.__form = Form()
         self.__component = Component_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request):
 
@@ -84,13 +86,13 @@ class Components(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__component.insert_one({
-            "name": self.__form.get_input_value("name"),
-            "description": self.__form.get_input_value("description"),
-            "uptime": self.__form.get_input_value("uptime"),
-            "group_id": None if self.__form.get_input_value("group") == "" else self.__form.get_input_value("group")
+            "name": self.__form.get_sinput("name"),
+            "description": self.__form.get_sinput("description"),
+            "uptime": self.__form.get_sinput("uptime"),
+            "group_id": None if self.__form.get_sinput("group") == "" else self.__form.get_sinput("group")
         })
 
         if result:
@@ -164,6 +166,7 @@ class Component(View):
         self.__form = Form()
         self.__component = Component_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, component_id):
 
@@ -215,13 +218,13 @@ class Component(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__component.update_one_by_id(component_id, {
-            "name": self.__form.get_input_value("name"),
-            "description": self.__form.get_input_value("description"),
-            "uptime": self.__form.get_input_value("uptime"),
-            "group_id": None if self.__form.get_input_value("group") == "" else self.__form.get_input_value("group")
+            "name": self.__form.get_sinput("name"),
+            "description": self.__form.get_sinput("description"),
+            "uptime": self.__form.get_sinput("uptime"),
+            "group_id": None if self.__form.get_sinput("group") == "" else self.__form.get_sinput("group")
         })
 
         if result:

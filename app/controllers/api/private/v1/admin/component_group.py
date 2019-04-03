@@ -1,5 +1,5 @@
 """
-User API Endpoint
+Component Groups API Endpoint
 """
 
 # Django
@@ -9,7 +9,8 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 
 # local Django
-from app.modules.validation.form import Form
+from pyvalitron.form import Form
+from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
@@ -33,6 +34,7 @@ class Component_Groups(View):
         self.__form = Form()
         self.__component_group = Component_Group_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request):
 
@@ -40,7 +42,8 @@ class Component_Groups(View):
 
         request_data = self.__request.get_request_data("post", {
             "name": "",
-            "description": ""
+            "description": "",
+            "uptime": "",
         })
 
         self.__form.add_inputs({
@@ -62,17 +65,27 @@ class Component_Groups(View):
                     'strip': {}
                 },
                 'validate': {}
+            },
+            'uptime': {
+                'value': request_data["uptime"],
+                'validate': {
+                    'any_of': {
+                        'param': [["on", "off"]],
+                        'error': _('Error! Uptime is invalid.')
+                    }
+                }
             }
         })
 
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__component_group.insert_one({
-            "name": self.__form.get_input_value("name"),
-            "description": self.__form.get_input_value("description")
+            "name": self.__form.get_sinput("name"),
+            "description": self.__form.get_sinput("description"),
+            "uptime": self.__form.get_sinput("uptime")
         })
 
         if result:
@@ -145,6 +158,7 @@ class Component_Group(View):
         self.__form = Form()
         self.__component_group = Component_Group_Module()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__form.add_validator(ExtraRules())
 
     def post(self, request, group_id):
 
@@ -152,7 +166,8 @@ class Component_Group(View):
 
         request_data = self.__request.get_request_data("post", {
             "name": "",
-            "description": ""
+            "description": "",
+            "uptime": ""
         })
 
         self.__form.add_inputs({
@@ -174,17 +189,27 @@ class Component_Group(View):
                     'strip': {}
                 },
                 'validate': {}
+            },
+            'uptime': {
+                'value': request_data["uptime"],
+                'validate': {
+                    'any_of': {
+                        'param': [["on", "off"]],
+                        'error': _('Error! Uptime is invalid.')
+                    }
+                }
             }
         })
 
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_private_failure(self.__form.get_errors(with_type=True)))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
 
         result = self.__component_group.update_one_by_id(group_id, {
-            "name": self.__form.get_input_value("name"),
-            "description": self.__form.get_input_value("description")
+            "name": self.__form.get_sinput("name"),
+            "description": self.__form.get_sinput("description"),
+            "uptime": self.__form.get_sinput("uptime")
         })
 
         if result:

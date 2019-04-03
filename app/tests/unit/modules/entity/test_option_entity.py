@@ -15,8 +15,9 @@ class Test_Option_Entity(TestCase):
             "value": "value1",
             "autoload": True
         })
+
         self.assertTrue(option)
-        self.assertTrue(option.id > 1)
+        self.assertTrue(option.id >= 1)
 
     def test_insert_many(self):
         option_entity = Option_Entity()
@@ -79,7 +80,7 @@ class Test_Option_Entity(TestCase):
             "autoload": True
         })
         self.assertTrue(option_entity.update_value_by_key("key9", "new_value9"))
-        self.assertFalse(option_entity.update_value_by_key("not_found_key", "new_value9"))
+        self.assertTrue(option_entity.update_value_by_key("not_found_key", "new_value9"))
 
     def test_delete_one_by_id(self):
         option_entity = Option_Entity()

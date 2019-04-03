@@ -14,11 +14,14 @@ class Metric_Entity():
         if "title" in metric:
             new_metric.title = metric["title"]
 
-        if "type" in metric:
-            new_metric.type = metric["type"]
+        if "description" in metric:
+            new_metric.description = metric["description"]
 
         if "source" in metric:
             new_metric.source = metric["source"]
+
+        if "data" in metric:
+            new_metric.data = metric["data"]
 
         new_metric.save()
         return False if new_metric.pk is None else new_metric
@@ -30,11 +33,14 @@ class Metric_Entity():
             if "title" in metric_data:
                 metric.title = metric_data["title"]
 
-            if "type" in metric_data:
-                metric.type = metric_data["type"]
+            if "description" in metric_data:
+                metric.description = metric_data["description"]
 
             if "source" in metric_data:
                 metric.source = metric_data["source"]
+
+            if "data" in metric_data:
+                metric.data = metric_data["data"]
 
             metric.save()
             return True
@@ -45,7 +51,7 @@ class Metric_Entity():
 
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
-            return Metric.objects.order_by('-created_at').get()
+            return Metric.objects.order_by('-created_at')
 
         return Metric.objects.order_by('-created_at')[offset:limit+offset]
 

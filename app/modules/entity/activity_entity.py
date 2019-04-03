@@ -46,7 +46,7 @@ class Activity_Entity():
 
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
-            return Activity.objects.order_by('-created_at').get()
+            return Activity.objects.order_by('-created_at')
 
         return Activity.objects.order_by('-created_at')[offset:limit+offset]
 

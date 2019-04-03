@@ -1,9 +1,10 @@
 """
-Components Web Controller
+Incident Update Web Controller
 """
 
 # standard library
 import os
+import markdown2
 
 # Django
 from django.views import View
@@ -18,6 +19,7 @@ from app.modules.core.component_group import Component_Group as Component_Group_
 from app.modules.core.incident import Incident as Incident_Module
 from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
 from app.modules.core.incident_update_component import Incident_Update_Component as Incident_Update_Component_Module
+from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
 from app.modules.core.decorators import login_if_not_authenticated
 
 
@@ -57,6 +59,7 @@ class Incident_Update_View(View):
     __incident_update_component = Incident_Update_Component_Module()
     __component = Component_Module()
     __component_group = Component_Group_Module()
+    __incident_update_notification = Incident_Update_Notification_Module()
 
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
@@ -72,7 +75,15 @@ class Incident_Update_View(View):
             raise Http404("Incident update not found.")
 
         update["datetime"] = update["datetime"].strftime("%b %d %Y %H:%M:%S")
-        update["message"] = update["message"].replace("\n", "<br/>")
+        update["message"] = markdown2.markdown(update["message"])
+        update["notified_subscribers"] = self.__incident_update_notification.count_by_update_status(
+            update["id"],
+            Incident_Update_Notification_Module.SUCCESS
+        )
+        update["failed_subscribers"] = self.__incident_update_notification.count_by_update_status(
+            update["id"],
+            Incident_Update_Notification_Module.FAILED
+        )
 
         components = self.__format_components(self.__component.get_all())
         affected_components = self.__format_affected_components(self.__incident_update_component.get_all(update_id))

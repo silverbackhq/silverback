@@ -1,5 +1,5 @@
 """
-Users Web Controller
+User Web Controller
 """
 
 # standard library

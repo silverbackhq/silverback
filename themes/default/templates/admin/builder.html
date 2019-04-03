@@ -1,0 +1,167 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block content %}
+    <div class="page-main">
+        {% include 'partials/top-menu.html' %}
+        <div class="my-3 my-md-5">
+            <div class="container" id="app_status_builder">
+                <div class="row">
+                    <div class="col-12">
+                        <form class="card" v-on:submit.prevent="updateBuilderSettingsAction" action="{% url 'app.api.private.v1.admin.builder.settings.endpoint' %}" method="post">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Headline" %}<span class="form-required">*</span></label>
+                                            <input type="text" class="form-control" name="builder_headline" value="{{ builder_headline }}" required>
+                                            <small class="form-text text-muted">{% trans "This text will appear at the top of your page. It's set to your service name by default." %}</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Fav icon URL" %}<span class="form-required">*</span></label>
+                                            <input type="url" class="form-control" name="builder_fav_icon_url" value="{{ builder_fav_icon_url }}" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Cover image URL" %}<span class="form-required">*</span></label>
+                                            <input type="url" class="form-control" name="builder_cover_image_url" value="{{ builder_cover_image_url }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "About" %}</label>
+                                            <textarea class="form-control" name="builder_about" rows="5">{{ builder_about }}</textarea>
+                                            <small class="form-text text-muted">{% trans "This text is placed at the top of the status page for your visitors." %}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <div class="d-flex">
+                                    <button type="submit" class="btn btn-pill btn-secondary ml-auto" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Submit" %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="dimmer">
+                                <div class="loader"></div>
+                                <div class="dimmer-content">
+                                    <div class="table-responsive">
+                                        <table class="table card-table table-vcenter text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>{% trans "Component / Component Group" %}</th>
+                                                    <th class="text-center">{% trans "Actions" %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for builder_component in builder_components %}
+                                                    <tr>
+                                                        <td>
+                                                            <select name="component" class="custom-select" disabled>
+                                                                <option value="">{% trans "Please select a component or a group" %}</option>
+                                                                {% for group in groups %}
+                                                                    <option value="{{ group.id }}" {% if builder_component == group.id %}selected{% endif %}>{{ group.name }}</option>
+                                                                {% endfor %}
+                                                                {% for component in components %}
+                                                                    <option value="{{ component.id }}" {% if builder_component ==  component.id %}selected{% endif %}>{{ component.name }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </td>
+                                                        <td class="text-center" style="vertical-align: middle;">
+                                                            <a href="javascript:void(0)" href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.builder.component.endpoint' builder_component %}" class="icon" v-on:click="deleteComponentBuilderAction"><i class="fe fe-x-square"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <td>
+                                                        <select name="component" class="custom-select" required>
+                                                            <option value="">{% trans "Please select a component" %}</option>
+                                                            {% for group in groups %}
+                                                                <option value="{{ group.id }}">{{ group.name }}</option>
+                                                            {% endfor %}
+                                                            {% for component in components %}
+                                                                <option value="{{ component.id }}">{{ component.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center" style="vertical-align: middle;">
+                                                        <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.builder.components.endpoint' %}" v-on:click="addComponentBuilderAction" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="dimmer">
+                                <div class="loader"></div>
+                                <div class="dimmer-content">
+                                    <div class="table-responsive">
+                                        <table class="table card-table table-vcenter text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>{% trans "System Metrics" %}</th>
+                                                    <th class="text-center">{% trans "Actions" %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for builder_metric in builder_metrics %}
+                                                    <tr>
+                                                        <td>
+                                                            <select name="metric" class="custom-select" disabled>
+                                                                <option value="">{% trans "Please select a metric" %}</option>
+                                                                {% for metric in metrics %}
+                                                                    <option value="{{ metric.id }}" {% if builder_metric ==  metric.id %}selected{% endif %}>{{ metric.title }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </td>
+                                                        <td class="text-center" style="vertical-align: middle;">
+                                                            <a href="javascript:void(0)" href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.builder.metric.endpoint' builder_metric %}" class="icon" v-on:click="deleteMetricBuilderAction"><i class="fe fe-x-square"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <td>
+                                                        <select name="metric" class="custom-select" required>
+                                                            <option value="">{% trans "Please select a metric" %}</option>
+                                                            {% for metric in metrics %}
+                                                                <option value="{{ metric.id }}">{{ metric.title }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center" style="vertical-align: middle;">
+                                                        <a href="javascript:void(0)" data-url="{% url 'app.api.private.v1.admin.builder.metrics.endpoint' %}" v-on:click="addMetricBuilderAction" class="icon" data-reload-after="1000"><i class="fe fe-plus-square"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'partials/bottom-menu.html' %}
+
+{% endblock %}

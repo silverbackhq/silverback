@@ -70,6 +70,9 @@ class Component_Entity():
 
         return Component.objects.order_by('-created_at')[offset:limit+offset]
 
+    def get_all_components_by_group(self, group_id):
+        return Component.objects.filter(group_id=group_id).order_by('name')
+
     def count(self, group_id=None):
         if group_id is None:
             return Component.objects.count()

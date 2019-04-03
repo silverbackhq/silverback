@@ -79,6 +79,12 @@ class Option_Entity():
             option.value = value
             option.save()
             return True
+        else:
+            return self.insert_one({
+                "key": key,
+                "value": value
+            }) is not False
+
         return False
 
     def delete_one_by_id(self, id):
