@@ -265,7 +265,10 @@ class Status_Page():
         return services
 
     def get_status(self, id, type):
-        return "Operational"
+        if type == "component":
+            return "Operational"
+        elif type == "group":
+            return "Operational"
 
     def get_uptime_chart(self, id, type):
         return []
