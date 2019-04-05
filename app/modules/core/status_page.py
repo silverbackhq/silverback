@@ -193,7 +193,8 @@ class Status_Page():
         ]
 
     def get_system_metrics(self):
-        return [
+
+        metrics = [
             {
                 "id": "container",
                 "title": "Website Dashboard - Average response time",
@@ -219,6 +220,14 @@ class Status_Page():
                 ],
             }
         ]
+
+        option = self.__option_entity.get_one_by_key("builder_metrics")
+        if option:
+            items = json.loads(option.value)
+            for item in items:
+                pass
+
+        return metrics
 
     def get_services(self):
         services = []

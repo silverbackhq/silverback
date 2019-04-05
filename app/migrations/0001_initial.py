@@ -177,6 +177,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=150, verbose_name='Title')),
+                ('x_axis', models.CharField(max_length=100, verbose_name='x_axis')),
+                ('y_axis', models.CharField(max_length=100, verbose_name='y_axis')),
                 ('description', models.CharField(max_length=200, verbose_name='Description')),
                 ('source', models.CharField(
                     choices=[

@@ -46,7 +46,8 @@ class Metrics(View):
             "source": "",
             "application": "",
             "metric": "",
-            "display_suffix": ""
+            "x_axis": "",
+            "y_axis": ""
         })
 
         self.__form.add_inputs({
@@ -87,8 +88,15 @@ class Metrics(View):
                 },
                 'validate': {}
             },
-            'display_suffix': {
-                'value': request_data["display_suffix"],
+            'x_axis': {
+                'value': request_data["x_axis"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
+            },
+            'y_axis': {
+                'value': request_data["y_axis"],
                 'sanitize': {
                     'strip': {}
                 },
@@ -105,10 +113,11 @@ class Metrics(View):
             "title": self.__form.get_sinput("title"),
             "description": self.__form.get_sinput("description"),
             "source": self.__form.get_sinput("source"),
-            "data": '{"application":"%s", "metric":"%s","display_suffix":"%s"}' % (
+            "x_axis": self.__form.get_sinput("x_axis"),
+            "y_axis": self.__form.get_sinput("y_axis"),
+            "data": '{"application":"%s", "metric":"%s"}' % (
                 self.__form.get_sinput("application"),
-                self.__form.get_sinput("metric"),
-                self.__form.get_sinput("display_suffix")
+                self.__form.get_sinput("metric")
             )
         })
 
@@ -234,8 +243,15 @@ class Metric(View):
                 },
                 'validate': {}
             },
-            'display_suffix': {
-                'value': request_data["display_suffix"],
+            'x_axis': {
+                'value': request_data["x_axis"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
+            },
+            'y_axis': {
+                'value': request_data["y_axis"],
                 'sanitize': {
                     'strip': {}
                 },
@@ -252,10 +268,11 @@ class Metric(View):
             "title": self.__form.get_sinput("title"),
             "description": self.__form.get_sinput("description"),
             "source": self.__form.get_sinput("source"),
-            "data": '{"application":"%s", "metric":"%s","display_suffix":"%s"}' % (
+            "x_axis": self.__form.get_sinput("x_axis"),
+            "y_axis": self.__form.get_sinput("y_axis"),
+            "data": '{"application":"%s", "metric":"%s"}' % (
                 self.__form.get_sinput("application"),
-                self.__form.get_sinput("metric"),
-                self.__form.get_sinput("display_suffix")
+                self.__form.get_sinput("metric")
             )
         })
 

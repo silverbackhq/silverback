@@ -38,7 +38,9 @@ class Metric():
             "title": metric.title,
             "description": metric.description,
             "source": metric.source,
-            "data": metric.data
+            "data": metric.data,
+            "x_axis": metric.x_axis,
+            "y_axis": metric.y_axis
         }
 
     def insert_one(self, metric):

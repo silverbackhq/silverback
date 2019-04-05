@@ -31,11 +31,19 @@
                                     <div class="col-md-12 col-lg-12">
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Title" %}<span class="form-required">*</span></label>
-                                            <input type="text" name="title" class="form-control" placeholder="{% trans "Enter title" %}" value="{{ metric.title }}" required>
+                                            <input type="text" name="title" class="form-control" placeholder="{% trans 'Enter title' %}" value="{{ metric.title }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Description" %}</label>
-                                            <input type="text" name="description" class="form-control" value="{{ metric.description }}" placeholder="{% trans "Enter description" %}">
+                                            <input type="text" name="description" class="form-control" value="{{ metric.description }}" placeholder="{% trans 'Enter description' %}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "X-Axis" %}</label>
+                                            <input type="text" name="x_axis" class="form-control" value="{{ metric.x_axis }}" placeholder="{% trans 'X-Axis title' %}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">{% trans "Y-Axis" %}</label>
+                                            <input type="text" name="y_axis" class="form-control" value="{{ metric.y_axis }}" placeholder="{% trans 'Y-Axis title' %}">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Source" %}<span class="form-required">*</span></label>
@@ -66,10 +74,6 @@
                                                     <option value="real_user_response_time">{% trans "Real User Response Time" %}</option>
                                                     <option value="real_user_apdex">{% trans "Real User Apdex" %}</option>
                                                 </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label">{% trans "Display Suffix" %}<span class="form-required">*</span></label>
-                                                <input type="text" name="display_suffix" class="form-control" placeholder="{% trans "ms" %}" required>
                                             </div>
                                         </template>
                                     </div>
