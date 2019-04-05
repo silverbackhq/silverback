@@ -202,7 +202,8 @@ class Metric(View):
             "source": "",
             "application": "",
             "metric": "",
-            "display_suffix": ""
+            "x_axis": "",
+            "y_axis": ""
         })
 
         self.__form.add_inputs({
