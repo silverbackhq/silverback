@@ -225,6 +225,7 @@ class Status_Page():
         if option:
             items = json.loads(option.value)
             for item in items:
+                # item.replace("m-", "")
                 pass
 
         return metrics
