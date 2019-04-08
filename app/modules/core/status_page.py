@@ -244,7 +244,7 @@ class Status_Page():
                             "description": component.description,
                             "current_status": self.get_status(component.id, "component"),
                             "current_status_class": "bg-green",
-                            "uptime_chart": self.get_uptime_chart(1, "component"),
+                            "uptime_chart": self.get_uptime_chart(component.id, "component"),
                             "sub_services": []
                         })
                 elif "g-" in item:
