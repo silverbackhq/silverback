@@ -1,5 +1,5 @@
 """
-Incident Update Module
+Incident Update Component Module
 """
 
 # local Django

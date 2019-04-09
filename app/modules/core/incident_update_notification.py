@@ -1,5 +1,5 @@
 """
-Incident Update Module
+Incident Update Notification Module
 """
 
 # local Django
