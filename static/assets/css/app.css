@@ -103,3 +103,14 @@
 .incident_time {
 
 }
+
+.status-page-container{
+    margin:0 auto;
+    max-width:850px
+}
+@media screen and (max-width: 945px){
+    .status-page-container{
+        max-width:none;
+        width:100%
+    }
+}
