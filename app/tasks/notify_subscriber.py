@@ -48,7 +48,10 @@ def notify_subscriber(notification_id):
                 app_email,
                 app_url,
                 [subscriber.email],
-                _("%s Incident Update: %s") % (app_name, incident.name),
+                _("%(app_name) Incident Update: %(incident_name)") % ({
+                    "app_name": app_name,
+                    "incident_name": incident.name
+                }),
                 "mails/incident_update.html",
                 data,
                 False
@@ -86,7 +89,10 @@ def notify_subscriber(notification_id):
                 app_email,
                 app_url,
                 [subscriber.email],
-                _("%s Incident Update: %s") % (app_name, incident.name),
+                _("%(app_name) Incident Update: %(incident_name)") % ({
+                    "app_name": app_name,
+                    "incident_name": incident.name
+                }),
                 "mails/incident_update.html",
                 data,
                 False
