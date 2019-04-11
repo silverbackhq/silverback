@@ -20,18 +20,18 @@ class Logging():
         self.__logger = self.__helpers.get_logger(__name__)
 
     def __call__(self, request):
-        self.__logger.debug(_("Request Method: %(method) {'correlationId':'%(correlationId)'}") % ({
+        self.__logger.debug(_("Request Method: %(method)s {'correlationId':'%(correlationId)s'}") % {
             "method": request.method,
             "correlationId": request.META["X-Correlation-ID"]
-        }))
-        self.__logger.debug(_("Request URL: %(path) {'correlationId':'%(correlationId)'}") % ({
+        })
+        self.__logger.debug(_("Request URL: %(path)s {'correlationId':'%(correlationId)s'}") % {
             "path": request.path,
             "correlationId": request.META["X-Correlation-ID"]
-        }))
-        self.__logger.debug(_("Request Body: %(body) {'correlationId':'%(correlationId)'}") % ({
+        })
+        self.__logger.debug(_("Request Body: %(body)s {'correlationId':'%(correlationId)s'}") % {
             "body": request.body,
             "correlationId": request.META["X-Correlation-ID"]
-        }))
+        })
 
         response = self.get_response(request)
 

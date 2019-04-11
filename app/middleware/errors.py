@@ -27,14 +27,12 @@ class Errors():
 
     def process_exception(self, request, exception):
 
-        self.__logger.error(
-            _("The server encountered something unexpected! %(method):%(path)  - %(name) - %(exception") % ({
+        self.__logger.error(_("The server encountered something unexpected! %(method)s:%(path)s  - %(name)s - %(exception)s") % {
                 "method": request.method,
                 "path": request.path,
                 "name": exception.__class__.__name__,
                 "exception": exception
-            })
-        )
+        })
 
         self.__logger.exception(exception)
 

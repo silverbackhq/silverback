@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-11 10:29+0000\n"
+"POT-Creation-Date: 2019-04-11 19:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
 #: app/controllers/api/private/v1/admin/builder.py:57
 #: app/controllers/api/private/v1/admin/builder.py:69
 msgid "Metric added successfully."
@@ -850,26 +851,30 @@ msgstr ""
 msgid "Reset token is expired or invalid, Please request another token!"
 msgstr ""
 
-#: app/middleware/errors.py:31
+#: app/middleware/errors.py:30
+#, python-format
 msgid ""
-"The server encountered something unexpected! %(method):%(path)  - %(name) - "
-"%(exception"
+"The server encountered something unexpected! %(method)s:%(path)s  - %(name)s "
+"- %(exception)s"
 msgstr ""
 
-#: app/middleware/errors.py:45
+#: app/middleware/errors.py:43
 msgid "Something goes wrong! Please contact a system administrator."
 msgstr ""
 
 #: app/middleware/logging.py:23
-msgid "Request Method: %(method) {'correlationId':'%(correlationId)'}"
+#, python-format
+msgid "Request Method: %(method)s {'correlationId':'%(correlationId)s'}"
 msgstr ""
 
 #: app/middleware/logging.py:27
-msgid "Request URL: %(path) {'correlationId':'%(correlationId)'}"
+#, python-format
+msgid "Request URL: %(path)s {'correlationId':'%(correlationId)s'}"
 msgstr ""
 
 #: app/middleware/logging.py:31
-msgid "Request Body: %(body) {'correlationId':'%(correlationId)'}"
+#, python-format
+msgid "Request Body: %(body)s {'correlationId':'%(correlationId)s'}"
 msgstr ""
 
 #: app/modules/core/decorators.py:41
@@ -971,8 +976,9 @@ msgstr ""
 msgid "Deutsch"
 msgstr ""
 
-#: app/tasks/notify_subscriber.py:51 app/tasks/notify_subscriber.py:92
-msgid "%(app_name) Incident Update: %(incident_name)"
+#: app/tasks/notify_subscriber.py:51 app/tasks/notify_subscriber.py:89
+#, python-format
+msgid "%(app_name)s Incident Update: %(incident_name)s"
 msgstr ""
 
 #: themes/default/layouts/mail.html:293
