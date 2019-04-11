@@ -6,14 +6,14 @@
 {% block content %}
 	<div class="page-main" id="app_status_page_index">
 	    <div class="my-3 my-md-5">
-	        <div class="container" style="width: 50%;">
+	        <div class="container">
 	            <div class="row">
-	                <div class="col-sm-6 col-lg-6">
+	                <div class="col-sm-6 col-md-6">
 	                    <a href="#">
 	                        <img src="{% static 'assets/images/logo.png' %}" alt="{{ app_name }}" style="width: 25%">
 	                    </a>
 	                </div>
-	                <div class="col-sm-6 col-lg-6 text-right" style="margin-top: 40px">
+	                <div class="col-sm-6 col-md-6 text-right" style="margin-top: 40px">
 	                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">
 	                    	{% trans "Subscribe to Updates" %}
 	                	</a>
@@ -39,7 +39,7 @@
 	            <br/>
 	            <br/>
 	            <div class="row">
-	                <div class="col-sm-12 col-lg-12">
+	                <div class="col-sm-12 col-md-12">
 	                	{% if system_status == "operational" %}
 		                    <div class="alert alert-icon alert-success" role="alert" style="width: 100%;">
 		                        <i class="fe fe-check mr-2" aria-hidden="true"></i> {% trans "All Systems Operational" %}
@@ -60,7 +60,7 @@
 	            {% if about_site %}
 		            <br/>
 		            <div class="row">
-		                <div class="col-sm-12 col-lg-12">
+		                <div class="col-sm-12 col-md-12">
 		                    <div class="card">
 		                        <div class="card-body">
 		                            <h4>{% trans "About This Site" %}</h4><br/>
@@ -72,7 +72,7 @@
 	            {% endif %}
 	            <br/>
 	            <div class="row">
-	                <div class="col-sm-12 col-lg-12">
+	                <div class="col-sm-12 col-md-12">
 	                    <div class="card">
 	                        <table class="table card-table">
 	                        	{% for service in services %}
@@ -134,7 +134,7 @@
 	                </div>
 	            </div>
 	            <div class="row">
-	                <div class="col-sm-12 col-lg-12">
+	                <div class="col-sm-12 col-md-12">
 	                    <div class="card">
 	                        <div class="card-header">
 	                            <h3 class="card-title">{% trans "System Metrics" %}</h3>
@@ -162,7 +162,7 @@
 	            </div>
 	            <br/>
 	            <div class="row">
-	                <div class="col-sm-12 col-lg-12">
+	                <div class="col-sm-12 col-md-12">
 	                    <div class="card">
 	                        <div class="card-header">
 	                            <h3 class="card-title">{% trans "Past Incidents" %}</h3>
@@ -205,12 +205,12 @@
 	                </div>
 	            </div>
 	            <div class="row">
-	                <div class="col-sm-6 col-lg-6 text-left">
+	                <div class="col-sm-6 col-md-6 text-left">
 	                    <a href="{% url 'app.web.status_page_history' 1 %}">
 	                        <span style="font-family:arial">←</span> {% trans "Incident History" %}
 	                    </a>
 	                </div>
-	                <div class="col-sm-6 col-lg-6 text-right">
+	                <div class="col-sm-6 col-md-6 text-right">
 	                    <a href="https://github.com/silverbackhq/silverback" target="__blank">
 	                    	<!-- Share some love by keeping copyrights -->
 	                        <span class="text-muted">{% trans "Powered by Silverback" %}</span>

@@ -6,14 +6,14 @@
 {% block content %}
     <div class="page-main">
         <div class="my-3 my-md-5">
-            <div class="container" style="width: 50%;">
+            <div class="container">
                 <div class="row">
-                    <div class="col-sm-6 col-lg-6">
+                    <div class="col-sm-6 col-md-6">
                         <a href="#">
                             <img src="{% static 'assets/images/logo.png' %}" alt="{{ app_name }}" style="width: 25%">
                         </a>
                     </div>
-                    <div class="col-sm-6 col-lg-6 text-right" style="margin-top: 40px">
+                    <div class="col-sm-6 col-md-6 text-right" style="margin-top: 40px">
                         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">
                             {% trans "Subscribe to Updates" %}
                         </a>
@@ -39,7 +39,7 @@
                 <br/>
                 <br/>
                 <div class="row">
-                    <div class="col-sm-12 col-lg-12">
+                    <div class="col-sm-12 col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">{% trans "Incident History" %}</h3>
@@ -81,12 +81,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6 col-lg-6 text-left">
+                    <div class="col-sm-6 col-md-6 text-left">
                         <a href="{% url 'app.web.status_page_index' %}">
                             <span style="font-family:arial">←</span> {% trans "Current Status" %}
                         </a>
                     </div>
-                    <div class="col-sm-6 col-lg-6 text-right">
+                    <div class="col-sm-6 col-md-6 text-right">
                         <a href="https://github.com/silverbackhq/silverback" target="__blank">
                             <!-- Share some love by keeping copyrights -->
                             <span class="text-muted">{% trans "Powered by Silverback" %}</span>
