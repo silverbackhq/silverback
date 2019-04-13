@@ -12,9 +12,7 @@ class API_Funnel():
     __helpers = None
     __logger = None
     __funnel = None
-    __roles = {
-
-    }
+    __roles = {}
 
     def __init__(self, get_response):
         self.__helpers = Helpers()
