@@ -64,13 +64,13 @@ class Forgot_Password(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if not self.__forgot_password.check_email(self.__form.get_sinput("email")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Email is not exist.")
-            }]))
+            }], {}, self.__correlation_id))
 
         reset_request = self.__forgot_password.reset_request_exists(self.__form.get_sinput("email"))
 
@@ -79,7 +79,7 @@ class Forgot_Password(View):
                 return JsonResponse(self.__response.send_private_failure([{
                     "type": "error",
                     "message": _("Sorry! You already exceeded the maximum number of reset requests!")
-                }]))
+                }], {}, self.__correlation_id))
             token = self.__forgot_password.update_request(reset_request)
         else:
             token = self.__forgot_password.create_request(self.__form.get_sinput("email"))
@@ -88,7 +88,7 @@ class Forgot_Password(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating reset request.")
-            }]))
+            }], {}, self.__correlation_id))
 
         message = self.__forgot_password.send_message(self.__form.get_sinput("email"), token)
 
@@ -96,9 +96,9 @@ class Forgot_Password(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while sending reset instructions.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Reset instructions sent successfully.")
-            }]))
+            }], {}, self.__correlation_id))

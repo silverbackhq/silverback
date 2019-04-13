@@ -48,7 +48,7 @@ class Install(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Application is already installed.")
-            }]))
+            }], {}, self.__correlation_id))
 
         self.__request.set_request(request)
 
@@ -147,7 +147,7 @@ class Install(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         self.__install.set_app_data(
             self.__form.get_sinput("app_name"),
@@ -177,9 +177,9 @@ class Install(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Application installed successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong during installing.")
-            }]))
+            }], {}, self.__correlation_id))

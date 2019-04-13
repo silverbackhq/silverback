@@ -109,7 +109,7 @@ class Metrics(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__metric.insert_one({
             "title": self.__form.get_sinput("title"),
@@ -127,12 +127,12 @@ class Metrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating metric.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request):
 
@@ -158,7 +158,7 @@ class Metrics(View):
                 'limit': limit,
                 'count': self.__metric.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_metrics(self, metrics):
         metrics_list = []
@@ -268,7 +268,7 @@ class Metric(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__metric.update_one_by_id(metric_id, {
             "title": self.__form.get_sinput("title"),
@@ -286,12 +286,12 @@ class Metric(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating metric.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, metric_id):
 
@@ -302,13 +302,13 @@ class Metric(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting metric.")
-            }]))
+            }], {}, self.__correlation_id))
 
 
 class NewRelic_Apps(View):
@@ -339,8 +339,8 @@ class NewRelic_Apps(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Connecting to New Relic.")
-            }]))
+            }], {}, self.__correlation_id))
 
         return JsonResponse(self.__response.send_private_success([], {
             'apps': result
-        }))
+        }, self.__correlation_id))

@@ -45,7 +45,7 @@ class Login(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! User is already authenticated.")
-            }]))
+            }], {}, self.__correlation_id))
 
         self.__request.set_request(request)
 
@@ -84,15 +84,15 @@ class Login(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if self.__login.authenticate(self.__form.get_sinput("username"), self.__form.get_sinput("password"), request):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("You logged in successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username or password is invalid.")
-            }]))
+            }], {}, self.__correlation_id))

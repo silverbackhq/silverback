@@ -88,7 +88,7 @@ class Components(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__component.insert_one({
             "name": self.__form.get_sinput("name"),
@@ -101,12 +101,12 @@ class Components(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating component.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request):
 
@@ -132,7 +132,7 @@ class Components(View):
                 'limit': limit,
                 'count': self.__component.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_components(self, components):
         components_list = []
@@ -223,7 +223,7 @@ class Component(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__component.update_one_by_id(component_id, {
             "name": self.__form.get_sinput("name"),
@@ -236,12 +236,12 @@ class Component(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating component.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, component_id):
 
@@ -252,10 +252,10 @@ class Component(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting component.")
-            }]))
+            }], {}, self.__correlation_id))

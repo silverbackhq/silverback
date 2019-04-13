@@ -74,7 +74,7 @@ class Incidents(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__incident.insert_one({
             "name": self.__form.get_sinput("name"),
@@ -86,12 +86,12 @@ class Incidents(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Incident created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating incident.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request):
 
@@ -117,7 +117,7 @@ class Incidents(View):
                 'limit': limit,
                 'count': self.__incident.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_incidents(self, incidents):
         incidents_list = []
@@ -195,7 +195,7 @@ class Incident(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__incident.update_one_by_id(incident_id, {
             "name": self.__form.get_sinput("name"),
@@ -206,12 +206,12 @@ class Incident(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Incident updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating incident.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, incident_id):
 
@@ -222,10 +222,10 @@ class Incident(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Incident deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting incident.")
-            }]))
+            }], {}, self.__correlation_id))

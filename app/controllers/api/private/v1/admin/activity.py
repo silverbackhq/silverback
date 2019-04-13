@@ -60,7 +60,7 @@ class Activities(View):
                 'limit': limit,
                 'count': self.__activity.count(self.__user_id)
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_activities(self, activities):
         activities_list = []

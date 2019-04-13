@@ -82,7 +82,7 @@ class Component_Groups(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__component_group.insert_one({
             "name": self.__form.get_sinput("name"),
@@ -94,12 +94,12 @@ class Component_Groups(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component group created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating group.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request):
 
@@ -125,7 +125,7 @@ class Component_Groups(View):
                 'limit': limit,
                 'count': self.__component_group.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_groups(self, groups):
         groups_list = []
@@ -209,7 +209,7 @@ class Component_Group(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__component_group.update_one_by_id(group_id, {
             "name": self.__form.get_sinput("name"),
@@ -221,12 +221,12 @@ class Component_Group(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component group updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating group.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, group_id):
 
@@ -237,10 +237,10 @@ class Component_Group(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component group deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting group.")
-            }]))
+            }], {}, self.__correlation_id))

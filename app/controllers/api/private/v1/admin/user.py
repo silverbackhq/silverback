@@ -177,7 +177,7 @@ class Users(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
-            }]))
+            }], {}, self.__correlation_id))
 
         if request_data["invitation"] != "":
 

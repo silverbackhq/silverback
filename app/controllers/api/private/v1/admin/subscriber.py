@@ -176,7 +176,7 @@ class Subscribers(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         external_id = self.__helpers.generate_uuid()
 
@@ -222,12 +222,12 @@ class Subscribers(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Subscriber created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating subscriber.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request):
 
@@ -253,7 +253,7 @@ class Subscribers(View):
                 'limit': limit,
                 'count': self.__subscriber.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_subscribers(self, subscribers):
         subscribers_list = []
@@ -434,7 +434,7 @@ class Subscriber(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if request_data["type"] == "email":
 
@@ -473,12 +473,12 @@ class Subscriber(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Subscriber updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating subscriber.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, subscriber_id):
 
@@ -489,10 +489,10 @@ class Subscriber(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Subscriber deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting subscriber.")
-            }]))
+            }], {}, self.__correlation_id))
