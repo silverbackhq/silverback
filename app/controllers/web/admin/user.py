@@ -22,10 +22,12 @@ class User_List(View):
     template_name = 'templates/admin/user/list.html'
     __context = Context()
     __user = User_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -40,10 +42,12 @@ class User_Add(View):
     template_name = 'templates/admin/user/add.html'
     __context = Context()
     __user = User_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -58,10 +62,12 @@ class User_Edit(View):
     template_name = 'templates/admin/user/edit.html'
     __context = Context()
     __user = User_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, user_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         user = self.__user.get_one_by_id(user_id)
 
         if not user:

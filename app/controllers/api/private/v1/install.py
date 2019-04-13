@@ -27,6 +27,7 @@ class Install(View):
     __install = None
     __logger = None
     __notification = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -40,6 +41,8 @@ class Install(View):
 
     @stop_request_if_installed
     def post(self, request):
+
+        self.__correlation_id = request.META["X-Correlation-ID"]
 
         if self.__install.is_installed():
             return JsonResponse(self.__response.send_private_failure([{

@@ -18,11 +18,13 @@ class Statistics(View):
 
     __prometheus = None
     __statistics = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     @protect_metric_with_auth_key
     def get(self, request, type):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__prometheus = Prometheus()
         self.__statistics = Statistics_Module()
 

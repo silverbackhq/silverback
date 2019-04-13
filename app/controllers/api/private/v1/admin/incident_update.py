@@ -38,6 +38,7 @@ class Incident_Updates(View):
     __notification = None
     __subscriber = None
     __incident_update_notification = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -55,8 +56,8 @@ class Incident_Updates(View):
 
     def post(self, request, incident_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__user_id = request.user.id
-
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -137,6 +138,7 @@ class Incident_Updates(View):
 
     def get(self, request, incident_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -195,6 +197,7 @@ class Incident_Update(View):
     __logger = None
     __user_id = None
     __incident_update = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -207,6 +210,7 @@ class Incident_Update(View):
 
     def post(self, request, incident_id, update_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -276,6 +280,7 @@ class Incident_Update(View):
 
     def delete(self, request, incident_id, update_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__user_id = request.user.id
 
         if self.__incident_update.delete_one_by_id(update_id):
@@ -303,6 +308,7 @@ class Incident_Updates_Notify(View):
     __task = None
     __notification = None
     __subscriber = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -318,6 +324,7 @@ class Incident_Updates_Notify(View):
 
     def post(self, request, incident_id, update_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__user_id = request.user.id
 
         task = self.__task.delay("incident_update", {
@@ -363,6 +370,7 @@ class Incident_Updates_Components(View):
     __notification = None
     __subscriber = None
     __incident_update_component = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -378,8 +386,9 @@ class Incident_Updates_Components(View):
         self.__form.add_validator(ExtraRules())
 
     def post(self, request, incident_id, update_id):
-        self.__user_id = request.user.id
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__user_id = request.user.id
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -439,6 +448,7 @@ class Incident_Updates_Component(View):
     __logger = None
     __user_id = None
     __incident_update_component = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -450,6 +460,8 @@ class Incident_Updates_Component(View):
         self.__form.add_validator(ExtraRules())
 
     def delete(self, request, incident_id, update_id, item_id):
+
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__user_id = request.user.id
 
         if self.__incident_update_component.delete_one_by_id(item_id):

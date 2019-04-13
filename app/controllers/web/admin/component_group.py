@@ -22,10 +22,12 @@ class Component_Group_List(View):
     template_name = 'templates/admin/component_group/list.html'
     __context = Context()
     __component_group = Component_Group_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -40,10 +42,12 @@ class Component_Group_Add(View):
     template_name = 'templates/admin/component_group/add.html'
     __context = Context()
     __component_group = Component_Group_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -58,10 +62,12 @@ class Component_Group_Edit(View):
     template_name = 'templates/admin/component_group/edit.html'
     __context = Context()
     __component_group = Component_Group_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, group_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         group = self.__component_group.get_one_by_id(group_id)
 
         if not group:

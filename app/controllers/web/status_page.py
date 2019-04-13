@@ -23,10 +23,12 @@ class Status_Page_Index(View):
     __context = None
     __option_entity = None
     __status_page_module = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context = Context()
         self.__option_entity = Option_Entity()
         self.__status_page_module = Status_Page_Module()
@@ -51,10 +53,12 @@ class Status_Page_History(View):
     __context = None
     __option_entity = None
     __status_page_module = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request, period):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context = Context()
         self.__option_entity = Option_Entity()
         self.__status_page_module = Status_Page_Module()
@@ -83,10 +87,12 @@ class Status_Page_Single(View):
     __context = None
     __option_entity = None
     __status_page_module = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request, uri):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context = Context()
         self.__option_entity = Option_Entity()
         self.__status_page_module = Status_Page_Module()

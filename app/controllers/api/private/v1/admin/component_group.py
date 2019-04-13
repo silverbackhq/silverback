@@ -26,6 +26,7 @@ class Component_Groups(View):
     __logger = None
     __user_id = None
     __component_group = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -38,6 +39,7 @@ class Component_Groups(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -101,6 +103,7 @@ class Component_Groups(View):
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -150,6 +153,7 @@ class Component_Group(View):
     __logger = None
     __user_id = None
     __component_group = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -162,6 +166,7 @@ class Component_Group(View):
 
     def post(self, request, group_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -225,6 +230,7 @@ class Component_Group(View):
 
     def delete(self, request, group_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__user_id = request.user.id
 
         if self.__component_group.delete_one_by_id(group_id):

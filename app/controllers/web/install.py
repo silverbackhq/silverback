@@ -23,9 +23,11 @@ class Install(View):
     __context = None
     __install = None
     __option_entity = None
+    __correlation_id = None
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context = Context()
         self.__install = Install_Module()
         self.__option_entity = Option_Entity()

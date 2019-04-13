@@ -23,10 +23,12 @@ class Metric_List(View):
     template_name = 'templates/admin/metric/list.html'
     __context = Context()
     __metric = Metric_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -41,10 +43,12 @@ class Metric_Add(View):
     template_name = 'templates/admin/metric/add.html'
     __context = Context()
     __metric = Metric_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -59,10 +63,12 @@ class Metric_Edit(View):
     template_name = 'templates/admin/metric/edit.html'
     __context = Context()
     __metric = Metric_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, metric_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         metric = self.__metric.get_one_by_id(metric_id)
 
         if not metric:

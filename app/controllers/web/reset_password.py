@@ -26,11 +26,13 @@ class Reset_Password(View):
     __reset_password_core = None
     __context = None
     __option_entity = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     @redirect_if_authenticated
     def get(self, request, token):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__reset_password_core = Reset_Password_Module()
         self.__context = Context()
         self.__option_entity = Option_Entity()

@@ -21,10 +21,12 @@ class Dashboard(View):
     template_name = 'templates/admin/dashboard.html'
     __context = Context()
     __dashboard = Dashboard_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({

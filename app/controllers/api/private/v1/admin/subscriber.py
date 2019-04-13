@@ -26,6 +26,7 @@ class Subscribers(View):
     __logger = None
     __user_id = None
     __subscriber = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -38,6 +39,7 @@ class Subscribers(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -229,6 +231,7 @@ class Subscribers(View):
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -281,6 +284,7 @@ class Subscriber(View):
     __logger = None
     __user_id = None
     __subscriber = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -293,6 +297,7 @@ class Subscriber(View):
 
     def post(self, request, subscriber_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -477,6 +482,7 @@ class Subscriber(View):
 
     def delete(self, request, subscriber_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__user_id = request.user.id
 
         if self.__subscriber.delete_one_by_id(subscriber_id):

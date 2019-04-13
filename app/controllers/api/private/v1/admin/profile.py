@@ -25,6 +25,7 @@ class Profile(View):
     __logger = None
     __user_id = None
     __profile_module = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -37,6 +38,7 @@ class Profile(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__user_id = request.user.id
 
         self.__request.set_request(request)
@@ -72,6 +74,7 @@ class Profile(View):
 
     def __update_profile(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "first_name": "",
@@ -281,6 +284,7 @@ class Profile(View):
 
     def __update_password(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "old_password": "",
@@ -342,6 +346,7 @@ class Profile(View):
 
     def __update_access_token(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "token": "",
@@ -378,6 +383,7 @@ class Profile(View):
 
     def __update_refresh_token(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "token": "",

@@ -23,11 +23,13 @@ class Login(View):
     template_name = 'templates/login.html'
     __context = None
     __option_entity = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     @redirect_if_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__context = Context()
         self.__option_entity = Option_Entity()
 

@@ -28,6 +28,7 @@ class Settings(View):
     __logger = None
     __acl = None
     __activity_module = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -41,6 +42,8 @@ class Settings(View):
         self.__form.add_validator(ExtraRules())
 
     def post(self, request):
+
+        self.__correlation_id = request.META["X-Correlation-ID"]
 
         if not self.__acl.user_has_permission(request.user.id, "manage_settings"):
             return JsonResponse(self.__response.send_private_failure([{

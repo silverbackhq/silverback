@@ -27,6 +27,7 @@ class Register(View):
     __form = None
     __user = None
     __logger = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -39,6 +40,8 @@ class Register(View):
 
     @stop_request_if_authenticated
     def post(self, request):
+
+        self.__correlation_id = request.META["X-Correlation-ID"]
 
         self.__request.set_request(request)
 

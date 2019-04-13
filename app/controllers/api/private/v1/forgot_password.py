@@ -25,6 +25,7 @@ class Forgot_Password(View):
     __form = None
     __forgot_password = None
     __logger = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -38,6 +39,7 @@ class Forgot_Password(View):
     @stop_request_if_authenticated
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {

@@ -18,56 +18,71 @@ class Response():
         self.__helpers = Helpers()
         self.__logger = self.__helpers.get_logger(__name__)
 
-    def send_private_success(self, messages, payload={}):
-        __private = {}
-        __private["status"] = "success"
-        __private["messages"] = messages
+    def send_private_success(self, messages, payload={}, correlation_id=""):
+        private = {}
+        private["status"] = "success"
+        private["messages"] = messages
         if len(payload) > 0:
-            __private["payload"] = payload
+            private["payload"] = payload
 
-        self.__logger.debug(_("App Response: ") + self.__helpers.json_dumps(__private) + "\n")
-        return __private
+        self.__logger.debug(_("App Response: %(response)s {'correlationId':'%(correlationId)s'}\n") % {
+            "response": self.__helpers.json_dumps(private),
+            "correlationId": correlation_id
+        })
+        return private
 
-    def send_private_failure(self, messages, payload={}):
-        __private = {}
-        __private["status"] = "failure"
-        __private["messages"] = messages
+    def send_private_failure(self, messages, payload={}, correlation_id=""):
+        private = {}
+        private["status"] = "failure"
+        private["messages"] = messages
         if len(payload) > 0:
-            __private["payload"] = payload
+            private["payload"] = payload
 
-        self.__logger.debug(_("App Response: ") + self.__helpers.json_dumps(__private) + "\n")
-        return __private
+        self.__logger.debug(_("App Response: %(response)s {'correlationId':'%(correlationId)s'}\n") % {
+            "response": self.__helpers.json_dumps(private),
+            "correlationId": correlation_id
+        })
+        return private
 
-    def send_errors_failure(self, messages, payload={}):
-        __private = {}
+    def send_errors_failure(self, messages, payload={}, correlation_id=""):
+        private = {}
         errors = []
         for input_key, error_list in messages.items():
             for error in error_list:
                 errors.append({"type": "error", "message": error})
-        __private["status"] = "failure"
-        __private["messages"] = errors
+        private["status"] = "failure"
+        private["messages"] = errors
         if len(payload) > 0:
-            __private["payload"] = payload
+            private["payload"] = payload
 
-        self.__logger.debug(_("App Response: ") + self.__helpers.json_dumps(__private) + "\n")
-        return __private
+        self.__logger.debug(_("App Response: %(response)s {'correlationId':'%(correlationId)s'}\n") % {
+            "response": self.__helpers.json_dumps(private),
+            "correlationId": correlation_id
+        })
+        return private
 
-    def send_public_success(self, messages, payload={}):
-        __public = {}
-        __public["status"] = "success"
-        __public["messages"] = messages
+    def send_public_success(self, messages, payload={}, correlation_id=""):
+        public = {}
+        public["status"] = "success"
+        public["messages"] = messages
         if len(payload) > 0:
-            __public["payload"] = payload
+            public["payload"] = payload
 
-        self.__logger.debug(_("App Response: ") + self.__helpers.json_dumps(__public) + "\n")
-        return __public
+        self.__logger.debug(_("App Response: %(response)s {'correlationId':'%(correlationId)s'}\n") % {
+            "response": self.__helpers.json_dumps(public),
+            "correlationId": correlation_id
+        })
+        return public
 
-    def send_public_failure(self, messages, payload={}):
-        __public = {}
-        __public["status"] = "failure"
-        __public["messages"] = messages
+    def send_public_failure(self, messages, payload={}, correlation_id=""):
+        public = {}
+        public["status"] = "failure"
+        public["messages"] = messages
         if len(payload) > 0:
-            __public["payload"] = payload
+            public["payload"] = payload
 
-        self.__logger.debug(_("App Response: ") + self.__helpers.json_dumps(__public) + "\n")
-        return __public
+        self.__logger.debug(_("App Response: %(response)s {'correlationId':'%(correlationId)s'}\n") % {
+            "response": self.__helpers.json_dumps(public),
+            "correlationId": correlation_id
+        })
+        return public

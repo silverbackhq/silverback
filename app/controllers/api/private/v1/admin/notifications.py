@@ -25,6 +25,7 @@ class LatestNotifications(View):
     __logger = None
     __user_id = None
     __notification = None
+    __correlation_id = None
 
     def __init__(self):
         self.__helpers = Helpers()
@@ -36,17 +37,20 @@ class LatestNotifications(View):
         self.__form.add_validator(ExtraRules())
 
     def get(self, request):
+
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__user_id = request.user.id
 
         return JsonResponse(self.__response.send_private_success(
             [],
-            self.__notification.user_latest_notifications(self.__user_id)
+            self.__notification.user_latest_notifications(self.__user_id),
+            self.__correlation_id
         ))
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
         self.__user_id = request.user.id
-
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -56,11 +60,11 @@ class LatestNotifications(View):
         try:
             notification_id = int(request_data["notification_id"])
         except Exception:
-            return JsonResponse(self.__response.send_private_success([]))
+            return JsonResponse(self.__response.send_private_success([], {}, self.__correlation_id))
 
         self.__notification.mark_notification(self.__user_id, notification_id)
 
-        return JsonResponse(self.__response.send_private_success([]))
+        return JsonResponse(self.__response.send_private_success([], {}, self.__correlation_id))
 
 
 class Notifications(View):
@@ -73,6 +77,7 @@ class Notifications(View):
     __user_id = None
     __notification = None
     __humanize = None
+    __correlation_id = None
 
     def __init__(self):
         self.__helpers = Helpers()
@@ -85,8 +90,9 @@ class Notifications(View):
         self.__form.add_validator(ExtraRules())
 
     def get(self, request):
-        self.__user_id = request.user.id
 
+        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__user_id = request.user.id
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -108,7 +114,7 @@ class Notifications(View):
                 'limit': limit,
                 'count': self.__notification.count(self.__user_id)
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_notification(self, notifications):
         notifications_list = []
