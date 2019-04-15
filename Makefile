@@ -65,6 +65,7 @@ run:
 coverage:
 	$(COVERAGE) run --source='.' manage.py test app
 	$(COVERAGE) report -m
+	$(COVERAGE) html
 
 
 ## create-env: Create .env File.
