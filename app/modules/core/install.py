@@ -2,11 +2,7 @@
 Install Module
 """
 
-# Django
 from django.core.management import execute_from_command_line
-
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.user_entity import User_Entity
 from app.modules.core.acl import ACL
@@ -34,16 +30,12 @@ class Install():
     }
     __option_entity = None
     __user_entity = None
-    __helpers = None
-    __logger = None
     __acl = None
 
     def __init__(self):
         self.__option_entity = Option_Entity()
         self.__user_entity = User_Entity()
-        self.__helpers = Helpers()
         self.__acl = ACL()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def is_installed(self):
         return False if self.__option_entity.get_one_by_key("app_installed") is False else True
@@ -68,12 +60,7 @@ class Install():
         return True
 
     def install(self):
-        try:
-            execute_from_command_line(["manage.py", "migrate"])
-        except Exception as e:
-            self.__logger.error("Error While Running Migrations: %s" % e)
-            return False
-
+        execute_from_command_line(["manage.py", "migrate"])
         status = True
         status &= self.__option_entity.insert_many(self.__options)
         user = self.__user_entity.insert_one(self.__admin)

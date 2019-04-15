@@ -160,7 +160,13 @@ class Install(View):
             self.__form.get_sinput("admin_password")
         )
 
-        user_id = self.__install.install()
+        try:
+            user_id = self.__install.install()
+        except Exception as exception:
+            self.__logger.error(_("Internal server error during installation: %(exception)s {'correlationId':'%(correlationId)s'}") % {
+                "exception": exception,
+                "correlationId": self.__correlation_id
+            })
 
         if user_id:
 
