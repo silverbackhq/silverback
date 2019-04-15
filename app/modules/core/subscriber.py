@@ -2,8 +2,6 @@
 Subscriber Module
 """
 
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.subscriber_entity import Subscriber_Entity
 
 
@@ -17,13 +15,9 @@ class Subscriber():
     ENDPOINT = "endpoint"
 
     __subscriber_entity = None
-    __helpers = None
-    __logger = None
 
     def __init__(self):
-        self.__helpers = Helpers()
         self.__subscriber_entity = Subscriber_Entity()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def get_one_by_id(self, id):
         subscriber = self.__subscriber_entity.get_one_by_id(id)

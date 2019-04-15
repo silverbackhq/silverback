@@ -2,8 +2,6 @@
 Statistics Module
 """
 
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.user_entity import User_Entity
 from app.modules.entity.profile_entity import Profile_Entity
@@ -16,8 +14,6 @@ class Statistics():
     __user_entity = None
     __task_entity = None
     __profile_entity = None
-    __helpers = None
-    __logger = None
     __app_name = ""
 
     def __init__(self):
@@ -25,8 +21,6 @@ class Statistics():
         self.__user_entity = User_Entity()
         self.__task_entity = Task_Entity()
         self.__profile_entity = Profile_Entity()
-        self.__helpers = Helpers()
-        self.__logger = self.__helpers.get_logger(__name__)
         self.__app_name = self.__option_entity.get_value_by_key("app_name").lower()
 
     def get_all_users(self):

@@ -4,9 +4,6 @@ Dashboard Module
 
 import datetime
 from django.utils import timezone
-
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.incident_entity import Incident_Entity
 from app.modules.entity.incident_update_entity import Incident_Update_Entity
 from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
@@ -20,8 +17,6 @@ from app.modules.entity.metric_entity import Metric_Entity
 
 class Dashboard():
 
-    __helpers = None
-    __logger = None
     __incident = None
     __incident_update = None
     __incident_update_component = None
@@ -33,8 +28,6 @@ class Dashboard():
     __metric = None
 
     def __init__(self):
-        self.__helpers = Helpers()
-        self.__logger = self.__helpers.get_logger(__name__)
         self.__incident = Incident_Entity()
         self.__incident_update = Incident_Update_Entity()
         self.__incident_update_notification = Incident_Update_Notification_Entity()

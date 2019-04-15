@@ -2,25 +2,17 @@
 Task Module
 """
 
-# standard library
 import json
 import importlib
-
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.task_entity import Task_Entity
 
 
 class Task():
 
     __task_entity = None
-    __helpers = None
-    __logger = None
 
     def __init__(self):
         self.__task_entity = Task_Entity()
-        self.__helpers = Helpers()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def get_task_with_uuid(self, uuid):
         return self.__task_entity.get_one_by_uuid(uuid)

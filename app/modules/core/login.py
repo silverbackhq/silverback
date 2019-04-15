@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate, login
 from django.core.validators import validate_email
 
 # local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.user_entity import User_Entity
 
@@ -16,14 +15,10 @@ class Login():
 
     __option_entity = None
     __user_entity = None
-    __helpers = None
-    __logger = None
 
     def __init__(self):
         self.__option_entity = Option_Entity()
         self.__user_entity = User_Entity()
-        self.__helpers = Helpers()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def is_authenticated(self, request):
         if request.user and request.user.is_authenticated:

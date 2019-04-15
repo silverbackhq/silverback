@@ -3,9 +3,6 @@ Metric Module
 """
 
 from pyumetric import NewRelic_Provider
-
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.metric_entity import Metric_Entity
 from app.modules.entity.option_entity import Option_Entity
 
@@ -13,16 +10,12 @@ from app.modules.entity.option_entity import Option_Entity
 class Metric():
 
     __metric_entity = None
-    __helpers = None
-    __logger = None
     __option_entity = None
     __newrelic = None
 
     def __init__(self):
-        self.__helpers = Helpers()
         self.__option_entity = Option_Entity()
         self.__metric_entity = Metric_Entity()
-        self.__logger = self.__helpers.get_logger(__name__)
         new_relic_api = self.__option_entity.get_one_by_key("newrelic_api_key")
         if new_relic_api:
             self.__newrelic = NewRelic_Provider(new_relic_api.value)
