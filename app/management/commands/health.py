@@ -25,5 +25,7 @@ class Command(BaseCommand):
         if len(options['command']) == 0 or options['command'][0] not in self.available:
             raise CommandError('Command Does not exist! Please use one of the following: python manage.py health [%s]' % ", ".join(self.available))
 
-        if options['command'][0] == "check":
+        command = options['command'][0]
+
+        if command == "check":
             print("Nice!")
