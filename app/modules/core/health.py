@@ -3,7 +3,6 @@ Health Module
 """
 
 import os
-import redis
 from django.utils.translation import gettext as _
 from app.modules.entity.option_entity import Option_Entity
 from app.settings.info import APP_ROOT
@@ -64,21 +63,5 @@ class Health():
             }, None)
         except Exception as e:
             errors.append(_("Error while creating a ping task: %(error)s") % {"error": str(e)})
-
-        return errors
-
-    def check_cache(self):
-        errors = []
-
-        try:
-            connection = redis.Redis(
-                host=os.getenv("REDIS_HOST"),
-                port=os.getenv("REDIS_PORT"),
-                db=os.getenv("REDIS_DB"),
-                password=None if os.getenv("REDIS_PASSWORD") == "" else os.getenv("REDIS_PASSWORD")
-            )
-            connection.ping()
-        except Exception as e:
-            errors.append(_("Error Connecting to redis server: %(error)s") % {"error": str(e)})
 
         return errors

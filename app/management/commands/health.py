@@ -34,7 +34,6 @@ class Command(BaseCommand):
             errors.extend(health.check_db())
             errors.extend(health.check_io())
             errors.extend(health.check_workers())
-            errors.extend(health.check_cache())
 
             if len(errors) > 0:
                 status = Health.NOT_OK

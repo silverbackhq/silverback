@@ -31,7 +31,6 @@ class HealthCheck(View):
         errors.extend(self.__health.check_db())
         errors.extend(self.__health.check_io())
         errors.extend(self.__health.check_workers())
-        errors.extend(self.__health.check_cache())
 
         if len(errors) > 0:
             status = Health.NOT_OK
