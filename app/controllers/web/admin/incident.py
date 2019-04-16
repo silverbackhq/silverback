@@ -33,7 +33,7 @@ class Incident_List(View):
     @login_if_not_authenticated
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -56,7 +56,7 @@ class Incident_Add(View):
     @login_if_not_authenticated
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -79,7 +79,7 @@ class Incident_Edit(View):
     @login_if_not_authenticated
     def get(self, request, incident_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
@@ -108,7 +108,7 @@ class Incident_View(View):
     @login_if_not_authenticated
     def get(self, request, incident_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:

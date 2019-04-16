@@ -43,7 +43,7 @@ class Settings(View):
 
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
         if not self.__acl.user_has_permission(request.user.id, "manage_settings"):
             return JsonResponse(self.__response.send_private_failure([{

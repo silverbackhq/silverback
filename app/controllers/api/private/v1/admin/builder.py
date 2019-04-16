@@ -40,7 +40,7 @@ class Builder_System_Metrics(View):
 
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "metric_id": ""
@@ -79,7 +79,7 @@ class Builder_System_Metrics(View):
 
     def delete(self, request, metric_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         metrics = self.__settings.get_value_by_key(
             "builder_metrics",
             json.dumps([])
@@ -134,7 +134,7 @@ class Builder_Components(View):
 
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "component_id": ""
@@ -173,7 +173,7 @@ class Builder_Components(View):
 
     def delete(self, request, component_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         components = self.__settings.get_value_by_key(
             "builder_components",
             json.dumps([])
@@ -228,7 +228,7 @@ class Builder_Settings(View):
 
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "builder_headline": "",

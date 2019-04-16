@@ -27,7 +27,7 @@ class Install(View):
 
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
         self.__install = Install_Module()
         self.__option_entity = Option_Entity()

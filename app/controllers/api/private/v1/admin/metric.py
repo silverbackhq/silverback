@@ -39,7 +39,7 @@ class Metrics(View):
 
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -136,7 +136,7 @@ class Metrics(View):
 
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -198,7 +198,7 @@ class Metric(View):
 
     def post(self, request, metric_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -295,7 +295,7 @@ class Metric(View):
 
     def delete(self, request, metric_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__metric.delete_one_by_id(metric_id):
@@ -332,7 +332,7 @@ class NewRelic_Apps(View):
 
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         result = self.__metric.get_new_relic_apps()
 
         if result is False:

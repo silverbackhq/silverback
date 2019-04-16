@@ -27,7 +27,7 @@ class Errors():
 
     def process_exception(self, request, exception):
 
-        correlation_id = request.META["X-Correlation-ID"]
+        correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
         self.__logger.error(
             _("The server encountered something unexpected! %(method)s:%(path)s  - %(name)s - %(exception)s {'correlationId':'%(correlationId)s'}") % {

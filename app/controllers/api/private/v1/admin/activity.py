@@ -37,7 +37,7 @@ class Activities(View):
 
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
         self.__request.set_request(request)
 

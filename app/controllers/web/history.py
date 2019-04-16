@@ -28,7 +28,7 @@ class AtomHistory(View):
     @redirect_if_not_installed
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__fg = FeedGenerator()
         self.__context = Context()
         self.__option_entity = Option_Entity()
@@ -61,7 +61,7 @@ class RssHistory(View):
     @redirect_if_not_installed
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__fg = FeedGenerator()
         self.__context = Context()
         self.__option_entity = Option_Entity()

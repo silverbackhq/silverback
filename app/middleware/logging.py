@@ -20,7 +20,7 @@ class Logging():
         self.__logger = self.__helpers.get_logger(__name__)
 
     def __call__(self, request):
-        correlation_id = request.META["X-Correlation-ID"]
+        correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
         self.__logger.debug(_("Request Method: %(method)s {'correlationId':'%(correlationId)s'}") % {
             "method": request.method,

@@ -32,7 +32,7 @@ class Register(View):
     @redirect_if_authenticated
     def get(self, request, token):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user = User_Module()
         self.__context = Context()
         self.__option_entity = Option_Entity()

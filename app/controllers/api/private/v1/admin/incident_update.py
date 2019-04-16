@@ -56,7 +56,7 @@ class Incident_Updates(View):
 
     def post(self, request, incident_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
         self.__request.set_request(request)
 
@@ -138,7 +138,7 @@ class Incident_Updates(View):
 
     def get(self, request, incident_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -210,7 +210,7 @@ class Incident_Update(View):
 
     def post(self, request, incident_id, update_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -280,7 +280,7 @@ class Incident_Update(View):
 
     def delete(self, request, incident_id, update_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__incident_update.delete_one_by_id(update_id):
@@ -324,7 +324,7 @@ class Incident_Updates_Notify(View):
 
     def post(self, request, incident_id, update_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         task = self.__task.delay("incident_update", {
@@ -387,7 +387,7 @@ class Incident_Updates_Components(View):
 
     def post(self, request, incident_id, update_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
         self.__request.set_request(request)
 
@@ -461,7 +461,7 @@ class Incident_Updates_Component(View):
 
     def delete(self, request, incident_id, update_id, item_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__incident_update_component.delete_one_by_id(item_id):

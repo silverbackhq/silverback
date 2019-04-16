@@ -39,7 +39,7 @@ class Forgot_Password(View):
     @stop_request_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {

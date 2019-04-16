@@ -20,7 +20,7 @@ class Logout(View):
     @login_if_not_authenticated
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         logout(request)
         messages.success(request, _("You've been logged out successfully"))
         return redirect("app.web.login")

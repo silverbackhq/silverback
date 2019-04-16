@@ -15,7 +15,7 @@ from app.modules.util.helpers import Helpers
 
 
 def handler404(request, exception=None, template_name='templates/404.html'):
-    correlation_id = request.META["X-Correlation-ID"]
+    correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
     helpers = Helpers()
     logger = helpers.get_logger(__name__)
 

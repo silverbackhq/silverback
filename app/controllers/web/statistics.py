@@ -24,7 +24,7 @@ class Statistics(View):
     @protect_metric_with_auth_key
     def get(self, request, type):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__prometheus = Prometheus()
         self.__statistics = Statistics_Module()
 

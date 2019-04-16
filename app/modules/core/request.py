@@ -25,7 +25,7 @@ class Request():
 
     def get_request_data(self, method, predicted):
         request_data = {}
-        correlation_id = self.__request.META["X-Correlation-ID"]
+        correlation_id = self.__request.META["X-Correlation-ID"] if "X-Correlation-ID" in self.__request.META else ""
         data_bag = self.__request.POST if method.lower() == "post" else self.__request.GET
 
         for key, default in predicted.items():

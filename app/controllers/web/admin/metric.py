@@ -28,7 +28,7 @@ class Metric_List(View):
     @login_if_not_authenticated
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -48,7 +48,7 @@ class Metric_Add(View):
     @login_if_not_authenticated
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -68,7 +68,7 @@ class Metric_Edit(View):
     @login_if_not_authenticated
     def get(self, request, metric_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         metric = self.__metric.get_one_by_id(metric_id)
 
         if not metric:

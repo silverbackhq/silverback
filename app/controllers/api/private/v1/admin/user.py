@@ -39,7 +39,7 @@ class Users(View):
 
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -232,7 +232,7 @@ class Users(View):
 
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -297,7 +297,7 @@ class User(View):
 
     def post(self, request, user_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -514,7 +514,7 @@ class User(View):
 
     def delete(self, request, user_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"]
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__user_id == user_id:
