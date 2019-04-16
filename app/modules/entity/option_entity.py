@@ -87,6 +87,9 @@ class Option_Entity():
 
         return False
 
+    def count(self):
+        return Option.objects.count()
+
     def delete_one_by_id(self, id):
         """Delete Option By ID"""
         option = self.get_one_by_id(id)
