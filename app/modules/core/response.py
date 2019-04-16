@@ -86,3 +86,10 @@ class Response():
             "correlationId": correlation_id
         })
         return public
+
+    def send(self, payload={}, correlation_id=""):
+        self.__logger.debug(_("App Response: %(response)s {'correlationId':'%(correlationId)s'}\n") % {
+            "response": self.__helpers.json_dumps(payload),
+            "correlationId": correlation_id
+        })
+        return payload

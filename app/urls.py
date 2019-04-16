@@ -20,6 +20,8 @@ from app.controllers.web.statistics import Statistics as Statistics_View
 from app.controllers.web.history import AtomHistory as AtomHistory_View
 from app.controllers.web.history import RssHistory as RssHistory_View
 
+from app.controllers.web.health_check import HealthCheck as HealthCheck_View
+
 from app.controllers.web.admin.logout import Logout as Logout_View
 from app.controllers.web.admin.dashboard import Dashboard as Dashboard_View
 from app.controllers.web.admin.profile import Profile as Profile_View
@@ -98,6 +100,7 @@ urlpatterns = [
     path('statistics/<type>', Statistics_View.as_view(), name='app.web.statistics'),
     path('history.atom', AtomHistory_View.as_view(), name='app.web.history_atom'),
     path('history.rss', RssHistory_View.as_view(), name='app.web.history_rss'),
+    path('_healthcheck', HealthCheck_View.as_view(), name='app.web.health_check'),
 
     # Authenticated Users Views
     path('admin/', include([

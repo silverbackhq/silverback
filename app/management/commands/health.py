@@ -4,8 +4,8 @@ Health Check Command
 see https://docs.djangoproject.com/en/2.0/howto/custom-management-commands/
 """
 
-# Django
 from django.core.management.base import BaseCommand, CommandError
+from app.modules.core.health import Health
 
 
 class Command(BaseCommand):
@@ -28,4 +28,21 @@ class Command(BaseCommand):
         command = options['command'][0]
 
         if command == "check":
-            print("Nice!")
+            health = Health()
+            status = Health.OK
+            errors = []
+            errors.extend(health.check_db())
+            errors.extend(health.check_io())
+            errors.extend(health.check_workers())
+            errors.extend(health.check_cache())
+
+            if len(errors) > 0:
+                status = Health.NOT_OK
+
+            if status == Health.OK:
+                print(Health.OK)
+            else:
+                raise Exception("%(status)s: %(errors)s" % {
+                    "status": Health.NOT_OK,
+                    "errors": ", ".join(errors)
+                })
