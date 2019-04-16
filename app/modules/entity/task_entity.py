@@ -19,7 +19,7 @@ class Task_Entity():
             executor=task["executor"],
             parameters=task["parameters"],
             result=task["result"],
-            user=User.objects.get(pk=task["user_id"])
+            user=User.objects.get(pk=task["user_id"]) if task["user_id"] is not None else None
         )
 
         task.save()
@@ -52,6 +52,13 @@ class Task_Entity():
         """Get Many Tasks By User ID"""
         tasks = Task.objects.filter(user=user_id).order_by(order_by if asc else "-%s" % order_by)
         return tasks
+
+    def get_one_by_executor(self, executor):
+        try:
+            task = Task.objects.get(executor=executor)
+            return False if task.pk is None else task
+        except Exception:
+            return False
 
     def update_one_by_id(self, id, new_data):
         """Update Task By ID"""
@@ -122,6 +129,9 @@ class Task_Entity():
             count, deleted = task.delete()
             return True if count > 0 else False
         return False
+
+    def delete_tasks_by_executor(self, executor):
+        return Task.objects.filter(executor=executor).delete()
 
     def count_all_tasks(self):
         return Task.objects.count()

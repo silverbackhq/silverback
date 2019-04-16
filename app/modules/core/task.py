@@ -41,3 +41,9 @@ class Task():
             })
 
         return False
+
+    def get_one_by_executor(self, executor):
+        return self.__task_entity.get_one_by_executor(executor)
+
+    def delete_tasks_by_executor(self, executor):
+        return self.__task_entity.delete_tasks_by_executor(executor)

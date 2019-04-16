@@ -7,6 +7,7 @@ import redis
 from django.utils.translation import gettext as _
 from app.modules.entity.option_entity import Option_Entity
 from app.settings.info import APP_ROOT
+from app.modules.core.task import Task as Task_Core
 
 
 class Health():
@@ -49,6 +50,21 @@ class Health():
 
     def check_workers(self):
         errors = []
+        task_core = Task_Core()
+        last_task = task_core.get_one_by_executor("app.tasks.ping.ping")
+
+        if last_task and last_task.status != "passed":
+            errors.append(_("Error: celery workers not performing well or down."))
+
+        task_core.delete_tasks_by_executor("app.tasks.ping.ping")
+
+        try:
+            task_core.delay("ping", {
+                "text": "PONG"
+            }, None)
+        except Exception as e:
+            errors.append(_("Error while creating a ping task: %(error)s") % {"error": str(e)})
+
         return errors
 
     def check_cache(self):
