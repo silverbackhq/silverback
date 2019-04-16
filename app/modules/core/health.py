@@ -15,6 +15,14 @@ class Health():
     NOT_OK = "NOT_OK"
     MIN_OPTIONS = 6
 
+    __io_directories = [
+        "/storage/logs",
+        "/storage/app/private",
+        "/storage/app/public",
+        "/storage/mails",
+        "/storage/database"
+    ]
+
     def check_db(self):
         errors = []
 
@@ -30,15 +38,7 @@ class Health():
     def check_io(self):
         errors = []
 
-        directories = [
-            "/storage/logs",
-            "/storage/app/private",
-            "/storage/app/public",
-            "/storage/mails",
-            "/storage/database"
-        ]
-
-        for directory in directories:
+        for directory in self.__io_directories:
             status = os.access(APP_ROOT + directory, os.F_OK)
             status &= os.access(APP_ROOT + directory, os.R_OK)
             status &= os.access(APP_ROOT + directory, os.W_OK)
