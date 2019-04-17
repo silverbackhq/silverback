@@ -68,8 +68,8 @@ coverage:
 	$(COVERAGE) html
 
 
-## health_check: Check the application health
-health_check:
+## health: Check the application health
+health:
 	$(PYTHON) manage.py health check
 
 
