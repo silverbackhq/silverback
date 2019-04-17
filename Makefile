@@ -68,6 +68,11 @@ coverage:
 	$(COVERAGE) html
 
 
+## health_check: Check the application health
+health_check:
+	$(PYTHON) manage.py health check
+
+
 ## create-env: Create .env File.
 create-env:
 	cp .env.example .env
