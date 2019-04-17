@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 
 # local Django
 from app.models import Task
+from datetime import datetime
+from datetime import timedelta
+from django.utils.timezone import make_aware
 
 
 class Task_Entity():
@@ -53,12 +56,9 @@ class Task_Entity():
         tasks = Task.objects.filter(user=user_id).order_by(order_by if asc else "-%s" % order_by)
         return tasks
 
-    def get_one_by_executor(self, executor):
-        try:
-            task = Task.objects.get(executor=executor)
-            return False if task.pk is None else task
-        except Exception:
-            return False
+    def get_many_by_executor(self, executor):
+        tasks = Task.objects.filter(executor=executor).order_by('-id')
+        return tasks
 
     def update_one_by_id(self, id, new_data):
         """Update Task By ID"""
@@ -130,8 +130,8 @@ class Task_Entity():
             return True if count > 0 else False
         return False
 
-    def delete_tasks_by_executor(self, executor):
-        return Task.objects.filter(executor=executor).delete()
+    def delete_old_tasks_by_executor(self, executor, minutes):
+        return Task.objects.filter(executor=executor).filter(created_at__lte=make_aware(datetime.now() - timedelta(minutes=minutes))).delete()
 
     def count_all_tasks(self):
         return Task.objects.count()

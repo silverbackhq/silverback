@@ -7,6 +7,9 @@ from django.utils.translation import gettext as _
 from app.modules.entity.option_entity import Option_Entity
 from app.settings.info import APP_ROOT
 from app.modules.core.task import Task as Task_Core
+from datetime import datetime
+from datetime import timedelta
+from django.utils.timezone import make_aware
 
 
 class Health():
@@ -50,18 +53,19 @@ class Health():
     def check_workers(self):
         errors = []
         task_core = Task_Core()
-        last_task = task_core.get_one_by_executor("app.tasks.ping.ping")
+        task_core.delete_old_tasks_by_executor("app.tasks.ping.ping", int(os.getenv("DELETE_PING_TASK_AFTER_MINUTES", 1)))
+        tasks = task_core.get_many_by_executor("app.tasks.ping.ping")
 
-        if last_task and last_task.status != "passed":
-            errors.append(_("Error: celery workers not performing well or down."))
+        for task in tasks:
+            if task.status != "passed" and task.created_at < make_aware(datetime.now() - timedelta(seconds=int(os.getenv("WORKERS_CALM_DOWN_SECONDS", 30)))):
+                errors.append(_("Error: celery workers not performing well or down.") % {"task_id": task.id})
 
-        task_core.delete_tasks_by_executor("app.tasks.ping.ping")
-
-        try:
-            task_core.delay("ping", {
-                "text": "PONG"
-            }, None)
-        except Exception as e:
-            errors.append(_("Error while creating a ping task: %(error)s") % {"error": str(e)})
+        if len(tasks) == 0:
+            try:
+                task_core.delay("ping", {
+                    "text": "PONG"
+                }, None)
+            except Exception as e:
+                errors.append(_("Error while creating a ping task: %(error)s") % {"error": str(e)})
 
         return errors

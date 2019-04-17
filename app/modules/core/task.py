@@ -42,8 +42,8 @@ class Task():
 
         return False
 
-    def get_one_by_executor(self, executor):
-        return self.__task_entity.get_one_by_executor(executor)
+    def get_many_by_executor(self, executor):
+        return self.__task_entity.get_many_by_executor(executor)
 
-    def delete_tasks_by_executor(self, executor):
-        return self.__task_entity.delete_tasks_by_executor(executor)
+    def delete_old_tasks_by_executor(self, executor, minutes):
+        return self.__task_entity.delete_old_tasks_by_executor(executor, minutes)
