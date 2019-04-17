@@ -61,19 +61,19 @@ run:
 	$(PYTHON) manage.py runserver
 
 
-## coverage: Get Test Coverage.
+## coverage: Get test coverage.
 coverage:
 	$(COVERAGE) run --source='.' manage.py test app
 	$(COVERAGE) report -m
 	$(COVERAGE) html
 
 
-## health: Check the application health
+## health: Check the application health.
 health:
 	$(PYTHON) manage.py health check
 
 
-## create-env: Create .env File.
+## create-env: Create .env file.
 create-env:
 	cp .env.example .env
 
