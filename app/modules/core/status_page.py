@@ -36,6 +36,14 @@ class Status_Page():
         option = self.__option_entity.get_one_by_key("builder_about")
         return option.value if option else ""
 
+    def get_logo_url(self):
+        option = self.__option_entity.get_one_by_key("builder_logo_url")
+        return option.value if option else ""
+
+    def get_favicon_url(self):
+        option = self.__option_entity.get_one_by_key("builder_favicon_url")
+        return option.value if option else ""
+
     def get_incident_by_uri(self, uri):
         incident = self.__incident_entity.get_one_by_uri(uri)
         app_name = self.__option_entity.get_one_by_key("app_name")

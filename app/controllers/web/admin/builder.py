@@ -36,8 +36,8 @@ class Builder(View):
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.load_options({
             "builder_headline": "",
-            "builder_fav_icon_url": "",
-            "builder_cover_image_url": "",
+            "builder_favicon_url": "",
+            "builder_logo_url": "",
             "builder_about": "",
             "builder_components": json.dumps([]),
             "builder_metrics": json.dumps([])

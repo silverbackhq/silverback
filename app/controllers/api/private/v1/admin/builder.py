@@ -232,8 +232,8 @@ class Builder_Settings(View):
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "builder_headline": "",
-            "builder_fav_icon_url": "",
-            "builder_cover_image_url": "",
+            "builder_favicon_url": "",
+            "builder_logo_url": "",
             "builder_about": ""
         })
 
@@ -251,8 +251,8 @@ class Builder_Settings(View):
                     'optional': {}
                 }
             },
-            'builder_fav_icon_url': {
-                'value': request_data["builder_fav_icon_url"],
+            'builder_favicon_url': {
+                'value': request_data["builder_favicon_url"],
                 'sanitize': {
                     'escape': {},
                     'strip': {}
@@ -263,15 +263,15 @@ class Builder_Settings(View):
                     }
                 }
             },
-            'builder_cover_image_url': {
-                'value': request_data["builder_cover_image_url"],
+            'builder_logo_url': {
+                'value': request_data["builder_logo_url"],
                 'sanitize': {
                     'escape': {},
                     'strip': {}
                 },
                 'validate': {
                     'sv_url': {
-                        'error': _('Error! Image URL is invalid.')
+                        'error': _('Error! Logo URL is invalid.')
                     }
                 }
             },
@@ -297,8 +297,8 @@ class Builder_Settings(View):
 
         result = self.__settings.update_options({
             "builder_headline": self.__form.get_sinput("builder_headline"),
-            "builder_fav_icon_url": self.__form.get_sinput("builder_fav_icon_url"),
-            "builder_cover_image_url": self.__form.get_sinput("builder_cover_image_url"),
+            "builder_favicon_url": self.__form.get_sinput("builder_favicon_url"),
+            "builder_logo_url": self.__form.get_sinput("builder_logo_url"),
             "builder_about": self.__form.get_sinput("builder_about")
         })
 
