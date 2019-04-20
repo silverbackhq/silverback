@@ -10,6 +10,7 @@ from app.modules.core.task import Task as Task_Core
 from datetime import datetime
 from datetime import timedelta
 from django.utils.timezone import make_aware
+from celery import Celery
 
 
 class Health():
@@ -67,5 +68,19 @@ class Health():
                 }, None)
             except Exception as e:
                 errors.append(_("Error while creating a ping task: %(error)s") % {"error": str(e)})
+
+        return errors
+
+    def inspect_workers(self):
+        errors = []
+
+        celery = Celery(
+            'app',
+            broker=os.getenv("CELERY_BROKER_URL"),
+            backend=os.getenv("CELERY_RESULT_BACKEND")
+        )
+
+        if celery.control.inspect().active() is None:
+            errors.append(_("Error: celery workers not connected"))
 
         return errors
