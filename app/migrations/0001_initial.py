@@ -80,6 +80,7 @@ class Migration(migrations.Migration):
                     max_length=50,
                     verbose_name='Status'
                 )),
+                ('datetime', models.DateTimeField(verbose_name='Datetime')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Updated at')),
             ],

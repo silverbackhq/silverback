@@ -25,6 +25,9 @@ class Incident_Entity():
         if "status" in incident:
             new_incident.status = incident["status"]
 
+        if "datetime" in incident:
+            new_incident.datetime = incident["datetime"]
+
         new_incident.save()
         return False if new_incident.pk is None else new_incident
 
@@ -41,6 +44,9 @@ class Incident_Entity():
             if "status" in incident_data:
                 incident.status = incident_data["status"]
 
+            if "datetime" in incident_data:
+                incident.datetime = incident_data["datetime"]
+
             incident.save()
             return True
         return False
@@ -53,6 +59,13 @@ class Incident_Entity():
             return Incident.objects.order_by('-created_at')
 
         return Incident.objects.order_by('-created_at')[offset:limit+offset]
+
+    def get_incident_from_days(self, days=7):
+        last_x_days = (timezone.now() - datetime.timedelta(days))
+        x = Incident.objects.filter(
+            created_at__gte=last_x_days
+        ).extra({"day": "date(created_at)"}).order_by('-day')
+        return x
 
     def get_by_status(self, status):
         return Incident.objects.filter(status=status).order_by('-created_at')
