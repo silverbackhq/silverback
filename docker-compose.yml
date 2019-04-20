@@ -8,7 +8,7 @@ services:
         ports:
             - '80:80'
         volumes:
-            - '.:/code'
+            - '.:/app'
             - './docker/nginx:/etc/nginx/conf.d'
         depends_on:
             - web
@@ -41,7 +41,7 @@ services:
         build: .
         command: 'gunicorn --bind 0.0.0.0:8000 app.wsgi'
         volumes:
-            - '.:/code'
+            - '.:/app'
         depends_on:
             - db
             - redis
@@ -59,7 +59,7 @@ services:
         build: .
         command: 'celery -A app worker --loglevel=info -n worker1'
         volumes:
-            - '.:/code'
+            - '.:/app'
         depends_on:
             - db
             - redis

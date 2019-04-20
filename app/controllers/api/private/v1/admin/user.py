@@ -26,6 +26,7 @@ class Users(View):
     __logger = None
     __user_id = None
     __user = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -38,6 +39,7 @@ class Users(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -163,19 +165,19 @@ class Users(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if self.__user.email_used(self.__form.get_sinput("email")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
-            }]))
+            }], {}, self.__correlation_id))
 
         if request_data["invitation"] != "" and self.__user.username_used(self.__form.get_sinput("username")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
-            }]))
+            }], {}, self.__correlation_id))
 
         if request_data["invitation"] != "":
 
@@ -194,12 +196,12 @@ class Users(View):
                 return JsonResponse(self.__response.send_private_success([{
                     "type": "success",
                     "message": _("Account created successfully.")
-                }]))
+                }], {}, self.__correlation_id))
             else:
                 return JsonResponse(self.__response.send_private_failure([{
                     "type": "error",
                     "message": _("Error! Something goes wrong while creating your account.")
-                }]))
+                }], {}, self.__correlation_id))
         else:
 
             self.__user.delete_register_request_by_email(self.__form.get_sinput("email"))
@@ -213,7 +215,7 @@ class Users(View):
                 return JsonResponse(self.__response.send_private_failure([{
                     "type": "error",
                     "message": _("Error! Something goes wrong while creating reset request.")
-                }]))
+                }], {}, self.__correlation_id))
 
             message = self.__user.send_register_request_message(self.__form.get_sinput("email"), token)
 
@@ -221,15 +223,16 @@ class Users(View):
                 return JsonResponse(self.__response.send_private_failure([{
                     "type": "error",
                     "message": _("Error! Something goes wrong while sending register request.")
-                }]))
+                }], {}, self.__correlation_id))
             else:
                 return JsonResponse(self.__response.send_private_success([{
                     "type": "success",
                     "message": _("Register Request instructions sent successfully.")
-                }]))
+                }], {}, self.__correlation_id))
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -251,7 +254,7 @@ class Users(View):
                 'limit': limit,
                 'count': self.__user.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_users(self, users):
         users_list = []
@@ -281,6 +284,7 @@ class User(View):
     __logger = None
     __user_id = None
     __user = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -293,6 +297,7 @@ class User(View):
 
     def post(self, request, user_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -461,19 +466,19 @@ class User(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if self.__user.username_used_elsewhere(user_id, self.__form.get_sinput("username")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
-            }]))
+            }], {}, self.__correlation_id))
 
         if self.__user.email_used_elsewhere(user_id, self.__form.get_sinput("email")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
-            }]))
+            }], {}, self.__correlation_id))
 
         if request_data["update_password"] == "":
 
@@ -500,31 +505,32 @@ class User(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("User updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating your account.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, user_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__user_id == user_id:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! You can't delete your account.")
-            }]))
+            }], {}, self.__correlation_id))
 
         if self.__user.delete_one_by_id(user_id):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("User deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting a user.")
-            }]))
+            }], {}, self.__correlation_id))

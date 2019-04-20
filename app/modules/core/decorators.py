@@ -78,10 +78,20 @@ def stop_request_if_installed(function):
 
 def log_request_data(function):
     def wrap(controller, request, *args, **kwargs):
-        _helper = Helpers()
-        _logger = _helper.get_logger(__name__)
-        _logger.debug(_("Request Method: %s") % request.method)
-        _logger.debug(_("Request URL: %s") % request.path)
-        _logger.debug(_("Request Body: %s") % request.body)
+        correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        helper = Helpers()
+        logger = helper.get_logger(__name__)
+        logger.debug(_("Request Method: %(method)s {'correlationId':'%(correlationId)s'}") % {
+            "method": request.method,
+            "correlationId": correlation_id
+        })
+        logger.debug(_("Request URL: %(path)s {'correlationId':'%(correlationId)s'}") % {
+            "path": request.path,
+            "correlationId": correlation_id
+        })
+        logger.debug(_("Request Body: %(body)s {'correlationId':'%(correlationId)s'}") % {
+            "body": request.body,
+            "correlationId": correlation_id
+        })
         return function(controller, request, *args, **kwargs)
     return wrap

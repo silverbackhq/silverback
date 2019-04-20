@@ -2,8 +2,6 @@
 Task Module
 """
 
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.util.humanize import Humanize
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.notification_entity import Notification_Entity
@@ -19,17 +17,13 @@ class Notification():
 
     __notification_entity = None
     __option_entity = None
-    __helpers = None
     __humanize = None
     __app_name = None
-    __logger = None
 
     def __init__(self):
         self.__notification_entity = Notification_Entity()
         self.__option_entity = Option_Entity()
-        self.__helpers = Helpers()
         self.__humanize = Humanize()
-        self.__logger = self.__helpers.get_logger(__name__)
         option = self.__option_entity.get_one_by_key("app_name")
         self.__app_name = option.value if option is not False else ""
 

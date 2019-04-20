@@ -2,21 +2,15 @@
 Activity Module
 """
 
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.activity_entity import Activity_Entity
 
 
 class Activity():
 
     __activity_entity = None
-    __helpers = None
-    __logger = None
 
     def __init__(self):
         self.__activity_entity = Activity_Entity()
-        self.__helpers = Helpers()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def get_one_by_id(self, id):
         activity = self.__activity_entity.get_one_by_id(id)

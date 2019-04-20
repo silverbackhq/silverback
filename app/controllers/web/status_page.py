@@ -23,10 +23,12 @@ class Status_Page_Index(View):
     __context = None
     __option_entity = None
     __status_page_module = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
         self.__option_entity = Option_Entity()
         self.__status_page_module = Status_Page_Module()
@@ -37,6 +39,8 @@ class Status_Page_Index(View):
             "is_authenticated": request.user and request.user.is_authenticated,
             "system_status": self.__status_page_module.get_system_status(),
             "about_site": self.__status_page_module.get_about_site(),
+            "logo_url": self.__status_page_module.get_logo_url(),
+            "favicon_url": self.__status_page_module.get_favicon_url(),
             "past_incidents": self.__status_page_module.get_past_incidents(7),
             "system_metrics": self.__status_page_module.get_system_metrics(),
             "services": self.__status_page_module.get_services()
@@ -51,10 +55,12 @@ class Status_Page_History(View):
     __context = None
     __option_entity = None
     __status_page_module = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request, period):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
         self.__option_entity = Option_Entity()
         self.__status_page_module = Status_Page_Module()
@@ -67,6 +73,8 @@ class Status_Page_History(View):
         self.__context.autoload_options()
         self.__context.push({
             "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+            "logo_url": self.__status_page_module.get_logo_url(),
+            "favicon_url": self.__status_page_module.get_favicon_url(),
             "is_authenticated": request.user and request.user.is_authenticated,
             "prev_link": period + 1,
             "next_link": period - 1 if period > 1 else 1,
@@ -83,10 +91,12 @@ class Status_Page_Single(View):
     __context = None
     __option_entity = None
     __status_page_module = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request, uri):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
         self.__option_entity = Option_Entity()
         self.__status_page_module = Status_Page_Module()
@@ -99,6 +109,8 @@ class Status_Page_Single(View):
         self.__context.autoload_options()
         self.__context.push({
             "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+            "logo_url": self.__status_page_module.get_logo_url(),
+            "favicon_url": self.__status_page_module.get_favicon_url(),
             "is_authenticated": request.user and request.user.is_authenticated,
             "uri": uri,
             "incident": incident

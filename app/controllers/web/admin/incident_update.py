@@ -31,10 +31,12 @@ class Incident_Update_Add(View):
     __incident_update = Incident_Update_Module()
     __component = Component_Module()
     __component_group = Component_Group_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, incident_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
@@ -60,10 +62,12 @@ class Incident_Update_View(View):
     __component = Component_Module()
     __component_group = Component_Group_Module()
     __incident_update_notification = Incident_Update_Notification_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
@@ -133,10 +137,12 @@ class Incident_Update_Edit(View):
     __incident_update = Incident_Update_Module()
     __component = Component_Module()
     __component_group = Component_Group_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:

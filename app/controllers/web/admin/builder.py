@@ -26,16 +26,18 @@ class Builder(View):
     __metric = Metric_Module()
     __component = Component_Module()
     __component_group = Component_Group_Module()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.load_options({
             "builder_headline": "",
-            "builder_fav_icon_url": "",
-            "builder_cover_image_url": "",
+            "builder_favicon_url": "",
+            "builder_logo_url": "",
             "builder_about": "",
             "builder_components": json.dumps([]),
             "builder_metrics": json.dumps([])

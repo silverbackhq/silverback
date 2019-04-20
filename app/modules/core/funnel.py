@@ -2,20 +2,11 @@
 Funnel Module
 """
 
-# local Django
-from app.modules.util.helpers import Helpers
-
 
 class Funnel():
 
-    __helpers = None
-    __logger = None
     __rules = {}
     __request = {}
-
-    def __init__(self):
-        self.__helpers = Helpers()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def set_rules(self, rules):
         self.__rules = rules

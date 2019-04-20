@@ -2,8 +2,6 @@
 Component Group Module
 """
 
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
 
@@ -12,14 +10,10 @@ class Component_Group():
 
     __component_group_entity = None
     __component_entity = None
-    __helpers = None
-    __logger = None
 
     def __init__(self):
         self.__component_group_entity = Component_Group_Entity()
         self.__component_entity = Component_Entity()
-        self.__helpers = Helpers()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def get_one_by_id(self, id):
         group = self.__component_group_entity.get_one_by_id(id)

@@ -28,6 +28,7 @@ class Settings(View):
     __logger = None
     __acl = None
     __activity_module = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -42,11 +43,13 @@ class Settings(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+
         if not self.__acl.user_has_permission(request.user.id, "manage_settings"):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Invalid Request.")
-            }]))
+            }], {}, self.__correlation_id))
 
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
@@ -196,7 +199,7 @@ class Settings(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__settings_module.update_options({
             "app_name": self.__form.get_sinput("app_name"),
@@ -218,10 +221,10 @@ class Settings(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Settings updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating settings.")
-            }]))
+            }], {}, self.__correlation_id))

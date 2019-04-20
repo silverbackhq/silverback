@@ -26,6 +26,7 @@ class Components(View):
     __logger = None
     __user_id = None
     __component = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -38,6 +39,7 @@ class Components(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -86,7 +88,7 @@ class Components(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__component.insert_one({
             "name": self.__form.get_sinput("name"),
@@ -99,15 +101,16 @@ class Components(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating component.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -129,7 +132,7 @@ class Components(View):
                 'limit': limit,
                 'count': self.__component.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_components(self, components):
         components_list = []
@@ -158,6 +161,7 @@ class Component(View):
     __logger = None
     __user_id = None
     __component = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -170,6 +174,7 @@ class Component(View):
 
     def post(self, request, component_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -218,7 +223,7 @@ class Component(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__component.update_one_by_id(component_id, {
             "name": self.__form.get_sinput("name"),
@@ -231,25 +236,26 @@ class Component(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating component.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, component_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__component.delete_one_by_id(component_id):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting component.")
-            }]))
+            }], {}, self.__correlation_id))

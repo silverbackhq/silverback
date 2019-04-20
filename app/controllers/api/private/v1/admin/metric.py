@@ -26,6 +26,7 @@ class Metrics(View):
     __logger = None
     __user_id = None
     __metric = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -38,6 +39,7 @@ class Metrics(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -46,7 +48,8 @@ class Metrics(View):
             "source": "",
             "application": "",
             "metric": "",
-            "display_suffix": ""
+            "x_axis": "",
+            "y_axis": ""
         })
 
         self.__form.add_inputs({
@@ -87,8 +90,15 @@ class Metrics(View):
                 },
                 'validate': {}
             },
-            'display_suffix': {
-                'value': request_data["display_suffix"],
+            'x_axis': {
+                'value': request_data["x_axis"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
+            },
+            'y_axis': {
+                'value': request_data["y_axis"],
                 'sanitize': {
                     'strip': {}
                 },
@@ -99,16 +109,17 @@ class Metrics(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__metric.insert_one({
             "title": self.__form.get_sinput("title"),
             "description": self.__form.get_sinput("description"),
             "source": self.__form.get_sinput("source"),
-            "data": '{"application":"%s", "metric":"%s","display_suffix":"%s"}' % (
+            "x_axis": self.__form.get_sinput("x_axis"),
+            "y_axis": self.__form.get_sinput("y_axis"),
+            "data": '{"application":"%s", "metric":"%s"}' % (
                 self.__form.get_sinput("application"),
-                self.__form.get_sinput("metric"),
-                self.__form.get_sinput("display_suffix")
+                self.__form.get_sinput("metric")
             )
         })
 
@@ -116,15 +127,16 @@ class Metrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating metric.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -146,7 +158,7 @@ class Metrics(View):
                 'limit': limit,
                 'count': self.__metric.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_metrics(self, metrics):
         metrics_list = []
@@ -173,6 +185,7 @@ class Metric(View):
     __logger = None
     __user_id = None
     __metric = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -185,6 +198,7 @@ class Metric(View):
 
     def post(self, request, metric_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -193,7 +207,8 @@ class Metric(View):
             "source": "",
             "application": "",
             "metric": "",
-            "display_suffix": ""
+            "x_axis": "",
+            "y_axis": ""
         })
 
         self.__form.add_inputs({
@@ -234,8 +249,15 @@ class Metric(View):
                 },
                 'validate': {}
             },
-            'display_suffix': {
-                'value': request_data["display_suffix"],
+            'x_axis': {
+                'value': request_data["x_axis"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
+            },
+            'y_axis': {
+                'value': request_data["y_axis"],
                 'sanitize': {
                     'strip': {}
                 },
@@ -246,16 +268,17 @@ class Metric(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__metric.update_one_by_id(metric_id, {
             "title": self.__form.get_sinput("title"),
             "description": self.__form.get_sinput("description"),
             "source": self.__form.get_sinput("source"),
-            "data": '{"application":"%s", "metric":"%s","display_suffix":"%s"}' % (
+            "x_axis": self.__form.get_sinput("x_axis"),
+            "y_axis": self.__form.get_sinput("y_axis"),
+            "data": '{"application":"%s", "metric":"%s"}' % (
                 self.__form.get_sinput("application"),
-                self.__form.get_sinput("metric"),
-                self.__form.get_sinput("display_suffix")
+                self.__form.get_sinput("metric")
             )
         })
 
@@ -263,28 +286,29 @@ class Metric(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating metric.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, metric_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__metric.delete_one_by_id(metric_id):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting metric.")
-            }]))
+            }], {}, self.__correlation_id))
 
 
 class NewRelic_Apps(View):
@@ -296,6 +320,7 @@ class NewRelic_Apps(View):
     __logger = None
     __user_id = None
     __metric = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -307,14 +332,15 @@ class NewRelic_Apps(View):
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         result = self.__metric.get_new_relic_apps()
 
         if result is False:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Connecting to New Relic.")
-            }]))
+            }], {}, self.__correlation_id))
 
         return JsonResponse(self.__response.send_private_success([], {
             'apps': result
-        }))
+        }, self.__correlation_id))

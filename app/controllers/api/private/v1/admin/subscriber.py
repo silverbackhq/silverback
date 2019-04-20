@@ -26,6 +26,7 @@ class Subscribers(View):
     __logger = None
     __user_id = None
     __subscriber = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -38,6 +39,7 @@ class Subscribers(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -174,7 +176,7 @@ class Subscribers(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         external_id = self.__helpers.generate_uuid()
 
@@ -220,15 +222,16 @@ class Subscribers(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Subscriber created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating subscriber.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -250,7 +253,7 @@ class Subscribers(View):
                 'limit': limit,
                 'count': self.__subscriber.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_subscribers(self, subscribers):
         subscribers_list = []
@@ -281,6 +284,7 @@ class Subscriber(View):
     __logger = None
     __user_id = None
     __subscriber = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -293,6 +297,7 @@ class Subscriber(View):
 
     def post(self, request, subscriber_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -429,7 +434,7 @@ class Subscriber(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if request_data["type"] == "email":
 
@@ -468,25 +473,26 @@ class Subscriber(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Subscriber updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating subscriber.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, subscriber_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__subscriber.delete_one_by_id(subscriber_id):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Subscriber deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting subscriber.")
-            }]))
+            }], {}, self.__correlation_id))

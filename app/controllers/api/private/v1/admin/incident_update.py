@@ -38,6 +38,7 @@ class Incident_Updates(View):
     __notification = None
     __subscriber = None
     __incident_update_notification = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -55,8 +56,8 @@ class Incident_Updates(View):
 
     def post(self, request, incident_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
-
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -104,7 +105,7 @@ class Incident_Updates(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__incident_update.insert_one({
             "notify_subscribers": self.__form.get_sinput("notify_subscribers"),
@@ -128,15 +129,16 @@ class Incident_Updates(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Incident update created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating update.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request, incident_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -158,7 +160,7 @@ class Incident_Updates(View):
                 'limit': limit,
                 'count': self.__incident_update.count_all(incident_id)
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_incident_updates(self, updates, incident_id):
         updates_list = []
@@ -195,6 +197,7 @@ class Incident_Update(View):
     __logger = None
     __user_id = None
     __incident_update = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -207,6 +210,7 @@ class Incident_Update(View):
 
     def post(self, request, incident_id, update_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -254,7 +258,7 @@ class Incident_Update(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__incident_update.update_one_by_id(update_id, {
             "notify_subscribers": self.__form.get_sinput("notify_subscribers"),
@@ -267,28 +271,29 @@ class Incident_Update(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Incident update updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating update.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, incident_id, update_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__incident_update.delete_one_by_id(update_id):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Incident update deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting incident update.")
-            }]))
+            }], {}, self.__correlation_id))
 
 
 class Incident_Updates_Notify(View):
@@ -303,6 +308,7 @@ class Incident_Updates_Notify(View):
     __task = None
     __notification = None
     __subscriber = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -318,6 +324,7 @@ class Incident_Updates_Notify(View):
 
     def post(self, request, incident_id, update_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         task = self.__task.delay("incident_update", {
@@ -342,12 +349,12 @@ class Incident_Updates_Notify(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Notification delivery started successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while starting delivery.")
-            }]))
+            }], {}, self.__correlation_id))
 
 
 class Incident_Updates_Components(View):
@@ -363,6 +370,7 @@ class Incident_Updates_Components(View):
     __notification = None
     __subscriber = None
     __incident_update_component = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -378,8 +386,9 @@ class Incident_Updates_Components(View):
         self.__form.add_validator(ExtraRules())
 
     def post(self, request, incident_id, update_id):
-        self.__user_id = request.user.id
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__user_id = request.user.id
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -410,7 +419,7 @@ class Incident_Updates_Components(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__incident_update_component.insert_one({
             "component_id": int(self.__form.get_sinput("component_id")),
@@ -422,12 +431,12 @@ class Incident_Updates_Components(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Affected component created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating affected component.")
-            }]))
+            }], {}, self.__correlation_id))
 
 
 class Incident_Updates_Component(View):
@@ -439,6 +448,7 @@ class Incident_Updates_Component(View):
     __logger = None
     __user_id = None
     __incident_update_component = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -450,16 +460,18 @@ class Incident_Updates_Component(View):
         self.__form.add_validator(ExtraRules())
 
     def delete(self, request, incident_id, update_id, item_id):
+
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__incident_update_component.delete_one_by_id(item_id):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Affected component deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting affected component.")
-            }]))
+            }], {}, self.__correlation_id))

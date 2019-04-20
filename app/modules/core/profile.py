@@ -2,12 +2,8 @@
 Profile Module
 """
 
-# Django
 from django.contrib.auth import update_session_auth_hash
-
-# local Django
 from app.modules.util.token import Token
-from app.modules.util.helpers import Helpers
 from app.modules.util.gravatar import Gravatar
 from app.modules.entity.profile_entity import Profile_Entity
 from app.modules.entity.option_entity import Option_Entity
@@ -18,18 +14,14 @@ class Profile():
 
     __option_entity = None
     __user_entity = None
-    __helpers = None
-    __logger = None
     __token = None
     __profile_entity = None
 
     def __init__(self):
         self.__option_entity = Option_Entity()
         self.__user_entity = User_Entity()
-        self.__helpers = Helpers()
         self.__token = Token()
         self.__profile_entity = Profile_Entity()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def get_profile(self, user_id):
 

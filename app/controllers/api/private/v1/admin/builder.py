@@ -27,6 +27,7 @@ class Builder_System_Metrics(View):
     __logger = None
     __user_id = None
     __settings = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -39,6 +40,7 @@ class Builder_System_Metrics(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "metric_id": ""
@@ -55,7 +57,7 @@ class Builder_System_Metrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric added successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         metrics.append(request_data["metric_id"])
 
@@ -67,16 +69,17 @@ class Builder_System_Metrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric added successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while adding metric.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, metric_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         metrics = self.__settings.get_value_by_key(
             "builder_metrics",
             json.dumps([])
@@ -88,7 +91,7 @@ class Builder_System_Metrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         metrics.remove(metric_id)
 
@@ -100,13 +103,13 @@ class Builder_System_Metrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting metric.")
-            }]))
+            }], {}, self.__correlation_id))
 
 
 class Builder_Components(View):
@@ -118,6 +121,7 @@ class Builder_Components(View):
     __logger = None
     __user_id = None
     __settings = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -130,6 +134,7 @@ class Builder_Components(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "component_id": ""
@@ -146,7 +151,7 @@ class Builder_Components(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component added successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         components.append(request_data["component_id"])
 
@@ -158,16 +163,17 @@ class Builder_Components(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component added successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while adding component.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, component_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         components = self.__settings.get_value_by_key(
             "builder_components",
             json.dumps([])
@@ -179,7 +185,7 @@ class Builder_Components(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         components.remove(component_id)
 
@@ -191,13 +197,13 @@ class Builder_Components(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting component.")
-            }]))
+            }], {}, self.__correlation_id))
 
 
 class Builder_Settings(View):
@@ -209,6 +215,7 @@ class Builder_Settings(View):
     __logger = None
     __user_id = None
     __settings = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -221,11 +228,12 @@ class Builder_Settings(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "builder_headline": "",
-            "builder_fav_icon_url": "",
-            "builder_cover_image_url": "",
+            "builder_favicon_url": "",
+            "builder_logo_url": "",
             "builder_about": ""
         })
 
@@ -243,8 +251,8 @@ class Builder_Settings(View):
                     'optional': {}
                 }
             },
-            'builder_fav_icon_url': {
-                'value': request_data["builder_fav_icon_url"],
+            'builder_favicon_url': {
+                'value': request_data["builder_favicon_url"],
                 'sanitize': {
                     'escape': {},
                     'strip': {}
@@ -255,15 +263,15 @@ class Builder_Settings(View):
                     }
                 }
             },
-            'builder_cover_image_url': {
-                'value': request_data["builder_cover_image_url"],
+            'builder_logo_url': {
+                'value': request_data["builder_logo_url"],
                 'sanitize': {
                     'escape': {},
                     'strip': {}
                 },
                 'validate': {
                     'sv_url': {
-                        'error': _('Error! Image URL is invalid.')
+                        'error': _('Error! Logo URL is invalid.')
                     }
                 }
             },
@@ -285,12 +293,12 @@ class Builder_Settings(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__settings.update_options({
             "builder_headline": self.__form.get_sinput("builder_headline"),
-            "builder_fav_icon_url": self.__form.get_sinput("builder_fav_icon_url"),
-            "builder_cover_image_url": self.__form.get_sinput("builder_cover_image_url"),
+            "builder_favicon_url": self.__form.get_sinput("builder_favicon_url"),
+            "builder_logo_url": self.__form.get_sinput("builder_logo_url"),
             "builder_about": self.__form.get_sinput("builder_about")
         })
 
@@ -298,10 +306,10 @@ class Builder_Settings(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Settings updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating settings.")
-            }]))
+            }], {}, self.__correlation_id))

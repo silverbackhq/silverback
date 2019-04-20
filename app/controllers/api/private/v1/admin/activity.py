@@ -24,6 +24,7 @@ class Activities(View):
     __logger = None
     __user_id = None
     __activity = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -36,8 +37,8 @@ class Activities(View):
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
-
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -59,7 +60,7 @@ class Activities(View):
                 'limit': limit,
                 'count': self.__activity.count(self.__user_id)
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_activities(self, activities):
         activities_list = []

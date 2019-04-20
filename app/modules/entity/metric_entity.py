@@ -23,6 +23,12 @@ class Metric_Entity():
         if "data" in metric:
             new_metric.data = metric["data"]
 
+        if "x_axis" in metric:
+            new_metric.x_axis = metric["x_axis"]
+
+        if "y_axis" in metric:
+            new_metric.y_axis = metric["y_axis"]
+
         new_metric.save()
         return False if new_metric.pk is None else new_metric
 
@@ -41,6 +47,12 @@ class Metric_Entity():
 
             if "data" in metric_data:
                 metric.data = metric_data["data"]
+
+            if "x_axis" in metric_data:
+                metric.x_axis = metric_data["x_axis"]
+
+            if "y_axis" in metric_data:
+                metric.y_axis = metric_data["y_axis"]
 
             metric.save()
             return True

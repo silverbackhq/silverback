@@ -2,11 +2,7 @@
 Reset Password Module
 """
 
-# Django
 from django.utils import timezone
-
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.user_entity import User_Entity
 from app.modules.entity.reset_request_entity import Reset_Request_Entity
 
@@ -14,11 +10,9 @@ from app.modules.entity.reset_request_entity import Reset_Request_Entity
 class Reset_Password():
 
     __reset_request_entity = None
-    __helpers = None
     __user_entity = None
 
     def __init__(self):
-        self.__helpers = Helpers()
         self.__user_entity = User_Entity()
         self.__reset_request_entity = Reset_Request_Entity()
 

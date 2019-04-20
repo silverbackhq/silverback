@@ -25,6 +25,7 @@ class Login(View):
     __form = None
     __login = None
     __logger = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -37,11 +38,14 @@ class Login(View):
 
     @stop_request_if_authenticated
     def post(self, request):
+
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+
         if self.__login.is_authenticated(request):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! User is already authenticated.")
-            }]))
+            }], {}, self.__correlation_id))
 
         self.__request.set_request(request)
 
@@ -80,15 +84,15 @@ class Login(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if self.__login.authenticate(self.__form.get_sinput("username"), self.__form.get_sinput("password"), request):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("You logged in successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username or password is invalid.")
-            }]))
+            }], {}, self.__correlation_id))

@@ -3,13 +3,8 @@ User Module
 """
 
 import json
-
-# Django
 from django.utils import timezone
 from django.utils.translation import gettext as _
-
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.user_entity import User_Entity
 from app.modules.entity.notification_entity import Notification_Entity
@@ -23,8 +18,6 @@ class User():
     __notification_entity = None
     __option_entity = None
     __user_entity = None
-    __helpers = None
-    __logger = None
     __acl = None
     __register_request_entity = None
     __task_core = None
@@ -34,11 +27,9 @@ class User():
         self.__acl = ACL()
         self.__option_entity = Option_Entity()
         self.__user_entity = User_Entity()
-        self.__helpers = Helpers()
         self.__notification_entity = Notification_Entity()
         self.__register_request_entity = Register_Request_Entity()
         self.__task_core = Task_Core()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def username_used(self, username):
         return False if self.__user_entity.get_one_by_username(username) is False else True

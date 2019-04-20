@@ -22,11 +22,13 @@ class Forgot_Password(View):
     template_name = 'templates/forgot_password.html'
     __context = None
     __option_entity = None
+    __correlation_id = None
 
     @redirect_if_not_installed
     @redirect_if_authenticated
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
         self.__option_entity = Option_Entity()
 

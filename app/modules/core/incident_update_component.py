@@ -1,22 +1,16 @@
 """
-Incident Update Module
+Incident Update Component Module
 """
 
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
 
 
 class Incident_Update_Component():
 
     __incident_update_component_entity = None
-    __helpers = None
-    __logger = None
 
     def __init__(self):
         self.__incident_update_component_entity = Incident_Update_Component_Entity()
-        self.__helpers = Helpers()
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def get_one_by_id(self, id):
         item = self.__incident_update_component_entity.get_one_by_id(id)

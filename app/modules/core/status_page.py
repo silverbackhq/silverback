@@ -3,9 +3,6 @@ Status Page Module
 """
 
 import json
-
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.incident_entity import Incident_Entity
 from app.modules.entity.incident_update_entity import Incident_Update_Entity
@@ -17,8 +14,6 @@ from app.modules.entity.component_entity import Component_Entity
 
 class Status_Page():
 
-    __helpers = None
-    __logger = None
     __option_entity = None
     __incident_entity = None
     __incident_update_entity = None
@@ -27,8 +22,6 @@ class Status_Page():
     __component_entity = None
 
     def __init__(self):
-        self.__helpers = Helpers()
-        self.__logger = self.__helpers.get_logger(__name__)
         self.__option_entity = Option_Entity()
         self.__incident_entity = Incident_Entity()
         self.__incident_update_entity = Incident_Update_Entity()
@@ -41,6 +34,14 @@ class Status_Page():
 
     def get_about_site(self):
         option = self.__option_entity.get_one_by_key("builder_about")
+        return option.value if option else ""
+
+    def get_logo_url(self):
+        option = self.__option_entity.get_one_by_key("builder_logo_url")
+        return option.value if option else ""
+
+    def get_favicon_url(self):
+        option = self.__option_entity.get_one_by_key("builder_favicon_url")
         return option.value if option else ""
 
     def get_incident_by_uri(self, uri):
@@ -193,7 +194,8 @@ class Status_Page():
         ]
 
     def get_system_metrics(self):
-        return [
+
+        metrics = [
             {
                 "id": "container",
                 "title": "Website Dashboard - Average response time",
@@ -220,6 +222,15 @@ class Status_Page():
             }
         ]
 
+        option = self.__option_entity.get_one_by_key("builder_metrics")
+        if option:
+            items = json.loads(option.value)
+            for item in items:
+                if "m-" in item:
+                    item = item.replace("m-", "")
+
+        return metrics
+
     def get_services(self):
         services = []
         option = self.__option_entity.get_one_by_key("builder_components")
@@ -234,7 +245,7 @@ class Status_Page():
                             "description": component.description,
                             "current_status": self.get_status(component.id, "component"),
                             "current_status_class": "bg-green",
-                            "uptime_chart": self.get_uptime_chart(1, "component"),
+                            "uptime_chart": self.get_uptime_chart(component.id, "component"),
                             "sub_services": []
                         })
                 elif "g-" in item:
@@ -265,7 +276,10 @@ class Status_Page():
         return services
 
     def get_status(self, id, type):
-        return "Operational"
+        if type == "component":
+            return "Operational"
+        elif type == "group":
+            return "Operational"
 
     def get_uptime_chart(self, id, type):
         return []

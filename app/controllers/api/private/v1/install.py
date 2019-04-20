@@ -27,6 +27,7 @@ class Install(View):
     __install = None
     __logger = None
     __notification = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -41,11 +42,13 @@ class Install(View):
     @stop_request_if_installed
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+
         if self.__install.is_installed():
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Application is already installed.")
-            }]))
+            }], {}, self.__correlation_id))
 
         self.__request.set_request(request)
 
@@ -144,7 +147,7 @@ class Install(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         self.__install.set_app_data(
             self.__form.get_sinput("app_name"),
@@ -157,10 +160,15 @@ class Install(View):
             self.__form.get_sinput("admin_password")
         )
 
-        user_id = self.__install.install()
+        try:
+            user_id = self.__install.install()
+        except Exception as exception:
+            self.__logger.error(_("Internal server error during installation: %(exception)s {'correlationId':'%(correlationId)s'}") % {
+                "exception": exception,
+                "correlationId": self.__correlation_id
+            })
 
         if user_id:
-
             self.__notification.create_notification({
                 "highlight": _('Installation'),
                 "notification": _('Silverback installed successfully'),
@@ -174,9 +182,9 @@ class Install(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Application installed successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong during installing.")
-            }]))
+            }], {}, self.__correlation_id))

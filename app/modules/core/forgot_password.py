@@ -2,12 +2,8 @@
 Forgot Password Module
 """
 
-# Django
 from django.utils import timezone
 from django.utils.translation import gettext as _
-
-# local Django
-from app.modules.util.helpers import Helpers
 from app.modules.entity.user_entity import User_Entity
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.reset_request_entity import Reset_Request_Entity
@@ -20,15 +16,12 @@ class Forgot_Password():
     __option_entity = None
     __user_entity = None
     __task_core = None
-    __helpers = None
-
     __reset_expire_option = 24
     __messages_count_option = 5
 
     def __init__(self):
         self.__reset_request_entity = Reset_Request_Entity()
         self.__option_entity = Option_Entity()
-        self.__helpers = Helpers()
         self.__user_entity = User_Entity()
         self.__task_core = Task_Core()
 

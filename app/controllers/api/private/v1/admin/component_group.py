@@ -26,6 +26,7 @@ class Component_Groups(View):
     __logger = None
     __user_id = None
     __component_group = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -38,6 +39,7 @@ class Component_Groups(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -80,7 +82,7 @@ class Component_Groups(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__component_group.insert_one({
             "name": self.__form.get_sinput("name"),
@@ -92,15 +94,16 @@ class Component_Groups(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component group created successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating group.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def get(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
@@ -122,7 +125,7 @@ class Component_Groups(View):
                 'limit': limit,
                 'count': self.__component_group.count_all()
             }
-        }))
+        }, self.__correlation_id))
 
     def __format_groups(self, groups):
         groups_list = []
@@ -150,6 +153,7 @@ class Component_Group(View):
     __logger = None
     __user_id = None
     __component_group = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -162,6 +166,7 @@ class Component_Group(View):
 
     def post(self, request, group_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("post", {
@@ -204,7 +209,7 @@ class Component_Group(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__component_group.update_one_by_id(group_id, {
             "name": self.__form.get_sinput("name"),
@@ -216,25 +221,26 @@ class Component_Group(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component group updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating group.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def delete(self, request, group_id):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         if self.__component_group.delete_one_by_id(group_id):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component group deleted successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting group.")
-            }]))
+            }], {}, self.__correlation_id))

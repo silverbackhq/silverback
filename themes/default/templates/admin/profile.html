@@ -9,7 +9,7 @@
         <div class="my-3 my-md-5">
             <div class="container">
                 <div class="row" id="app_profile">
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card card-profile">
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-8">
+                    <div class="col-md-8">
                         <div class="row">
                             <div class="col-12">
                                 <form class="card" v-on:submit.prevent="updateProfile" action="{% url 'app.api.private.v1.admin.profile.endpoint' %}" method="post" data-reload-after="3000">

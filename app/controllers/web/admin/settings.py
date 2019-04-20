@@ -24,9 +24,12 @@ class Settings(View):
     __context = Context()
     __upgrade = Upgrade()
     __acl = ACL()
+    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
+
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
         if not self.__acl.user_has_permission(request.user.id, "manage_settings"):
             raise Http404("Page not found.")

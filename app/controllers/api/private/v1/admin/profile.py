@@ -25,6 +25,7 @@ class Profile(View):
     __logger = None
     __user_id = None
     __profile_module = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -37,6 +38,7 @@ class Profile(View):
 
     def post(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
 
         self.__request.set_request(request)
@@ -59,7 +61,7 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if self.__form.get_sinput("action") == "_update_profile":
             return self.__update_profile(request)
@@ -72,6 +74,7 @@ class Profile(View):
 
     def __update_profile(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "first_name": "",
@@ -240,19 +243,19 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if self.__profile_module.username_used_elsewhere(self.__user_id, self.__form.get_sinput("username")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
-            }]))
+            }], {}, self.__correlation_id))
 
         if self.__profile_module.email_used_elsewhere(self.__user_id, self.__form.get_sinput("email")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Email is already used.")
-            }]))
+            }], {}, self.__correlation_id))
 
         result = self.__profile_module.update_profile(self.__user_id, {
             "first_name": self.__form.get_sinput("first_name"),
@@ -271,16 +274,17 @@ class Profile(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Profile updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating your profile.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def __update_password(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "old_password": "",
@@ -317,13 +321,13 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if not self.__profile_module.validate_password(self.__user_id, self.__form.get_sinput("old_password")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Old password is invalid.")
-            }]))
+            }], {}, self.__correlation_id))
 
         result = self.__profile_module.change_password(self.__user_id, self.__form.get_sinput("new_password"))
 
@@ -332,16 +336,17 @@ class Profile(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Password updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating your password.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def __update_access_token(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "token": "",
@@ -361,7 +366,7 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed() and request_data["token"] != "":
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__profile_module.update_access_token(self.__user_id)
 
@@ -369,15 +374,16 @@ class Profile(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Access token updated successfully.")
-            }], {"token": result}))
+            }], {"token": result}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating access token.")
-            }]))
+            }], {}, self.__correlation_id))
 
     def __update_refresh_token(self, request):
 
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "token": "",
@@ -397,7 +403,7 @@ class Profile(View):
         self.__form.process()
 
         if not self.__form.is_passed() and request_data["token"] != "":
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         result = self.__profile_module.update_refresh_token(self.__user_id)
 
@@ -405,9 +411,9 @@ class Profile(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Refresh token updated successfully.")
-            }], {"token": result}))
+            }], {"token": result}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating refresh token.")
-            }]))
+            }], {}, self.__correlation_id))

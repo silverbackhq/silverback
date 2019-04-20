@@ -14,7 +14,6 @@ from app.settings.info import REPO_URL
 from app.settings.info import AUTHOR_URL
 from app.settings.info import RELEASES
 from app.settings.info import SUPPORT_URL
-from app.modules.util.helpers import Helpers
 from app.modules.util.gravatar import Gravatar
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.user_entity import User_Entity
@@ -25,15 +24,11 @@ class Context():
     __data = {}
     __option_entity = None
     __user_entity = None
-    __helpers = None
-    __logger = None
 
     def __init__(self):
 
         self.__option_entity = Option_Entity()
         self.__user_entity = User_Entity()
-        self.__helpers = Helpers()
-
         self.__data["AUTHOR"] = AUTHOR
         self.__data["COPYRIGHT"] = COPYRIGHT
         self.__data["LICENSE"] = LICENSE
@@ -45,7 +40,6 @@ class Context():
         self.__data["AUTHOR_URL"] = AUTHOR_URL
         self.__data["RELEASES"] = RELEASES
         self.__data["SUPPORT_URL"] = SUPPORT_URL
-        self.__logger = self.__helpers.get_logger(__name__)
 
     def push(self, new_data):
         self.__data.update(new_data)

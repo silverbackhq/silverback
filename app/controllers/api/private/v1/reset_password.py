@@ -25,6 +25,7 @@ class Reset_Password(View):
     __form = None
     __reset_password = None
     __logger = None
+    __correlation_id = None
 
     def __init__(self):
         self.__request = Request()
@@ -37,6 +38,8 @@ class Reset_Password(View):
 
     @stop_request_if_authenticated
     def post(self, request):
+
+        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
         self.__request.set_request(request)
 
@@ -71,13 +74,13 @@ class Reset_Password(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors()))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         if not self.__reset_password.check_token(self.__form.get_sinput("reset_token")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Reset token is expired or invalid.")
-            }]))
+            }], {}, self.__correlation_id))
 
         result = self.__reset_password.reset_password(
             self.__form.get_sinput("reset_token"),
@@ -90,9 +93,9 @@ class Reset_Password(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while resetting password.")
-            }]))
+            }], {}, self.__correlation_id))
         else:
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Password updated successfully.")
-            }]))
+            }], {}, self.__correlation_id))
