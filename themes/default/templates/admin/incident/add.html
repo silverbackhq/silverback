@@ -22,6 +22,11 @@
                                             <input type="text" name="name" class="form-control" placeholder="{% trans "Enter incident name" %}" required>
                                         </div>
                                         <div class="form-group">
+                                            <label class="form-label">{% trans "Datetime" %}<span class="form-required">*</span></label>
+                                            <input type="text" name="datetime" class="form-control" data-mask="0000-00-00 00:00:00" data-mask-clearifnotmatch="true" placeholder="0000-00-00 00:00:00" required>
+                                            <small class="form-text text-muted">{% trans "For example" %} <code>2019-01-15 19:00:00</code></small>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="form-label">{% trans "Status" %}<span class="form-required">*</span></label>
                                             <select class="form-control" name="status" required>
                                                 <option value="">{% trans "Please Select a Value" %}</option>

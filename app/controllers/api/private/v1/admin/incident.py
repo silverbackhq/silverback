@@ -7,6 +7,7 @@ from django.views import View
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
 from django.urls import reverse
+from django.forms.fields import DateTimeField
 
 # local Django
 from pyvalitron.form import Form
@@ -44,7 +45,8 @@ class Incidents(View):
 
         request_data = self.__request.get_request_data("post", {
             "name": "",
-            "status": ""
+            "status": "",
+            "datetime": "",
         })
 
         self.__form.add_inputs({
@@ -59,6 +61,13 @@ class Incidents(View):
                         'error': _('Error! Incident name must be 1 to 200 characters long.')
                     }
                 }
+            },
+            'datetime': {
+                'value': request_data["datetime"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
             },
             'status': {
                 'value': request_data["status"],
@@ -79,6 +88,7 @@ class Incidents(View):
         result = self.__incident.insert_one({
             "name": self.__form.get_sinput("name"),
             "status": self.__form.get_sinput("status"),
+            "datetime": DateTimeField().clean(self.__form.get_sinput("datetime")),
             "uri": self.__incident.generate_uri(6)
         })
 
@@ -165,7 +175,8 @@ class Incident(View):
 
         request_data = self.__request.get_request_data("post", {
             "name": "",
-            "status": ""
+            "status": "",
+            "datetime": "",
         })
 
         self.__form.add_inputs({
@@ -180,6 +191,13 @@ class Incident(View):
                         'error': _('Error! Incident name must be 1 to 200 characters long.')
                     }
                 }
+            },
+            'datetime': {
+                'value': request_data["datetime"],
+                'sanitize': {
+                    'strip': {}
+                },
+                'validate': {}
             },
             'status': {
                 'value': request_data["status"],
@@ -199,7 +217,8 @@ class Incident(View):
 
         result = self.__incident.update_one_by_id(incident_id, {
             "name": self.__form.get_sinput("name"),
-            "status": self.__form.get_sinput("status")
+            "status": self.__form.get_sinput("status"),
+            "datetime": DateTimeField().clean(self.__form.get_sinput("datetime"))
         })
 
         if result:

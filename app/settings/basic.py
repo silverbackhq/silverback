@@ -208,6 +208,26 @@ LOGGING = {
             'level': APP_LOGGING_LEVEL,
             'propagate': APP_LOGGING_PROPAGATE,
         },
+        'django.db.backends': {
+            'handlers': APP_LOGGING_HANDLERS,
+            'level': APP_LOGGING_LEVEL,
+            'propagate': APP_LOGGING_PROPAGATE,
+        },
+        'django.request': {
+            'handlers': APP_LOGGING_HANDLERS,
+            'level': APP_LOGGING_LEVEL,
+            'propagate': APP_LOGGING_PROPAGATE,
+        },
+        'django.server': {
+            'handlers': APP_LOGGING_HANDLERS,
+            'level': APP_LOGGING_LEVEL,
+            'propagate': APP_LOGGING_PROPAGATE,
+        },
+        'django.template': {
+            'handlers': APP_LOGGING_HANDLERS,
+            'level': APP_LOGGING_LEVEL,
+            'propagate': APP_LOGGING_PROPAGATE,
+        },
     },
 }
 

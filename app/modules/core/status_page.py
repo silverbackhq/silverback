@@ -10,6 +10,8 @@ from app.modules.entity.incident_update_component_entity import Incident_Update_
 from django.utils.translation import gettext as _
 from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
+from datetime import datetime
+from datetime import timedelta
 
 
 class Status_Page():
@@ -112,86 +114,26 @@ class Status_Page():
             ]
         }
 
-    def get_past_incidents(self, days):
-        return [
-            {
-                "date": "March 8, 2019",
-                "incidents": [
-                    {
-                        "uri": "123",
-                        "subject": "Partial network outage at one of our network suppliers",
-                        "class": "text-danger",
-                        "updates": [
-                            {
-                                "type": "Resolved",
-                                "date": "March 7, 08:56 CET",
-                                "body": "we had a partial network outage at one of our network suppliers."
-                            },
-                            {
-                                "type": "Update",
-                                "date": "March 7, 08:56 CET",
-                                "body": "we had a partial network outage at one of our network suppliers."
-                            },
-                        ]
-                    },
-                    {
-                        "uri": "123",
-                        "subject": "Partial network outage at one of our network suppliers",
-                        "class": "text-danger",
-                        "updates": [
-                            {
-                                "type": "Resolved",
-                                "date": "March 7, 08:56 CET",
-                                "body": "we had a partial network outage at one of our network suppliers."
-                            },
-                            {
-                                "type": "Update",
-                                "date": "March 7, 08:56 CET",
-                                "body": "we had a partial network outage at one of our network suppliers."
-                            },
-                        ]
-                    },
-                ]
-            },
-            {
-                "date": "March 7, 2019",
-                "incidents": []
-            },
-            {
-                "date": "March 6, 2019",
-                "incidents": []
-            },
-            {
-                "date": "March 5, 2019",
-                "incidents": []
-            },
-            {
-                "date": "March 4, 2019",
-                "incidents": []
-            },
-            {
-                "date": "March 3, 2019",
-                "incidents": [
-                    {
-                        "uri": "123",
-                        "subject": "Partial network outage at one of our network suppliers",
-                        "class": "text-danger",
-                        "updates": [
-                            {
-                                "type": "Resolved",
-                                "date": "March 7, 08:56 CET",
-                                "body": "we had a partial network outage at one of our network suppliers."
-                            },
-                            {
-                                "type": "Update",
-                                "date": "March 7, 08:56 CET",
-                                "body": "we had a partial network outage at one of our network suppliers."
-                            },
-                        ]
-                    }
-                ]
-            }
-        ]
+    def get_past_incidents(self, days=7):
+
+        i = 0
+        past_incidents = []
+
+        while days > i:
+            date = (datetime.now() - timedelta(days=i))
+            incidents_result = []
+            incidents = self.__incident_entity.get_incident_from_days(i)
+            for incident in incidents:
+                pass
+
+            past_incidents.append({
+                "date": date.strftime("%B %d, %Y"),
+                "incidents": incidents_result
+            })
+
+            i += 1
+
+        return past_incidents
 
     def get_system_metrics(self):
 

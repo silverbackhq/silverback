@@ -6,6 +6,7 @@ from app.modules.entity.incident_update_entity import Incident_Update_Entity
 from app.modules.entity.incident_entity import Incident_Entity
 from app.modules.entity.incident_update_component_entity import Incident_Update_Component
 from app.modules.entity.incident_update_notification_entity import Incident_Update_Notification
+from app.modules.util.helpers import Helpers
 
 
 class Incident():
@@ -14,12 +15,14 @@ class Incident():
     __incident_entity = None
     __incident_update_component_entity = None
     __incident_update_notification_entity = None
+    __helpers = None
 
     def __init__(self):
         self.__incident_update_entity = Incident_Update_Entity()
         self.__incident_entity = Incident_Entity()
         self.__incident_update_component_entity = Incident_Update_Component()
         self.__incident_update_notification_entity = Incident_Update_Notification()
+        self.__helpers = Helpers()
 
     def get_one_by_id(self, id):
         incident = self.__incident_entity.get_one_by_id(id)
@@ -31,7 +34,8 @@ class Incident():
             "id": incident.id,
             "name": incident.name,
             "uri": incident.uri,
-            "status": incident.status
+            "status": incident.status,
+            "datetime": incident.datetime
         }
 
     def generate_uri(self, size=6):
@@ -57,3 +61,6 @@ class Incident():
 
     def delete_one_by_id(self, id):
         return self.__incident_entity.delete_one_by_id(id)
+
+    def get_incident_from_days(self, days=7):
+        return self.__incident_entity.get_incident_from_days(days)
