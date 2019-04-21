@@ -60,8 +60,7 @@ class Incident_Add(View):
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
-            "page_title": _("Add an Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
-            "timezone": os.getenv("APP_TIMEZONE", "UTC")
+            "page_title": _("Add an Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -90,8 +89,7 @@ class Incident_Edit(View):
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
             "page_title": _("Edit Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
-            "incident": incident,
-            "timezone": os.getenv("APP_TIMEZONE", "UTC")
+            "incident": incident
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -120,8 +118,7 @@ class Incident_View(View):
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
             "page_title": _("View Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
-            "incident": incident,
-            "timezone": os.getenv("APP_TIMEZONE", "UTC")
+            "incident": incident
         })
 
         return render(request, self.template_name, self.__context.get())
