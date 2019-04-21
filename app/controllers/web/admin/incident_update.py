@@ -46,7 +46,8 @@ class Incident_Update_Add(View):
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
             "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
-            "incident": incident
+            "incident": incident,
+            "timezone": os.getenv("APP_TIMEZONE", "UTC")
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -99,7 +100,8 @@ class Incident_Update_View(View):
             "update": update,
             "incident": incident,
             "components": components,
-            "affected_components": affected_components
+            "affected_components": affected_components,
+            "timezone": os.getenv("APP_TIMEZONE", "UTC")
         })
 
         return render(request, self.template_name, self.__context.get())
@@ -158,7 +160,8 @@ class Incident_Update_Edit(View):
         self.__context.push({
             "page_title": _("Edit Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
             "update": update,
-            "incident": incident
+            "incident": incident,
+            "timezone": os.getenv("APP_TIMEZONE", "UTC")
         })
 
         return render(request, self.template_name, self.__context.get())
