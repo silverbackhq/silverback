@@ -31,10 +31,29 @@ class Logging():
             "correlationId": correlation_id
         })
         self.__logger.debug(_("Request Body: %(body)s {'correlationId':'%(correlationId)s'}") % {
-            "body": request.body,
+            "body": self.__hide_secure_values(request.body),
             "correlationId": correlation_id
         })
 
         response = self.get_response(request)
 
         return response
+
+    def __hide_secure_values(self, request_body):
+        filtered_body = []
+        request_body = str(request_body)
+        if len(request_body) == 0:
+            return "&".join(filtered_body)
+
+        if "&" in request_body:
+            request_body = request_body.split("&")
+            for item in request_body:
+                if "=" in item:
+                    item = item.split("=")
+                    if "password" in item[0]:
+                        item[1] = "<hidden>"
+                    if "token" in item[0]:
+                        item[1] = "<hidden>"
+                    filtered_body.append("%s=%s" % (item[0], item[1]))
+
+        return "&".join(filtered_body)
