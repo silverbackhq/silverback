@@ -2,6 +2,7 @@
 Status Page Module
 """
 
+import os
 import json
 from datetime import datetime
 from datetime import timedelta
@@ -65,7 +66,7 @@ class Status_Page():
                 incident_data["updates"].append({
                     "type": update.status.title(),
                     "body": update.message,
-                    "date": update.datetime
+                    "date": "%s %s" % (update.datetime.strftime("%b %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC"))
                 })
 
                 components = self.__incident_update_component_entity.get_all(update.id)
@@ -135,7 +136,6 @@ class Status_Page():
                 "date": date.strftime("%B %d, %Y"),
                 "incidents": incidents_result
             })
-
             i += 1
 
         return past_incidents
@@ -146,7 +146,7 @@ class Status_Page():
         for update in updates:
             updates_result.append({
                 "type": update.status.title(),
-                "date": update.datetime,
+                "date": "%s %s" % (update.datetime.strftime("%b %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC")),
                 "body": update.message
             })
         return updates_result
