@@ -3,6 +3,8 @@ Status Page Module
 """
 
 import json
+from datetime import datetime
+from datetime import timedelta
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.incident_entity import Incident_Entity
 from app.modules.entity.incident_update_entity import Incident_Update_Entity
@@ -10,8 +12,6 @@ from app.modules.entity.incident_update_component_entity import Incident_Update_
 from django.utils.translation import gettext as _
 from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
-from datetime import datetime
-from datetime import timedelta
 
 
 class Status_Page():
@@ -123,12 +123,13 @@ class Status_Page():
             date = (datetime.now() - timedelta(days=i))
             incidents_result = []
             incidents = self.__incident_entity.get_incident_from_days(i)
+            print(incidents)
             for incident in incidents:
-                pass
+                incidents_result.append(incident)
 
             past_incidents.append({
                 "date": date.strftime("%B %d, %Y"),
-                "incidents": incidents_result
+                "incidents": []
             })
 
             i += 1

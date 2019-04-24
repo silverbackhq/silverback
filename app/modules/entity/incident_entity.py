@@ -3,10 +3,8 @@ Incident Entity Module
 """
 
 import datetime
-
 from django.db.models.aggregates import Count
 from django.utils import timezone
-
 from app.models import Incident
 
 
@@ -62,10 +60,7 @@ class Incident_Entity():
 
     def get_incident_from_days(self, days=7):
         last_x_days = (timezone.now() - datetime.timedelta(days))
-        x = Incident.objects.filter(
-            created_at__gte=last_x_days
-        ).extra({"day": "date(created_at)"}).order_by('-day')
-        return x
+        return Incident.objects.filter(datetime__date_c_eq=last_x_days).order_by('-datetime')
 
     def get_by_status(self, status):
         return Incident.objects.filter(status=status).order_by('-created_at')
