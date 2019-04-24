@@ -116,10 +116,8 @@ class Status_Page():
         }
 
     def get_past_incidents(self, days=7):
-
         i = 0
         past_incidents = []
-
         while days > i:
             date = (datetime.now() - timedelta(days=i))
             incidents_result = []
@@ -137,7 +135,6 @@ class Status_Page():
                 "incidents": incidents_result
             })
             i += 1
-
         return past_incidents
 
     def __get_incident_updates(self, incident_id):
