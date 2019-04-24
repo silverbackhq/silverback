@@ -123,18 +123,33 @@ class Status_Page():
             date = (datetime.now() - timedelta(days=i))
             incidents_result = []
             incidents = self.__incident_entity.get_incident_from_days(i)
-            print(incidents)
             for incident in incidents:
-                incidents_result.append(incident)
+                incidents_result.append({
+                    "uri": incident.uri,
+                    "subject": incident.name,
+                    "class": "text-danger",
+                    "updates": self.__get_incident_updates(incident.id)
+                })
 
             past_incidents.append({
                 "date": date.strftime("%B %d, %Y"),
-                "incidents": []
+                "incidents": incidents_result
             })
 
             i += 1
 
         return past_incidents
+
+    def __get_incident_updates(self, incident_id):
+        updates_result = []
+        updates = self.__incident_update_entity.get_all(incident_id)
+        for update in updates:
+            updates_result.append({
+                "type": update.status.title(),
+                "date": update.datetime,
+                "body": update.message
+            })
+        return updates_result
 
     def get_system_metrics(self):
 
