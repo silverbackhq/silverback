@@ -2,7 +2,10 @@
 Status Page Module
 """
 
+import os
 import json
+from datetime import datetime
+from datetime import timedelta
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.incident_entity import Incident_Entity
 from app.modules.entity.incident_update_entity import Incident_Update_Entity
@@ -10,8 +13,6 @@ from app.modules.entity.incident_update_component_entity import Incident_Update_
 from django.utils.translation import gettext as _
 from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
-from datetime import datetime
-from datetime import timedelta
 
 
 class Status_Page():
@@ -65,7 +66,7 @@ class Status_Page():
                 incident_data["updates"].append({
                     "type": update.status.title(),
                     "body": update.message,
-                    "date": update.datetime
+                    "date": "%s %s" % (update.datetime.strftime("%b %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC"))
                 })
 
                 components = self.__incident_update_component_entity.get_all(update.id)
@@ -124,16 +125,31 @@ class Status_Page():
             incidents_result = []
             incidents = self.__incident_entity.get_incident_from_days(i)
             for incident in incidents:
-                pass
+                incidents_result.append({
+                    "uri": incident.uri,
+                    "subject": incident.name,
+                    "class": "text-danger",
+                    "updates": self.__get_incident_updates(incident.id)
+                })
 
             past_incidents.append({
                 "date": date.strftime("%B %d, %Y"),
                 "incidents": incidents_result
             })
-
             i += 1
 
         return past_incidents
+
+    def __get_incident_updates(self, incident_id):
+        updates_result = []
+        updates = self.__incident_update_entity.get_all(incident_id)
+        for update in updates:
+            updates_result.append({
+                "type": update.status.title(),
+                "date": "%s %s" % (update.datetime.strftime("%b %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC")),
+                "body": update.message
+            })
+        return updates_result
 
     def get_system_metrics(self):
 
