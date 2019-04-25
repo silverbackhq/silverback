@@ -82,37 +82,40 @@ class Status_Page():
         return False
 
     def get_incidents_for_period(self, period):
+        period = "May 2019 - July 2019"
+        incidents = [
+            {
+                "date": "March 2019",
+                "incidents": [
+                    {
+                        "uri": "123",
+                        "subject": "Partial network outage at one of our network suppliers",
+                        "class": "text-danger",
+                        "final_update": "This incident has been resolved.",
+                        "period": "March 7, 08:56 CET - March 8, 2:56 CET"
+                    },
+                    {
+                        "uri": "123",
+                        "subject": "Partial network outage at one of our network suppliers",
+                        "class": "text-danger",
+                        "final_update": "This incident has been resolved.",
+                        "period": "March 7, 08:56 CET - March 8, 2:56 CET"
+                    },
+                ]
+            },
+            {
+                "date": "February 2019",
+                "incidents": []
+            },
+            {
+                "date": "January 2019",
+                "incidents": []
+            }
+        ]
+
         return {
-            "period": "May 2019 - July 2019",
-            "incidents": [
-                {
-                    "date": "March 2019",
-                    "incidents": [
-                        {
-                            "uri": "123",
-                            "subject": "Partial network outage at one of our network suppliers",
-                            "class": "text-danger",
-                            "final_update": "This incident has been resolved.",
-                            "period": "March 7, 08:56 CET - March 8, 2:56 CET"
-                        },
-                        {
-                            "uri": "123",
-                            "subject": "Partial network outage at one of our network suppliers",
-                            "class": "text-danger",
-                            "final_update": "This incident has been resolved.",
-                            "period": "March 7, 08:56 CET - March 8, 2:56 CET"
-                        },
-                    ]
-                },
-                {
-                    "date": "February 2019",
-                    "incidents": []
-                },
-                {
-                    "date": "January 2019",
-                    "incidents": []
-                }
-            ]
+            "period": period,
+            "incidents": incidents
         }
 
     def get_past_incidents(self, days=7):
