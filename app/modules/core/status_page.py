@@ -13,6 +13,7 @@ from app.modules.entity.incident_update_component_entity import Incident_Update_
 from django.utils.translation import gettext as _
 from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
+from dateutil.relativedelta import relativedelta
 
 
 class Status_Page():
@@ -82,7 +83,19 @@ class Status_Page():
         return False
 
     def get_incidents_for_period(self, period):
-        period = "May 2019 - July 2019"
+
+        today = datetime.today()
+        datem = datetime(today.year, today.month, 1)
+
+        # incident_date <= from_date
+        # incident_date > to_date
+
+        from_date = datem - relativedelta(months=+(period-1) * 3)
+        to_date = datem - relativedelta(months=+(period * 3))
+
+        period = "%s - %s" % (from_date.strftime("%B %Y"), (to_date + relativedelta(months=+1)).strftime("%B %Y"))
+        from_date = datetime(from_date.year, from_date.month, 1)
+        to_date = datetime(to_date.year, to_date.month, 1)
 
         incidents = [
             {
