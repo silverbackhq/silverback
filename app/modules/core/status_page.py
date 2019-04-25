@@ -97,35 +97,15 @@ class Status_Page():
         from_date = datetime(from_date.year, from_date.month, 1)
         to_date = datetime(to_date.year, to_date.month, 1)
 
-        incidents = [
-            {
-                "date": "March 2019",
-                "incidents": [
-                    {
-                        "uri": "123",
-                        "subject": "Partial network outage at one of our network suppliers",
-                        "class": "text-danger",
-                        "final_update": "This incident has been resolved.",
-                        "period": "March 7, 08:56 CET - March 8, 2:56 CET"
-                    },
-                    {
-                        "uri": "123",
-                        "subject": "Partial network outage at one of our network suppliers",
-                        "class": "text-danger",
-                        "final_update": "This incident has been resolved.",
-                        "period": "March 7, 08:56 CET - March 8, 2:56 CET"
-                    },
-                ]
-            },
-            {
-                "date": "February 2019",
-                "incidents": []
-            },
-            {
-                "date": "January 2019",
-                "incidents": []
-            }
-        ]
+        incidents = []
+        while from_date > to_date:
+            current_incidents = []
+            current_date = from_date.strftime("%B %Y")
+            incidents.append({
+                "date": current_date,
+                "incidents": current_incidents
+            })
+            from_date -= relativedelta(months=+1)
 
         return {
             "period": period,

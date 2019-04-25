@@ -82,7 +82,7 @@ class Status_Page_History(View):
             "favicon_url": self.__status_page_module.get_favicon_url(),
             "is_authenticated": request.user and request.user.is_authenticated,
             "prev_link": period + 1,
-            "next_link": period - 1 if period > 1 else 1,
+            "next_link": period - 1 if period > 1 else 0,
             "history_period": data["period"],
             "past_incidents": data["incidents"],
         })
