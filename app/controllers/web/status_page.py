@@ -65,7 +65,9 @@ class Status_Page_History(View):
         self.__option_entity = Option_Entity()
         self.__status_page_module = Status_Page_Module()
 
-        if int(period) < 1:
+        period = int(period)
+
+        if period < 1:
             raise Http404("History period not found.")
 
         data = self.__status_page_module.get_incidents_for_period(period)
