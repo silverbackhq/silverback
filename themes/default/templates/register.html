@@ -19,23 +19,23 @@
                             <div class="card-title">{% trans "Create new account" %}</div>
                             <div class="form-group">
                                 <label class="form-label">{% trans "First Name" %}<span class="form-required">*</span></label>
-                                <input type="text" name="first_name" class="form-control" placeholder="{% trans "Enter first name" %}" required>
+                                <input type="text" name="first_name" class="form-control" placeholder="{% trans 'Enter first name' %}" required>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">{% trans "Last Name" %}<span class="form-required">*</span></label>
-                                <input type="text" name="last_name" class="form-control" placeholder="{% trans "Enter last name" %}" required>
+                                <input type="text" name="last_name" class="form-control" placeholder="{% trans 'Enter last name' %}" required>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">{% trans "Username" %}<span class="form-required">*</span></label>
-                                <input type="text" name="username" class="form-control" placeholder="{% trans "Enter username" %}" required>
+                                <input type="text" name="username" class="form-control" placeholder="{% trans 'Enter username' %}" required>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">{% trans "Email address" %}<span class="form-required">*</span></label>
-                                <input type="email" name="email" class="form-control" placeholder="{% trans "Enter email" %}" value="{{ register_request.email }}" required>
+                                <input type="email" name="email" class="form-control" placeholder="{% trans 'Enter email' %}" value="{{ register_request.email }}" required>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">{% trans "Password" %}<span class="form-required">*</span></label>
-                                <input type="password" name="password" class="form-control" placeholder="{% trans "Password" %}" required>
+                                <input type="password" name="password" class="form-control" placeholder="{% trans 'Password' %}" required>
                             </div>
                             <div class="form-footer">
                                 <button type="submit" class="btn btn-primary btn-block" v-bind:class="{ 'btn-loading': isInProgress }" v-bind:disabled="isInProgress">{% trans "Create a new account" %}</button>

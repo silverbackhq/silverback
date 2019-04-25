@@ -19,15 +19,15 @@
                                     <div class="col-md-12 col-lg-12">
                                         <div class="form-group">
                                             <label class="form-label">{% trans "First Name" %}<span class="form-required">*</span></label>
-                                            <input type="text" name="first_name" class="form-control" placeholder="{% trans "Enter first name" %}" value="{{ user.first_name }}" required>
+                                            <input type="text" name="first_name" class="form-control" placeholder="{% trans 'Enter first name' %}" value="{{ user.first_name }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Last Name" %}<span class="form-required">*</span></label>
-                                            <input type="text" name="last_name" class="form-control" placeholder="{% trans "Enter last name" %}" value="{{ user.last_name }}" required>
+                                            <input type="text" name="last_name" class="form-control" placeholder="{% trans 'Enter last name' %}" value="{{ user.last_name }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Username" %}<span class="form-required">*</span></label>
-                                            <input type="text" name="username" class="form-control" placeholder="{% trans "Enter username" %}" value="{{ user.username }}" required>
+                                            <input type="text" name="username" class="form-control" placeholder="{% trans 'Enter username' %}" value="{{ user.username }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Role" %}<span class="form-required">*</span></label>
@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">{% trans "Email address" %}<span class="form-required">*</span></label>
-                                            <input type="email" name="email" class="form-control" placeholder="{% trans "Enter email" %}" value="{{ user.email }}" required>
+                                            <input type="email" name="email" class="form-control" placeholder="{% trans 'Enter email' %}" value="{{ user.email }}" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="custom-control custom-checkbox">
@@ -49,7 +49,7 @@
                                         <template v-if="updatePassword">
                                             <div class="form-group">
                                                 <label class="form-label">{% trans "Password" %}<span class="form-required">*</span></label>
-                                                <input type="password" name="password" class="form-control" placeholder="{% trans "Password" %}" required>
+                                                <input type="password" name="password" class="form-control" placeholder="{% trans 'Password' %}" required>
                                             </div>
                                         </template>
                                     </div>
