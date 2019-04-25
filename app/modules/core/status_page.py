@@ -83,6 +83,7 @@ class Status_Page():
 
     def get_incidents_for_period(self, period):
         period = "May 2019 - July 2019"
+
         incidents = [
             {
                 "date": "March 2019",
