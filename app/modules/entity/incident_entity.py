@@ -68,6 +68,13 @@ class Incident_Entity():
             last_x_days = (timezone.now() - datetime.timedelta(days))
             return Incident.objects.filter(datetime__date_c_eq=last_x_days).order_by('-datetime')
 
+    def get_incident_on_month(self, date):
+        convert_tz = True if (os.getenv("CONVERT_TZ", "False") == "True") else False
+        if convert_tz:
+            return Incident.objects.filter(datetime__month=date.month).filter(datetime__year=date.year).order_by('-datetime')
+        else:
+            return Incident.objects.filter(datetime__month_c_eq=date, datetime__year_c_eq=date).order_by('-datetime')
+
     def get_by_status(self, status):
         return Incident.objects.filter(status=status).order_by('-created_at')
 

@@ -82,3 +82,29 @@ class DateNoEqLookup(Lookup):
 
         params = lhs_params + rhs_params
         return 'DATE(%s) <> DATE(%s)' % (lhs, rhs), params
+
+
+@DateField.register_lookup
+@DateTimeField.register_lookup
+class YearEqLookup(Lookup):
+    lookup_name = 'year_c_eq'
+
+    def as_sql(self, compiler, connection):
+        lhs, lhs_params = self.process_lhs(compiler, connection)
+        rhs, rhs_params = self.process_rhs(compiler, connection)
+
+        params = lhs_params + rhs_params
+        return 'EXTRACT(YEAR FROM DATE(%s)) = EXTRACT(YEAR FROM DATE(%s))' % (lhs, rhs), params
+
+
+@DateField.register_lookup
+@DateTimeField.register_lookup
+class MonthEqLookup(Lookup):
+    lookup_name = 'month_c_eq'
+
+    def as_sql(self, compiler, connection):
+        lhs, lhs_params = self.process_lhs(compiler, connection)
+        rhs, rhs_params = self.process_rhs(compiler, connection)
+
+        params = lhs_params + rhs_params
+        return 'EXTRACT(MONTH FROM DATE(%s)) = EXTRACT(MONTH FROM DATE(%s))' % (lhs, rhs), params

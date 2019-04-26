@@ -60,7 +60,7 @@
                                 <div class="card-options">
                                     <a href="{% url 'app.web.status_page_history' prev_link %}" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-arrow-left"></i></a>
                                     <button href="#" disabled class="btn btn-secondary btn-sm ml-2">{{ history_period }}</button>
-                                    {% if next_link > 1 %}
+                                    {% if next_link >= 1 %}
                                         <a href="{% url 'app.web.status_page_history' next_link %}" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-arrow-right"></i></a>
                                     {% endif %}
                                 </div>

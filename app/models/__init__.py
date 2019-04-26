@@ -25,3 +25,5 @@ from .custom_lookup import DateGtLookup                                         
 from .custom_lookup import DateLtEqLookup                                         # noqa: F401
 from .custom_lookup import DateGtEqLookup                                         # noqa: F401
 from .custom_lookup import DateNoEqLookup                                         # noqa: F401
+from .custom_lookup import YearEqLookup                                           # noqa: F401
+from .custom_lookup import MonthEqLookup                                          # noqa: F401

@@ -4,6 +4,7 @@ Status Page Module
 
 import os
 import json
+from django.utils import timezone
 from datetime import datetime
 from datetime import timedelta
 from app.modules.entity.option_entity import Option_Entity
@@ -13,6 +14,8 @@ from app.modules.entity.incident_update_component_entity import Incident_Update_
 from django.utils.translation import gettext as _
 from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
+from dateutil.relativedelta import relativedelta
+from django.forms.fields import DateTimeField
 
 
 class Status_Page():
@@ -82,44 +85,53 @@ class Status_Page():
         return False
 
     def get_incidents_for_period(self, period):
+
+        today = timezone.now()
+        datem = datetime(today.year, today.month, 1)
+
+        from_date = datem - relativedelta(months=+(period - 1) * 3)
+        to_date = datem - relativedelta(months=+(period * 3))
+
+        period = "%s - %s" % (from_date.strftime("%B %Y"), (to_date + relativedelta(months=+1)).strftime("%B %Y"))
+        from_date = datetime(from_date.year, from_date.month, 1)
+        to_date = datetime(to_date.year, to_date.month, 1)
+
+        incidents = []
+        while from_date > to_date:
+            current_incidents = []
+
+            incidents_list = self.__incident_entity.get_incident_on_month(DateTimeField().clean(from_date))
+
+            for incident in incidents_list:
+                current_incidents.append({
+                    "uri": incident.uri,
+                    "subject": incident.name,
+                    "class": "text-danger",
+                    "final_update": _("This incident has been resolved.") if incident.status == "closed" else _("This incident is still open."),
+                    "period": self.__get_incident_period(incident)
+                })
+
+            current_date = from_date.strftime("%B %Y")
+            incidents.append({
+                "date": current_date,
+                "incidents": current_incidents
+            })
+            from_date -= relativedelta(months=+1)
+
         return {
-            "period": "May 2019 - July 2019",
-            "incidents": [
-                {
-                    "date": "March 2019",
-                    "incidents": [
-                        {
-                            "uri": "123",
-                            "subject": "Partial network outage at one of our network suppliers",
-                            "class": "text-danger",
-                            "final_update": "This incident has been resolved.",
-                            "period": "March 7, 08:56 CET - March 8, 2:56 CET"
-                        },
-                        {
-                            "uri": "123",
-                            "subject": "Partial network outage at one of our network suppliers",
-                            "class": "text-danger",
-                            "final_update": "This incident has been resolved.",
-                            "period": "March 7, 08:56 CET - March 8, 2:56 CET"
-                        },
-                    ]
-                },
-                {
-                    "date": "February 2019",
-                    "incidents": []
-                },
-                {
-                    "date": "January 2019",
-                    "incidents": []
-                }
-            ]
+            "period": period,
+            "incidents": incidents
         }
 
-    def get_past_incidents(self, days=7):
+    def __get_incident_period(self, incident):
+        updates = self.__get_incident_updates(incident.id)
+        if len(updates):
+            return "%s %s - %s" % (incident.datetime.strftime("%B %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC"), updates[len(updates)-1]["date"])
+        return "%s %s" % (incident.datetime.strftime("%B %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC"))
 
+    def get_past_incidents(self, days=7):
         i = 0
         past_incidents = []
-
         while days > i:
             date = (datetime.now() - timedelta(days=i))
             incidents_result = []
@@ -137,7 +149,6 @@ class Status_Page():
                 "incidents": incidents_result
             })
             i += 1
-
         return past_incidents
 
     def __get_incident_updates(self, incident_id):
@@ -146,7 +157,7 @@ class Status_Page():
         for update in updates:
             updates_result.append({
                 "type": update.status.title(),
-                "date": "%s %s" % (update.datetime.strftime("%b %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC")),
+                "date": "%s %s" % (update.datetime.strftime("%B %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC")),
                 "body": update.message
             })
         return updates_result

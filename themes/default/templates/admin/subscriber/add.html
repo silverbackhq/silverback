@@ -30,28 +30,28 @@
                                         <template v-if="subscriptionType === 'email'">
                                             <div class="form-group">
                                                 <label class="form-label">{% trans "Email" %}<span class="form-required">*</span></label>
-                                                <input type="text" name="email" class="form-control" placeholder="{% trans "Enter email" %}" required>
+                                                <input type="text" name="email" class="form-control" placeholder="{% trans 'Enter email' %}" required>
                                             </div>
                                         </template>
                                         <template v-if="subscriptionType === 'phone'">
                                             <div class="form-group">
                                                 <label class="form-label">{% trans "Phone" %}<span class="form-required">*</span></label>
-                                                <input type="text" name="phone" class="form-control" placeholder="{% trans "Enter phone" %}" required>
+                                                <input type="text" name="phone" class="form-control" placeholder="{% trans 'Enter phone' %}" required>
                                             </div>
                                         </template>
                                         <template v-if="subscriptionType === 'endpoint'">
                                             <div class="form-group">
                                                 <label class="form-label">{% trans "Endpoint" %}<span class="form-required">*</span></label>
-                                                <input type="text" name="endpoint" class="form-control" placeholder="{% trans "Enter endpoint URL" %}" required>
+                                                <input type="text" name="endpoint" class="form-control" placeholder="{% trans 'Enter endpoint URL' %}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label">{% trans "Auth Token" %}</label>
-                                                <input type="text" name="auth_token" class="form-control" placeholder="{% trans "Enter auth token" %}">
+                                                <input type="text" name="auth_token" class="form-control" placeholder="{% trans 'Enter auth token' %}">
                                                 <small class="form-text text-muted">{% trans "We'll send this on header as" %} <code>X-AUTH-TOKEN</code></small>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label">{% trans "Email" %}<span class="form-required">*</span></label>
-                                                <input type="text" name="email" class="form-control" placeholder="{% trans "Enter email" %}" required>
+                                                <input type="text" name="email" class="form-control" placeholder="{% trans 'Enter email' %}" required>
                                                 <small class="form-text text-muted">{% trans "We'll send you email if your endpoint fails" %}</small>
                                             </div>
                                         </template>

@@ -65,6 +65,11 @@ class Status_Page_History(View):
         self.__option_entity = Option_Entity()
         self.__status_page_module = Status_Page_Module()
 
+        period = int(period)
+
+        if period < 1:
+            raise Http404("History period not found.")
+
         data = self.__status_page_module.get_incidents_for_period(period)
 
         if not data:
@@ -77,7 +82,7 @@ class Status_Page_History(View):
             "favicon_url": self.__status_page_module.get_favicon_url(),
             "is_authenticated": request.user and request.user.is_authenticated,
             "prev_link": period + 1,
-            "next_link": period - 1 if period > 1 else 1,
+            "next_link": period - 1 if period > 1 else 0,
             "history_period": data["period"],
             "past_incidents": data["incidents"],
         })
