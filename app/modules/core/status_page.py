@@ -4,6 +4,7 @@ Status Page Module
 
 import os
 import json
+from django.utils import timezone
 from datetime import datetime
 from datetime import timedelta
 from app.modules.entity.option_entity import Option_Entity
@@ -14,6 +15,7 @@ from django.utils.translation import gettext as _
 from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
 from dateutil.relativedelta import relativedelta
+from django.forms.fields import DateTimeField
 
 
 class Status_Page():
@@ -84,13 +86,10 @@ class Status_Page():
 
     def get_incidents_for_period(self, period):
 
-        today = datetime.today()
+        today = timezone.now()
         datem = datetime(today.year, today.month, 1)
 
-        # incident_date <= from_date
-        # incident_date > to_date
-
-        from_date = datem - relativedelta(months=+(period-1) * 3)
+        from_date = datem - relativedelta(months=+(period - 1) * 3)
         to_date = datem - relativedelta(months=+(period * 3))
 
         period = "%s - %s" % (from_date.strftime("%B %Y"), (to_date + relativedelta(months=+1)).strftime("%B %Y"))
@@ -100,6 +99,18 @@ class Status_Page():
         incidents = []
         while from_date > to_date:
             current_incidents = []
+
+            incidents_list = self.__incident_entity.get_incident_on_month(DateTimeField().clean(from_date))
+
+            for incident in incidents_list:
+                current_incidents.append({
+                    "uri": incident.uri,
+                    "subject": incident.name,
+                    "class": "text-danger",
+                    "final_update": _("This incident has been resolved.") if incident.status == "closed" else _("This incident is still open."),
+                    "period": self.__get_incident_period(incident)
+                })
+
             current_date = from_date.strftime("%B %Y")
             incidents.append({
                 "date": current_date,
@@ -111,6 +122,12 @@ class Status_Page():
             "period": period,
             "incidents": incidents
         }
+
+    def __get_incident_period(self, incident):
+        updates = self.__get_incident_updates(incident.id)
+        if len(updates):
+            return "%s %s - %s" % (incident.datetime.strftime("%B %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC"), updates[len(updates)-1]["date"])
+        return "%s %s" % (incident.datetime.strftime("%B %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC"))
 
     def get_past_incidents(self, days=7):
         i = 0
@@ -140,7 +157,7 @@ class Status_Page():
         for update in updates:
             updates_result.append({
                 "type": update.status.title(),
-                "date": "%s %s" % (update.datetime.strftime("%b %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC")),
+                "date": "%s %s" % (update.datetime.strftime("%B %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC")),
                 "body": update.message
             })
         return updates_result
