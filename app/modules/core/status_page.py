@@ -11,6 +11,7 @@ from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.incident_entity import Incident_Entity
 from app.modules.entity.incident_update_entity import Incident_Update_Entity
 from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
+from app.modules.entity.metric_entity import Metric_Entity
 from django.utils.translation import gettext as _
 from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
@@ -26,6 +27,7 @@ class Status_Page():
     __incident_update_component_entity = None
     __component_group_entity = None
     __component_entity = None
+    __metric_entity = None
 
     def __init__(self):
         self.__option_entity = Option_Entity()
@@ -34,6 +36,7 @@ class Status_Page():
         self.__incident_update_component_entity = Incident_Update_Component_Entity()
         self.__component_group_entity = Component_Group_Entity()
         self.__component_entity = Component_Entity()
+        self.__metric_entity = Metric_Entity()
 
     def get_system_status(self):
         return "operational"
@@ -58,6 +61,7 @@ class Status_Page():
             incident_data = {
                 "headline": incident.name,
                 "headline_class": "text-danger",
+                "status": incident.status,
                 "sub_headline": _("Incident Report for %s") % (app_name.value),
                 "affected_components": [],
                 "updates": []
@@ -114,6 +118,7 @@ class Status_Page():
                     "uri": incident.uri,
                     "subject": incident.name,
                     "class": "text-danger",
+                    "status": incident.status,
                     "final_update": _("This incident has been resolved.") if incident.status == "closed" else _("This incident is still open."),
                     "period": self.__get_incident_period(incident)
                 })
@@ -155,6 +160,7 @@ class Status_Page():
                     "uri": incident.uri,
                     "subject": incident.name,
                     "class": "text-danger",
+                    "status": incident.status,
                     "updates": self.__get_incident_updates(incident.id)
                 })
 
@@ -180,42 +186,32 @@ class Status_Page():
         return updates_result
 
     def get_system_metrics(self):
-
-        metrics = [
-            {
-                "id": "container",
-                "title": "Website Dashboard - Average response time",
-                "xtitle": "Date",
-                "ytitle": "Time (m)",
-                "day_data": [
-                    {"timestamp": 1554858060000, "value": 0.70},
-                    {"timestamp": 1554858120000, "value": 0.80},
-                    {"timestamp": 1554858180000, "value": 0.90},
-                    {"timestamp": 1554858240000, "value": 0.95}
-                ],
-                "week_data": [
-                    {"timestamp": 1554858060000, "value": 0.75},
-                    {"timestamp": 1554858120000, "value": 0.85},
-                    {"timestamp": 1554858180000, "value": 0.95},
-                    {"timestamp": 1554858240000, "value": 0.98}
-                ],
-                "month_data": [
-                    {"timestamp": 1554858060000, "value": 0.95},
-                    {"timestamp": 1554858120000, "value": 0.76},
-                    {"timestamp": 1554858180000, "value": 0.43},
-                    {"timestamp": 1554858240000, "value": 0.78}
-                ],
-            }
-        ]
-
+        metrics = []
         option = self.__option_entity.get_one_by_key("builder_metrics")
         if option:
             items = json.loads(option.value)
             for item in items:
                 if "m-" in item:
-                    item = item.replace("m-", "")
-
+                    item = int(item.replace("m-", ""))
+                    if item:
+                        metric = self.__metric_entity.get_one_by_id(item)
+                        if metric:
+                            metrics.append({
+                                "id": "metric_container_%d" % (metric.id),
+                                "title": metric.title,
+                                "xtitle": metric.x_axis,
+                                "ytitle": metric.y_axis,
+                                "day_data": self.__get_metics(metric, "day"),
+                                "week_data": self.__get_metics(metric, "week"),
+                                "month_data": self.__get_metics(metric, "month")
+                            })
         return metrics
+
+    def __get_metics(self, metric, period):
+        if metric.source == "newrelic":
+            print(metric.data["application"])
+            print(metric.data["response_time"])
+        return []
 
     def get_services(self):
         services = []

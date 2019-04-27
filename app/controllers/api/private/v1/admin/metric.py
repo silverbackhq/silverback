@@ -326,6 +326,7 @@ class NewRelic_Apps(View):
         self.__request = Request()
         self.__response = Response()
         self.__helpers = Helpers()
+        self.__form = Form()
         self.__metric = Metric_Module()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
