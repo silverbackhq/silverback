@@ -69,7 +69,10 @@ class Status_Page():
                 incident_data["updates"].append({
                     "type": update.status.title(),
                     "body": update.message,
-                    "date": "%s %s" % (update.datetime.strftime("%b %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC"))
+                    "date": "%(date)s %(tz)s" % {
+                        "date": update.datetime.strftime("%B %d, %H:%M"),
+                        "tz": os.getenv("APP_TIMEZONE", "UTC")
+                    }
                 })
 
                 components = self.__incident_update_component_entity.get_all(update.id)
@@ -92,7 +95,11 @@ class Status_Page():
         from_date = datem - relativedelta(months=+(period - 1) * 3)
         to_date = datem - relativedelta(months=+(period * 3))
 
-        period = "%s - %s" % (from_date.strftime("%B %Y"), (to_date + relativedelta(months=+1)).strftime("%B %Y"))
+        period = "%(from)s - %(to)s" % {
+            "from": from_date.strftime("%B %Y"),
+            "to": (to_date + relativedelta(months=+1)).strftime("%B %Y")
+        }
+
         from_date = datetime(from_date.year, from_date.month, 1)
         to_date = datetime(to_date.year, to_date.month, 1)
 
@@ -126,8 +133,15 @@ class Status_Page():
     def __get_incident_period(self, incident):
         updates = self.__get_incident_updates(incident.id)
         if len(updates):
-            return "%s %s - %s" % (incident.datetime.strftime("%B %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC"), updates[len(updates)-1]["date"])
-        return "%s %s" % (incident.datetime.strftime("%B %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC"))
+            return "%(from)s %(tz)s - %(to)s" % {
+                "from": incident.datetime.strftime("%B %d, %H:%M"),
+                "tz": os.getenv("APP_TIMEZONE", "UTC"),
+                "to": updates[len(updates)-1]["date"]
+            }
+        return "%(from)s %(tz)s" % {
+            "from": incident.datetime.strftime("%B %d, %H:%M"),
+            "tz": os.getenv("APP_TIMEZONE", "UTC")
+        }
 
     def get_past_incidents(self, days=7):
         i = 0
@@ -157,7 +171,10 @@ class Status_Page():
         for update in updates:
             updates_result.append({
                 "type": update.status.title(),
-                "date": "%s %s" % (update.datetime.strftime("%B %d, %H:%M"), os.getenv("APP_TIMEZONE", "UTC")),
+                "date": "%(date)s %(tz)s" % {
+                    "date": update.datetime.strftime("%B %d, %H:%M"),
+                    "tz": os.getenv("APP_TIMEZONE", "UTC")
+                },
                 "body": update.message
             })
         return updates_result
