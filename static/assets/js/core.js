@@ -1867,7 +1867,6 @@ silverback_app.edit_metric_screen = (Vue, axios, $, Pace, Cookies, toastr) => {
                             this.newRelicApps = response.payload.apps;
                             setTimeout(() => {
                                 $('select[name="metric"]').val(_metric_data.metric);
-                                $('input[name="display_suffix"]').val(_metric_data.display_suffix);
                                 $('select[name="application"]').val(_metric_data.application);
                             }, 50);
                         } else {

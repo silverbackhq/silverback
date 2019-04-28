@@ -17,6 +17,9 @@ from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
 from dateutil.relativedelta import relativedelta
 from django.forms.fields import DateTimeField
+from pyumetric import Datetime_Utils
+from pyumetric import NewRelic_Provider
+from dateutil.parser import parse
 
 
 class Status_Page():
@@ -201,17 +204,69 @@ class Status_Page():
                                 "title": metric.title,
                                 "xtitle": metric.x_axis,
                                 "ytitle": metric.y_axis,
-                                "day_data": self.__get_metics(metric, "day"),
-                                "week_data": self.__get_metics(metric, "week"),
-                                "month_data": self.__get_metics(metric, "month")
+                                "day_data": self.__get_metics(metric, -1),
+                                "week_data": self.__get_metics(metric, -7),
+                                "month_data": self.__get_metics(metric, -30)
                             })
         return metrics
 
     def __get_metics(self, metric, period):
+        metric_values = []
+        option = self.__option_entity.get_one_by_key("newrelic_api_key")
+
+        if not option:
+            raise Exception("Unable to find option with key newrelic_api_key")
+
+        new_relic_client = NewRelic_Provider(option.value)
+
         if metric.source == "newrelic":
-            print(metric.data["application"])
-            print(metric.data["response_time"])
-        return []
+            data = json.loads(metric.data)
+
+            if data["metric"] == "response_time":
+                response = new_relic_client.get_metric(
+                    data["application"],
+                    ["WebTransaction"],
+                    ["average_response_time"],
+                    Datetime_Utils("UTC", period).iso(),
+                    Datetime_Utils("UTC").iso(),
+                    False
+                )
+                if len(response) > 0:
+                    response = json.loads(response)
+
+                    if "metric_data" not in response:
+                        raise Exception(_("Error: Unable to find metric_data on NewRelic response!"))
+
+                    if "WebTransaction" not in response["metric_data"]["metrics_found"]:
+                        raise Exception(_("Error: Unable to find metric WebTransaction on NewRelic response!"))
+
+                    if "metrics" not in response["metric_data"] or len(response["metric_data"]["metrics"]) < 1:
+                        raise Exception(_("Error: Unable to find metric metrics on NewRelic response!"))
+
+                    for item in response["metric_data"]["metrics"][0]["timeslices"]:
+                        metric_values.append({
+                            "timestamp": datetime.timestamp(parse(item["from"])),
+                            "value": item["values"]["average_response_time"]
+                        })
+            elif data["metric"] == "apdex":
+                raise Exception(_("Error: NewRelic apdex metric not implemented yet!"))
+
+            elif data["metric"] == "error_rate":
+                raise Exception(_("Error: NewRelic error_rate metric not implemented yet!"))
+
+            elif data["metric"] == "throughput":
+                raise Exception(_("Error: NewRelic throughput metric not implemented yet!"))
+
+            elif data["metric"] == "errors":
+                raise Exception(_("Error: NewRelic errors metric not implemented yet!"))
+
+            elif data["metric"] == "real_user_response_time":
+                raise Exception(_("Error: NewRelic real_user_response_time metric not implemented yet!"))
+
+            elif data["metric"] == "real_user_apdex":
+                raise Exception(_("Error: NewRelic real_user_apdex metric not implemented yet!"))
+
+        return metric_values
 
     def get_services(self):
         services = []
