@@ -11,11 +11,15 @@ from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.incident_entity import Incident_Entity
 from app.modules.entity.incident_update_entity import Incident_Update_Entity
 from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
+from app.modules.entity.metric_entity import Metric_Entity
 from django.utils.translation import gettext as _
 from app.modules.entity.component_group_entity import Component_Group_Entity
 from app.modules.entity.component_entity import Component_Entity
 from dateutil.relativedelta import relativedelta
 from django.forms.fields import DateTimeField
+from pyumetric import Datetime_Utils
+from pyumetric import NewRelic_Provider
+from dateutil.parser import parse
 
 
 class Status_Page():
@@ -26,6 +30,7 @@ class Status_Page():
     __incident_update_component_entity = None
     __component_group_entity = None
     __component_entity = None
+    __metric_entity = None
 
     def __init__(self):
         self.__option_entity = Option_Entity()
@@ -34,6 +39,7 @@ class Status_Page():
         self.__incident_update_component_entity = Incident_Update_Component_Entity()
         self.__component_group_entity = Component_Group_Entity()
         self.__component_entity = Component_Entity()
+        self.__metric_entity = Metric_Entity()
 
     def get_system_status(self):
         return "operational"
@@ -58,6 +64,7 @@ class Status_Page():
             incident_data = {
                 "headline": incident.name,
                 "headline_class": "text-danger",
+                "status": incident.status,
                 "sub_headline": _("Incident Report for %s") % (app_name.value),
                 "affected_components": [],
                 "updates": []
@@ -114,6 +121,7 @@ class Status_Page():
                     "uri": incident.uri,
                     "subject": incident.name,
                     "class": "text-danger",
+                    "status": incident.status,
                     "final_update": _("This incident has been resolved.") if incident.status == "closed" else _("This incident is still open."),
                     "period": self.__get_incident_period(incident)
                 })
@@ -155,6 +163,7 @@ class Status_Page():
                     "uri": incident.uri,
                     "subject": incident.name,
                     "class": "text-danger",
+                    "status": incident.status,
                     "updates": self.__get_incident_updates(incident.id)
                 })
 
@@ -180,42 +189,84 @@ class Status_Page():
         return updates_result
 
     def get_system_metrics(self):
-
-        metrics = [
-            {
-                "id": "container",
-                "title": "Website Dashboard - Average response time",
-                "xtitle": "Date",
-                "ytitle": "Time (m)",
-                "day_data": [
-                    {"timestamp": 1554858060000, "value": 0.70},
-                    {"timestamp": 1554858120000, "value": 0.80},
-                    {"timestamp": 1554858180000, "value": 0.90},
-                    {"timestamp": 1554858240000, "value": 0.95}
-                ],
-                "week_data": [
-                    {"timestamp": 1554858060000, "value": 0.75},
-                    {"timestamp": 1554858120000, "value": 0.85},
-                    {"timestamp": 1554858180000, "value": 0.95},
-                    {"timestamp": 1554858240000, "value": 0.98}
-                ],
-                "month_data": [
-                    {"timestamp": 1554858060000, "value": 0.95},
-                    {"timestamp": 1554858120000, "value": 0.76},
-                    {"timestamp": 1554858180000, "value": 0.43},
-                    {"timestamp": 1554858240000, "value": 0.78}
-                ],
-            }
-        ]
-
+        metrics = []
         option = self.__option_entity.get_one_by_key("builder_metrics")
         if option:
             items = json.loads(option.value)
             for item in items:
                 if "m-" in item:
-                    item = item.replace("m-", "")
-
+                    item = int(item.replace("m-", ""))
+                    if item:
+                        metric = self.__metric_entity.get_one_by_id(item)
+                        if metric:
+                            metrics.append({
+                                "id": "metric_container_%d" % (metric.id),
+                                "title": metric.title,
+                                "xtitle": metric.x_axis,
+                                "ytitle": metric.y_axis,
+                                "day_data": self.__get_metics(metric, -1),
+                                "week_data": self.__get_metics(metric, -7),
+                                "month_data": self.__get_metics(metric, -30)
+                            })
         return metrics
+
+    def __get_metics(self, metric, period):
+        metric_values = []
+        option = self.__option_entity.get_one_by_key("newrelic_api_key")
+
+        if not option:
+            raise Exception("Unable to find option with key newrelic_api_key")
+
+        new_relic_client = NewRelic_Provider(option.value)
+
+        if metric.source == "newrelic":
+            data = json.loads(metric.data)
+
+            if data["metric"] == "response_time":
+                response = new_relic_client.get_metric(
+                    data["application"],
+                    ["WebTransaction"],
+                    ["average_response_time"],
+                    Datetime_Utils("UTC", period).iso(),
+                    Datetime_Utils("UTC").iso(),
+                    False
+                )
+                if len(response) > 0:
+                    response = json.loads(response)
+
+                    if "metric_data" not in response:
+                        raise Exception(_("Error: Unable to find metric_data on NewRelic response!"))
+
+                    if "WebTransaction" not in response["metric_data"]["metrics_found"]:
+                        raise Exception(_("Error: Unable to find metric WebTransaction on NewRelic response!"))
+
+                    if "metrics" not in response["metric_data"] or len(response["metric_data"]["metrics"]) < 1:
+                        raise Exception(_("Error: Unable to find metric metrics on NewRelic response!"))
+
+                    for item in response["metric_data"]["metrics"][0]["timeslices"]:
+                        metric_values.append({
+                            "timestamp": datetime.timestamp(parse(item["from"])),
+                            "value": item["values"]["average_response_time"]
+                        })
+            elif data["metric"] == "apdex":
+                raise Exception(_("Error: NewRelic apdex metric not implemented yet!"))
+
+            elif data["metric"] == "error_rate":
+                raise Exception(_("Error: NewRelic error_rate metric not implemented yet!"))
+
+            elif data["metric"] == "throughput":
+                raise Exception(_("Error: NewRelic throughput metric not implemented yet!"))
+
+            elif data["metric"] == "errors":
+                raise Exception(_("Error: NewRelic errors metric not implemented yet!"))
+
+            elif data["metric"] == "real_user_response_time":
+                raise Exception(_("Error: NewRelic real_user_response_time metric not implemented yet!"))
+
+            elif data["metric"] == "real_user_apdex":
+                raise Exception(_("Error: NewRelic real_user_apdex metric not implemented yet!"))
+
+        return metric_values
 
     def get_services(self):
         services = []

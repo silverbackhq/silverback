@@ -2,6 +2,7 @@
 Metric Module
 """
 
+import json
 from pyumetric import NewRelic_Provider
 from app.modules.entity.metric_entity import Metric_Entity
 from app.modules.entity.option_entity import Option_Entity
@@ -54,9 +55,10 @@ class Metric():
     def get_new_relic_apps(self):
         result = []
         try:
-            apps = self.__newrelic.get_apps().json()
-            for app in apps["applications"]:
-                result.append({"key": app["id"], "value": app["name"]})
-            return result
-        except Exception:
-            return False
+            response = self.__newrelic.get_apps()
+        except Exception as e:
+            raise Exception(e)
+        apps = json.loads(response)
+        for app in apps["applications"]:
+            result.append({"key": app["id"], "value": app["name"]})
+        return result

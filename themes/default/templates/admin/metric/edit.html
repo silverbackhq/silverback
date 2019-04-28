@@ -8,7 +8,6 @@
             source: "{{ metric.source }}",
             application: "{{ metric.data.application }}",
             metric: "{{ metric.data.metric }}",
-            display_suffix: "{{ metric.data.display_suffix }}",
             newrelic_apps_fetch: "{% url 'app.api.private.v1.admin.metric.action.new_relic_apps.endpoint' %}"
         }
     </script>

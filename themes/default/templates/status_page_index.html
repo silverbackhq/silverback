@@ -147,33 +147,35 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="row">
-	                <div class="col-sm-12 col-md-12">
-	                    <div class="card">
-	                        <div class="card-header">
-	                            <h3 class="card-title">{% trans "System Metrics" %}</h3>
-	                            <div class="card-options">
-	                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="day_metric">{% trans "Day" %}</a>
-	                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="week_metric">{% trans "Week" %}</a>
-	                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="month_metric">{% trans "Month" %}</a>
-	                            </div>
-	                        </div>
-	                        <div class="card-body">
-	                        	{% for system_metric in system_metrics %}
-		                        	<div class="system_metric" data-target="day_metric">
-	                        			<div id="{{ system_metric.id }}_day" style="height: 16rem"></div>
-	                        		</div>
-	                        		<div class="system_metric" style="display: none" data-target="week_metric">
-		                            	<div id="{{ system_metric.id }}_week" style="height: 16rem"></div>
-		                        	</div>
-		                            <div class="system_metric" style="display: none" data-target="month_metric">
-		                            	<div id="{{ system_metric.id }}_month" style="height: 16rem"></div>
-		                        	</div>
-	                        	{% endfor %}
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
+	            {% if system_metrics %}
+		            <div class="row">
+		                <div class="col-sm-12 col-md-12">
+		                    <div class="card">
+		                        <div class="card-header">
+		                            <h3 class="card-title">{% trans "System Metrics" %}</h3>
+		                            <div class="card-options">
+		                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="day_metric">{% trans "Day" %}</a>
+		                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="week_metric">{% trans "Week" %}</a>
+		                                <a href="javascript:void(0)" class="btn btn-secondary btn-sm ml-2" data-id="month_metric">{% trans "Month" %}</a>
+		                            </div>
+		                        </div>
+		                        <div class="card-body">
+		                        	{% for system_metric in system_metrics %}
+			                        	<div class="system_metric" data-target="day_metric">
+		                        			<div id="{{ system_metric.id }}_day" style="height: 16rem"></div>
+		                        		</div>
+		                        		<div class="system_metric" style="display: none" data-target="week_metric">
+			                            	<div id="{{ system_metric.id }}_week" style="height: 16rem"></div>
+			                        	</div>
+			                            <div class="system_metric" style="display: none" data-target="month_metric">
+			                            	<div id="{{ system_metric.id }}_month" style="height: 16rem"></div>
+			                        	</div>
+		                        	{% endfor %}
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+	            {% endif %}
 	            <br/>
 	            <div class="row">
 	                <div class="col-sm-12 col-md-12">

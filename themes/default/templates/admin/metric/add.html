@@ -62,11 +62,11 @@
                                                 <label class="form-label">{% trans "APM Metric" %}<span class="form-required">*</span></label>
                                                 <select class="form-control" name="metric" required>
                                                     <option value="">{% trans "Please Select a Value" %}</option>
+                                                    <option value="response_time">{% trans "Response Time" %}</option>
                                                     <option value="apdex">{% trans "Apdex" %}</option>
                                                     <option value="error_rate">{% trans "Error Rate" %}</option>
                                                     <option value="throughput">{% trans "Throughput" %}</option>
                                                     <option value="errors">{% trans "Errors" %}</option>
-                                                    <option value="response_time">{% trans "Response Time" %}</option>
                                                     <option value="real_user_response_time">{% trans "Real User Response Time" %}</option>
                                                     <option value="real_user_apdex">{% trans "Real User Apdex" %}</option>
                                                 </select>

@@ -326,6 +326,7 @@ class NewRelic_Apps(View):
         self.__request = Request()
         self.__response = Response()
         self.__helpers = Helpers()
+        self.__form = Form()
         self.__metric = Metric_Module()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
@@ -333,7 +334,15 @@ class NewRelic_Apps(View):
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        result = self.__metric.get_new_relic_apps()
+
+        result = False
+        try:
+            result = self.__metric.get_new_relic_apps()
+        except Exception as e:
+            self.__logger.error(_("Error while listing newrelic applications: %(error)s {'correlationId':'%(correlationId)s'}") % {
+                "error": str(e),
+                "correlationId": self.__correlation_id
+            })
 
         if result is False:
             return JsonResponse(self.__response.send_private_failure([{
