@@ -204,13 +204,13 @@ class Status_Page():
                                 "title": metric.title,
                                 "xtitle": metric.x_axis,
                                 "ytitle": metric.y_axis,
-                                "day_data": self.__get_metics(metric, -1),
-                                "week_data": self.__get_metics(metric, -7),
-                                "month_data": self.__get_metics(metric, -30)
+                                "day_data": self.__get_metrics(metric, -1),
+                                "week_data": self.__get_metrics(metric, -7),
+                                "month_data": self.__get_metrics(metric, -30)
                             })
         return metrics
 
-    def __get_metics(self, metric, period):
+    def __get_metrics(self, metric, period):
         metric_values = []
         option = self.__option_entity.get_one_by_key("newrelic_api_key")
 
