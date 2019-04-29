@@ -42,6 +42,10 @@ class Status_Page():
         self.__metric_entity = Metric_Entity()
 
     def get_system_status(self):
+        # Get Open Incidents
+        # if it has no resolved update
+        # Check the last incident updates
+        # Check it has any component is affected
         return "operational"
 
     def get_about_site(self):
@@ -313,10 +317,27 @@ class Status_Page():
         return services
 
     def get_status(self, id, type):
+        # Get Open Incidents
+        # if it has no resolved update
+        # Check the last incident updates
+        # Check if the component is affected
         if type == "component":
             return "Operational"
+
+        # Get Group Components
+        # Get Open Incidents
+        # if it has no resolved update
+        # Check the last incident updates
+        # Check if one of the group components is affected
         elif type == "group":
             return "Operational"
 
-    def get_uptime_chart(self, id, type):
+    def __get_affectd_components(self):
+        # Get Open Incidents
+        # if it has no resolved update
+        # Check the last incident updates
+        # Create a list of affected components
+        return {}
+
+    def get_uptime_chart(self, id, type, period=90):
         return []
