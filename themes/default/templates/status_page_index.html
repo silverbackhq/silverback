@@ -238,145 +238,147 @@
 	    </div>
 	</div>
     <script>
-		{% for system_metric in system_metrics %}
-	        Highcharts.chart('{{ system_metric.id }}_day', {
-	            chart: {
-	                type: 'spline'
-	            },
-	            title: {
-	                text: '{{ system_metric.title }}'
-	            },
-	            xAxis: {
-	                type: 'datetime',
-	                dateTimeLabelFormats: {
-	                    month: '%e. %b',
-	                    year: '%b'
-	                },
-	                title: {
-	                    text: '{{ system_metric.xtitle }}'
-	                }
-	            },
-	            yAxis: {
-	                title: {
-	                    text: '{{ system_metric.ytitle }}'
-	                },
-	                min: 0
-	            },
-	            plotOptions: {
-	                spline: {
-	                    marker: {
-	                        enabled: true
-	                    }
-	                }
-	            },
-	            series: [{
-	                name: '{{ system_metric.xtitle }}',
-	                data: [
-	                	{% for day in system_metric.day_data %}
-	                    	[{{ day.timestamp }}, {{ day.value }}],
-	               	 	{% endfor %}
-	                ]
-	            }],
-	            responsive: {
-	                rules: [{
-	                    condition: {
-	                        maxWidth: 500
-	                    }
-	                }]
-	            }
-	        });
-	        Highcharts.chart('{{ system_metric.id }}_week', {
-	            chart: {
-	                type: 'spline'
-	            },
-	            title: {
-	                text: '{{ system_metric.title }}'
-	            },
-	            xAxis: {
-	                type: 'datetime',
-	                dateTimeLabelFormats: {
-	                    month: '%e. %b',
-	                    year: '%b'
-	                },
-	                title: {
-	                    text: '{{ system_metric.xtitle }}'
-	                }
-	            },
-	            yAxis: {
-	                title: {
-	                    text: '{{ system_metric.ytitle }}'
-	                },
-	                min: 0
-	            },
-	            plotOptions: {
-	                spline: {
-	                    marker: {
-	                        enabled: true
-	                    }
-	                }
-	            },
-	            series: [{
-	                name: '{{ system_metric.xtitle }}',
-	                data: [
-	                	{% for week in system_metric.week_data %}
-	                    	[{{ week.timestamp }}, {{ week.value }}],
-	               	 	{% endfor %}
-	                ]
-	            }],
-	            responsive: {
-	                rules: [{
-	                    condition: {
-	                        maxWidth: 500
-	                    }
-	                }]
-	            }
-	        });
-	        Highcharts.chart('{{ system_metric.id }}_month', {
-	            chart: {
-	                type: 'spline'
-	            },
-	            title: {
-	                text: '{{ system_metric.title }}'
-	            },
-	            xAxis: {
-	                type: 'datetime',
-	                dateTimeLabelFormats: {
-	                    month: '%e. %b',
-	                    year: '%b'
-	                },
-	                title: {
-	                    text: '{{ system_metric.xtitle }}'
-	                }
-	            },
-	            yAxis: {
-	                title: {
-	                    text: '{{ system_metric.ytitle }}'
-	                },
-	                min: 0
-	            },
-	            plotOptions: {
-	                spline: {
-	                    marker: {
-	                        enabled: true
-	                    }
-	                }
-	            },
-	            series: [{
-	                name: '{{ system_metric.xtitle }}',
-	                data: [
-	                	{% for month in system_metric.month_data %}
-	                    	[{{ month.timestamp }}, {{ month.value }}],
-	               	 	{% endfor %}
-	                ]
-	            }],
-	            responsive: {
-	                rules: [{
-	                    condition: {
-	                        maxWidth: 500
-	                    }
-	                }]
-	            }
-	        });
-     	{% endfor %}
+	    {% if system_metrics %}
+			{% for system_metric in system_metrics %}
+		        Highcharts.chart('{{ system_metric.id }}_day', {
+		            chart: {
+		                type: 'spline'
+		            },
+		            title: {
+		                text: '{{ system_metric.title }}'
+		            },
+		            xAxis: {
+		                type: 'datetime',
+		                dateTimeLabelFormats: {
+		                    month: '%e. %b',
+		                    year: '%b'
+		                },
+		                title: {
+		                    text: '{{ system_metric.xtitle }}'
+		                }
+		            },
+		            yAxis: {
+		                title: {
+		                    text: '{{ system_metric.ytitle }}'
+		                },
+		                min: 0
+		            },
+		            plotOptions: {
+		                spline: {
+		                    marker: {
+		                        enabled: true
+		                    }
+		                }
+		            },
+		            series: [{
+		                name: '{{ system_metric.xtitle }}',
+		                data: [
+		                	{% for day in system_metric.day_data %}
+		                    	[{{ day.timestamp }}, {{ day.value }}],
+		               	 	{% endfor %}
+		                ]
+		            }],
+		            responsive: {
+		                rules: [{
+		                    condition: {
+		                        maxWidth: 500
+		                    }
+		                }]
+		            }
+		        });
+		        Highcharts.chart('{{ system_metric.id }}_week', {
+		            chart: {
+		                type: 'spline'
+		            },
+		            title: {
+		                text: '{{ system_metric.title }}'
+		            },
+		            xAxis: {
+		                type: 'datetime',
+		                dateTimeLabelFormats: {
+		                    month: '%e. %b',
+		                    year: '%b'
+		                },
+		                title: {
+		                    text: '{{ system_metric.xtitle }}'
+		                }
+		            },
+		            yAxis: {
+		                title: {
+		                    text: '{{ system_metric.ytitle }}'
+		                },
+		                min: 0
+		            },
+		            plotOptions: {
+		                spline: {
+		                    marker: {
+		                        enabled: true
+		                    }
+		                }
+		            },
+		            series: [{
+		                name: '{{ system_metric.xtitle }}',
+		                data: [
+		                	{% for week in system_metric.week_data %}
+		                    	[{{ week.timestamp }}, {{ week.value }}],
+		               	 	{% endfor %}
+		                ]
+		            }],
+		            responsive: {
+		                rules: [{
+		                    condition: {
+		                        maxWidth: 500
+		                    }
+		                }]
+		            }
+		        });
+		        Highcharts.chart('{{ system_metric.id }}_month', {
+		            chart: {
+		                type: 'spline'
+		            },
+		            title: {
+		                text: '{{ system_metric.title }}'
+		            },
+		            xAxis: {
+		                type: 'datetime',
+		                dateTimeLabelFormats: {
+		                    month: '%e. %b',
+		                    year: '%b'
+		                },
+		                title: {
+		                    text: '{{ system_metric.xtitle }}'
+		                }
+		            },
+		            yAxis: {
+		                title: {
+		                    text: '{{ system_metric.ytitle }}'
+		                },
+		                min: 0
+		            },
+		            plotOptions: {
+		                spline: {
+		                    marker: {
+		                        enabled: true
+		                    }
+		                }
+		            },
+		            series: [{
+		                name: '{{ system_metric.xtitle }}',
+		                data: [
+		                	{% for month in system_metric.month_data %}
+		                    	[{{ month.timestamp }}, {{ month.value }}],
+		               	 	{% endfor %}
+		                ]
+		            }],
+		            responsive: {
+		                rules: [{
+		                    condition: {
+		                        maxWidth: 500
+		                    }
+		                }]
+		            }
+		        });
+	     	{% endfor %}
+     	{% endif %}
     </script>
 {% endblock %}
