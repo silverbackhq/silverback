@@ -2,8 +2,8 @@
 
 - Python 3 or later
 - A supported database: MySQL, PostgreSQL.
-- Redis Server.
-- RabbitMQ Server.
+- Redis Server (optional for notifications).
+- RabbitMQ Server (optional for notifications).
 
 
 ## Development
@@ -45,10 +45,12 @@ $ deactivate
 
 ## Production
 
-
-## Run with Docker
-
+## Run with docker-compose
 
 ```
-
+$ git clone https://github.com/Clivern/Silverback.git silverback
+$ cd silverback
+$ cp .env.example .env
+$ docker-compose build
+$ docker-compose up -d
 ```
