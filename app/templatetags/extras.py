@@ -6,6 +6,7 @@ Template Extra Tags
 {{ somevariable|cut:"0" }}
 """
 
+# Third Party Library
 from django import template
 
 

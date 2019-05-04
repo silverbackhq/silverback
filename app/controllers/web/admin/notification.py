@@ -2,17 +2,17 @@
 Notification Web Controller
 """
 
-# standard library
+# Standard Library
 import os
 
-# Django
+# Third Party Library
 from django.views import View
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 
-# local Django
-from app.modules.core.context import Context
+# Local Library
 from app.modules.core.acl import ACL
+from app.modules.core.context import Context
 from app.modules.core.decorators import login_if_not_authenticated
 
 

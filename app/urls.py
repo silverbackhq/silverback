@@ -2,10 +2,10 @@
 Routes For Silverback
 """
 
-# Django
+# Third Party Library
 from django.urls import include, path
 
-# local Django
+# Local Library
 from app.controllers.web.status_page import Status_Page_Index as Status_Page_Index_View
 from app.controllers.web.status_page import Status_Page_History as Status_Page_History_View
 from app.controllers.web.status_page import Status_Page_Single as Status_Page_Single_View
@@ -19,9 +19,7 @@ from app.controllers.web.reset_password import Reset_Password as Reset_Password_
 from app.controllers.web.statistics import Statistics as Statistics_View
 from app.controllers.web.history import AtomHistory as AtomHistory_View
 from app.controllers.web.history import RssHistory as RssHistory_View
-
 from app.controllers.web.health_check import HealthCheck as HealthCheck_View
-
 from app.controllers.web.admin.logout import Logout as Logout_View
 from app.controllers.web.admin.dashboard import Dashboard as Dashboard_View
 from app.controllers.web.admin.profile import Profile as Profile_View
@@ -32,7 +30,6 @@ from app.controllers.web.admin.notification import Notification as Notification_
 from app.controllers.web.admin.user import User_List as User_List_Web
 from app.controllers.web.admin.user import User_Edit as User_Edit_Web
 from app.controllers.web.admin.user import User_Add as User_Add_Web
-
 from app.controllers.web.admin.component import Component_List as Component_List_View
 from app.controllers.web.admin.component import Component_Add as Component_Add_View
 from app.controllers.web.admin.component import Component_Edit as Component_Edit_View
@@ -52,13 +49,11 @@ from app.controllers.web.admin.metric import Metric_Edit as Metric_Edit_View
 from app.controllers.web.admin.subscriber import Subscriber_List as Subscriber_List_View
 from app.controllers.web.admin.subscriber import Subscriber_Add as Subscriber_Add_View
 from app.controllers.web.admin.subscriber import Subscriber_Edit as Subscriber_Edit_View
-
 from app.controllers.api.private.v1.install import Install as Install_V1_Endpoint_Private
 from app.controllers.api.private.v1.login import Login as Login_V1_Endpoint_Private
 from app.controllers.api.private.v1.register import Register as Register_V1_Endpoint_Private
 from app.controllers.api.private.v1.forgot_password import Forgot_Password as Forgot_Password_V1_Endpoint_Private
 from app.controllers.api.private.v1.reset_password import Reset_Password as Reset_Password_V1_Endpoint_Private
-
 from app.controllers.api.private.v1.admin.settings import Settings as Settings_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.profile import Profile as Profile_Admin_V1_Endpoint_Private
 from app.controllers.api.private.v1.admin.notifications import Notifications as Notifications_Admin_V1_Endpoint_Private

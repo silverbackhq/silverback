@@ -2,10 +2,11 @@
 Statistics Module
 """
 
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.entity.user_entity import User_Entity
-from app.modules.entity.profile_entity import Profile_Entity
+# Local Library
 from app.modules.entity.task_entity import Task_Entity
+from app.modules.entity.user_entity import User_Entity
+from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.profile_entity import Profile_Entity
 
 
 class Statistics():

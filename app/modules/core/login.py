@@ -2,11 +2,11 @@
 Login Module
 """
 
-# Django
-from django.contrib.auth import authenticate, login
+# Third Party Library
 from django.core.validators import validate_email
+from django.contrib.auth import authenticate, login
 
-# local Django
+# Local Library
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.user_entity import User_Entity
 

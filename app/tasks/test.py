@@ -2,8 +2,11 @@
 Test Tasks
 """
 
-from celery import shared_task
+# Standard Library
 import time
+
+# Third Party Library
+from celery import shared_task
 
 
 @shared_task

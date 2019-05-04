@@ -2,12 +2,12 @@
 Notification Entity Module
 """
 
-# Django
+# Third Party Library
 from django.contrib.auth.models import User
 
-# local Django
-from app.models import Notification
+# Local Library
 from app.models import Task
+from app.models import Notification
 
 
 class Notification_Entity():

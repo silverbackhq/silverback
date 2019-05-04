@@ -2,11 +2,11 @@
 Forbidden Access Views
 """
 
-# Django
+# Third Party Library
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
-# local Django
+# Local Library
 from app.modules.core.response import Response
 
 

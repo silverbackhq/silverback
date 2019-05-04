@@ -2,9 +2,10 @@
 ACL Module
 """
 
+# Third Party Library
 from django.contrib.auth.models import User
-from django.contrib.auth.models import Permission
 from django.contrib.auth.models import Group
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 
 

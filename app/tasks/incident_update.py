@@ -2,11 +2,13 @@
 Incident Update Tasks
 """
 
-# Third party
+# Third Party Library
 from celery import shared_task
+
+# Local Library
 from app.modules.core.task import Task as Task_Module
-from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
 from app.modules.core.subscriber import Subscriber as Subscriber_Module
+from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
 
 
 @shared_task

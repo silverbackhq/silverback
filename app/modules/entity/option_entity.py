@@ -2,7 +2,7 @@
 Option Entity Module
 """
 
-# local Django
+# Local Library
 from app.models import Option
 
 

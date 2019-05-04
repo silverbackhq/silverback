@@ -2,7 +2,10 @@
 Global Template Variables
 """
 
+# Standard Library
 import os
+
+# Local Library
 from app.modules.entity.option_entity import Option_Entity
 
 

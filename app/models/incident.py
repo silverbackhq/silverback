@@ -2,7 +2,7 @@
 Incident Model
 """
 
-# Django
+# Third Party Library
 from django.db import models
 
 

@@ -10,10 +10,10 @@ pip install gunicorn
 gunicorn app.wsgi:application
 """
 
-# standard library
+# Standard Library
 import os
 
-# Django
+# Third Party Library
 from django.core.wsgi import get_wsgi_application
 
 

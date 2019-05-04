@@ -2,10 +2,13 @@
 Install Module
 """
 
+# Third Party Library
 from django.core.management import execute_from_command_line
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.entity.user_entity import User_Entity
+
+# Local Library
 from app.modules.core.acl import ACL
+from app.modules.entity.user_entity import User_Entity
+from app.modules.entity.option_entity import Option_Entity
 
 
 class Install():

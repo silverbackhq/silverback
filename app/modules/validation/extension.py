@@ -2,18 +2,17 @@
 Validation Extensions
 """
 
-# standard library
+# Standard Library
 import re
 
-from pyvalitron.validator import Validator
-
-# Django
+# Third Party Library
 from django.core.signing import Signer
+from pyvalitron.validator import Validator
+from django.core.validators import URLValidator
 from django.core.validators import validate_email
 from django.core.validators import validate_ipv4_address
 from django.core.validators import validate_ipv6_address
 from django.core.validators import validate_ipv46_address
-from django.core.validators import URLValidator
 
 
 class ExtraRules(Validator):

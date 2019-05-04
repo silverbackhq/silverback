@@ -2,10 +2,10 @@
 Token Module
 """
 
-# standard library
+# Standard Library
 from random import randrange
 
-# Django
+# Third Party Library
 from django.core.signing import Signer
 from django.utils.crypto import get_random_string
 from django.contrib.auth.hashers import make_password

@@ -1,13 +1,15 @@
 """
 User Entity Module
 """
+
+# Standard Library
 import datetime
 
-# Django
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
-from django.db.models.aggregates import Count
+# Third Party Library
 from django.utils import timezone
+from django.contrib.auth.models import User
+from django.db.models.aggregates import Count
+from django.contrib.auth.hashers import make_password
 
 
 class User_Entity():

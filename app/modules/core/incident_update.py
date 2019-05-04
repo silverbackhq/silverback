@@ -2,8 +2,9 @@
 Incident Update Module
 """
 
-from app.modules.entity.incident_update_entity import Incident_Update_Entity
+# Local Library
 from app.modules.entity.incident_entity import Incident_Entity
+from app.modules.entity.incident_update_entity import Incident_Update_Entity
 
 
 class Incident_Update():

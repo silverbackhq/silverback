@@ -2,11 +2,11 @@
 User Entity Module
 """
 
-# Django
+# Third Party Library
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-# local Django
+# Local Library
 from app.models import Profile
 
 

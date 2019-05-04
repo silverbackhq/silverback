@@ -2,6 +2,7 @@
 Subscriber Module
 """
 
+# Local Library
 from app.modules.entity.subscriber_entity import Subscriber_Entity
 
 

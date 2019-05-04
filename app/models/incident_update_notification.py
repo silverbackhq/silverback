@@ -2,10 +2,10 @@
 Incident Update Notification Model
 """
 
-# Django
+# Third Party Library
 from django.db import models
 
-# local Django
+# Local Library
 from .incident_update import Incident_Update
 from .subscriber import Subscriber
 

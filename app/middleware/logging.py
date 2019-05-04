@@ -2,10 +2,10 @@
 Logging Middleware
 """
 
-# Django
+# Third Party Library
 from django.utils.translation import gettext as _
 
-# local Django
+# Local Library
 from app.modules.util.helpers import Helpers
 
 

@@ -2,12 +2,15 @@
 Profile Module
 """
 
+# Third Party Library
 from django.contrib.auth import update_session_auth_hash
+
+# Local Library
 from app.modules.util.token import Token
 from app.modules.util.gravatar import Gravatar
-from app.modules.entity.profile_entity import Profile_Entity
-from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.user_entity import User_Entity
+from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.profile_entity import Profile_Entity
 
 
 class Profile():

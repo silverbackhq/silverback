@@ -2,12 +2,12 @@
 Statistics Web Controller
 """
 
-# Django
+# Third Party Library
 from django.views import View
 from django.http import HttpResponse
 from django.http import Http404
 
-# local Django
+# Local Library
 from app.modules.service.prometheus import Prometheus
 from app.modules.core.decorators import redirect_if_not_installed
 from app.modules.core.decorators import protect_metric_with_auth_key

@@ -2,18 +2,18 @@
 Helpers Module
 """
 
-# standard library
+# Standard Library
+import os
 import json
 import logging
 import random
 import string
+import uuid
 from pprint import pprint
 from datetime import timedelta
-import pytz
-import os
-import uuid
 
-# Django
+# Third Party Library
+import pytz
 from django.utils.dateparse import parse_datetime
 from django.utils import timezone
 from django.utils.text import slugify

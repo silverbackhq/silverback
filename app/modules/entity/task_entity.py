@@ -2,14 +2,16 @@
 Task Entity Module
 """
 
-# Django
-from django.contrib.auth.models import User
-
-# local Django
-from app.models import Task
+# Standard Library
 from datetime import datetime
 from datetime import timedelta
+
+# Third Party Library
+from django.contrib.auth.models import User
 from django.utils.timezone import make_aware
+
+# Local Library
+from app.models import Task
 
 
 class Task_Entity():

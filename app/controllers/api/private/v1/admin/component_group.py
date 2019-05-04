@@ -2,18 +2,18 @@
 Component Groups API Endpoint
 """
 
-# Django
+# Third Party Library
 from django.views import View
+from django.urls import reverse
+from pyvalitron.form import Form
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
-from django.urls import reverse
 
-# local Django
-from pyvalitron.form import Form
-from app.modules.validation.extension import ExtraRules
+# Local Library
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
+from app.modules.validation.extension import ExtraRules
 from app.modules.core.component_group import Component_Group as Component_Group_Module
 
 

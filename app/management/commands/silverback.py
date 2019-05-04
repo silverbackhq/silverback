@@ -4,14 +4,14 @@ Silverback Info Command
 see https://docs.djangoproject.com/en/2.0/howto/custom-management-commands/
 """
 
-# standard library
+# Standard Library
 import os
 
-# Django
+# Third Party Library
 from django.core.management import utils
 from django.core.management.base import BaseCommand, CommandError
 
-# local Django
+# Local Library
 from app.settings.info import APP_ROOT
 from app.settings.info import VERSION
 
