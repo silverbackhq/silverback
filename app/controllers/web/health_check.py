@@ -34,14 +34,14 @@ class HealthCheck(View):
 
         if len(errors) > 0:
             status = Health.NOT_OK
-            self.__logger.error(_("Health Check Result: %(result)s %(errors)s {'correlationId':'%(correlationId)s'}") % {
-                "result": status,
+            self.__logger.error(_("Health Check Result: %(status)s %(errors)s {'correlationId':'%(correlationId)s'}") % {
+                "status": status,
                 "errors": self.__helpers.json_dumps(errors),
                 "correlationId": self.__correlation_id
             })
         else:
-            self.__logger.debug(_("Health Check Result: %(result)s %(errors)s {'correlationId':'%(correlationId)s'}") % {
-                "result": status,
+            self.__logger.debug(_("Health Check Result: %(status)s %(errors)s {'correlationId':'%(correlationId)s'}") % {
+                "status": status,
                 "errors": self.__helpers.json_dumps(errors),
                 "correlationId": self.__correlation_id
             })
