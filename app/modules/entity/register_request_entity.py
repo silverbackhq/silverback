@@ -2,15 +2,15 @@
 Register Request Entity Module
 """
 
-# standard library
+# Standard Library
 from datetime import datetime
 from datetime import timedelta
 
-# Django
+# Third Party Library
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 
-# local Django
+# Local Library
 from app.models import Register_Request
 
 

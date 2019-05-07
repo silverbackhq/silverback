@@ -2,13 +2,13 @@
 Custom Decorators
 """
 
-# Django
+# Third Party Library
 from django.shortcuts import redirect, reverse
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
 from django.http import Http404
 
-# local Django
+# Local Library
 from app.modules.util.helpers import Helpers
 from app.modules.core.response import Response
 from app.modules.entity.option_entity import Option_Entity

@@ -2,8 +2,9 @@
 Component Group Module
 """
 
-from app.modules.entity.component_group_entity import Component_Group_Entity
+# Local Library
 from app.modules.entity.component_entity import Component_Entity
+from app.modules.entity.component_group_entity import Component_Group_Entity
 
 
 class Component_Group():

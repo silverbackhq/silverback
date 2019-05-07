@@ -2,17 +2,17 @@
 Metric Web Controller
 """
 
-# standard library
+# Standard Library
 import os
 import json
 
-# Django
+# Third Party Library
 from django.views import View
 from django.http import Http404
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 
-# local Django
+# Local Library
 from app.modules.core.context import Context
 from app.modules.core.metric import Metric as Metric_Module
 from app.modules.core.decorators import login_if_not_authenticated

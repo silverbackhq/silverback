@@ -2,7 +2,7 @@
 Auth API Endpoint
 """
 
-# Django
+# Third Party Library
 from django.views import View
 
 

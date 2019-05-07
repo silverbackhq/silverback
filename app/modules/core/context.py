@@ -2,7 +2,7 @@
 Context Module
 """
 
-# local Django
+# Local Library
 from app.settings.info import AUTHOR
 from app.settings.info import COPYRIGHT
 from app.settings.info import LICENSE

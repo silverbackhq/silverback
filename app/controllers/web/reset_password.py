@@ -2,17 +2,17 @@
 Reset Password Web Controller
 """
 
-# standard library
+# Standard Library
 import os
 
-# Django
+# Third Party Library
 from django.views import View
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 
-# local Django
+# Local Library
 from app.modules.core.context import Context
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.core.decorators import redirect_if_authenticated

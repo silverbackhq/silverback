@@ -2,9 +2,9 @@
 Logging Middleware
 """
 
-# local Django
-from app.modules.util.helpers import Helpers
+# Local Library
 from app.modules.core.funnel import Funnel
+from app.modules.util.helpers import Helpers
 
 
 class API_Funnel():

@@ -2,17 +2,17 @@
 Forgot Password API Endpoint
 """
 
-# Django
+# Third Party Library
 from django.views import View
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
-# local Django
+# Local Library
 from pyvalitron.form import Form
-from app.modules.validation.extension import ExtraRules
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
+from app.modules.validation.extension import ExtraRules
 from app.modules.core.decorators import stop_request_if_authenticated
 from app.modules.core.forgot_password import Forgot_Password as Forgot_Password_Module
 

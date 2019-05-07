@@ -2,7 +2,7 @@
 Crypto Module
 """
 
-# standard library
+# Standard Library
 import os
 
 

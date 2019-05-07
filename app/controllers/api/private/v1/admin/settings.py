@@ -2,20 +2,20 @@
 Settings API Endpoint
 """
 
-# Django
+# Third Party Library
 from django.views import View
+from pyvalitron.form import Form
 from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
-# local Django
-from pyvalitron.form import Form
-from app.modules.validation.extension import ExtraRules
+# Local Library
+from app.modules.core.acl import ACL
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
+from app.modules.validation.extension import ExtraRules
 from app.modules.core.settings import Settings as Settings_Module
 from app.modules.core.activity import Activity as Activity_Module
-from app.modules.core.acl import ACL
 
 
 class Settings(View):

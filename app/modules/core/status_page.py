@@ -2,24 +2,29 @@
 Status Page Module
 """
 
+# Standard Library
 import os
 import json
-from django.utils import timezone
 from datetime import datetime
 from datetime import timedelta
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.entity.incident_entity import Incident_Entity
-from app.modules.entity.incident_update_entity import Incident_Update_Entity
-from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
-from app.modules.entity.metric_entity import Metric_Entity
-from django.utils.translation import gettext as _
-from app.modules.entity.component_group_entity import Component_Group_Entity
-from app.modules.entity.component_entity import Component_Entity
-from dateutil.relativedelta import relativedelta
-from django.forms.fields import DateTimeField
+
+# Third Party Library
+from dateutil.parser import parse
+from django.utils import timezone
 from pyumetric import Datetime_Utils
 from pyumetric import NewRelic_Provider
-from dateutil.parser import parse
+from django.forms.fields import DateTimeField
+from dateutil.relativedelta import relativedelta
+from django.utils.translation import gettext as _
+
+# Local Library
+from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.metric_entity import Metric_Entity
+from app.modules.entity.incident_entity import Incident_Entity
+from app.modules.entity.component_entity import Component_Entity
+from app.modules.entity.component_group_entity import Component_Group_Entity
+from app.modules.entity.incident_update_entity import Incident_Update_Entity
+from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
 
 
 class Status_Page():
@@ -42,6 +47,10 @@ class Status_Page():
         self.__metric_entity = Metric_Entity()
 
     def get_system_status(self):
+        # Get Open Incidents
+        # if it has no resolved update
+        # Check the last incident updates
+        # Check it has any component is affected
         return "operational"
 
     def get_about_site(self):
@@ -204,13 +213,13 @@ class Status_Page():
                                 "title": metric.title,
                                 "xtitle": metric.x_axis,
                                 "ytitle": metric.y_axis,
-                                "day_data": self.__get_metics(metric, -1),
-                                "week_data": self.__get_metics(metric, -7),
-                                "month_data": self.__get_metics(metric, -30)
+                                "day_data": self.__get_metrics(metric, -1),
+                                "week_data": self.__get_metrics(metric, -7),
+                                "month_data": self.__get_metrics(metric, -30)
                             })
         return metrics
 
-    def __get_metics(self, metric, period):
+    def __get_metrics(self, metric, period):
         metric_values = []
         option = self.__option_entity.get_one_by_key("newrelic_api_key")
 
@@ -313,10 +322,27 @@ class Status_Page():
         return services
 
     def get_status(self, id, type):
+        # Get Open Incidents
+        # if it has no resolved update
+        # Check the last incident updates
+        # Check if the component is affected
         if type == "component":
             return "Operational"
+
+        # Get Group Components
+        # Get Open Incidents
+        # if it has no resolved update
+        # Check the last incident updates
+        # Check if one of the group components is affected
         elif type == "group":
             return "Operational"
 
-    def get_uptime_chart(self, id, type):
+    def __get_affectd_components(self):
+        # Get Open Incidents
+        # if it has no resolved update
+        # Check the last incident updates
+        # Create a list of affected components
+        return {}
+
+    def get_uptime_chart(self, id, type, period=90):
         return []

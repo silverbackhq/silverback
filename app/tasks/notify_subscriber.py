@@ -2,21 +2,23 @@
 Notify Subscriber Tasks
 """
 
-# Django
+# Standard Library
 import os
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.utils.translation import gettext as _
-from django.urls import reverse
 
-# Third party
+# Third Party Library
 import requests
-from twilio.rest import Client
 import markdown2
+from twilio.rest import Client
 from celery import shared_task
+from django.urls import reverse
+from django.core.mail import send_mail
+from django.utils.translation import gettext as _
+from django.template.loader import render_to_string
+
+# Local Library
 from app.modules.entity.option_entity import Option_Entity
-from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
 from app.modules.core.subscriber import Subscriber as Subscriber_Module
+from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
 
 
 @shared_task

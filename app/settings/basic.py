@@ -9,22 +9,19 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-# standard library
+# Standard Library
 import os
 import time
 
-# third-party
+# Third Party Library
 from dotenv import load_dotenv
-
-# Django
 from django.utils.translation import ugettext_lazy as _
 
-# local Django
+# Local Library
 from app.settings.info import APP_ROOT
 
 
 load_dotenv(dotenv_path=os.path.join(APP_ROOT, ".env"))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/

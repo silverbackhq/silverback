@@ -2,7 +2,7 @@
 Correlation Middleware
 """
 
-# local Django
+# Local Library
 from app.modules.util.helpers import Helpers
 
 

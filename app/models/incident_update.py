@@ -2,10 +2,10 @@
 Incident Update Model
 """
 
-# Django
+# Third Party Library
 from django.db import models
 
-# local Django
+# Local Library
 from .incident import Incident
 
 

@@ -2,11 +2,12 @@
 Incident Module
 """
 
-from app.modules.entity.incident_update_entity import Incident_Update_Entity
+# Local Library
+from app.modules.util.helpers import Helpers
 from app.modules.entity.incident_entity import Incident_Entity
+from app.modules.entity.incident_update_entity import Incident_Update_Entity
 from app.modules.entity.incident_update_component_entity import Incident_Update_Component
 from app.modules.entity.incident_update_notification_entity import Incident_Update_Notification
-from app.modules.util.helpers import Helpers
 
 
 class Incident():

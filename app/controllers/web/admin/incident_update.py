@@ -2,25 +2,25 @@
 Incident Update Web Controller
 """
 
-# standard library
+# Standard Library
 import os
 import markdown2
 
-# Django
+# Third Party Library
 from django.views import View
 from django.http import Http404
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 
-# local Django
+# Local Library
 from app.modules.core.context import Context
+from app.modules.core.incident import Incident as Incident_Module
+from app.modules.core.decorators import login_if_not_authenticated
 from app.modules.core.component import Component as Component_Module
 from app.modules.core.component_group import Component_Group as Component_Group_Module
-from app.modules.core.incident import Incident as Incident_Module
 from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
 from app.modules.core.incident_update_component import Incident_Update_Component as Incident_Update_Component_Module
 from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
-from app.modules.core.decorators import login_if_not_authenticated
 
 
 class Incident_Update_Add(View):

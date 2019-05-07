@@ -2,15 +2,20 @@
 User Module
 """
 
+# Standard Library
 import json
+
+# Third Party Library
 from django.utils import timezone
 from django.utils.translation import gettext as _
-from app.modules.entity.option_entity import Option_Entity
+
+# Local Library
+from app.modules.core.acl import ACL
+from app.modules.core.task import Task as Task_Core
 from app.modules.entity.user_entity import User_Entity
+from app.modules.entity.option_entity import Option_Entity
 from app.modules.entity.notification_entity import Notification_Entity
 from app.modules.entity.register_request_entity import Register_Request_Entity
-from app.modules.core.task import Task as Task_Core
-from app.modules.core.acl import ACL
 
 
 class User():

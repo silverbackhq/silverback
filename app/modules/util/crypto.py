@@ -2,12 +2,14 @@
 Crypto Module
 """
 
-# standard library
+# Standard Library
 import os
 
-# Third Party
-from cryptography.fernet import Fernet
+# Third Party Library
 from dotenv import load_dotenv
+from cryptography.fernet import Fernet
+
+# Local Library
 from app.settings.info import APP_ROOT
 
 

@@ -2,7 +2,7 @@
 Gravatar Module
 """
 
-# standard library
+# Standard Library
 from hashlib import md5
 from urllib.parse import urlparse, urlencode
 

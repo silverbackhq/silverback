@@ -2,10 +2,10 @@
 Upgrade Module
 """
 
-# third-party
+# Third Party Library
 import requests
 
-# local Django
+# Local Library
 from app.settings.info import RELEASES
 from app.settings.info import VERSION
 from app.settings.info import DOWNLOAD_URL

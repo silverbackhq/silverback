@@ -2,7 +2,7 @@
 Humanize Module
 """
 
-# Django
+# Third Party Library
 from django.utils import timezone
 from django.utils.translation import gettext as _
 

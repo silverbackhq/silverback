@@ -2,7 +2,10 @@
 Activity Entity Module
 """
 
+# Third Party Library
 from django.contrib.auth.models import User
+
+# Local Library
 from app.models import Activity
 
 

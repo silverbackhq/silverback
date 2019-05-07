@@ -2,11 +2,11 @@
 Celery Configs
 """
 
-# standard library
+# Standard Library
 import os
 from importlib import import_module
 
-# Third party
+# Third Party Library
 from celery import Celery
 from celery.signals import task_success
 

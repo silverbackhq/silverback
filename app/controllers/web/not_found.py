@@ -2,14 +2,14 @@
 Not Found Web Controller
 """
 
-# standard library
+# Standard Library
 import os
 
-# Django
+# Third Party Library
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 
-# local Django
+# Local Library
 from app.modules.core.context import Context
 from app.modules.util.helpers import Helpers
 

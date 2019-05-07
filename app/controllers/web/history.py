@@ -2,20 +2,18 @@
 History Web Controller
 """
 
-# standard library
+# Standard Library
 import os
 
-# Django
+# Third Party Library
 from django.views import View
 from django.http import HttpResponse
+from feedgen.feed import FeedGenerator
 
-# local Django
+# Local Library
 from app.modules.core.context import Context
 from app.modules.entity.option_entity import Option_Entity
 from app.modules.core.decorators import redirect_if_not_installed
-
-# Third party
-from feedgen.feed import FeedGenerator
 
 
 class AtomHistory(View):

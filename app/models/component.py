@@ -2,10 +2,10 @@
 Component Model
 """
 
-# Django
+# Third Party Library
 from django.db import models
 
-# local Django
+# Local Library
 from .component_group import Component_Group
 
 
