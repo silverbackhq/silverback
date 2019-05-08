@@ -88,13 +88,19 @@ gh-config: config create-env migrate
 	$(PYTHON) manage.py silverback update_env DB_CONNECTION=sqlite
 
 
+## outdated-pkg: Show outdated python packages
+outdated-pkg:
+	@echo "\n==> List Outdated Packages:"
+	$(PIP) list --outdated
+
+
 ## liteci: Run a lite CI tests.
-liteci: gh-config test coverage lint
+liteci: gh-config test coverage lint outdated-pkg
 	@echo "\n==> All quality checks passed"
 
 
 ## ci: Run all CI tests.
-ci: test coverage lint
+ci: test coverage lint outdated-pkg
 	@echo "\n==> All quality checks passed"
 
 
