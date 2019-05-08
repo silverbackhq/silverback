@@ -90,6 +90,7 @@ gh-config: config create-env migrate
 
 ## outdated-pkg: Show outdated python packages
 outdated-pkg:
+	@echo "\n==> List Outdated Packages:"
 	$(PIP) list --outdated
 
 
