@@ -19,6 +19,7 @@ python:
 # command to install dependencies
 install:
   - make config
+  - pip install codecov
 
 before_script:
   - mysql -e 'CREATE DATABASE silverback;'
@@ -38,3 +39,7 @@ before_script:
 # command to run tests
 script:
   - make ci
+  
+# Push the results back to codecov
+after_success:
+  - codecov
