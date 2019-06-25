@@ -27,28 +27,30 @@
                             {% endif %}
                         </a>
                     </div>
-                    <div class="col-sm-6 col-md-6 text-right" style="margin-top: 40px">
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">
-                            {% trans "Subscribe to Updates" %}
-                        </a>
-                    </div>
-                    <div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">{% trans "Subscribe to Updates" %}</h5>
-                                    <button type="button" class="close" data-dismiss="modal"></button>
-                                </div>
-                                <div class="modal-body">
+                    {% if activate_notifications %}
+                        <div class="col-sm-6 col-md-6 text-right" style="margin-top: 40px">
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#subscribeModal">
+                                {% trans "Subscribe to Updates" %}
+                            </a>
+                        </div>
+                        <div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{% trans "Subscribe to Updates" %}</h5>
+                                        <button type="button" class="close" data-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
-                                    <button type="button" class="btn btn-primary">{% trans "Submit" %}</button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                                        <button type="button" class="btn btn-primary">{% trans "Submit" %}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
                 <br/>
                 <br/>

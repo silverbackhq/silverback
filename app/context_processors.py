@@ -16,4 +16,5 @@ def globals(request):
     return {
         "google_account": option_entity.get_value_by_key("google_analytics_account", ""),
         "app_timezone": os.getenv("APP_TIMEZONE", "UTC"),
+        "activate_notifications": os.getenv("ACTIVATE_NOTIFICATIONS", "false") == "true",
     }
