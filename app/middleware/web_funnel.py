@@ -7,7 +7,7 @@ from app.modules.core.funnel import Funnel
 from app.modules.util.helpers import Helpers
 
 
-class Web_Funnel():
+class WebFunnel():
 
     __helpers = None
     __logger = None

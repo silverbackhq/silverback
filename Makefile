@@ -17,6 +17,8 @@ config:
 	$(PIP) install coverage
 	$(PIP) install flake8
 	$(PIP) install flake8-comprehensions
+	$(PIP) install flake8-eradicate
+	$(PIP) install flake8-todo
 	$(PIP) install -r requirements.txt
 
 
