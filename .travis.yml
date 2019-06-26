@@ -15,6 +15,11 @@ python:
   - "3.7-dev"  # 3.7 development branch
   - "3.8-dev"  # 3.8 development branch
   - "nightly"  # nightly build
+
+matrix:
+  allow_failures:
+  - python: "3.5"
+  - python: "3.5-dev"
   
 # command to install dependencies
 install:
