@@ -21,9 +21,4 @@ class Funnel():
         pass
 
     def _parse(self):
-        # __route_name = request.resolver_match.url_name
-        # if request.user and request.user.is_authenticated:
-        #    self.__is_auth = True
-        #    self.__user_id = request.user.id
-        #    self.__username = request.user
         pass
