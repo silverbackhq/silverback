@@ -1,5 +1,5 @@
 """
-Logging Middleware
+API Funnel Middleware
 """
 
 # Local Library

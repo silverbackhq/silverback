@@ -1,5 +1,5 @@
 """
-Logging Middleware
+Web Funnel Middleware
 """
 
 # Local Library

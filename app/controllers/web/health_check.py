@@ -1,5 +1,5 @@
 """
-Login Web Controller
+Health Check Web Controller
 """
 
 # Third Party Library
