@@ -1,5 +1,5 @@
 """
-Status Page Index Web Controller
+Status Page Web Controller
 """
 
 # Standard Library

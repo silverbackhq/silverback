@@ -17,47 +17,49 @@ config:
 	$(PIP) install coverage
 	$(PIP) install flake8
 	$(PIP) install flake8-comprehensions
+	$(PIP) install flake8-eradicate
+	$(PIP) install flake8-todo
 	$(PIP) install -r requirements.txt
 
 
 ## lint-pycodestyle: PyCode Style Lint
 lint-pycodestyle:
-	@echo "\n==> Pycodestyle Linting:"
+	@echo "\n>> ============= Pycodestyle Linting ============= <<"
 	@find app -type f -name \*.py | while read file; do echo "$$file" && pycodestyle --config=./pycodestyle --first "$$file" || exit 1; done
 
 
 ## lint-flake8: Flake8 Lint.
 lint-flake8:
-	@echo "\n==> Flake8 Linting:"
+	@echo "\n>> ============= Flake8 Linting ============= <<"
 	@find app -type f -name \*.py | while read file; do echo "$$file" && flake8 --config=flake8.ini "$$file" || exit 1; done
 
 
 ## lint: Lint The Code.
 lint: lint-pycodestyle lint-flake8
-	@echo "\n==> All linting cases passed!"
+	@echo "\n>> ============= All linting cases passed! ============= <<"
 
 
 ## test: Run Test Cases.
 test:
-	@echo "\n==> Run Test Cases:"
+	@echo "\n>> ============= Run Test Cases ============= <<"
 	$(PYTHON) manage.py test
 
 
 ## migration: Create DB Migration Files.
 migration:
-	@echo "\n==> Make Migrations:"
+	@echo "\n>> ============= Make Migrations ============= <<"
 	$(PYTHON) manage.py makemigrations
 
 
 ## migrate: Migrate Database.
 migrate:
-	@echo "\n==> Migrate:"
+	@echo "\n>> ============= Migrate ============= <<"
 	$(PYTHON) manage.py migrate
 
 
 ## run: Run Server.
 run:
-	@echo "\n==> Run Server:"
+	@echo "\n>> ============= Run Server ============= <<"
 	$(PYTHON) manage.py runserver
 
 
@@ -90,18 +92,18 @@ gh-config: config create-env migrate
 
 ## outdated-pkg: Show outdated python packages
 outdated-pkg:
-	@echo "\n==> List Outdated Packages:"
+	@echo "\n>> ============= List Outdated Packages ============= <<"
 	$(PIP) list --outdated
 
 
 ## liteci: Run a lite CI tests.
 liteci: gh-config test coverage lint outdated-pkg
-	@echo "\n==> All quality checks passed"
+	@echo "\n>> ============= All quality checks passed ============= <<"
 
 
 ## ci: Run all CI tests.
 ci: test coverage lint outdated-pkg
-	@echo "\n==> All quality checks passed"
+	@echo "\n>> ============= All quality checks passed ============= <<"
 
 
 .PHONY: help

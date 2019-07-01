@@ -56,8 +56,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'app.middleware.correlation.Correlation',
-    'app.middleware.api_funnel.API_Funnel',
-    'app.middleware.web_funnel.Web_Funnel',
+    'app.middleware.api_funnel.APIFunnel',
+    'app.middleware.web_funnel.WebFunnel',
     'app.middleware.logging.Logging',
     'app.middleware.errors.Errors'
 ]
