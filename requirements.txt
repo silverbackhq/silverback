@@ -1,4 +1,4 @@
-Django==2.2.2
+Django==2.2.3
 mysqlclient==1.4.2.post1
 python-dotenv==0.10.3
 gunicorn==19.9.0
