@@ -18,8 +18,5 @@
 		"options": {
 			"version": "9.5"
 		}
-	}],
-	"scripts": {
-		"postdeploy": "bash postdeploy.sh"
-	}
+	}]
 }
