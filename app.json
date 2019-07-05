@@ -20,6 +20,6 @@
 		}
 	},
 	"addons": [{
-		"plan": "heroku-cleardb"
+		"plan": "heroku-cleardb:ignite"
 	}]
 }
