@@ -7,7 +7,7 @@
 	"keywords": ["silverback", "silverbackhq", "status-page", "incident-management", "chatops", "statuspage", "application-monitoring", "cachet"],
 	"success_url": "/",
 	"env": {
-		"DISABLE_COLLECTSTATIC": "1",
+		"APP_DEBUG": "false",
 		"DB_CONNECTION": "sqlite",
 		"DB_HOST": "127.0.0.1",
 		"DB_PORT": "3306",
@@ -20,9 +20,6 @@
 		}
 	},
 	"addons": [{
-		"plan": "heroku-postgresql",
-		"options": {
-			"version": "9.5"
-		}
+		"plan": "heroku-cleardb"
 	}]
 }
