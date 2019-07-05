@@ -20,6 +20,6 @@
 		}
 	}],
 	"scripts": {
-		"postdeploy": "./postdeploy.sh"
+		"postdeploy": "bash postdeploy.sh"
 	}
 }
