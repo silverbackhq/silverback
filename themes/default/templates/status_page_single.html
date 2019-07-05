@@ -5,8 +5,8 @@
 
 {% block favicon %}
     {% if favicon_url == "" %}
-        <link rel="icon" href="{% static 'assets/images/logo.png' %}" type="image/x-icon"/>
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo.png' %}" />
+        <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon"/>
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/logo.png' %}" />
     {% else %}
         <link rel="icon" href="{{ favicon_url }}" type="image/x-icon"/>
         <link rel="shortcut icon" type="image/x-icon" href="{{ favicon_url }}" />
@@ -21,7 +21,7 @@
                     <div class="col-sm-6 col-md-6">
                         <a href="#">
                             {% if logo_url == "" %}
-                                <img src="{% static 'assets/images/logo.png' %}" alt="{{ app_name }}" style="width: 25%">
+                                <img src="{% static 'images/logo.png' %}" alt="{{ app_name }}" style="width: 25%">
                             {% else %}
                                 <img src="{{ logo_url }}" alt="{{ app_name }}" style="width: 25%">
                             {% endif %}

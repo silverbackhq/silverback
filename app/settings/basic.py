@@ -269,14 +269,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    APP_ROOT + STATIC_URL
-]
+STATIC_ROOT = APP_ROOT + STATIC_URL
 
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [APP_ROOT + "/assets"]
 
 LOCALE_PATHS = [
     APP_ROOT + "/translation/"
