@@ -9,7 +9,7 @@
     </p>
 </p>
 <p align="center">
-        <a href="https://heroku.com/deploy?template=https://github.com/silverbackhq/silverback/tree/master" target="_blank"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy"></a>
+        <a href="http://bit.ly/2XGNqMb" target="_blank"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy"></a>
 </p>
 
 
