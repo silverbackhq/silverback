@@ -7,6 +7,7 @@
 	"keywords": ["silverback", "silverbackhq", "status-page", "incident-management", "chatops", "statuspage", "application-monitoring", "cachet"],
 	"success_url": "/",
 	"env": {
+		"APP_ENVIRONMENT": "heroku",
 		"DISABLE_COLLECTSTATIC": "1",
 		"APP_DEBUG": "false",
 		"DB_CONNECTION": "sqlite",
