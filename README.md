@@ -8,6 +8,10 @@
         <a href="https://github.com/silverbackhq/Silverback/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-BSD%203--Clause%20-orange.svg"></a>
     </p>
 </p>
+<p align="center">
+        <a href="http://bit.ly/2XGNqMb" target="_blank"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy"></a>
+</p>
+
 
 **Silverback** is a **free** and **open source** project for web infrastructure, developer APIs, services and SaaS companies to set up their very own **status page** in minutes.
 

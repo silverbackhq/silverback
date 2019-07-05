@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 # Standard Library
 import os
 import time
+import os.path
 
 # Third Party Library
 from dotenv import load_dotenv
@@ -21,7 +22,11 @@ from django.utils.translation import ugettext_lazy as _
 from app.settings.info import APP_ROOT
 
 
-load_dotenv(dotenv_path=os.path.join(APP_ROOT, ".env"))
+if os.getenv("APP_ENVIRONMENT", "") != "heroku":
+    if os.path.exists(os.path.join(APP_ROOT, ".env")):
+        load_dotenv(dotenv_path=os.path.join(APP_ROOT, ".env"))
+    else:
+        load_dotenv(dotenv_path=os.path.join(APP_ROOT, ".env.example"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -55,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'app.middleware.correlation.Correlation',
     'app.middleware.api_funnel.APIFunnel',
     'app.middleware.web_funnel.WebFunnel',
@@ -132,12 +138,21 @@ if os.getenv("DB_CONNECTION") == "mysql":
         'HOST': os.getenv("DB_HOST"),
         'PORT': os.getenv("DB_PORT"),
     }
+
+elif os.getenv("DB_CONNECTION") == "postgresql":
+    default_db = {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv("DB_DATABASE"),
+        'USER': os.getenv("DB_USERNAME"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT"),
+    }
 else:
     default_db = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(APP_ROOT + "/storage/database/", 'db.sqlite3')
     }
-
 
 DATABASES = {
     'default': default_db
@@ -254,9 +269,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    APP_ROOT + STATIC_URL
-]
+STATIC_ROOT = APP_ROOT + STATIC_URL
+
+STATICFILES_DIRS = [APP_ROOT + "/assets"]
 
 LOCALE_PATHS = [
     APP_ROOT + "/translation/"

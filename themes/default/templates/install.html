@@ -8,7 +8,7 @@
             <div class="row" id="app_install">
                 <div class="col col-login mx-auto">
                     <div class="text-center mb-6">
-                        <img src="{% static 'assets/images/logo.png' %}" class="h-9">
+                        <img src="{% static 'images/logo.png' %}" class="h-9">
                     </div>
                     <form class="card" v-on:submit.prevent="installAction" action="{% url 'app.api.private.v1.install.endpoint' %}" method="post" data-redirect-url="{% url 'app.web.login' %}" data-redirect-after="3000">
                         {% csrf_token %}
