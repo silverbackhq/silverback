@@ -20,6 +20,6 @@
 		}
 	},
 	"addons": [{
-		"plan": "cleardb:ignite"
+		"plan": "cleardb"
 	}]
 }
