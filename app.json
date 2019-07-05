@@ -19,5 +19,10 @@
 			"generator": "secret"
 		}
 	},
-	"addons": ["jawsdb"]
+	"addons": [{
+		"plan": "heroku-postgresql",
+		"options": {
+			"version": "9.5"
+		}
+	}]
 }
