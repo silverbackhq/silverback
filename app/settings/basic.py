@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'app.middleware.correlation.Correlation',
     'app.middleware.api_funnel.APIFunnel',
     'app.middleware.web_funnel.WebFunnel',
@@ -267,10 +268,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
+
 STATIC_ROOT = APP_ROOT + STATIC_URL
+
 STATICFILES_DIRS = [
     APP_ROOT + STATIC_URL
 ]
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOCALE_PATHS = [
     APP_ROOT + "/translation/"
