@@ -6,6 +6,7 @@
         <a href="https://travis-ci.org/silverbackhq/Silverback"><img src="https://travis-ci.org/silverbackhq/Silverback.svg?branch=master"></a>
         <a href="https://github.com/silverbackhq/Silverback/releases"><img src="https://img.shields.io/badge/Version-1.0.0-red.svg"></a>
         <a href="https://github.com/silverbackhq/Silverback/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-BSD%203--Clause%20-orange.svg"></a>
+        <a href="https://heroku.com/deploy?template=https://github.com/silverbackhq/silverback/tree/autodeploy" target="_blank"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy" height="20"></a>
     </p>
 </p>
 

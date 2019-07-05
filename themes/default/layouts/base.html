@@ -15,8 +15,8 @@
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
         {% block favicon %}
-            <link rel="icon" href="{% static 'assets/images/logo.png' %}" type="image/x-icon"/>
-            <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/logo.png' %}" />
+            <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon"/>
+            <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/logo.png' %}" />
         {% endblock %}
         <title>{{ page_title }}</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -27,29 +27,29 @@
         <script src="https://code.highcharts.com/modules/series-label.js"></script>
 
         <!-- production version, optimized for size and speed -->
-        <script src="{% static 'assets/js/require.min.js' %}"></script>
+        <script src="{% static 'js/require.min.js' %}"></script>
         <script>
             requirejs.config({
-                baseUrl: '/static/'
+                baseUrl: '/'
             });
         </script>
         <!-- Dashboard Core -->
-        <link href="{% static 'assets/css/dashboard.css' %}" rel="stylesheet" />
-        <link href="{% static 'assets/plugins/pace/themes/red/pace-theme-flash.css' %}" rel="stylesheet" />
-        <script src="{% static 'assets/js/dashboard.js' %}"></script>
+        <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
+        <link href="{% static 'plugins/pace/themes/red/pace-theme-flash.css' %}" rel="stylesheet" />
+        <script src="{% static 'js/dashboard.js' %}"></script>
 
         <!-- c3.js Charts Plugin -->
-        <link href="{% static 'assets/plugins/charts-c3/plugin.css' %}" rel="stylesheet" />
-        <script src="{% static 'assets/plugins/charts-c3/plugin.js' %}"></script>
+        <link href="{% static 'plugins/charts-c3/plugin.css' %}" rel="stylesheet" />
+        <script src="{% static 'plugins/charts-c3/plugin.js' %}"></script>
 
         <!-- Input Mask Plugin -->
-        <script src="{% static 'assets/plugins/input-mask/plugin.js' %}"></script>
+        <script src="{% static 'plugins/input-mask/plugin.js' %}"></script>
         <!-- PaceJs -->
-        <script src="{% static 'assets/plugins/pace/plugin.js' %}"></script>
+        <script src="{% static 'plugins/pace/plugin.js' %}"></script>
         <!-- Toastr -->
-        <script src="{% static 'assets/plugins/toastr/plugin.js' %}"></script>
-        <link href="{% static 'assets/plugins/toastr/toastr.css' %}" rel="stylesheet" />
-        <link href="{% static 'assets/css/app.css' %}" rel="stylesheet" />
+        <script src="{% static 'plugins/toastr/plugin.js' %}"></script>
+        <link href="{% static 'plugins/toastr/toastr.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/app.css' %}" rel="stylesheet" />
         {% include 'partials/header.html' %}
         {% block customer_header %}
         {% endblock %}

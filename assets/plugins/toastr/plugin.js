@@ -1,6 +1,6 @@
 require.config({
     paths: {
-        'toastr': 'assets/plugins/toastr/toastr'
+        'toastr': 'static/plugins/toastr/toastr'
     }
 });
 

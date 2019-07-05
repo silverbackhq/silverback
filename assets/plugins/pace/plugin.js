@@ -1,6 +1,6 @@
 require.config({
     paths: {
-        'pace': 'assets/plugins/pace/pace.min'
+        'pace': 'static/plugins/pace/pace.min'
     }
 });
 
