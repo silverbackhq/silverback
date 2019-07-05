@@ -19,5 +19,5 @@
 			"generator": "secret"
 		}
 	},
-	"addons": ["cleardb:ignite"]
+	"addons": ["jawsdb"]
 }
