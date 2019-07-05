@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 # Standard Library
 import os
 import time
+import os.path
 
 # Third Party Library
 from dotenv import load_dotenv
@@ -20,8 +21,10 @@ from django.utils.translation import ugettext_lazy as _
 # Local Library
 from app.settings.info import APP_ROOT
 
-
-load_dotenv(dotenv_path=os.path.join(APP_ROOT, ".env"))
+if os.path.exists(os.path.join(APP_ROOT, ".env")):
+    load_dotenv(dotenv_path=os.path.join(APP_ROOT, ".env"))
+else:
+    load_dotenv(dotenv_path=os.path.join(APP_ROOT, ".env.example"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
