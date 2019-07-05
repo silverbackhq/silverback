@@ -19,7 +19,5 @@
 			"generator": "secret"
 		}
 	},
-	"addons": [{
-		"plan": "cleardb"
-	}]
+	"addons": ["cleardb:ignite"]
 }
