@@ -16,6 +16,7 @@
 		"DB_DATABASE": "silverback",
 		"DB_USERNAME": "root",
 		"DB_PASSWORD": "secret",
+		"ALLOWED_HOSTS": "*",
 		"SECRET_KEY": {
 			"description": "A secret key for verifying the integrity of signed cookies.",
 			"generator": "secret"
