@@ -135,12 +135,21 @@ if os.getenv("DB_CONNECTION") == "mysql":
         'HOST': os.getenv("DB_HOST"),
         'PORT': os.getenv("DB_PORT"),
     }
+
+elif os.getenv("DB_CONNECTION") == "postgresql":
+    default_db = {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv("DB_DATABASE"),
+        'USER': os.getenv("DB_USERNAME"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT"),
+    }
 else:
     default_db = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(APP_ROOT + "/storage/database/", 'db.sqlite3')
     }
-
 
 DATABASES = {
     'default': default_db
