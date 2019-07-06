@@ -20,11 +20,11 @@ matrix:
   allow_failures:
   - python: "3.5"
   - python: "3.5-dev"
-  
+
 # command to install dependencies
 install:
   - make config
-  - pip install codecov
+  - pip install coveralls
 
 before_script:
   - mysql -e 'CREATE DATABASE silverback;'
@@ -44,7 +44,7 @@ before_script:
 # command to run tests
 script:
   - make ci
-  
-# Push the results back to codecov
+
+# Push the results back to coveralls
 after_success:
-  - codecov
+  - coveralls
