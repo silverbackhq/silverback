@@ -4,6 +4,7 @@
     <p align="center">A Status and Incident Communication Tool.</p>
     <p align="center">
         <a href="https://travis-ci.org/silverbackhq/Silverback"><img src="https://travis-ci.org/silverbackhq/Silverback.svg?branch=master"></a>
+    <a href='https://coveralls.io/github/silverbackhq/silverback?branch=master'><img src='https://coveralls.io/repos/github/silverbackhq/silverback/badge.svg?branch=master' alt='Coverage Status' /></a>
         <a href="https://github.com/silverbackhq/Silverback/releases"><img src="https://img.shields.io/badge/Version-1.0.0-red.svg"></a>
         <a href="https://github.com/silverbackhq/Silverback/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-BSD%203--Clause%20-orange.svg"></a>
     </p>
