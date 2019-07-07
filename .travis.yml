@@ -2,7 +2,6 @@ dist: xenial   # required for Python >= 3.7
 language: python
 
 services:
-  - mysql
   - rabbitmq
   - redis-server
 
@@ -27,15 +26,9 @@ install:
   - pip install coveralls
 
 before_script:
-  - mysql -e 'CREATE DATABASE silverback;'
   - cp .env.example .env
-  - python manage.py silverback update_env DB_HOST=127.0.0.1
-  - python manage.py silverback update_env DB_PORT=3306
-  - python manage.py silverback update_env DB_DATABASE=silverback
-  - python manage.py silverback update_env DB_USERNAME=root
-  - python manage.py silverback update_env DB_PASSWORD=
   - python manage.py silverback update_app_key
-  - python manage.py silverback update_env DB_CONNECTION=mysql
+  - python manage.py silverback update_env DB_CONNECTION=sqlite
   - python manage.py silverback update_env REDIS_HOST=localhost
   - python manage.py silverback update_env REDIS_PORT=6379
   - python manage.py silverback update_env CELERY_BROKER_URL=amqp://guest:guest@localhost:5672
