@@ -105,3 +105,6 @@ class Option_Entity():
             count, deleted = option.delete()
             return True if count > 0 else False
         return False
+
+    def truncate(self):
+        return Option.objects.all().delete()

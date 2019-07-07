@@ -157,3 +157,6 @@ class User_Entity():
         return User.objects.filter(
             date_joined__gte=last_x_days
         ).extra({"day": "date(date_joined)"}).values("day").order_by('-day').annotate(count=Count("id"))
+
+    def truncate(self):
+        return User.objects.all().delete()

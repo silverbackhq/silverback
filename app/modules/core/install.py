@@ -73,3 +73,7 @@ class Install():
             status &= self.init_base_acl(user.id)
 
         return user.id if status else False
+
+    def uninstall(self):
+        self.__option_entity.truncate()
+        self.__user_entity.truncate()
