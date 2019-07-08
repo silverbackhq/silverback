@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import time
 import os.path
+from urllib.parse import urlparse
 
 # Third Party Library
 from dotenv import load_dotenv
@@ -127,26 +128,43 @@ if os.getenv("EMAIL_BACKEND", None) is not None and os.getenv("EMAIL_BACKEND", N
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-if os.getenv("DB_CONNECTION") == "mysql":
+db_connection = os.getenv("DB_CONNECTION")
+db_name = os.getenv("DB_DATABASE")
+db_username = os.getenv("DB_USERNAME")
+db_password = os.getenv("DB_PASSWORD")
+db_host = os.getenv("DB_HOST")
+db_port = os.getenv("DB_PORT")
+
+if os.getenv("DATABASE_URL", "") != "":
+    url_parts = urlparse(os.getenv("DATABASE_URL", ""))
+    db_connection = url_parts.scheme
+    db_name = url_parts.path.lstrip("/")
+    db_username = url_parts.username
+    db_password = url_parts.password
+    db_host = url_parts.hostname
+    db_port = url_parts.port
+
+if db_connection == "mysql":
     default_db = {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv("DB_DATABASE"),
-        'USER': os.getenv("DB_USERNAME"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
-        'PORT': os.getenv("DB_PORT"),
+        'NAME': db_name,
+        'USER': db_username,
+        'PASSWORD': db_password,
+        'HOST': db_host,
+        'PORT': db_port,
     }
 
-elif os.getenv("DB_CONNECTION") == "postgresql":
+elif db_connection == "postgres":
     default_db = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv("DB_DATABASE"),
-        'USER': os.getenv("DB_USERNAME"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
-        'PORT': os.getenv("DB_PORT"),
+        'NAME': db_name,
+        'USER': db_username,
+        'PASSWORD': db_password,
+        'HOST': db_host,
+        'PORT': db_port,
     }
 else:
     default_db = {
