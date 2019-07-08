@@ -19,7 +19,9 @@ matrix:
   allow_failures:
   - python: "3.5"
   - python: "3.5-dev"
-
+  - python: "3.8-dev"
+  - python: "nightly"
+ 
 # command to install dependencies
 install:
   - make config
