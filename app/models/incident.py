@@ -19,3 +19,6 @@ class Incident(models.Model):
     datetime = models.DateTimeField(verbose_name="Datetime")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+
+    class Meta:
+        db_table = "app_incident"

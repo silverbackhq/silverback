@@ -9,7 +9,7 @@ from django.db import models
 from .incident import Incident
 
 
-class Incident_Update(models.Model):
+class IncidentUpdate(models.Model):
 
     STATUS_CHOICES = (
         ('investigating', 'INVESTIGATING'),
@@ -39,3 +39,6 @@ class Incident_Update(models.Model):
     message = models.TextField(verbose_name="Message")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+
+    class Meta:
+        db_table = "app_incident_update"

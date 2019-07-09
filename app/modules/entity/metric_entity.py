@@ -6,7 +6,7 @@ Metric Entity Module
 from app.models import Metric
 
 
-class Metric_Entity():
+class MetricEntity():
 
     def insert_one(self, metric):
 

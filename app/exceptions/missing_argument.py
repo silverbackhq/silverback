@@ -3,7 +3,7 @@ Missing Argument Exception
 """
 
 
-class Missing_Argument(Exception):
+class MissingArgument(Exception):
     """Missing Argument Custom Exception"""
 
     def __init__(self, message, error_info={}):

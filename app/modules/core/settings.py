@@ -3,7 +3,7 @@ Settings Module
 """
 
 # Local Library
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.option_entity import OptionEntity
 
 
 class Settings():
@@ -11,7 +11,7 @@ class Settings():
     __option_entity = None
 
     def __init__(self):
-        self.__option_entity = Option_Entity()
+        self.__option_entity = OptionEntity()
 
     def update_options(self, options):
         status = True

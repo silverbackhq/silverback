@@ -12,12 +12,12 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.option_entity import OptionEntity
 from app.modules.core.decorators import redirect_if_authenticated
 from app.modules.core.decorators import redirect_if_not_installed
 
 
-class Forgot_Password(View):
+class ForgotPassword(View):
 
     template_name = 'templates/forgot_password.html'
     __context = None
@@ -30,7 +30,7 @@ class Forgot_Password(View):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
-        self.__option_entity = Option_Entity()
+        self.__option_entity = OptionEntity()
 
         self.__context.autoload_options()
         self.__context.push({

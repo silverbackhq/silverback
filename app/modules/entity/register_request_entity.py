@@ -11,10 +11,10 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 
 # Local Library
-from app.models import Register_Request
+from app.models import RegisterRequest
 
 
-class Register_Request_Entity():
+class RegisterRequestEntity():
 
     def gererate_token(self):
         """Generate a Token"""
@@ -28,7 +28,7 @@ class Register_Request_Entity():
         if self.get_one_by_email(request["email"]) is not False:
             return False
 
-        request = Register_Request(
+        request = RegisterRequest(
             email=request["email"],
             token=request["token"] if "token" in request else self.gererate_token(),
             payload=request["payload"],
@@ -48,7 +48,7 @@ class Register_Request_Entity():
     def get_one_by_id(self, id):
         """Get Register Request By ID"""
         try:
-            register_request = Register_Request.objects.get(pk=id)
+            register_request = RegisterRequest.objects.get(pk=id)
             return False if register_request.pk is None else register_request
         except Exception:
             return False
@@ -56,7 +56,7 @@ class Register_Request_Entity():
     def get_one_by_email(self, email):
         """Get Register Request By Email"""
         try:
-            register_request = Register_Request.objects.get(email=email)
+            register_request = RegisterRequest.objects.get(email=email)
             return False if register_request.pk is None else register_request
         except Exception:
             return False
@@ -64,14 +64,14 @@ class Register_Request_Entity():
     def get_one_by_token(self, token):
         """Get Register Request By Token"""
         try:
-            register_request = Register_Request.objects.get(token=token)
+            register_request = RegisterRequest.objects.get(token=token)
             return False if register_request.pk is None else register_request
         except Exception:
             return False
 
     def clear_expired_tokens(self):
         """Clear all Expired Tokens"""
-        Register_Request.objects.filter(expire_at__lt=datetime.now()).delete()
+        RegisterRequest.objects.filter(expire_at__lt=datetime.now()).delete()
 
     def delete_one_by_id(self, id):
         """Delete Register Request By ID"""

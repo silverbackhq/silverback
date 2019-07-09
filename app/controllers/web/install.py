@@ -13,8 +13,8 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.core.install import Install as Install_Module
+from app.modules.entity.option_entity import OptionEntity
+from app.modules.core.install import Install as InstallModule
 
 
 class Install(View):
@@ -29,8 +29,8 @@ class Install(View):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
-        self.__install = Install_Module()
-        self.__option_entity = Option_Entity()
+        self.__install = InstallModule()
+        self.__option_entity = OptionEntity()
 
         if self.__install.is_installed():
             return redirect("app.web.login")

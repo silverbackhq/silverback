@@ -14,10 +14,10 @@ from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
 from app.modules.core.decorators import stop_request_if_authenticated
-from app.modules.core.forgot_password import Forgot_Password as Forgot_Password_Module
+from app.modules.core.forgot_password import ForgotPassword as ForgotPasswordModule
 
 
-class Forgot_Password(View):
+class ForgotPassword(View):
 
     __request = None
     __response = None
@@ -32,7 +32,7 @@ class Forgot_Password(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__forgot_password = Forgot_Password_Module()
+        self.__forgot_password = ForgotPasswordModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 

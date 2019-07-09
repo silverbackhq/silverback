@@ -6,7 +6,7 @@ Component Model
 from django.db import models
 
 # Local Library
-from .component_group import Component_Group
+from .component_group import ComponentGroup
 
 
 class Component(models.Model):
@@ -17,7 +17,7 @@ class Component(models.Model):
     )
 
     group = models.ForeignKey(
-        Component_Group,
+        ComponentGroup,
         on_delete=models.CASCADE,
         db_index=True,
         verbose_name="Related Component Group",
@@ -29,3 +29,6 @@ class Component(models.Model):
     uptime = models.CharField(max_length=50, choices=UPTIME_CHOICES, default="off", verbose_name="Uptime")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+
+    class Meta:
+        db_table = "app_component"

@@ -14,8 +14,8 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.core.user import User as User_Module
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.core.user import User as UserModule
+from app.modules.entity.option_entity import OptionEntity
 from app.modules.core.decorators import redirect_if_authenticated
 from app.modules.core.decorators import redirect_if_not_installed
 
@@ -33,9 +33,9 @@ class Register(View):
     def get(self, request, token):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__user = User_Module()
+        self.__user = UserModule()
         self.__context = Context()
-        self.__option_entity = Option_Entity()
+        self.__option_entity = OptionEntity()
 
         if not self.__user.check_register_request(token):
             messages.error(request, _("Register token is expired or invalid, Please contact system administrator!"))

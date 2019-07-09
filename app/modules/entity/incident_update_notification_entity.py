@@ -11,20 +11,20 @@ from django.db.models.aggregates import Count
 
 # Local Library
 from app.models import Subscriber
-from app.models import Incident_Update
-from app.models import Incident_Update_Notification
+from app.models import IncidentUpdate
+from app.models import IncidentUpdateNotification
 
 
-class Incident_Update_Notification_Entity():
+class IncidentUpdateNotificationEntity():
 
     def insert_one(self, item):
-        new_item = Incident_Update_Notification()
+        new_item = IncidentUpdateNotification()
 
         if "status" in item:
             new_item.status = item["status"]
 
         if "incident_update_id" in item:
-            new_item.incident_update = None if item["incident_update_id"] is None else Incident_Update.objects.get(pk=item["incident_update_id"])
+            new_item.incident_update = None if item["incident_update_id"] is None else IncidentUpdate.objects.get(pk=item["incident_update_id"])
 
         if "subscriber_id" in item:
             new_item.subscriber = None if item["subscriber_id"] is None else Subscriber.objects.get(pk=item["subscriber_id"])
@@ -40,7 +40,7 @@ class Incident_Update_Notification_Entity():
                 item.status = data["status"]
 
             if "incident_update_id" in data:
-                item.incident_update = None if data["incident_update_id"] is None else Incident_Update.objects.get(pk=data["incident_update_id"])
+                item.incident_update = None if data["incident_update_id"] is None else IncidentUpdate.objects.get(pk=data["incident_update_id"])
 
             if "subscriber_id" in data:
                 item.subscriber = None if data["subscriber_id"] is None else Subscriber.objects.get(pk=data["subscriber_id"])
@@ -51,7 +51,7 @@ class Incident_Update_Notification_Entity():
 
     def is_subscriber_notified(self, incident_update_id, subscriber_id):
         try:
-            notification = Incident_Update_Notification.objects.get(
+            notification = IncidentUpdateNotification.objects.get(
                 incident_update_id=incident_update_id,
                 subscriber_id=subscriber_id
             )
@@ -60,11 +60,11 @@ class Incident_Update_Notification_Entity():
             return False
 
     def count_by_update_status(self, update_id, status):
-        return Incident_Update_Notification.objects.filter(status=status, incident_update_id=update_id).count()
+        return IncidentUpdateNotification.objects.filter(status=status, incident_update_id=update_id).count()
 
     def get_one_by_id(self, id):
         try:
-            item = Incident_Update_Notification.objects.get(id=id)
+            item = IncidentUpdateNotification.objects.get(id=id)
             return False if item.pk is None else item
         except Exception:
             return False
@@ -77,11 +77,11 @@ class Incident_Update_Notification_Entity():
         return False
 
     def count_by_status(self, status):
-        return Incident_Update_Notification.objects.filter(status=status).count()
+        return IncidentUpdateNotification.objects.filter(status=status).count()
 
     def count_over_days(self, status, days=7):
         last_x_days = timezone.now() - datetime.timedelta(days)
-        return Incident_Update_Notification.objects.filter(
+        return IncidentUpdateNotification.objects.filter(
             created_at__gte=last_x_days,
             status=status
         ).extra({"day": "date(created_at)"}).values("day").order_by('-day').annotate(count=Count("id"))

@@ -3,7 +3,7 @@ Subscriber Module
 """
 
 # Local Library
-from app.modules.entity.subscriber_entity import Subscriber_Entity
+from app.modules.entity.subscriber_entity import SubscriberEntity
 
 
 class Subscriber():
@@ -18,7 +18,7 @@ class Subscriber():
     __subscriber_entity = None
 
     def __init__(self):
-        self.__subscriber_entity = Subscriber_Entity()
+        self.__subscriber_entity = SubscriberEntity()
 
     def get_one_by_id(self, id):
         subscriber = self.__subscriber_entity.get_one_by_id(id)

@@ -6,7 +6,7 @@ Option Entity Module
 from app.models import Option
 
 
-class Option_Entity():
+class OptionEntity():
 
     def insert_one(self, option):
         """Insert a New Option"""

@@ -14,14 +14,14 @@ from django.utils.translation import gettext as _
 # Local Library
 from app.modules.core.context import Context
 from app.modules.core.decorators import login_if_not_authenticated
-from app.modules.core.component import Component as Component_Module
+from app.modules.core.component import Component as ComponentModule
 
 
-class Component_List(View):
+class ComponentList(View):
 
     template_name = 'templates/admin/component/list.html'
     __context = Context()
-    __component = Component_Module()
+    __component = ComponentModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -37,11 +37,11 @@ class Component_List(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Component_Add(View):
+class ComponentAdd(View):
 
     template_name = 'templates/admin/component/add.html'
     __context = Context()
-    __component = Component_Module()
+    __component = ComponentModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -58,11 +58,11 @@ class Component_Add(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Component_Edit(View):
+class ComponentEdit(View):
 
     template_name = 'templates/admin/component/edit.html'
     __context = Context()
-    __component = Component_Module()
+    __component = ComponentModule()
     __correlation_id = None
 
     @login_if_not_authenticated

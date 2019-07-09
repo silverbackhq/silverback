@@ -14,7 +14,7 @@ from django.db.models.aggregates import Count
 from app.models import Incident
 
 
-class Incident_Entity():
+class IncidentEntity():
 
     def insert_one(self, incident):
 

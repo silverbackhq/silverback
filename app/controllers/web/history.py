@@ -12,7 +12,7 @@ from feedgen.feed import FeedGenerator
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.option_entity import OptionEntity
 from app.modules.core.decorators import redirect_if_not_installed
 
 
@@ -29,7 +29,7 @@ class AtomHistory(View):
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__fg = FeedGenerator()
         self.__context = Context()
-        self.__option_entity = Option_Entity()
+        self.__option_entity = OptionEntity()
 
         self.__context.autoload_options()
         self.__context.push({
@@ -62,7 +62,7 @@ class RssHistory(View):
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__fg = FeedGenerator()
         self.__context = Context()
-        self.__option_entity = Option_Entity()
+        self.__option_entity = OptionEntity()
 
         self.__context.autoload_options()
         self.__context.push({

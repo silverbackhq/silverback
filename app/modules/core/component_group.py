@@ -3,18 +3,18 @@ Component Group Module
 """
 
 # Local Library
-from app.modules.entity.component_entity import Component_Entity
-from app.modules.entity.component_group_entity import Component_Group_Entity
+from app.modules.entity.component_entity import ComponentEntity
+from app.modules.entity.component_group_entity import ComponentGroupEntity
 
 
-class Component_Group():
+class ComponentGroup():
 
     __component_group_entity = None
     __component_entity = None
 
     def __init__(self):
-        self.__component_group_entity = Component_Group_Entity()
-        self.__component_entity = Component_Entity()
+        self.__component_group_entity = ComponentGroupEntity()
+        self.__component_entity = ComponentEntity()
 
     def get_one_by_id(self, id):
         group = self.__component_group_entity.get_one_by_id(id)

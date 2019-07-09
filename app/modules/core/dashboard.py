@@ -9,15 +9,15 @@ import datetime
 from django.utils import timezone
 
 # Local Library
-from app.modules.entity.user_entity import User_Entity
-from app.modules.entity.metric_entity import Metric_Entity
-from app.modules.entity.incident_entity import Incident_Entity
-from app.modules.entity.component_entity import Component_Entity
-from app.modules.entity.subscriber_entity import Subscriber_Entity
-from app.modules.entity.component_group_entity import Component_Group_Entity
-from app.modules.entity.incident_update_entity import Incident_Update_Entity
-from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
-from app.modules.entity.incident_update_notification_entity import Incident_Update_Notification_Entity
+from app.modules.entity.user_entity import UserEntity
+from app.modules.entity.metric_entity import MetricEntity
+from app.modules.entity.incident_entity import IncidentEntity
+from app.modules.entity.component_entity import ComponentEntity
+from app.modules.entity.subscriber_entity import SubscriberEntity
+from app.modules.entity.component_group_entity import ComponentGroupEntity
+from app.modules.entity.incident_update_entity import IncidentUpdateEntity
+from app.modules.entity.incident_update_component_entity import IncidentUpdateComponentEntity
+from app.modules.entity.incident_update_notification_entity import IncidentUpdateNotificationEntity
 
 
 class Dashboard():
@@ -33,15 +33,15 @@ class Dashboard():
     __metric = None
 
     def __init__(self):
-        self.__incident = Incident_Entity()
-        self.__incident_update = Incident_Update_Entity()
-        self.__incident_update_notification = Incident_Update_Notification_Entity()
-        self.__incident_update_component = Incident_Update_Component_Entity()
-        self.__subscriber = Subscriber_Entity()
-        self.__user = User_Entity()
-        self.__component = Component_Entity()
-        self.__component_group = Component_Group_Entity()
-        self.__metric = Metric_Entity()
+        self.__incident = IncidentEntity()
+        self.__incident_update = IncidentUpdateEntity()
+        self.__incident_update_notification = IncidentUpdateNotificationEntity()
+        self.__incident_update_component = IncidentUpdateComponentEntity()
+        self.__subscriber = SubscriberEntity()
+        self.__user = UserEntity()
+        self.__component = ComponentEntity()
+        self.__component_group = ComponentGroupEntity()
+        self.__metric = MetricEntity()
 
     def incidents_count(self):
         return self.__incident.count_all()

@@ -12,14 +12,14 @@ from django.db.models.aggregates import Count
 
 # Local Library
 from app.models import Incident
-from app.models import Incident_Update
+from app.models import IncidentUpdate
 
 
-class Incident_Update_Entity():
+class IncidentUpdateEntity():
 
     def insert_one(self, update):
 
-        new_update = Incident_Update()
+        new_update = IncidentUpdate()
 
         if "status" in update:
             new_update.status = update["status"]
@@ -70,17 +70,17 @@ class Incident_Update_Entity():
         return False
 
     def count_all(self, incident_id):
-        return Incident_Update.objects.filter(incident_id=incident_id).count()
+        return IncidentUpdate.objects.filter(incident_id=incident_id).count()
 
     def get_all(self, incident_id, offset=None, limit=None):
         if offset is None or limit is None:
-            return Incident_Update.objects.filter(incident_id=incident_id).order_by('-created_at')
+            return IncidentUpdate.objects.filter(incident_id=incident_id).order_by('-created_at')
 
-        return Incident_Update.objects.filter(incident_id=incident_id).order_by('-created_at')[offset:limit+offset]
+        return IncidentUpdate.objects.filter(incident_id=incident_id).order_by('-created_at')[offset:limit+offset]
 
     def get_one_by_id(self, update_id):
         try:
-            incident_update = Incident_Update.objects.get(id=update_id)
+            incident_update = IncidentUpdate.objects.get(id=update_id)
             return False if incident_update.pk is None else incident_update
         except Exception:
             return False
@@ -94,6 +94,6 @@ class Incident_Update_Entity():
 
     def count_over_days(self, days=7):
         last_x_days = timezone.now() - datetime.timedelta(days)
-        return Incident_Update.objects.filter(
+        return IncidentUpdate.objects.filter(
             created_at__gte=last_x_days
         ).extra({"day": "date(created_at)"}).values("day").order_by('-day').annotate(count=Count("id"))

@@ -14,10 +14,10 @@ from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
 from app.modules.core.decorators import stop_request_if_authenticated
-from app.modules.core.reset_password import Reset_Password as Reset_Password_Module
+from app.modules.core.reset_password import ResetPassword as ResetPasswordModule
 
 
-class Reset_Password(View):
+class ResetPassword(View):
 
     __request = None
     __response = None
@@ -32,7 +32,7 @@ class Reset_Password(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__reset_password = Reset_Password_Module()
+        self.__reset_password = ResetPasswordModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 

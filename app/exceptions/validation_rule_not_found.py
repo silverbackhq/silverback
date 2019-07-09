@@ -3,7 +3,7 @@ Validation Rule Not Found
 """
 
 
-class Validation_Rule_Not_Found(Exception):
+class ValidationRuleNotFound(Exception):
     """Validation Rule Not Exist Custom Exception"""
 
     def __init__(self, error_info):

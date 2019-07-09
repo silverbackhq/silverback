@@ -3,13 +3,13 @@ Option Entity Test Cases
 """
 
 from django.test import TestCase
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.option_entity import OptionEntity
 
 
 class Test_Option_Entity(TestCase):
 
     def test_insert_one(self):
-        option_entity = Option_Entity()
+        option_entity = OptionEntity()
         option = option_entity.insert_one({
             "key": "key1",
             "value": "value1",
@@ -20,7 +20,7 @@ class Test_Option_Entity(TestCase):
         self.assertTrue(option.id >= 1)
 
     def test_insert_many(self):
-        option_entity = Option_Entity()
+        option_entity = OptionEntity()
         self.assertTrue(option_entity.insert_many([
             {"key": "key2", "value": "value2", "autoload": False},
             {"key": "key3", "value": "value3"},
@@ -29,7 +29,7 @@ class Test_Option_Entity(TestCase):
         ]))
 
     def test_get_one_by_id(self):
-        option_entity = Option_Entity()
+        option_entity = OptionEntity()
         option = option_entity.insert_one({
             "key": "key6",
             "value": "value6",
@@ -41,7 +41,7 @@ class Test_Option_Entity(TestCase):
         self.assertFalse(option_entity.get_one_by_id(1000))
 
     def test_get_one_by_key(self):
-        option_entity = Option_Entity()
+        option_entity = OptionEntity()
         option = option_entity.insert_one({
             "key": "key7",
             "value": "value7",
@@ -52,7 +52,7 @@ class Test_Option_Entity(TestCase):
         self.assertFalse(option_entity.get_one_by_key("not_found_key"))
 
     def test_get_many_by_autoload(self):
-        option_entity = Option_Entity()
+        option_entity = OptionEntity()
         self.assertTrue(option_entity.insert_many([
             {"key": "key2", "value": "value2", "autoload": False},
             {"key": "key3", "value": "value3"},
@@ -63,7 +63,7 @@ class Test_Option_Entity(TestCase):
         self.assertEqual(option_entity.get_many_by_autoload(False).count(), 2)
 
     def test_update_value_by_id(self):
-        option_entity = Option_Entity()
+        option_entity = OptionEntity()
         option = option_entity.insert_one({
             "key": "key8",
             "value": "value8",
@@ -73,7 +73,7 @@ class Test_Option_Entity(TestCase):
         self.assertFalse(option_entity.update_value_by_id(700, "new_value8"))
 
     def test_update_value_by_key(self):
-        option_entity = Option_Entity()
+        option_entity = OptionEntity()
         option_entity.insert_one({
             "key": "key9",
             "value": "value9",
@@ -83,7 +83,7 @@ class Test_Option_Entity(TestCase):
         self.assertTrue(option_entity.update_value_by_key("not_found_key", "new_value9"))
 
     def test_delete_one_by_id(self):
-        option_entity = Option_Entity()
+        option_entity = OptionEntity()
         option = option_entity.insert_one({
             "key": "key10",
             "value": "value10",
@@ -93,7 +93,7 @@ class Test_Option_Entity(TestCase):
         self.assertFalse(option_entity.delete_one_by_id(600))
 
     def test_delete_one_by_key(self):
-        option_entity = Option_Entity()
+        option_entity = OptionEntity()
         option_entity.insert_one({
             "key": "key11",
             "value": "value11",

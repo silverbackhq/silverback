@@ -13,14 +13,14 @@ from django.utils.translation import gettext as _
 # Local Library
 from app.modules.core.context import Context
 from app.modules.core.decorators import login_if_not_authenticated
-from app.modules.core.dashboard import Dashboard as Dashboard_Module
+from app.modules.core.dashboard import Dashboard as DashboardModule
 
 
 class Dashboard(View):
 
     template_name = 'templates/admin/dashboard.html'
     __context = Context()
-    __dashboard = Dashboard_Module()
+    __dashboard = DashboardModule()
     __correlation_id = None
 
     @login_if_not_authenticated

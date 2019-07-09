@@ -4,8 +4,8 @@ Task Module
 
 # Local Library
 from app.modules.util.humanize import Humanize
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.entity.notification_entity import Notification_Entity
+from app.modules.entity.option_entity import OptionEntity
+from app.modules.entity.notification_entity import NotificationEntity
 
 
 class Notification():
@@ -22,8 +22,8 @@ class Notification():
     __app_name = None
 
     def __init__(self):
-        self.__notification_entity = Notification_Entity()
-        self.__option_entity = Option_Entity()
+        self.__notification_entity = NotificationEntity()
+        self.__option_entity = OptionEntity()
         self.__humanize = Humanize()
         option = self.__option_entity.get_one_by_key("app_name")
         self.__app_name = option.value if option is not False else ""

@@ -6,17 +6,17 @@ Incident Update Tasks
 from celery import shared_task
 
 # Local Library
-from app.modules.core.task import Task as Task_Module
-from app.modules.core.subscriber import Subscriber as Subscriber_Module
-from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
+from app.modules.core.task import Task as TaskModule
+from app.modules.core.subscriber import Subscriber as SubscriberModule
+from app.modules.core.incident_update_notification import IncidentUpdateNotification as IncidentUpdateNotificationModule
 
 
 @shared_task
 def incident_update(incident_update_id, user_id):
 
-    incident_update_notification_module = Incident_Update_Notification_Module()
-    subscriber_module = Subscriber_Module()
-    task_module = Task_Module()
+    incident_update_notification_module = IncidentUpdateNotificationModule()
+    subscriber_module = SubscriberModule()
+    task_module = TaskModule()
 
     for subscriber in subscriber_module.get_iterator():
         notification = incident_update_notification_module.is_subscriber_notified(

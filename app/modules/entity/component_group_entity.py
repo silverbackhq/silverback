@@ -3,14 +3,14 @@ Component Group Entity Module
 """
 
 # Local Library
-from app.models import Component_Group
+from app.models import ComponentGroup
 
 
-class Component_Group_Entity():
+class ComponentGroupEntity():
 
     def insert_one(self, group):
 
-        new_group = Component_Group()
+        new_group = ComponentGroup()
 
         if "name" in group:
             new_group.name = group["name"]
@@ -43,7 +43,7 @@ class Component_Group_Entity():
 
     def get_one_by_id(self, group_id):
         try:
-            group = Component_Group.objects.get(id=group_id)
+            group = ComponentGroup.objects.get(id=group_id)
             return False if group.pk is None else group
         except Exception:
             return False
@@ -56,9 +56,9 @@ class Component_Group_Entity():
         return False
 
     def count_all(self):
-        return Component_Group.objects.count()
+        return ComponentGroup.objects.count()
 
     def get_all(self, offset=None, limit=None):
         if offset is None or limit is None:
-            return Component_Group.objects.order_by('-created_at')
-        return Component_Group.objects.order_by('-created_at')[offset:limit+offset]
+            return ComponentGroup.objects.order_by('-created_at')
+        return ComponentGroup.objects.order_by('-created_at')[offset:limit+offset]

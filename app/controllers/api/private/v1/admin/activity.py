@@ -12,7 +12,7 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.activity import Activity as Activity_Module
+from app.modules.core.activity import Activity as ActivityModule
 
 
 class Activities(View):
@@ -31,7 +31,7 @@ class Activities(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__activity = Activity_Module()
+        self.__activity = ActivityModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 

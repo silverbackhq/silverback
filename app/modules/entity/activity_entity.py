@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from app.models import Activity
 
 
-class Activity_Entity():
+class ActivityEntity():
 
     def insert_one(self, activity):
 

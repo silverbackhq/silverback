@@ -11,7 +11,7 @@ from django.http import Http404
 # Local Library
 from app.modules.util.helpers import Helpers
 from app.modules.core.response import Response
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.option_entity import OptionEntity
 
 
 def redirect_if_authenticated(function):
@@ -46,7 +46,7 @@ def stop_request_if_authenticated(function):
 
 def redirect_if_not_installed(function):
     def wrap(controller, request, *args, **kwargs):
-        installed = False if Option_Entity().get_one_by_key("app_installed") is False else True
+        installed = False if OptionEntity().get_one_by_key("app_installed") is False else True
         if not installed:
             return redirect("app.web.install")
         return function(controller, request, *args, **kwargs)
@@ -56,7 +56,7 @@ def redirect_if_not_installed(function):
 def protect_metric_with_auth_key(function):
     def wrap(controller, request, *args, **kwargs):
         if kwargs["type"] == "prometheus":
-            prometheus_token = Option_Entity().get_one_by_key("prometheus_token")
+            prometheus_token = OptionEntity().get_one_by_key("prometheus_token")
             if prometheus_token.value != "" and ("HTTP_AUTHORIZATION" not in request.META or prometheus_token.value != request.META["HTTP_AUTHORIZATION"]):
                 raise Http404("Host not found.")
         return function(controller, request, *args, **kwargs)
@@ -65,7 +65,7 @@ def protect_metric_with_auth_key(function):
 
 def stop_request_if_installed(function):
     def wrap(controller, request, *args, **kwargs):
-        installed = False if Option_Entity().get_one_by_key("app_installed") is False else True
+        installed = False if OptionEntity().get_one_by_key("app_installed") is False else True
         if installed:
             response = Response()
             return JsonResponse(response.send_private_failure([{

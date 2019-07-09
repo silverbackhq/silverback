@@ -14,10 +14,10 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.component_group import Component_Group as Component_Group_Module
+from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
 
 
-class Component_Groups(View):
+class ComponentGroups(View):
 
     __request = None
     __response = None
@@ -33,7 +33,7 @@ class Component_Groups(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__component_group = Component_Group_Module()
+        self.__component_group = ComponentGroupModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -144,7 +144,7 @@ class Component_Groups(View):
         return groups_list
 
 
-class Component_Group(View):
+class ComponentGroup(View):
 
     __request = None
     __response = None
@@ -160,7 +160,7 @@ class Component_Group(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__component_group = Component_Group_Module()
+        self.__component_group = ComponentGroupModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 

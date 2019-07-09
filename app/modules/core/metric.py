@@ -9,8 +9,8 @@ import json
 from pyumetric import NewRelic_Provider
 
 # Local Library
-from app.modules.entity.metric_entity import Metric_Entity
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.metric_entity import MetricEntity
+from app.modules.entity.option_entity import OptionEntity
 
 
 class Metric():
@@ -20,8 +20,8 @@ class Metric():
     __newrelic = None
 
     def __init__(self):
-        self.__option_entity = Option_Entity()
-        self.__metric_entity = Metric_Entity()
+        self.__option_entity = OptionEntity()
+        self.__metric_entity = MetricEntity()
         new_relic_api = self.__option_entity.get_one_by_key("newrelic_api_key")
         if new_relic_api:
             self.__newrelic = NewRelic_Provider(new_relic_api.value)

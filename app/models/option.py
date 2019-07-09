@@ -13,3 +13,6 @@ class Option(models.Model):
     autoload = models.BooleanField(default=False, verbose_name="Autoload")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+
+    class Meta:
+        db_table = "app_option"

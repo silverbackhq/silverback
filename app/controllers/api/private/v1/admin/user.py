@@ -13,7 +13,7 @@ from django.utils.translation import gettext as _
 from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
-from app.modules.core.user import User as User_Module
+from app.modules.core.user import User as UserModule
 from app.modules.validation.extension import ExtraRules
 
 
@@ -33,7 +33,7 @@ class Users(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__user = User_Module()
+        self.__user = UserModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -291,7 +291,7 @@ class User(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__user = User_Module()
+        self.__user = UserModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
