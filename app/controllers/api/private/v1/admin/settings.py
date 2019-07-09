@@ -45,10 +45,10 @@ class Settings(View):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
-        if not self.__acl.user_has_permission(request.user.id, "manage_settings"):
+        if not request.user.id or not self.__acl.user_has_permission(request.user.id, "manage_settings"):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Invalid Request.")
+                "message": _("Access Forbidden.")
             }], {}, self.__correlation_id))
 
         self.__request.set_request(request)
