@@ -1,5 +1,5 @@
 """
-Test Error Controller
+Test Home Controller
 """
 
 # Third Party Library

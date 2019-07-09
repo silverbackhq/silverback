@@ -1,5 +1,5 @@
 """
-Test Error Controller
+Test Profile Controller
 """
 
 # Standard Library

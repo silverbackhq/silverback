@@ -1,5 +1,5 @@
 """
-Test Error Controller
+Test Settings Controller
 """
 
 # Standard Library
