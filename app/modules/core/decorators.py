@@ -44,6 +44,18 @@ def stop_request_if_authenticated(function):
     return wrap
 
 
+def allow_if_authenticated(function):
+    def wrap(controller, request, *args, **kwargs):
+        if not request.user or not request.user.is_authenticated:
+            response = Response()
+            return JsonResponse(response.send_private_failure([{
+                "type": "error",
+                "message": _("Oops! Access forbidden.")
+            }]))
+        return function(controller, request, *args, **kwargs)
+    return wrap
+
+
 def redirect_if_not_installed(function):
     def wrap(controller, request, *args, **kwargs):
         installed = False if OptionEntity().get_one_by_key("app_installed") is False else True

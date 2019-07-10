@@ -16,6 +16,7 @@ from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.core.task import Task as Task_Module
 from app.modules.validation.extension import ExtraRules
+from app.modules.core.decorators import allow_if_authenticated
 from app.modules.core.incident import Incident as IncidentModule
 from app.modules.core.subscriber import Subscriber as SubscriberModule
 from app.modules.core.notification import Notification as NotificationModule
@@ -54,6 +55,7 @@ class IncidentUpdates(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def post(self, request, incident_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -136,6 +138,7 @@ class IncidentUpdates(View):
                 "message": _("Error! Something goes wrong while creating update.")
             }], {}, self.__correlation_id))
 
+    @allow_if_authenticated
     def get(self, request, incident_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -208,6 +211,7 @@ class IncidentUpdate(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -278,6 +282,7 @@ class IncidentUpdate(View):
                 "message": _("Error! Something goes wrong while updating update.")
             }], {}, self.__correlation_id))
 
+    @allow_if_authenticated
     def delete(self, request, incident_id, update_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -322,6 +327,7 @@ class IncidentUpdatesNotify(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -385,6 +391,7 @@ class IncidentUpdatesComponents(View):
         self.__incident_update_component = IncidentUpdateComponentModule()
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -459,6 +466,7 @@ class IncidentUpdatesComponent(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def delete(self, request, incident_id, update_id, item_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
