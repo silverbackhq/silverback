@@ -11,10 +11,10 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 
 # Local Library
-from app.models import Reset_Request
+from app.models import ResetRequest
 
 
-class Reset_Request_Entity():
+class ResetRequestEntity():
 
     def gererate_token(self):
         """Generate a Token"""
@@ -28,7 +28,7 @@ class Reset_Request_Entity():
         if self.get_one_by_email(request["email"]) is not False:
             return False
 
-        request = Reset_Request(
+        request = ResetRequest(
             email=request["email"],
             token=request["token"] if "token" in request else self.gererate_token(),
             expire_at=request["expire_at"] if "expire_at" in request else timezone.now() + timedelta(hours=int(request["expire_after"])),
@@ -48,7 +48,7 @@ class Reset_Request_Entity():
     def get_one_by_id(self, id):
         """Get Reset Request By ID"""
         try:
-            reset_request = Reset_Request.objects.get(pk=id)
+            reset_request = ResetRequest.objects.get(pk=id)
             return False if reset_request.pk is None else reset_request
         except Exception:
             return False
@@ -56,7 +56,7 @@ class Reset_Request_Entity():
     def get_one_by_email(self, email):
         """Get Reset Request By Email"""
         try:
-            reset_request = Reset_Request.objects.get(email=email)
+            reset_request = ResetRequest.objects.get(email=email)
             return False if reset_request.pk is None else reset_request
         except Exception:
             return False
@@ -64,14 +64,14 @@ class Reset_Request_Entity():
     def get_one_by_token(self, token):
         """Get Reset Request By Token"""
         try:
-            reset_request = Reset_Request.objects.get(token=token)
+            reset_request = ResetRequest.objects.get(token=token)
             return False if reset_request.pk is None else reset_request
         except Exception:
             return False
 
     def clear_expired_tokens(self):
         """Clear all Expired Tokens"""
-        Reset_Request.objects.filter(expire_at__lt=datetime.now()).delete()
+        ResetRequest.objects.filter(expire_at__lt=datetime.now()).delete()
 
     def delete_one_by_id(self, id):
         """Delete Reset Request By ID"""

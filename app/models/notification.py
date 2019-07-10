@@ -42,3 +42,6 @@ class Notification(models.Model):
     delivered = models.BooleanField(default=False, verbose_name="Delivered")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+
+    class Meta:
+        db_table = "app_notification"

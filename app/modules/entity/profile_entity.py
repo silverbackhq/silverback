@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from app.models import Profile
 
 
-class Profile_Entity():
+class ProfileEntity():
 
     def profile_exists(self, user_id):
         try:

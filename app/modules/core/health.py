@@ -14,8 +14,8 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.settings.info import APP_ROOT
-from app.modules.core.task import Task as Task_Core
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.core.task import Task as TaskCore
+from app.modules.entity.option_entity import OptionEntity
 
 
 class Health():
@@ -36,7 +36,7 @@ class Health():
         errors = []
 
         try:
-            option_entity = Option_Entity()
+            option_entity = OptionEntity()
             if option_entity.count() < Health.MIN_OPTIONS:
                 errors.append(_("Application not installed yet."))
         except Exception as e:
@@ -58,7 +58,7 @@ class Health():
 
     def check_workers(self):
         errors = []
-        task_core = Task_Core()
+        task_core = TaskCore()
         task_core.delete_old_tasks_by_executor("app.tasks.ping.ping", int(os.getenv("DELETE_PING_TASK_AFTER_MINUTES", 1)))
         tasks = task_core.get_many_by_executor("app.tasks.ping.ping")
 

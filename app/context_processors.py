@@ -6,12 +6,12 @@ Global Template Variables
 import os
 
 # Local Library
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.option_entity import OptionEntity
 
 
 def globals(request):
 
-    option_entity = Option_Entity()
+    option_entity = OptionEntity()
 
     return {
         "google_account": option_entity.get_value_by_key("google_analytics_account", ""),

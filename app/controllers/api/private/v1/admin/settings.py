@@ -14,8 +14,8 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.settings import Settings as Settings_Module
-from app.modules.core.activity import Activity as Activity_Module
+from app.modules.core.settings import Settings as SettingsModule
+from app.modules.core.activity import Activity as ActivityModule
 
 
 class Settings(View):
@@ -35,9 +35,9 @@ class Settings(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__settings_module = Settings_Module()
+        self.__settings_module = SettingsModule()
         self.__acl = ACL()
-        self.__activity_module = Activity_Module()
+        self.__activity_module = ActivityModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -45,10 +45,10 @@ class Settings(View):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
-        if not self.__acl.user_has_permission(request.user.id, "manage_settings"):
+        if not request.user.id or not self.__acl.user_has_permission(request.user.id, "manage_settings"):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Invalid Request.")
+                "message": _("Access Forbidden.")
             }], {}, self.__correlation_id))
 
         self.__request.set_request(request)

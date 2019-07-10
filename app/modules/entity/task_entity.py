@@ -14,7 +14,7 @@ from django.utils.timezone import make_aware
 from app.models import Task
 
 
-class Task_Entity():
+class TaskEntity():
 
     def insert_one(self, task):
         """Insert Task"""

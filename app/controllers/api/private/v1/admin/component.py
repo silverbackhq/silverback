@@ -14,7 +14,7 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.component import Component as Component_Module
+from app.modules.core.component import Component as ComponentModule
 
 
 class Components(View):
@@ -33,7 +33,7 @@ class Components(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__component = Component_Module()
+        self.__component = ComponentModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -168,7 +168,7 @@ class Component(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__component = Component_Module()
+        self.__component = ComponentModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 

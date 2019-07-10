@@ -14,15 +14,15 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.core.metric import Metric as Metric_Module
+from app.modules.core.metric import Metric as MetricModule
 from app.modules.core.decorators import login_if_not_authenticated
 
 
-class Metric_List(View):
+class MetricList(View):
 
     template_name = 'templates/admin/metric/list.html'
     __context = Context()
-    __metric = Metric_Module()
+    __metric = MetricModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -38,11 +38,11 @@ class Metric_List(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Metric_Add(View):
+class MetricAdd(View):
 
     template_name = 'templates/admin/metric/add.html'
     __context = Context()
-    __metric = Metric_Module()
+    __metric = MetricModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -58,11 +58,11 @@ class Metric_Add(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Metric_Edit(View):
+class MetricEdit(View):
 
     template_name = 'templates/admin/metric/edit.html'
     __context = Context()
-    __metric = Metric_Module()
+    __metric = MetricModule()
     __correlation_id = None
 
     @login_if_not_authenticated

@@ -16,15 +16,15 @@ from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.core.task import Task as Task_Module
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.incident import Incident as Incident_Module
-from app.modules.core.subscriber import Subscriber as Subscriber_Module
-from app.modules.core.notification import Notification as Notification_Module
-from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
-from app.modules.core.incident_update_component import Incident_Update_Component as Incident_Update_Component_Module
-from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
+from app.modules.core.incident import Incident as IncidentModule
+from app.modules.core.subscriber import Subscriber as SubscriberModule
+from app.modules.core.notification import Notification as NotificationModule
+from app.modules.core.incident_update import IncidentUpdate as IncidentUpdateModule
+from app.modules.core.incident_update_component import IncidentUpdateComponent as IncidentUpdateComponentModule
+from app.modules.core.incident_update_notification import IncidentUpdateNotification as IncidentUpdateNotificationModule
 
 
-class Incident_Updates(View):
+class IncidentUpdates(View):
 
     __request = None
     __response = None
@@ -45,12 +45,12 @@ class Incident_Updates(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__incident = Incident_Module()
-        self.__incident_update = Incident_Update_Module()
+        self.__incident = IncidentModule()
+        self.__incident_update = IncidentUpdateModule()
         self.__task = Task_Module()
-        self.__notification = Notification_Module()
-        self.__subscriber = Subscriber_Module()
-        self.__incident_update_notification = Incident_Update_Notification_Module()
+        self.__notification = NotificationModule()
+        self.__subscriber = SubscriberModule()
+        self.__incident_update_notification = IncidentUpdateNotificationModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -110,7 +110,7 @@ class Incident_Updates(View):
         result = self.__incident_update.insert_one({
             "notify_subscribers": self.__form.get_sinput("notify_subscribers"),
             "datetime": DateTimeField().clean(self.__form.get_sinput("datetime")),
-            "total_suscribers": self.__subscriber.count_by_status(Subscriber_Module.VERIFIED),
+            "total_suscribers": self.__subscriber.count_by_status(SubscriberModule.VERIFIED),
             "message": self.__form.get_sinput("message"),
             "status": self.__form.get_sinput("status"),
             "incident_id": incident_id
@@ -169,7 +169,7 @@ class Incident_Updates(View):
 
             notified_subscribers = self.__incident_update_notification.count_by_update_status(
                 update.id,
-                Incident_Update_Notification_Module.SUCCESS
+                IncidentUpdateNotificationModule.SUCCESS
             )
             progress = int(notified_subscribers/update.total_suscribers) * 100 if update.total_suscribers > 0 else 0
 
@@ -188,7 +188,7 @@ class Incident_Updates(View):
         return updates_list
 
 
-class Incident_Update(View):
+class IncidentUpdate(View):
 
     __request = None
     __response = None
@@ -204,7 +204,7 @@ class Incident_Update(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__incident_update = Incident_Update_Module()
+        self.__incident_update = IncidentUpdateModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -296,7 +296,7 @@ class Incident_Update(View):
             }], {}, self.__correlation_id))
 
 
-class Incident_Updates_Notify(View):
+class IncidentUpdatesNotify(View):
 
     __request = None
     __response = None
@@ -315,10 +315,10 @@ class Incident_Updates_Notify(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__incident_update = Incident_Update_Module()
+        self.__incident_update = IncidentUpdateModule()
         self.__task = Task_Module()
-        self.__notification = Notification_Module()
-        self.__subscriber = Subscriber_Module()
+        self.__notification = NotificationModule()
+        self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -339,7 +339,7 @@ class Incident_Updates_Notify(View):
                 "highlight": "Incident Update",
                 "notification": "notifying subscribers with the incident update",
                 "url": "#",
-                "type": Notification_Module.PENDING,
+                "type": NotificationModule.PENDING,
                 "delivered": False,
                 "user_id": self.__user_id,
                 "task_id": task.id
@@ -357,7 +357,7 @@ class Incident_Updates_Notify(View):
             }], {}, self.__correlation_id))
 
 
-class Incident_Updates_Components(View):
+class IncidentUpdatesComponents(View):
 
     __request = None
     __response = None
@@ -377,12 +377,12 @@ class Incident_Updates_Components(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__incident_update = Incident_Update_Module()
+        self.__incident_update = IncidentUpdateModule()
         self.__task = Task_Module()
-        self.__notification = Notification_Module()
-        self.__subscriber = Subscriber_Module()
+        self.__notification = NotificationModule()
+        self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
-        self.__incident_update_component = Incident_Update_Component_Module()
+        self.__incident_update_component = IncidentUpdateComponentModule()
         self.__form.add_validator(ExtraRules())
 
     def post(self, request, incident_id, update_id):
@@ -439,7 +439,7 @@ class Incident_Updates_Components(View):
             }], {}, self.__correlation_id))
 
 
-class Incident_Updates_Component(View):
+class IncidentUpdatesComponent(View):
 
     __request = None
     __response = None
@@ -455,7 +455,7 @@ class Incident_Updates_Component(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__incident_update_component = Incident_Update_Component_Module()
+        self.__incident_update_component = IncidentUpdateComponentModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 

@@ -6,286 +6,286 @@ Routes For Silverback
 from django.urls import include, path
 
 # Local Library
-from app.controllers.web.status_page import Status_Page_Index as Status_Page_Index_View
-from app.controllers.web.status_page import Status_Page_History as Status_Page_History_View
-from app.controllers.web.status_page import Status_Page_Single as Status_Page_Single_View
-from app.controllers.web.install import Install as Install_View
+from app.controllers.web.status_page import StatusPageIndex as StatusPageIndexView
+from app.controllers.web.status_page import StatusPageHistory as StatusPageHistoryView
+from app.controllers.web.status_page import StatusPageSingle as StatusPageSingleView
+from app.controllers.web.install import Install as InstallView
 from app.controllers.web.not_found import handler404 as handler404_view
 from app.controllers.web.error import handler500 as handler500_view
-from app.controllers.web.login import Login as Login_View
-from app.controllers.web.register import Register as Register_View
-from app.controllers.web.forgot_password import Forgot_Password as Forgot_Password_View
-from app.controllers.web.reset_password import Reset_Password as Reset_Password_View
-from app.controllers.web.statistics import Statistics as Statistics_View
-from app.controllers.web.history import AtomHistory as AtomHistory_View
-from app.controllers.web.history import RssHistory as RssHistory_View
-from app.controllers.web.health_check import HealthCheck as HealthCheck_View
-from app.controllers.web.admin.logout import Logout as Logout_View
-from app.controllers.web.admin.dashboard import Dashboard as Dashboard_View
-from app.controllers.web.admin.profile import Profile as Profile_View
-from app.controllers.web.admin.settings import Settings as Settings_View
-from app.controllers.web.admin.builder import Builder as Builder_View
-from app.controllers.web.admin.activity import Activity as Activity_View
-from app.controllers.web.admin.notification import Notification as Notification_View
-from app.controllers.web.admin.user import User_List as User_List_Web
-from app.controllers.web.admin.user import User_Edit as User_Edit_Web
-from app.controllers.web.admin.user import User_Add as User_Add_Web
-from app.controllers.web.admin.component import Component_List as Component_List_View
-from app.controllers.web.admin.component import Component_Add as Component_Add_View
-from app.controllers.web.admin.component import Component_Edit as Component_Edit_View
-from app.controllers.web.admin.component_group import Component_Group_List as Component_Group_List_View
-from app.controllers.web.admin.component_group import Component_Group_Add as Component_Group_Add_View
-from app.controllers.web.admin.component_group import Component_Group_Edit as Component_Group_Edit_View
-from app.controllers.web.admin.incident import Incident_List as Incident_List_View
-from app.controllers.web.admin.incident import Incident_Add as Incident_Add_View
-from app.controllers.web.admin.incident import Incident_Edit as Incident_Edit_View
-from app.controllers.web.admin.incident import Incident_View as Incident_View_View
-from app.controllers.web.admin.incident_update import Incident_Update_Add as Incident_Update_Add_View
-from app.controllers.web.admin.incident_update import Incident_Update_Edit as Incident_Update_Edit_View
-from app.controllers.web.admin.incident_update import Incident_Update_View as Incident_Update_View_View
-from app.controllers.web.admin.metric import Metric_List as Metric_List_View
-from app.controllers.web.admin.metric import Metric_Add as Metric_Add_View
-from app.controllers.web.admin.metric import Metric_Edit as Metric_Edit_View
-from app.controllers.web.admin.subscriber import Subscriber_List as Subscriber_List_View
-from app.controllers.web.admin.subscriber import Subscriber_Add as Subscriber_Add_View
-from app.controllers.web.admin.subscriber import Subscriber_Edit as Subscriber_Edit_View
-from app.controllers.api.private.v1.install import Install as Install_V1_Endpoint_Private
-from app.controllers.api.private.v1.login import Login as Login_V1_Endpoint_Private
-from app.controllers.api.private.v1.register import Register as Register_V1_Endpoint_Private
-from app.controllers.api.private.v1.forgot_password import Forgot_Password as Forgot_Password_V1_Endpoint_Private
-from app.controllers.api.private.v1.reset_password import Reset_Password as Reset_Password_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.settings import Settings as Settings_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.profile import Profile as Profile_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.notifications import Notifications as Notifications_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.notifications import LatestNotifications as LatestNotifications_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.user import User as User_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.user import Users as Users_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.component_group import Component_Group as Component_Group_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.component_group import Component_Groups as Component_Groups_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.component import Component as Component_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.component import Components as Components_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.incident import Incident as Incident_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.incident import Incidents as Incidents_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.incident_update import Incident_Update as Incident_Update_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.incident_update import Incident_Updates as Incident_Updates_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Notify as Incident_Updates_Notify_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Components as Incident_Updates_Components_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.incident_update import Incident_Updates_Component as Incident_Updates_Component_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.metric import Metric as Metric_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.metric import Metrics as Metrics_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.metric import NewRelic_Apps as NewRelic_Apps_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.subscriber import Subscriber as Subscriber_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.subscriber import Subscribers as Subscribers_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.activity import Activities as Activities_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.builder import Builder_Settings as Builder_Settings_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.builder import Builder_Components as Builder_Components_Admin_V1_Endpoint_Private
-from app.controllers.api.private.v1.admin.builder import Builder_System_Metrics as Builder_System_Metrics_Admin_V1_Endpoint_Private
+from app.controllers.web.login import Login as LoginView
+from app.controllers.web.register import Register as RegisterView
+from app.controllers.web.forgot_password import ForgotPassword as ForgotPasswordView
+from app.controllers.web.reset_password import ResetPassword as ResetPasswordView
+from app.controllers.web.statistics import Statistics as StatisticsView
+from app.controllers.web.history import AtomHistory as AtomHistoryView
+from app.controllers.web.history import RssHistory as RssHistoryView
+from app.controllers.web.health_check import HealthCheck as HealthCheckView
+from app.controllers.web.admin.logout import Logout as LogoutView
+from app.controllers.web.admin.dashboard import Dashboard as DashboardView
+from app.controllers.web.admin.profile import Profile as ProfileView
+from app.controllers.web.admin.settings import Settings as SettingsView
+from app.controllers.web.admin.builder import Builder as BuilderView
+from app.controllers.web.admin.activity import Activity as ActivityView
+from app.controllers.web.admin.notification import Notification as NotificationView
+from app.controllers.web.admin.user import UserList as UserListWeb
+from app.controllers.web.admin.user import UserEdit as UserEditWeb
+from app.controllers.web.admin.user import UserAdd as UserAddWeb
+from app.controllers.web.admin.component import ComponentList as ComponentListView
+from app.controllers.web.admin.component import ComponentAdd as ComponentAddView
+from app.controllers.web.admin.component import ComponentEdit as ComponentEditView
+from app.controllers.web.admin.component_group import ComponentGroupList as ComponentGroupListView
+from app.controllers.web.admin.component_group import ComponentGroupAdd as ComponentGroupAddView
+from app.controllers.web.admin.component_group import ComponentGroupEdit as ComponentGroupEditView
+from app.controllers.web.admin.incident import IncidentList as IncidentListView
+from app.controllers.web.admin.incident import IncidentAdd as IncidentAddView
+from app.controllers.web.admin.incident import IncidentEdit as IncidentEditView
+from app.controllers.web.admin.incident import IncidentView as IncidentViewView
+from app.controllers.web.admin.incident_update import IncidentUpdateAdd as IncidentUpdateAddView
+from app.controllers.web.admin.incident_update import IncidentUpdateEdit as IncidentUpdateEditView
+from app.controllers.web.admin.incident_update import IncidentUpdateView as IncidentUpdateViewView
+from app.controllers.web.admin.metric import MetricList as MetricListView
+from app.controllers.web.admin.metric import MetricAdd as MetricAddView
+from app.controllers.web.admin.metric import MetricEdit as MetricEditView
+from app.controllers.web.admin.subscriber import SubscriberList as SubscriberListView
+from app.controllers.web.admin.subscriber import SubscriberAdd as SubscriberAddView
+from app.controllers.web.admin.subscriber import SubscriberEdit as SubscriberEditView
+from app.controllers.api.private.v1.install import Install as InstallV1EndpointPrivate
+from app.controllers.api.private.v1.login import Login as LoginV1EndpointPrivate
+from app.controllers.api.private.v1.register import Register as RegisterV1EndpointPrivate
+from app.controllers.api.private.v1.forgot_password import ForgotPassword as ForgotPasswordV1EndpointPrivate
+from app.controllers.api.private.v1.reset_password import ResetPassword as ResetPasswordV1EndpointPrivate
+from app.controllers.api.private.v1.admin.settings import Settings as SettingsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.profile import Profile as ProfileAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.notifications import Notifications as NotificationsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.notifications import LatestNotifications as LatestNotificationsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.user import User as UserAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.user import Users as UsersAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.component_group import ComponentGroup as ComponentGroupAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.component_group import ComponentGroups as ComponentGroupsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.component import Component as ComponentAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.component import Components as ComponentsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.incident import Incident as IncidentAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.incident import Incidents as IncidentsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.incident_update import IncidentUpdate as IncidentUpdateAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.incident_update import IncidentUpdates as IncidentUpdatesAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.incident_update import IncidentUpdatesNotify as IncidentUpdatesNotifyAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.incident_update import IncidentUpdatesComponents as IncidentUpdatesComponentsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.incident_update import IncidentUpdatesComponent as IncidentUpdatesComponentAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.metric import Metric as MetricAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.metric import Metrics as MetricsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.metric import NewRelicApps as NewRelicAppsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.subscriber import Subscriber as SubscriberAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.subscriber import Subscribers as SubscribersAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.activity import Activities as ActivitiesAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.builder import BuilderSettings as BuilderSettingsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.builder import BuilderComponents as BuilderComponentsAdminV1EndpointPrivate
+from app.controllers.api.private.v1.admin.builder import BuilderSystemMetrics as BuilderSystemMetricsAdminV1EndpointPrivate
 
 
 urlpatterns = [
     # Public Views
-    path('', Status_Page_Index_View.as_view(), name='app.web.status_page_index'),
-    path('history/<int:period>', Status_Page_History_View.as_view(), name='app.web.status_page_history'),
-    path('incidents/<uri>', Status_Page_Single_View.as_view(), name='app.web.status_page_single'),
-    path('install', Install_View.as_view(), name='app.web.install'),
-    path('login', Login_View.as_view(), name='app.web.login'),
-    path('register/<token>', Register_View.as_view(), name='app.web.register'),
-    path('forgot-password', Forgot_Password_View.as_view(), name='app.web.forgot_password'),
-    path('reset-password/<token>', Reset_Password_View.as_view(), name='app.web.reset_password'),
-    path('statistics/<type>', Statistics_View.as_view(), name='app.web.statistics'),
-    path('history.atom', AtomHistory_View.as_view(), name='app.web.history_atom'),
-    path('history.rss', RssHistory_View.as_view(), name='app.web.history_rss'),
-    path('_healthcheck', HealthCheck_View.as_view(), name='app.web.health_check'),
+    path('', StatusPageIndexView.as_view(), name='app.web.status_page_index'),
+    path('history/<int:period>', StatusPageHistoryView.as_view(), name='app.web.status_page_history'),
+    path('incidents/<uri>', StatusPageSingleView.as_view(), name='app.web.status_page_single'),
+    path('install', InstallView.as_view(), name='app.web.install'),
+    path('login', LoginView.as_view(), name='app.web.login'),
+    path('register/<token>', RegisterView.as_view(), name='app.web.register'),
+    path('forgot-password', ForgotPasswordView.as_view(), name='app.web.forgot_password'),
+    path('reset-password/<token>', ResetPasswordView.as_view(), name='app.web.reset_password'),
+    path('statistics/<type>', StatisticsView.as_view(), name='app.web.statistics'),
+    path('history.atom', AtomHistoryView.as_view(), name='app.web.history_atom'),
+    path('history.rss', RssHistoryView.as_view(), name='app.web.history_rss'),
+    path('_healthcheck', HealthCheckView.as_view(), name='app.web.health_check'),
 
     # Authenticated Users Views
     path('admin/', include([
 
-        path('logout', Logout_View.as_view(), name='app.web.admin.logout'),
-        path('dashboard', Dashboard_View.as_view(), name='app.web.admin.dashboard'),
-        path('profile', Profile_View.as_view(), name='app.web.admin.profile'),
-        path('activity', Activity_View.as_view(), name='app.web.admin.activity.list'),
-        path('notifications', Notification_View.as_view(), name='app.web.admin.notification.list'),
-        path('settings', Settings_View.as_view(), name='app.web.admin.settings'),
-        path('builder', Builder_View.as_view(), name='app.web.admin.builder'),
-        path('users', User_List_Web.as_view(), name='app.web.admin.user.list'),
-        path('users/add', User_Add_Web.as_view(), name='app.web.admin.user.add'),
-        path('users/edit/<int:user_id>', User_Edit_Web.as_view(), name='app.web.admin.user.edit'),
+        path('logout', LogoutView.as_view(), name='app.web.admin.logout'),
+        path('dashboard', DashboardView.as_view(), name='app.web.admin.dashboard'),
+        path('profile', ProfileView.as_view(), name='app.web.admin.profile'),
+        path('activity', ActivityView.as_view(), name='app.web.admin.activity.list'),
+        path('notifications', NotificationView.as_view(), name='app.web.admin.notification.list'),
+        path('settings', SettingsView.as_view(), name='app.web.admin.settings'),
+        path('builder', BuilderView.as_view(), name='app.web.admin.builder'),
+        path('users', UserListWeb.as_view(), name='app.web.admin.user.list'),
+        path('users/add', UserAddWeb.as_view(), name='app.web.admin.user.add'),
+        path('users/edit/<int:user_id>', UserEditWeb.as_view(), name='app.web.admin.user.edit'),
 
-        path('components', Component_List_View.as_view(), name='app.web.admin.component.list'),
-        path('components/add', Component_Add_View.as_view(), name='app.web.admin.component.add'),
-        path('components/edit/<int:component_id>', Component_Edit_View.as_view(), name='app.web.admin.component.edit'),
+        path('components', ComponentListView.as_view(), name='app.web.admin.component.list'),
+        path('components/add', ComponentAddView.as_view(), name='app.web.admin.component.add'),
+        path('components/edit/<int:component_id>', ComponentEditView.as_view(), name='app.web.admin.component.edit'),
 
-        path('component-groups', Component_Group_List_View.as_view(), name='app.web.admin.component_group.list'),
-        path('component-groups/add', Component_Group_Add_View.as_view(), name='app.web.admin.component_group.add'),
-        path('component-groups/edit/<int:group_id>', Component_Group_Edit_View.as_view(), name='app.web.admin.component_group.edit'),
+        path('component-groups', ComponentGroupListView.as_view(), name='app.web.admin.component_group.list'),
+        path('component-groups/add', ComponentGroupAddView.as_view(), name='app.web.admin.component_group.add'),
+        path('component-groups/edit/<int:group_id>', ComponentGroupEditView.as_view(), name='app.web.admin.component_group.edit'),
 
-        path('incidents', Incident_List_View.as_view(), name='app.web.admin.incident.list'),
-        path('incidents/add', Incident_Add_View.as_view(), name='app.web.admin.incident.add'),
-        path('incidents/edit/<int:incident_id>', Incident_Edit_View.as_view(), name='app.web.admin.incident.edit'),
-        path('incidents/view/<int:incident_id>', Incident_View_View.as_view(), name='app.web.admin.incident.view'),
+        path('incidents', IncidentListView.as_view(), name='app.web.admin.incident.list'),
+        path('incidents/add', IncidentAddView.as_view(), name='app.web.admin.incident.add'),
+        path('incidents/edit/<int:incident_id>', IncidentEditView.as_view(), name='app.web.admin.incident.edit'),
+        path('incidents/view/<int:incident_id>', IncidentViewView.as_view(), name='app.web.admin.incident.view'),
 
-        path('incidents/view/<int:incident_id>/updates/add', Incident_Update_Add_View.as_view(), name='app.web.admin.incident_update.add'),
-        path('incidents/view/<int:incident_id>/updates/edit/<int:update_id>', Incident_Update_Edit_View.as_view(), name='app.web.admin.incident_update.edit'),
-        path('incidents/view/<int:incident_id>/updates/view/<int:update_id>', Incident_Update_View_View.as_view(), name='app.web.admin.incident_update.view'),
+        path('incidents/view/<int:incident_id>/updates/add', IncidentUpdateAddView.as_view(), name='app.web.admin.incident_update.add'),
+        path('incidents/view/<int:incident_id>/updates/edit/<int:update_id>', IncidentUpdateEditView.as_view(), name='app.web.admin.incident_update.edit'),
+        path('incidents/view/<int:incident_id>/updates/view/<int:update_id>', IncidentUpdateViewView.as_view(), name='app.web.admin.incident_update.view'),
 
-        path('metrics', Metric_List_View.as_view(), name='app.web.admin.metric.list'),
-        path('metrics/add', Metric_Add_View.as_view(), name='app.web.admin.metric.add'),
-        path('metrics/edit/<int:metric_id>', Metric_Edit_View.as_view(), name='app.web.admin.metric.edit'),
+        path('metrics', MetricListView.as_view(), name='app.web.admin.metric.list'),
+        path('metrics/add', MetricAddView.as_view(), name='app.web.admin.metric.add'),
+        path('metrics/edit/<int:metric_id>', MetricEditView.as_view(), name='app.web.admin.metric.edit'),
 
-        path('subscribers', Subscriber_List_View.as_view(), name='app.web.admin.subscriber.list'),
-        path('subscribers/add', Subscriber_Add_View.as_view(), name='app.web.admin.subscriber.add'),
-        path('subscribers/edit/<int:subscriber_id>', Subscriber_Edit_View.as_view(), name='app.web.admin.subscriber.edit'),
+        path('subscribers', SubscriberListView.as_view(), name='app.web.admin.subscriber.list'),
+        path('subscribers/add', SubscriberAddView.as_view(), name='app.web.admin.subscriber.add'),
+        path('subscribers/edit/<int:subscriber_id>', SubscriberEditView.as_view(), name='app.web.admin.subscriber.edit'),
 
     ])),
 
     # Private API V1 Endpoints
     path('api/private/v1/', include([
 
-        path('install', Install_V1_Endpoint_Private.as_view(), name='app.api.private.v1.install.endpoint'),
-        path('login', Login_V1_Endpoint_Private.as_view(), name='app.api.private.v1.login.endpoint'),
-        path('register', Register_V1_Endpoint_Private.as_view(), name='app.api.private.v1.register.endpoint'),
-        path('forgot-password', Forgot_Password_V1_Endpoint_Private.as_view(), name='app.api.private.v1.forgot_password.endpoint'),
-        path('reset-password', Reset_Password_V1_Endpoint_Private.as_view(), name='app.api.private.v1.reset_password.endpoint'),
+        path('install', InstallV1EndpointPrivate.as_view(), name='app.api.private.v1.install.endpoint'),
+        path('login', LoginV1EndpointPrivate.as_view(), name='app.api.private.v1.login.endpoint'),
+        path('register', RegisterV1EndpointPrivate.as_view(), name='app.api.private.v1.register.endpoint'),
+        path('forgot-password', ForgotPasswordV1EndpointPrivate.as_view(), name='app.api.private.v1.forgot_password.endpoint'),
+        path('reset-password', ResetPasswordV1EndpointPrivate.as_view(), name='app.api.private.v1.reset_password.endpoint'),
 
         path('admin/', include([
             path(
                 'settings',
-                Settings_Admin_V1_Endpoint_Private.as_view(),
+                SettingsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.settings.endpoint'
             ),
             path(
                 'profile',
-                Profile_Admin_V1_Endpoint_Private.as_view(),
+                ProfileAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.profile.endpoint'
             ),
             path(
                 'notification',
-                Notifications_Admin_V1_Endpoint_Private.as_view(),
+                NotificationsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.notifications.endpoint'
             ),
             path(
                 'latest_notifications',
-                LatestNotifications_Admin_V1_Endpoint_Private.as_view(),
+                LatestNotificationsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.latest_notifications.endpoint'
             ),
             path(
                 'user',
-                Users_Admin_V1_Endpoint_Private.as_view(),
+                UsersAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.users.endpoint'
             ),
             path(
                 'user/<int:user_id>',
-                User_Admin_V1_Endpoint_Private.as_view(),
+                UserAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.user.endpoint'
             ),
             path(
                 'component-group',
-                Component_Groups_Admin_V1_Endpoint_Private.as_view(),
+                ComponentGroupsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.component_groups.endpoint'
             ),
             path(
                 'component-group/<int:group_id>',
-                Component_Group_Admin_V1_Endpoint_Private.as_view(),
+                ComponentGroupAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.component_group.endpoint'
             ),
             path(
                 'component',
-                Components_Admin_V1_Endpoint_Private.as_view(),
+                ComponentsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.components.endpoint'
             ),
             path(
                 'component/<int:component_id>',
-                Component_Admin_V1_Endpoint_Private.as_view(),
+                ComponentAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.component.endpoint'
             ),
             path(
                 'incident',
-                Incidents_Admin_V1_Endpoint_Private.as_view(),
+                IncidentsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.incidents.endpoint'
             ),
             path(
                 'incident/<int:incident_id>',
-                Incident_Admin_V1_Endpoint_Private.as_view(),
+                IncidentAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.incident.endpoint'
             ),
             path(
                 'incident-update/<int:incident_id>',
-                Incident_Updates_Admin_V1_Endpoint_Private.as_view(),
+                IncidentUpdatesAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.incident_updates.endpoint'
             ),
             path(
                 'incident-update/<int:incident_id>/<int:update_id>',
-                Incident_Update_Admin_V1_Endpoint_Private.as_view(),
+                IncidentUpdateAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.incident_update.endpoint'
             ),
             path(
                 'incident-update/<int:incident_id>/<int:update_id>/notify',
-                Incident_Updates_Notify_Admin_V1_Endpoint_Private.as_view(),
+                IncidentUpdatesNotifyAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.incident_update.notify.endpoint'
             ),
             path(
                 'incident-update/<int:incident_id>/<int:update_id>/components',
-                Incident_Updates_Components_Admin_V1_Endpoint_Private.as_view(),
+                IncidentUpdatesComponentsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.incident_update.components.endpoint'
             ),
             path(
                 'incident-update/<int:incident_id>/<int:update_id>/component/<int:item_id>',
-                Incident_Updates_Component_Admin_V1_Endpoint_Private.as_view(),
+                IncidentUpdatesComponentAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.incident_update.component.endpoint'
             ),
             path(
                 'metric',
-                Metrics_Admin_V1_Endpoint_Private.as_view(),
+                MetricsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.metrics.endpoint'
             ),
             path(
                 'metric/<int:metric_id>',
-                Metric_Admin_V1_Endpoint_Private.as_view(),
+                MetricAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.metric.endpoint'
             ),
             path(
                 'subscriber',
-                Subscribers_Admin_V1_Endpoint_Private.as_view(),
+                SubscribersAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.subscribers.endpoint'
             ),
             path(
                 'subscriber/<int:subscriber_id>',
-                Subscriber_Admin_V1_Endpoint_Private.as_view(),
+                SubscriberAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.subscriber.endpoint'
             ),
             path(
                 'activity',
-                Activities_Admin_V1_Endpoint_Private.as_view(),
+                ActivitiesAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.activities.endpoint'
             ),
             path(
                 'action/metric/new-relic-apps',
-                NewRelic_Apps_Admin_V1_Endpoint_Private.as_view(),
+                NewRelicAppsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.metric.action.new_relic_apps.endpoint'
             ),
             path(
                 'builder/settings',
-                Builder_Settings_Admin_V1_Endpoint_Private.as_view(),
+                BuilderSettingsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.builder.settings.endpoint'
             ),
             path(
                 'builder/component',
-                Builder_Components_Admin_V1_Endpoint_Private.as_view(),
+                BuilderComponentsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.builder.components.endpoint'
             ),
             path(
                 'builder/component/<component_id>',
-                Builder_Components_Admin_V1_Endpoint_Private.as_view(),
+                BuilderComponentsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.builder.component.endpoint'
             ),
             path(
                 'builder/metric',
-                Builder_System_Metrics_Admin_V1_Endpoint_Private.as_view(),
+                BuilderSystemMetricsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.builder.metrics.endpoint'
             ),
             path(
                 'builder/metric/<metric_id>',
-                Builder_System_Metrics_Admin_V1_Endpoint_Private.as_view(),
+                BuilderSystemMetricsAdminV1EndpointPrivate.as_view(),
                 name='app.api.private.v1.admin.builder.metric.endpoint'
             ),
         ]))

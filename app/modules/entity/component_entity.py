@@ -4,10 +4,10 @@ Component Entity Module
 
 # Local Library
 from app.models import Component
-from app.models import Component_Group
+from app.models import ComponentGroup
 
 
-class Component_Entity():
+class ComponentEntity():
 
     def insert_one(self, component):
 
@@ -23,7 +23,7 @@ class Component_Entity():
             new_component.uptime = component["uptime"]
 
         if "group_id" in component:
-            new_component.group = None if component["group_id"] is None else Component_Group.objects.get(pk=component["group_id"])
+            new_component.group = None if component["group_id"] is None else ComponentGroup.objects.get(pk=component["group_id"])
 
         new_component.save()
         return False if new_component.pk is None else new_component
@@ -42,7 +42,7 @@ class Component_Entity():
                 component.uptime = component_data["uptime"]
 
             if "group_id" in component_data:
-                component.group = None if component_data["group_id"] is None else Component_Group.objects.get(pk=component_data["group_id"])
+                component.group = None if component_data["group_id"] is None else ComponentGroup.objects.get(pk=component_data["group_id"])
 
             component.save()
             return True

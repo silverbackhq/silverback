@@ -12,7 +12,7 @@ from django.db.models.aggregates import Count
 from django.contrib.auth.hashers import make_password
 
 
-class User_Entity():
+class UserEntity():
 
     def insert_one(self, user):
         """Insert a New User"""

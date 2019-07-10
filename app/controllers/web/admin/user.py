@@ -13,15 +13,15 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.core.user import User as User_Module
+from app.modules.core.user import User as UserModule
 from app.modules.core.decorators import login_if_not_authenticated
 
 
-class User_List(View):
+class UserList(View):
 
     template_name = 'templates/admin/user/list.html'
     __context = Context()
-    __user = User_Module()
+    __user = UserModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -37,11 +37,11 @@ class User_List(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class User_Add(View):
+class UserAdd(View):
 
     template_name = 'templates/admin/user/add.html'
     __context = Context()
-    __user = User_Module()
+    __user = UserModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -57,11 +57,11 @@ class User_Add(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class User_Edit(View):
+class UserEdit(View):
 
     template_name = 'templates/admin/user/edit.html'
     __context = Context()
-    __user = User_Module()
+    __user = UserModule()
     __correlation_id = None
 
     @login_if_not_authenticated

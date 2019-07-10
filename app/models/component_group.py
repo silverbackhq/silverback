@@ -6,7 +6,7 @@ Component Model
 from django.db import models
 
 
-class Component_Group(models.Model):
+class ComponentGroup(models.Model):
 
     UPTIME_CHOICES = (
         ('on', 'ON'),
@@ -18,3 +18,6 @@ class Component_Group(models.Model):
     uptime = models.CharField(max_length=50, choices=UPTIME_CHOICES, default="off", verbose_name="Uptime")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+
+    class Meta:
+        db_table = "app_component_group"

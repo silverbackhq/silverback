@@ -8,9 +8,9 @@ from django.contrib.auth import update_session_auth_hash
 # Local Library
 from app.modules.util.token import Token
 from app.modules.util.gravatar import Gravatar
-from app.modules.entity.user_entity import User_Entity
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.entity.profile_entity import Profile_Entity
+from app.modules.entity.user_entity import UserEntity
+from app.modules.entity.option_entity import OptionEntity
+from app.modules.entity.profile_entity import ProfileEntity
 
 
 class Profile():
@@ -21,10 +21,10 @@ class Profile():
     __profile_entity = None
 
     def __init__(self):
-        self.__option_entity = Option_Entity()
-        self.__user_entity = User_Entity()
+        self.__option_entity = OptionEntity()
+        self.__user_entity = UserEntity()
         self.__token = Token()
-        self.__profile_entity = Profile_Entity()
+        self.__profile_entity = ProfileEntity()
 
     def get_profile(self, user_id):
 

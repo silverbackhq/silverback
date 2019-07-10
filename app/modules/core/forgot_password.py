@@ -7,13 +7,13 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.entity.user_entity import User_Entity
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.entity.reset_request_entity import Reset_Request_Entity
-from app.modules.core.task import Task as Task_Core
+from app.modules.entity.user_entity import UserEntity
+from app.modules.entity.option_entity import OptionEntity
+from app.modules.entity.reset_request_entity import ResetRequestEntity
+from app.modules.core.task import Task as TaskCore
 
 
-class Forgot_Password():
+class ForgotPassword():
 
     __reset_request_entity = None
     __option_entity = None
@@ -23,10 +23,10 @@ class Forgot_Password():
     __messages_count_option = 5
 
     def __init__(self):
-        self.__reset_request_entity = Reset_Request_Entity()
-        self.__option_entity = Option_Entity()
-        self.__user_entity = User_Entity()
-        self.__task_core = Task_Core()
+        self.__reset_request_entity = ResetRequestEntity()
+        self.__option_entity = OptionEntity()
+        self.__user_entity = UserEntity()
+        self.__task_core = TaskCore()
 
         messages_count_option = self.__option_entity.get_one_by_key("reset_mails_messages_count")
         reset_expire_option = self.__option_entity.get_one_by_key("reset_mails_expire_after")

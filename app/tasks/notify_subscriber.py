@@ -16,16 +16,16 @@ from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 
 # Local Library
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.core.subscriber import Subscriber as Subscriber_Module
-from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
+from app.modules.entity.option_entity import OptionEntity
+from app.modules.core.subscriber import Subscriber as SubscriberModule
+from app.modules.core.incident_update_notification import IncidentUpdateNotification as IncidentUpdateNotificationModule
 
 
 @shared_task
 def notify_subscriber(notification_id):
 
-    option_entity = Option_Entity()
-    incident_update_notification_module = Incident_Update_Notification_Module()
+    option_entity = OptionEntity()
+    incident_update_notification_module = IncidentUpdateNotificationModule()
 
     app_name = option_entity.get_value_by_key("app_name")
     app_email = option_entity.get_value_by_key("app_email")
@@ -44,7 +44,7 @@ def notify_subscriber(notification_id):
 
     if notification["status"] == "pending":
         # send the notification for the first time
-        if subscriber.type == Subscriber_Module.EMAIL:
+        if subscriber.type == SubscriberModule.EMAIL:
             status = __deliver_email(
                 app_name,
                 app_email,
@@ -55,13 +55,13 @@ def notify_subscriber(notification_id):
                 data,
                 False
             )
-        elif subscriber.type == Subscriber_Module.PHONE:
+        elif subscriber.type == SubscriberModule.PHONE:
             status = __deliver_sms(
                 app_name,
                 subscriber.phone,
                 "%s%s" % (app_url.strip("/"), reverse("app.web.incidents", kwargs={'uri': incident.uri}))
             )
-        elif subscriber.type == Subscriber_Module.ENDPOINT:
+        elif subscriber.type == SubscriberModule.ENDPOINT:
             status = __deliver_webhook(
                 subscriber.endpoint,
                 subscriber.auth_token,
@@ -82,7 +82,7 @@ def notify_subscriber(notification_id):
 
     elif notification["status"] == "failed":
         # Retry to send the notification
-        if subscriber.type == Subscriber_Module.EMAIL:
+        if subscriber.type == SubscriberModule.EMAIL:
             status = __deliver_email(
                 app_name,
                 app_email,
@@ -93,13 +93,13 @@ def notify_subscriber(notification_id):
                 data,
                 False
             )
-        elif subscriber.type == Subscriber_Module.PHONE:
+        elif subscriber.type == SubscriberModule.PHONE:
             status = __deliver_sms(
                 app_name,
                 subscriber.phone,
                 "%s%s" % (app_url.strip("/"), reverse("app.web.incidents", kwargs={'uri': incident.uri}))
             )
-        elif subscriber.type == Subscriber_Module.ENDPOINT:
+        elif subscriber.type == SubscriberModule.ENDPOINT:
             status = __deliver_webhook(
                 subscriber.endpoint,
                 subscriber.auth_token,

@@ -18,16 +18,16 @@ from dateutil.relativedelta import relativedelta
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.entity.metric_entity import Metric_Entity
-from app.modules.entity.incident_entity import Incident_Entity
-from app.modules.entity.component_entity import Component_Entity
-from app.modules.entity.component_group_entity import Component_Group_Entity
-from app.modules.entity.incident_update_entity import Incident_Update_Entity
-from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
+from app.modules.entity.option_entity import OptionEntity
+from app.modules.entity.metric_entity import MetricEntity
+from app.modules.entity.incident_entity import IncidentEntity
+from app.modules.entity.component_entity import ComponentEntity
+from app.modules.entity.component_group_entity import ComponentGroupEntity
+from app.modules.entity.incident_update_entity import IncidentUpdateEntity
+from app.modules.entity.incident_update_component_entity import IncidentUpdateComponentEntity
 
 
-class Status_Page():
+class StatusPage():
 
     __option_entity = None
     __incident_entity = None
@@ -38,13 +38,13 @@ class Status_Page():
     __metric_entity = None
 
     def __init__(self):
-        self.__option_entity = Option_Entity()
-        self.__incident_entity = Incident_Entity()
-        self.__incident_update_entity = Incident_Update_Entity()
-        self.__incident_update_component_entity = Incident_Update_Component_Entity()
-        self.__component_group_entity = Component_Group_Entity()
-        self.__component_entity = Component_Entity()
-        self.__metric_entity = Metric_Entity()
+        self.__option_entity = OptionEntity()
+        self.__incident_entity = IncidentEntity()
+        self.__incident_update_entity = IncidentUpdateEntity()
+        self.__incident_update_component_entity = IncidentUpdateComponentEntity()
+        self.__component_group_entity = ComponentGroupEntity()
+        self.__component_entity = ComponentEntity()
+        self.__metric_entity = MetricEntity()
 
     def get_system_status(self):
         # Get Open Incidents

@@ -7,7 +7,7 @@ import json
 import importlib
 
 # Local Library
-from app.modules.entity.task_entity import Task_Entity
+from app.modules.entity.task_entity import TaskEntity
 
 
 class Task():
@@ -15,7 +15,7 @@ class Task():
     __task_entity = None
 
     def __init__(self):
-        self.__task_entity = Task_Entity()
+        self.__task_entity = TaskEntity()
 
     def get_task_with_uuid(self, uuid):
         return self.__task_entity.get_one_by_uuid(uuid)

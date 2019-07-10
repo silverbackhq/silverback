@@ -13,19 +13,19 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.core.metric import Metric as Metric_Module
+from app.modules.core.metric import Metric as MetricModule
 from app.modules.core.decorators import login_if_not_authenticated
-from app.modules.core.component import Component as Component_Module
-from app.modules.core.component_group import Component_Group as Component_Group_Module
+from app.modules.core.component import Component as ComponentModule
+from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
 
 
 class Builder(View):
 
     template_name = 'templates/admin/builder.html'
     __context = Context()
-    __metric = Metric_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
+    __metric = MetricModule()
+    __component = ComponentModule()
+    __component_group = ComponentGroupModule()
     __correlation_id = None
 
     @login_if_not_authenticated

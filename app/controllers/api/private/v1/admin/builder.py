@@ -19,7 +19,7 @@ from app.modules.core.settings import Settings
 from app.modules.validation.extension import ExtraRules
 
 
-class Builder_System_Metrics(View):
+class BuilderSystemMetrics(View):
 
     __request = None
     __response = None
@@ -113,7 +113,7 @@ class Builder_System_Metrics(View):
             }], {}, self.__correlation_id))
 
 
-class Builder_Components(View):
+class BuilderComponents(View):
 
     __request = None
     __response = None
@@ -207,7 +207,7 @@ class Builder_Components(View):
             }], {}, self.__correlation_id))
 
 
-class Builder_Settings(View):
+class BuilderSettings(View):
 
     __request = None
     __response = None

@@ -3,10 +3,10 @@ Incident Update Notification Module
 """
 
 # Local Library
-from app.modules.entity.incident_update_notification_entity import Incident_Update_Notification_Entity
+from app.modules.entity.incident_update_notification_entity import IncidentUpdateNotificationEntity
 
 
-class Incident_Update_Notification():
+class IncidentUpdateNotification():
 
     PENDING = "pending"
     FAILED = "failed"
@@ -15,7 +15,7 @@ class Incident_Update_Notification():
     __incident_update_notification_entity = None
 
     def __init__(self):
-        self.__incident_update_notification_entity = Incident_Update_Notification_Entity()
+        self.__incident_update_notification_entity = IncidentUpdateNotificationEntity()
 
     def get_one_by_id(self, id):
         item = self.__incident_update_notification_entity.get_one_by_id(id)

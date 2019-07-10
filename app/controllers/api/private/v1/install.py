@@ -13,9 +13,9 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.install import Install as Install_Module
+from app.modules.core.install import Install as InstallModule
 from app.modules.core.decorators import stop_request_if_installed
-from app.modules.core.notification import Notification as Notification_Module
+from app.modules.core.notification import Notification as NotificationModule
 
 
 class Install(View):
@@ -34,8 +34,8 @@ class Install(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__install = Install_Module()
-        self.__notification = Notification_Module()
+        self.__install = InstallModule()
+        self.__notification = NotificationModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -173,7 +173,7 @@ class Install(View):
                 "highlight": _('Installation'),
                 "notification": _('Silverback installed successfully'),
                 "url": "#",
-                "type": Notification_Module.MESSAGE,
+                "type": NotificationModule.MESSAGE,
                 "delivered": False,
                 "user_id": user_id,
                 "task_id": None

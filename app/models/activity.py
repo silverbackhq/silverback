@@ -19,3 +19,6 @@ class Activity(models.Model):
     activity = models.TextField(verbose_name="Activity")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+
+    class Meta:
+        db_table = "app_activity"

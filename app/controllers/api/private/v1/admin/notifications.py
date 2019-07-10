@@ -13,7 +13,7 @@ from app.modules.core.request import Request
 from app.modules.util.humanize import Humanize
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.notification import Notification as Notification_Module
+from app.modules.core.notification import Notification as NotificationModule
 
 
 class LatestNotifications(View):
@@ -33,7 +33,7 @@ class LatestNotifications(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__response = Response()
         self.__request = Request()
-        self.__notification = Notification_Module()
+        self.__notification = NotificationModule()
         self.__form.add_validator(ExtraRules())
 
     def get(self, request):
@@ -85,7 +85,7 @@ class Notifications(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__response = Response()
         self.__request = Request()
-        self.__notification = Notification_Module()
+        self.__notification = NotificationModule()
         self.__humanize = Humanize()
         self.__form.add_validator(ExtraRules())
 

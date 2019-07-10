@@ -7,8 +7,8 @@ from django.core.management import execute_from_command_line
 
 # Local Library
 from app.modules.core.acl import ACL
-from app.modules.entity.user_entity import User_Entity
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.user_entity import UserEntity
+from app.modules.entity.option_entity import OptionEntity
 
 
 class Install():
@@ -36,8 +36,8 @@ class Install():
     __acl = None
 
     def __init__(self):
-        self.__option_entity = Option_Entity()
-        self.__user_entity = User_Entity()
+        self.__option_entity = OptionEntity()
+        self.__user_entity = UserEntity()
         self.__acl = ACL()
 
     def is_installed(self):

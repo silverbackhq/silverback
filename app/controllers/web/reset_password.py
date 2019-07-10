@@ -14,13 +14,13 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.entity.option_entity import Option_Entity
+from app.modules.entity.option_entity import OptionEntity
 from app.modules.core.decorators import redirect_if_authenticated
 from app.modules.core.decorators import redirect_if_not_installed
-from app.modules.core.reset_password import Reset_Password as Reset_Password_Module
+from app.modules.core.reset_password import ResetPassword as ResetPasswordModule
 
 
-class Reset_Password(View):
+class ResetPassword(View):
 
     template_name = 'templates/reset_password.html'
     __reset_password_core = None
@@ -33,9 +33,9 @@ class Reset_Password(View):
     def get(self, request, token):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__reset_password_core = Reset_Password_Module()
+        self.__reset_password_core = ResetPasswordModule()
         self.__context = Context()
-        self.__option_entity = Option_Entity()
+        self.__option_entity = OptionEntity()
 
         self.__context.autoload_options()
         self.__context.push({

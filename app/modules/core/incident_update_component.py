@@ -3,15 +3,15 @@ Incident Update Component Module
 """
 
 # Local Library
-from app.modules.entity.incident_update_component_entity import Incident_Update_Component_Entity
+from app.modules.entity.incident_update_component_entity import IncidentUpdateComponentEntity
 
 
-class Incident_Update_Component():
+class IncidentUpdateComponent():
 
     __incident_update_component_entity = None
 
     def __init__(self):
-        self.__incident_update_component_entity = Incident_Update_Component_Entity()
+        self.__incident_update_component_entity = IncidentUpdateComponentEntity()
 
     def get_one_by_id(self, id):
         item = self.__incident_update_component_entity.get_one_by_id(id)

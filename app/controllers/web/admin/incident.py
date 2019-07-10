@@ -13,21 +13,21 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.core.incident import Incident as Incident_Module
+from app.modules.core.incident import Incident as IncidentModule
 from app.modules.core.decorators import login_if_not_authenticated
-from app.modules.core.component import Component as Component_Module
-from app.modules.core.component_group import Component_Group as Component_Group_Module
-from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
+from app.modules.core.component import Component as ComponentModule
+from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
+from app.modules.core.incident_update import IncidentUpdate as IncidentUpdateModule
 
 
-class Incident_List(View):
+class IncidentList(View):
 
     template_name = 'templates/admin/incident/list.html'
     __context = Context()
-    __incident = Incident_Module()
-    __incident_update = Incident_Update_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
+    __incident = IncidentModule()
+    __incident_update = IncidentUpdateModule()
+    __component = ComponentModule()
+    __component_group = ComponentGroupModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -43,14 +43,14 @@ class Incident_List(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Incident_Add(View):
+class IncidentAdd(View):
 
     template_name = 'templates/admin/incident/add.html'
     __context = Context()
-    __incident = Incident_Module()
-    __incident_update = Incident_Update_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
+    __incident = IncidentModule()
+    __incident_update = IncidentUpdateModule()
+    __component = ComponentModule()
+    __component_group = ComponentGroupModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -66,14 +66,14 @@ class Incident_Add(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Incident_Edit(View):
+class IncidentEdit(View):
 
     template_name = 'templates/admin/incident/edit.html'
     __context = Context()
-    __incident = Incident_Module()
-    __incident_update = Incident_Update_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
+    __incident = IncidentModule()
+    __incident_update = IncidentUpdateModule()
+    __component = ComponentModule()
+    __component_group = ComponentGroupModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -95,14 +95,14 @@ class Incident_Edit(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Incident_View(View):
+class IncidentView(View):
 
     template_name = 'templates/admin/incident/view.html'
     __context = Context()
-    __incident = Incident_Module()
-    __incident_update = Incident_Update_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
+    __incident = IncidentModule()
+    __incident_update = IncidentUpdateModule()
+    __component = ComponentModule()
+    __component_group = ComponentGroupModule()
     __correlation_id = None
 
     @login_if_not_authenticated

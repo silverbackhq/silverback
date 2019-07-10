@@ -14,23 +14,23 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.core.incident import Incident as Incident_Module
+from app.modules.core.incident import Incident as IncidentModule
 from app.modules.core.decorators import login_if_not_authenticated
-from app.modules.core.component import Component as Component_Module
-from app.modules.core.component_group import Component_Group as Component_Group_Module
-from app.modules.core.incident_update import Incident_Update as Incident_Update_Module
-from app.modules.core.incident_update_component import Incident_Update_Component as Incident_Update_Component_Module
-from app.modules.core.incident_update_notification import Incident_Update_Notification as Incident_Update_Notification_Module
+from app.modules.core.component import Component as ComponentModule
+from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
+from app.modules.core.incident_update import IncidentUpdate as IncidentUpdateModule
+from app.modules.core.incident_update_component import IncidentUpdateComponent as IncidentUpdateComponentModule
+from app.modules.core.incident_update_notification import IncidentUpdateNotification as IncidentUpdateNotificationModule
 
 
-class Incident_Update_Add(View):
+class IncidentUpdateAdd(View):
 
     template_name = 'templates/admin/incident/update/add.html'
     __context = Context()
-    __incident = Incident_Module()
-    __incident_update = Incident_Update_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
+    __incident = IncidentModule()
+    __incident_update = IncidentUpdateModule()
+    __component = ComponentModule()
+    __component_group = ComponentGroupModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -52,16 +52,16 @@ class Incident_Update_Add(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Incident_Update_View(View):
+class IncidentUpdateView(View):
 
     template_name = 'templates/admin/incident/update/view.html'
     __context = Context()
-    __incident = Incident_Module()
-    __incident_update = Incident_Update_Module()
-    __incident_update_component = Incident_Update_Component_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
-    __incident_update_notification = Incident_Update_Notification_Module()
+    __incident = IncidentModule()
+    __incident_update = IncidentUpdateModule()
+    __incident_update_component = IncidentUpdateComponentModule()
+    __component = ComponentModule()
+    __component_group = ComponentGroupModule()
+    __incident_update_notification = IncidentUpdateNotificationModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -82,11 +82,11 @@ class Incident_Update_View(View):
         update["message"] = markdown2.markdown(update["message"])
         update["notified_subscribers"] = self.__incident_update_notification.count_by_update_status(
             update["id"],
-            Incident_Update_Notification_Module.SUCCESS
+            IncidentUpdateNotificationModule.SUCCESS
         )
         update["failed_subscribers"] = self.__incident_update_notification.count_by_update_status(
             update["id"],
-            Incident_Update_Notification_Module.FAILED
+            IncidentUpdateNotificationModule.FAILED
         )
 
         components = self.__format_components(self.__component.get_all())
@@ -129,14 +129,14 @@ class Incident_Update_View(View):
         return affected_components_list
 
 
-class Incident_Update_Edit(View):
+class IncidentUpdateEdit(View):
 
     template_name = 'templates/admin/incident/update/edit.html'
     __context = Context()
-    __incident = Incident_Module()
-    __incident_update = Incident_Update_Module()
-    __component = Component_Module()
-    __component_group = Component_Group_Module()
+    __incident = IncidentModule()
+    __incident_update = IncidentUpdateModule()
+    __component = ComponentModule()
+    __component_group = ComponentGroupModule()
     __correlation_id = None
 
     @login_if_not_authenticated

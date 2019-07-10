@@ -14,7 +14,7 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.metric import Metric as Metric_Module
+from app.modules.core.metric import Metric as MetricModule
 
 
 class Metrics(View):
@@ -33,7 +33,7 @@ class Metrics(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__metric = Metric_Module()
+        self.__metric = MetricModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -192,7 +192,7 @@ class Metric(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__metric = Metric_Module()
+        self.__metric = MetricModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
@@ -311,7 +311,7 @@ class Metric(View):
             }], {}, self.__correlation_id))
 
 
-class NewRelic_Apps(View):
+class NewRelicApps(View):
 
     __request = None
     __response = None
@@ -327,7 +327,7 @@ class NewRelic_Apps(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__form = Form()
-        self.__metric = Metric_Module()
+        self.__metric = MetricModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 

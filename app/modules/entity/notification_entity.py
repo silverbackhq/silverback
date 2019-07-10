@@ -10,7 +10,7 @@ from app.models import Task
 from app.models import Notification
 
 
-class Notification_Entity():
+class NotificationEntity():
 
     def insert_one(self, notification):
         """Insert Notification"""

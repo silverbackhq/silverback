@@ -15,8 +15,8 @@ from app.settings.info import AUTHOR_URL
 from app.settings.info import RELEASES
 from app.settings.info import SUPPORT_URL
 from app.modules.util.gravatar import Gravatar
-from app.modules.entity.option_entity import Option_Entity
-from app.modules.entity.user_entity import User_Entity
+from app.modules.entity.option_entity import OptionEntity
+from app.modules.entity.user_entity import UserEntity
 
 
 class Context():
@@ -27,8 +27,8 @@ class Context():
 
     def __init__(self):
 
-        self.__option_entity = Option_Entity()
-        self.__user_entity = User_Entity()
+        self.__option_entity = OptionEntity()
+        self.__user_entity = UserEntity()
         self.__data["AUTHOR"] = AUTHOR
         self.__data["COPYRIGHT"] = COPYRIGHT
         self.__data["LICENSE"] = LICENSE

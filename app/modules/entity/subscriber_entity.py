@@ -13,7 +13,7 @@ from django.utils import timezone
 from app.models import Subscriber
 
 
-class Subscriber_Entity():
+class SubscriberEntity():
 
     def insert_one(self, subscriber):
 

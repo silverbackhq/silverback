@@ -28,3 +28,6 @@ class Profile(models.Model):
     refresh_token_updated_at = models.DateTimeField(verbose_name="Refresh token last update", null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created at")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated at")
+
+    class Meta:
+        db_table = "app_profile"

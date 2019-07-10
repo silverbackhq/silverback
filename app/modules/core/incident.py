@@ -4,10 +4,10 @@ Incident Module
 
 # Local Library
 from app.modules.util.helpers import Helpers
-from app.modules.entity.incident_entity import Incident_Entity
-from app.modules.entity.incident_update_entity import Incident_Update_Entity
-from app.modules.entity.incident_update_component_entity import Incident_Update_Component
-from app.modules.entity.incident_update_notification_entity import Incident_Update_Notification
+from app.modules.entity.incident_entity import IncidentEntity
+from app.modules.entity.incident_update_entity import IncidentUpdateEntity
+from app.modules.entity.incident_update_component_entity import IncidentUpdateComponent
+from app.modules.entity.incident_update_notification_entity import IncidentUpdateNotification
 
 
 class Incident():
@@ -19,10 +19,10 @@ class Incident():
     __helpers = None
 
     def __init__(self):
-        self.__incident_update_entity = Incident_Update_Entity()
-        self.__incident_entity = Incident_Entity()
-        self.__incident_update_component_entity = Incident_Update_Component()
-        self.__incident_update_notification_entity = Incident_Update_Notification()
+        self.__incident_update_entity = IncidentUpdateEntity()
+        self.__incident_entity = IncidentEntity()
+        self.__incident_update_component_entity = IncidentUpdateComponent()
+        self.__incident_update_notification_entity = IncidentUpdateNotification()
         self.__helpers = Helpers()
 
     def get_one_by_id(self, id):

@@ -13,15 +13,15 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.core.subscriber import Subscriber as Subscriber_Module
+from app.modules.core.subscriber import Subscriber as SubscriberModule
 from app.modules.core.decorators import login_if_not_authenticated
 
 
-class Subscriber_List(View):
+class SubscriberList(View):
 
     template_name = 'templates/admin/subscriber/list.html'
     __context = Context()
-    __subscriber = Subscriber_Module()
+    __subscriber = SubscriberModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -37,11 +37,11 @@ class Subscriber_List(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Subscriber_Add(View):
+class SubscriberAdd(View):
 
     template_name = 'templates/admin/subscriber/add.html'
     __context = Context()
-    __subscriber = Subscriber_Module()
+    __subscriber = SubscriberModule()
     __correlation_id = None
 
     @login_if_not_authenticated
@@ -57,11 +57,11 @@ class Subscriber_Add(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class Subscriber_Edit(View):
+class SubscriberEdit(View):
 
     template_name = 'templates/admin/subscriber/edit.html'
     __context = Context()
-    __subscriber = Subscriber_Module()
+    __subscriber = SubscriberModule()
     __correlation_id = None
 
     @login_if_not_authenticated

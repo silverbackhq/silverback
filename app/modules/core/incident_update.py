@@ -3,18 +3,18 @@ Incident Update Module
 """
 
 # Local Library
-from app.modules.entity.incident_entity import Incident_Entity
-from app.modules.entity.incident_update_entity import Incident_Update_Entity
+from app.modules.entity.incident_entity import IncidentEntity
+from app.modules.entity.incident_update_entity import IncidentUpdateEntity
 
 
-class Incident_Update():
+class IncidentUpdate():
 
     __incident_update_entity = None
     __incident_entity = None
 
     def __init__(self):
-        self.__incident_update_entity = Incident_Update_Entity()
-        self.__incident_entity = Incident_Entity()
+        self.__incident_update_entity = IncidentUpdateEntity()
+        self.__incident_entity = IncidentEntity()
 
     def get_one_by_id(self, id):
         update = self.__incident_update_entity.get_one_by_id(id)
