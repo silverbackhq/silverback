@@ -14,7 +14,7 @@ from django.utils.translation import gettext as _
 # Local Library
 from app.modules.core.context import Context
 from app.modules.core.user import User as UserModule
-from app.modules.core.decorators import login_if_not_authenticated
+from app.modules.core.decorators import login_if_not_authenticated_or_no_permission
 
 
 class UserList(View):
@@ -24,7 +24,7 @@ class UserList(View):
     __user = UserModule()
     __correlation_id = None
 
-    @login_if_not_authenticated
+    @login_if_not_authenticated_or_no_permission("manage_settings")
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -44,7 +44,7 @@ class UserAdd(View):
     __user = UserModule()
     __correlation_id = None
 
-    @login_if_not_authenticated
+    @login_if_not_authenticated_or_no_permission("manage_settings")
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -64,7 +64,7 @@ class UserEdit(View):
     __user = UserModule()
     __correlation_id = None
 
-    @login_if_not_authenticated
+    @login_if_not_authenticated_or_no_permission("manage_settings")
     def get(self, request, user_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""

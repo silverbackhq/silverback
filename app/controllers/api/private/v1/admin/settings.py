@@ -14,9 +14,9 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.decorators import allow_if_authenticated
 from app.modules.core.settings import Settings as SettingsModule
 from app.modules.core.activity import Activity as ActivityModule
+from app.modules.core.decorators import allow_if_authenticated_and_has_permission
 
 
 class Settings(View):
@@ -42,17 +42,10 @@ class Settings(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
-    @allow_if_authenticated
+    @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-
-        if not request.user.id or not self.__acl.user_has_permission(request.user.id, "manage_settings"):
-            return JsonResponse(self.__response.send_private_failure([{
-                "type": "error",
-                "message": _("Access Forbidden.")
-            }], {}, self.__correlation_id))
-
         self.__request.set_request(request)
         request_data = self.__request.get_request_data("post", {
             "app_name": "",

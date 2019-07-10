@@ -9,13 +9,12 @@ import os
 from django.views import View
 from django.shortcuts import render
 from django.utils.translation import gettext as _
-from django.http import Http404
 
 # Local Library
 from app.modules.core.acl import ACL
 from app.modules.core.upgrade import Upgrade
 from app.modules.core.context import Context
-from app.modules.core.decorators import login_if_not_authenticated
+from app.modules.core.decorators import login_if_not_authenticated_or_no_permission
 
 
 class Settings(View):
@@ -26,14 +25,10 @@ class Settings(View):
     __acl = ACL()
     __correlation_id = None
 
-    @login_if_not_authenticated
+    @login_if_not_authenticated_or_no_permission("manage_settings")
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-
-        if not self.__acl.user_has_permission(request.user.id, "manage_settings"):
-            raise Http404("Page not found.")
-
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.load_options({

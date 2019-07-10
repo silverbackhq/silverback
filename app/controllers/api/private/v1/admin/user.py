@@ -15,7 +15,7 @@ from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.core.user import User as UserModule
 from app.modules.validation.extension import ExtraRules
-from app.modules.core.decorators import allow_if_authenticated
+from app.modules.core.decorators import allow_if_authenticated_and_has_permission
 
 
 class Users(View):
@@ -38,7 +38,7 @@ class Users(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
-    @allow_if_authenticated
+    @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -232,7 +232,7 @@ class Users(View):
                     "message": _("Register Request instructions sent successfully.")
                 }], {}, self.__correlation_id))
 
-    @allow_if_authenticated
+    @allow_if_authenticated_and_has_permission("manage_settings")
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -298,7 +298,7 @@ class User(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
-    @allow_if_authenticated
+    @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request, user_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -516,7 +516,7 @@ class User(View):
                 "message": _("Error! Something goes wrong while creating your account.")
             }], {}, self.__correlation_id))
 
-    @allow_if_authenticated
+    @allow_if_authenticated_and_has_permission("manage_settings")
     def delete(self, request, user_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""

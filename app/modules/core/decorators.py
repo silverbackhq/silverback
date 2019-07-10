@@ -9,9 +9,36 @@ from django.utils.translation import gettext as _
 from django.http import Http404
 
 # Local Library
+from app.modules.core.acl import ACL
 from app.modules.util.helpers import Helpers
 from app.modules.core.response import Response
 from app.modules.entity.option_entity import OptionEntity
+
+
+def allow_if_authenticated_and_has_permission(permission):
+    def wrapper(function):
+        def wrap(controller, request, *args, **kwargs):
+            acl = ACL()
+            if not request.user or not request.user.is_authenticated or not acl.user_has_permission(request.user.id, permission):
+                response = Response()
+                return JsonResponse(response.send_private_failure([{
+                    "type": "error",
+                    "message": _("Oops! Access forbidden.")
+                }]))
+            return function(controller, request, *args, **kwargs)
+        return wrap
+    return wrapper
+
+
+def redirect_if_not_has_permission(permission):
+    def wrapper(function):
+        def wrap(controller, request, *args, **kwargs):
+            acl = ACL()
+            if not request.user or not request.user.is_authenticated or not acl.user_has_permission(request.user.id, permission):
+                raise Http404("Page not found.")
+            return function(controller, request, *args, **kwargs)
+        return wrap
+    return wrapper
 
 
 def redirect_if_authenticated(function):
@@ -22,6 +49,19 @@ def redirect_if_authenticated(function):
             return redirect("app.web.admin.dashboard")
         return function(controller, request, *args, **kwargs)
     return wrap
+
+
+def login_if_not_authenticated_or_no_permission(permission):
+    def wrapper(function):
+        def wrap(controller, request, *args, **kwargs):
+            acl = ACL()
+            if not request.user or not request.user.is_authenticated:
+                return redirect(reverse("app.web.login") + "?redirect=" + request.get_full_path())
+            if permission and not acl.user_has_permission(request.user.id, permission):
+                raise Http404("Page not found.")
+            return function(controller, request, *args, **kwargs)
+        return wrap
+    return wrapper
 
 
 def login_if_not_authenticated(function):
