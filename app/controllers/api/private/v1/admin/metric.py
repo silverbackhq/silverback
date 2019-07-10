@@ -15,6 +15,7 @@ from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
 from app.modules.core.metric import Metric as MetricModule
+from app.modules.core.decorators import allow_if_authenticated
 
 
 class Metrics(View):
@@ -37,6 +38,7 @@ class Metrics(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def post(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -134,6 +136,7 @@ class Metrics(View):
                 "message": _("Error! Something goes wrong while creating metric.")
             }], {}, self.__correlation_id))
 
+    @allow_if_authenticated
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -196,6 +199,7 @@ class Metric(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def post(self, request, metric_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -293,6 +297,7 @@ class Metric(View):
                 "message": _("Error! Something goes wrong while updating metric.")
             }], {}, self.__correlation_id))
 
+    @allow_if_authenticated
     def delete(self, request, metric_id):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -331,6 +336,7 @@ class NewRelicApps(View):
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""

@@ -13,6 +13,7 @@ from app.modules.core.request import Request
 from app.modules.util.humanize import Humanize
 from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
+from app.modules.core.decorators import allow_if_authenticated
 from app.modules.core.notification import Notification as NotificationModule
 
 
@@ -36,6 +37,7 @@ class LatestNotifications(View):
         self.__notification = NotificationModule()
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -47,6 +49,7 @@ class LatestNotifications(View):
             self.__correlation_id
         ))
 
+    @allow_if_authenticated
     def post(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
@@ -89,6 +92,7 @@ class Notifications(View):
         self.__humanize = Humanize()
         self.__form.add_validator(ExtraRules())
 
+    @allow_if_authenticated
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
