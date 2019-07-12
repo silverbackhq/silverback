@@ -2683,6 +2683,8 @@ silverback_app.app_status_builder_screen = (Vue, axios, $, Pace, Cookies, toastr
                 }
 
                 if (_self.closest("tr").find('[name="component"]').val() == "") {
+                    toastr.clear();
+                    toastr.error(_i18n.required);
                     return false;
                 }
 
@@ -2734,6 +2736,8 @@ silverback_app.app_status_builder_screen = (Vue, axios, $, Pace, Cookies, toastr
                 }
 
                 if (_self.closest("tr").find('[name="metric"]').val() == "") {
+                    toastr.clear();
+                    toastr.error(_i18n.required);
                     return false;
                 }
 
