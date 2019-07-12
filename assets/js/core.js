@@ -2682,6 +2682,10 @@ silverback_app.app_status_builder_screen = (Vue, axios, $, Pace, Cookies, toastr
                     _self = _self.closest("a");
                 }
 
+                if (_self.closest("tr").find('[name="component"]').val() == "") {
+                    return false;
+                }
+
                 _self.attr('disabled', 'disabled');
                 Pace.track(() => {
                     $.ajax({
@@ -2727,6 +2731,10 @@ silverback_app.app_status_builder_screen = (Vue, axios, $, Pace, Cookies, toastr
 
                 if(_self.prop("tagName") == "I"){
                     _self = _self.closest("a");
+                }
+
+                if (_self.closest("tr").find('[name="metric"]').val() == "") {
+                    return false;
                 }
 
                 _self.attr('disabled', 'disabled');
