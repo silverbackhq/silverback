@@ -17,7 +17,10 @@ from app.modules.core.request import Request
 from app.modules.core.response import Response
 from app.modules.core.settings import Settings
 from app.modules.validation.extension import ExtraRules
+from app.modules.core.metric import Metric as MetricModule
+from app.modules.core.component import Component as ComponentModule
 from app.modules.core.decorators import allow_if_authenticated_and_has_permission
+from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
 
 
 class BuilderSystemMetrics(View):
@@ -29,6 +32,7 @@ class BuilderSystemMetrics(View):
     __logger = None
     __user_id = None
     __settings = None
+    __metric = None
     __correlation_id = None
 
     def __init__(self):
@@ -36,6 +40,7 @@ class BuilderSystemMetrics(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__settings = Settings()
+        self.__metric = MetricModule()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
@@ -48,6 +53,12 @@ class BuilderSystemMetrics(View):
         request_data = self.__request.get_request_data("post", {
             "metric_id": ""
         })
+
+        if request_data["metric_id"] == "" or not self.__metric.get_one_by_id(request_data["metric_id"]):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Metric is required.")
+            }], {}, self.__correlation_id))
 
         metrics = self.__settings.get_value_by_key(
             "builder_metrics",
@@ -125,6 +136,8 @@ class BuilderComponents(View):
     __logger = None
     __user_id = None
     __settings = None
+    __component = None
+    __component_group = None
     __correlation_id = None
 
     def __init__(self):
@@ -132,6 +145,8 @@ class BuilderComponents(View):
         self.__response = Response()
         self.__helpers = Helpers()
         self.__settings = Settings()
+        self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
@@ -144,6 +159,18 @@ class BuilderComponents(View):
         request_data = self.__request.get_request_data("post", {
             "component_id": ""
         })
+
+        if request_data["component_id"] == "":
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Compnent or compnent group is required.")
+            }], {}, self.__correlation_id))
+
+        if not self.__component.get_one_by_id(request_data["component_id"]) and not self.__component_group.get_one_by_id(request_data["component_id"]):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Compnent or compnent group is required.")
+            }], {}, self.__correlation_id))
 
         components = self.__settings.get_value_by_key(
             "builder_components",
