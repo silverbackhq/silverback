@@ -46,8 +46,7 @@ class StatusSubscribe(View):
             "email": "",
             "phone": "",
             "endpoint": "",
-            "auth_token": "",
-            "status": ""
+            "auth_token": ""
         })
 
         if request_data["type"] == "email":
