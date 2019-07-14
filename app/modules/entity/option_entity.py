@@ -11,7 +11,7 @@ class OptionEntity():
     def insert_one(self, option):
         """Insert a New Option"""
         if self.get_one_by_key(option["key"]) is not False:
-            return False
+            return True
 
         option = Option(
             key=option["key"],

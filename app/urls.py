@@ -50,6 +50,7 @@ from app.controllers.web.admin.subscriber import SubscriberList as SubscriberLis
 from app.controllers.web.admin.subscriber import SubscriberAdd as SubscriberAddView
 from app.controllers.web.admin.subscriber import SubscriberEdit as SubscriberEditView
 from app.controllers.api.private.v1.install import Install as InstallV1EndpointPrivate
+from app.controllers.api.private.v1.status import StatusSubscribe as StatusSubscribeV1EndpointPrivate
 from app.controllers.api.private.v1.login import Login as LoginV1EndpointPrivate
 from app.controllers.api.private.v1.register import Register as RegisterV1EndpointPrivate
 from app.controllers.api.private.v1.forgot_password import ForgotPassword as ForgotPasswordV1EndpointPrivate
@@ -141,6 +142,7 @@ urlpatterns = [
     # Private API V1 Endpoints
     path('api/private/v1/', include([
 
+        path('status_subscribe', StatusSubscribeV1EndpointPrivate.as_view(), name='app.api.private.v1.status_subscribe.endpoint'),
         path('install', InstallV1EndpointPrivate.as_view(), name='app.api.private.v1.install.endpoint'),
         path('login', LoginV1EndpointPrivate.as_view(), name='app.api.private.v1.login.endpoint'),
         path('register', RegisterV1EndpointPrivate.as_view(), name='app.api.private.v1.register.endpoint'),
