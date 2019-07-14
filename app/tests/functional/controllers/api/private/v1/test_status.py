@@ -55,7 +55,6 @@ class TestStatusSubscribe(TestCase):
         response_body = json.loads(response.content)
         self.assertEqual(response_body["status"], "success")
 
-
     def test_subscribe_success02(self):
         response = self.client.post(reverse("app.api.private.v1.status_subscribe.endpoint"), {
             "type": "phone",
