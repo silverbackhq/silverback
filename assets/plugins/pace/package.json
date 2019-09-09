@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "grunt-contrib-coffee": "0.7.0",
-    "coffee-script": "1.6.3",
+    "coffee-script": "1.12.7",
     "grunt-contrib-uglify": "0.2.7",
     "grunt-cli": "0.1.13",
     "grunt": "0.4.5",
