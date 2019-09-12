@@ -54,7 +54,7 @@ class BuilderSystemMetrics(View):
             "metric_id": ""
         })
 
-        if request_data["metric_id"] == "" or not self.__metric.get_one_by_id(request_data["metric_id"]):
+        if request_data["metric_id"] == "" or not self.__metric.get_one_by_id(request_data["metric_id"].replace("m-", "")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Metric is required.")
@@ -160,13 +160,19 @@ class BuilderComponents(View):
             "component_id": ""
         })
 
-        if request_data["component_id"] == "":
+        if request_data["component_id"] == "" or ("c-" not in request_data["component_id"] and "g-" not in request_data["component_id"]):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Compnent or compnent group is required.")
             }], {}, self.__correlation_id))
 
-        if not self.__component.get_one_by_id(request_data["component_id"]) and not self.__component_group.get_one_by_id(request_data["component_id"]):
+        if "c-" in request_data["component_id"] and not self.__component.get_one_by_id(request_data["component_id"].replace("c-", "")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Compnent or compnent group is required.")
+            }], {}, self.__correlation_id))
+
+        if "g-" in request_data["component_id"] and not self.__component_group.get_one_by_id(request_data["component_id"].replace("g-", "")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Compnent or compnent group is required.")
