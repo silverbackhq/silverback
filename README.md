@@ -10,7 +10,7 @@
     </p>
 </p>
 <p align="center">
-        <a href="http://bit.ly/2XGNqMb" target="_blank"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy"></a>
+        <a href="https://heroku.com/deploy" target="_blank"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy"></a>
 </p>
 
 
