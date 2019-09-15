@@ -25,6 +25,7 @@ from app.modules.entity.component_entity import ComponentEntity
 from app.modules.entity.component_group_entity import ComponentGroupEntity
 from app.modules.entity.incident_update_entity import IncidentUpdateEntity
 from app.modules.entity.incident_update_component_entity import IncidentUpdateComponentEntity
+from app.modules.core.constants import Constants
 
 
 class StatusPage():
@@ -56,7 +57,7 @@ class StatusPage():
             "affected_components_status": {},
             "affected_groups_map": {},
             "affected_groups_status": {},
-            "overall_status": IncidentUpdateEntity.COMPONENT_STATUSES["operational"],
+            "overall_status": Constants.COMPONENT_STATUSES["operational"],
         }
 
         for open_incident in open_incidents:
@@ -74,16 +75,16 @@ class StatusPage():
                             self.__system_status["affected_groups_map"][update_component.component.group.name] = update_component.component.group.id
 
         if "major_outage" in self.__system_status["affected_components_status"].values():
-            self.__system_status["overall_status"] = IncidentUpdateEntity.COMPONENT_STATUSES["major_outage"]
+            self.__system_status["overall_status"] = Constants.COMPONENT_STATUSES["major_outage"]
 
         elif "partial_outage" in self.__system_status["affected_components_status"].values():
-            self.__system_status["overall_status"] = IncidentUpdateEntity.COMPONENT_STATUSES["partial_outage"]
+            self.__system_status["overall_status"] = Constants.COMPONENT_STATUSES["partial_outage"]
 
         elif "degraded_performance" in self.__system_status["affected_components_status"].values():
-            self.__system_status["overall_status"] = IncidentUpdateEntity.COMPONENT_STATUSES["degraded_performance"]
+            self.__system_status["overall_status"] = Constants.COMPONENT_STATUSES["degraded_performance"]
 
         elif "maintenance" in self.__system_status["affected_components_status"].values():
-            self.__system_status["overall_status"] = IncidentUpdateEntity.COMPONENT_STATUSES["maintenance"]
+            self.__system_status["overall_status"] = Constants.COMPONENT_STATUSES["maintenance"]
 
     def get_system_status(self):
 
@@ -362,12 +363,12 @@ class StatusPage():
 
     def get_status(self, name, type):
         if type == "component" and name in self.__system_status["affected_components_status"].keys():
-            return IncidentUpdateEntity.COMPONENT_STATUSES[self.__system_status["affected_components_status"][name]]
+            return Constants.COMPONENT_STATUSES[self.__system_status["affected_components_status"][name]]
 
         elif type == "group" and name in self.__system_status["affected_groups_status"].keys():
-            return IncidentUpdateEntity.COMPONENT_STATUSES[self.__system_status["affected_groups_status"][name]]
+            return Constants.COMPONENT_STATUSES[self.__system_status["affected_groups_status"][name]]
 
-        return IncidentUpdateEntity.COMPONENT_STATUSES["operational"]
+        return Constants.COMPONENT_STATUSES["operational"]
 
     def get_uptime_chart(self, id, type, period=90):
         return []
