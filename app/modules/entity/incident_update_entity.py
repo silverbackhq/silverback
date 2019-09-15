@@ -17,6 +17,22 @@ from app.models import IncidentUpdate
 
 class IncidentUpdateEntity():
 
+    UPDATE_STATUSES = {
+        "investigating": "Investigating",
+        "identified": "Identified",
+        "monitoring": "Monitoring",
+        "update": "Update",
+        "resolved": "Resolved",
+    }
+
+    COMPONENT_STATUSES = {
+        "operational": "Operational",
+        "degraded_performance": "Degraded Performance",
+        "partial_outage": "Partial Outage",
+        "major_outage": "Major Outage",
+        "maintenance": "Maintenance",
+    }
+
     def insert_one(self, update):
 
         new_update = IncidentUpdate()

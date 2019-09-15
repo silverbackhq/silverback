@@ -56,7 +56,7 @@ class StatusPage():
             "affected_components_status": {},
             "affected_groups_map": {},
             "affected_groups_status": {},
-            "overall_status": "operational",
+            "overall_status": IncidentUpdateEntity.COMPONENT_STATUSES["operational"],
         }
 
         for open_incident in open_incidents:
@@ -74,19 +74,27 @@ class StatusPage():
                             self.__system_status["affected_groups_map"][update_component.component.group.name] = update_component.component.group.id
 
         if "major_outage" in self.__system_status["affected_components_status"].values():
-            self.__system_status["overall_status"] = "major_outage"
+            self.__system_status["overall_status"] = IncidentUpdateEntity.COMPONENT_STATUSES["major_outage"]
 
         elif "partial_outage" in self.__system_status["affected_components_status"].values():
-            self.__system_status["overall_status"] = "partial_outage"
+            self.__system_status["overall_status"] = IncidentUpdateEntity.COMPONENT_STATUSES["partial_outage"]
 
         elif "degraded_performance" in self.__system_status["affected_components_status"].values():
-            self.__system_status["overall_status"] = "degraded_performance"
+            self.__system_status["overall_status"] = IncidentUpdateEntity.COMPONENT_STATUSES["degraded_performance"]
 
         elif "maintenance" in self.__system_status["affected_components_status"].values():
-            self.__system_status["overall_status"] = "maintenance"
+            self.__system_status["overall_status"] = IncidentUpdateEntity.COMPONENT_STATUSES["maintenance"]
 
     def get_system_status(self):
-        return self.__system_status["overall_status"]
+
+        affected_components = len(self.__system_status["affected_components_map"].keys())
+
+        if affected_components == 0:
+            return "normal"
+        elif affected_components <= 2:
+            return "medium"
+        elif affected_components > 2:
+            return "high"
 
     def get_about_site(self):
         option = self.__option_entity.get_one_by_key("builder_about")
@@ -107,7 +115,6 @@ class StatusPage():
         if incident:
             incident_data = {
                 "headline": incident.name,
-                "headline_class": "text-danger",
                 "status": incident.status,
                 "sub_headline": _("Incident Report for %s") % (app_name.value),
                 "affected_components": [],
@@ -325,7 +332,6 @@ class StatusPage():
                             "name": component.name,
                             "description": component.description,
                             "current_status": self.get_status(component.name, "component"),
-                            "current_status_class": "bg-green",
                             "uptime_chart": self.get_uptime_chart(component.id, "component"),
                             "sub_services": []
                         })
@@ -335,7 +341,6 @@ class StatusPage():
                         "name": group.name,
                         "description": group.description,
                         "current_status": self.get_status(group.name, "group"),
-                        "current_status_class": "bg-green",
                         "uptime_chart": self.get_uptime_chart(group.id, "group"),
                         "sub_services": self.get_sub_services(group.id)
                     })
@@ -349,8 +354,7 @@ class StatusPage():
             services.append({
                 "name": item.name,
                 "description": item.description,
-                "current_status": self.get_status(item.id, "component"),
-                "current_status_class": "bg-green",
+                "current_status": self.get_status(item.name, "component"),
                 "uptime_chart": self.get_uptime_chart(item.id, "component"),
                 "sub_services": []
             })
@@ -358,12 +362,12 @@ class StatusPage():
 
     def get_status(self, name, type):
         if type == "component" and name in self.__system_status["affected_components_status"].keys():
-            return self.__system_status["affected_components_status"][name]
+            return IncidentUpdateEntity.COMPONENT_STATUSES[self.__system_status["affected_components_status"][name]]
 
         elif type == "group" and name in self.__system_status["affected_groups_status"].keys():
-            return self.__system_status["affected_groups_status"][name]
+            return IncidentUpdateEntity.COMPONENT_STATUSES[self.__system_status["affected_groups_status"][name]]
 
-        return "operational"
+        return IncidentUpdateEntity.COMPONENT_STATUSES["operational"]
 
     def get_uptime_chart(self, id, type, period=90):
         return []
