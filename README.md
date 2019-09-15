@@ -47,8 +47,7 @@
 
 For transparency into our release cycle and in striving to maintain backward compatibility, Silverback is maintained under the [Semantic Versioning guidelines](https://semver.org/) and release process is predictable and business-friendly.
 
-See the [Releases section of our GitHub project](https://github.com/silverbackhq/silverback/releases) for changelogs for each release version of Silverback. It contains summaries of the most noteworthy changes made in each release.
-
+See the [Releases section of our GitHub project](https://github.com/silverbackhq/silverback/releases) for changelogs for each release version of Silverback. It contains summaries of the most noteworthy changes made in each release. Also see the [Milestones section](https://github.com/silverbackhq/silverback/milestones) for the future roadmap.
 
 ## Bug tracker
 
