@@ -71,9 +71,14 @@ class Subscribers(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -107,9 +112,14 @@ class Subscribers(View):
                 'phone': {
                     'value': request_data["phone"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_phone': {
+                            'error': _('Error! Phone number is invalid.')
+                        }
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -143,17 +153,28 @@ class Subscribers(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 },
                 'endpoint': {
                     'value': request_data["endpoint"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_url': {
+                            'error': _('Error! Endpoint URL is invalid.')
+                        }
+                    }
                 },
+                # @TODO add validate filter
                 'auth_token': {
                     'value': request_data["auth_token"],
                     'sanitize': {
@@ -196,6 +217,7 @@ class Subscribers(View):
                 "auth_token": "",
                 "external_id": external_id
             })
+
         elif request_data["type"] == "phone":
 
             result = self.__subscriber.insert_one({
@@ -331,9 +353,14 @@ class Subscriber(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -367,9 +394,14 @@ class Subscriber(View):
                 'phone': {
                     'value': request_data["phone"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_phone': {
+                            'error': _('Error! Phone number is invalid.')
+                        }
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -403,17 +435,28 @@ class Subscriber(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 },
                 'endpoint': {
                     'value': request_data["endpoint"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_url': {
+                            'error': _('Error! Endpoint URL is invalid.')
+                        }
+                    }
                 },
+                # @TODO add validate filter
                 'auth_token': {
                     'value': request_data["auth_token"],
                     'sanitize': {

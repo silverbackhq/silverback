@@ -55,6 +55,7 @@ class Metrics(View):
         })
 
         self.__form.add_inputs({
+            # @TODO add validate filter
             'title': {
                 'value': request_data["title"],
                 'sanitize': {
@@ -62,6 +63,7 @@ class Metrics(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
@@ -78,6 +80,7 @@ class Metrics(View):
                     }
                 }
             },
+            # @TODO add validate filter
             'application': {
                 'value': request_data["application"],
                 'sanitize': {
@@ -85,6 +88,7 @@ class Metrics(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'metric': {
                 'value': request_data["metric"],
                 'sanitize': {
@@ -92,6 +96,7 @@ class Metrics(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'x_axis': {
                 'value': request_data["x_axis"],
                 'sanitize': {
@@ -99,6 +104,7 @@ class Metrics(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'y_axis': {
                 'value': request_data["y_axis"],
                 'sanitize': {
@@ -216,6 +222,7 @@ class Metric(View):
         })
 
         self.__form.add_inputs({
+            # @TODO add validate filter
             'title': {
                 'value': request_data["title"],
                 'sanitize': {
@@ -223,6 +230,7 @@ class Metric(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
@@ -239,6 +247,7 @@ class Metric(View):
                     }
                 }
             },
+            # @TODO add validate filter
             'application': {
                 'value': request_data["application"],
                 'sanitize': {
@@ -246,6 +255,7 @@ class Metric(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'metric': {
                 'value': request_data["metric"],
                 'sanitize': {
@@ -253,6 +263,7 @@ class Metric(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'x_axis': {
                 'value': request_data["x_axis"],
                 'sanitize': {
@@ -260,6 +271,7 @@ class Metric(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'y_axis': {
                 'value': request_data["y_axis"],
                 'sanitize': {

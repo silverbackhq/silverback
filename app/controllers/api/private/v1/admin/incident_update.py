@@ -70,6 +70,7 @@ class IncidentUpdates(View):
         })
 
         self.__form.add_inputs({
+            # @TODO add validate filter
             'message': {
                 'value': request_data["message"],
                 'sanitize': {
@@ -77,6 +78,7 @@ class IncidentUpdates(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'datetime': {
                 'value': request_data["datetime"],
                 'sanitize': {
@@ -225,6 +227,7 @@ class IncidentUpdate(View):
         })
 
         self.__form.add_inputs({
+            # @TODO add validate filter
             'message': {
                 'value': request_data["message"],
                 'sanitize': {
@@ -232,6 +235,7 @@ class IncidentUpdate(View):
                 },
                 'validate': {}
             },
+            # @TODO add validate filter
             'datetime': {
                 'value': request_data["datetime"],
                 'sanitize': {

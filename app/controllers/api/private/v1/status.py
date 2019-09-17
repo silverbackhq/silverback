@@ -110,6 +110,7 @@ class StatusSubscribe(View):
                         }
                     }
                 },
+                # @TODO add validate filter
                 'auth_token': {
                     'value': request_data["auth_token"],
                     'sanitize': {

@@ -52,6 +52,7 @@ class Components(View):
         })
 
         self.__form.add_inputs({
+            # @TODO add validate filter
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -64,6 +65,7 @@ class Components(View):
                     }
                 }
             },
+            # @TODO add validate filter
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
@@ -80,6 +82,7 @@ class Components(View):
                     }
                 }
             },
+            # @TODO add validate filter
             'group': {
                 'value': request_data["group"],
                 'sanitize': {},
@@ -189,6 +192,7 @@ class Component(View):
         })
 
         self.__form.add_inputs({
+            # @TODO add validate filter
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -201,6 +205,7 @@ class Component(View):
                     }
                 }
             },
+            # @TODO add validate filter
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
@@ -217,6 +222,7 @@ class Component(View):
                     }
                 }
             },
+            # @TODO add validate filter
             'group': {
                 'value': request_data["group"],
                 'sanitize': {},
