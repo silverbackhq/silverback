@@ -4,11 +4,15 @@ Validation Extensions
 
 # Standard Library
 import re
+import os
 
 # Third Party Library
-from django.core.signing import Signer
+from twilio.rest import Client
 from pyvalitron.validator import Validator
+from twilio.base.exceptions import TwilioRestException
+from django.core.signing import Signer
 from django.core.validators import URLValidator
+from django.core.validators import validate_slug
 from django.core.validators import validate_email
 from django.core.validators import validate_ipv4_address
 from django.core.validators import validate_ipv6_address
@@ -97,19 +101,22 @@ class ExtraRules(Validator):
         regex = re.compile(r'^[0-9]+$')
         return bool(regex.match(self._input))
 
-    def sv_host_slug(self):
-        regex = re.compile(r'^[a-z0-9-_]+$')
-        return bool(regex.match(self._input))
+    def sv_slug(self):
+        return True if validate_slug(self._input) is None else False
 
-    def sv_host_name(self):
-        regex = re.compile(r'^[a-zA-Z0-9-_\s]+$')
-        return bool(regex.match(self._input))
-
-    def sv_host_server(self):
-        return True
-
-    def sv_tls_certificate(self):
-        return True
+    def sv_phone(self):
+        if os.getenv("TEXT_MESSAGING_DRIVER", "twilio") == "twilio" and os.getenv("TWILIO_ACCOUNT_SID") and os.getenv("TWILIO_AUTH_TOKEN"):
+            client = Client(os.getenv("TWILIO_ACCOUNT_SID"), os.getenv("TWILIO_AUTH_TOKEN"))
+            try:
+                client.lookups.phone_numbers(self._input).fetch(type="carrier")
+                return True
+            except TwilioRestException as e:
+                if e.code == 20404:
+                    return False
+                else:
+                    raise e
+        else:
+            return self.sv_numeric() and len(self._input) >= 9
 
     def optional(self):
         return self._input == ""

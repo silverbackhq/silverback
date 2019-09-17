@@ -55,9 +55,14 @@ class StatusSubscribe(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 }
             })
 
@@ -67,9 +72,14 @@ class StatusSubscribe(View):
                 'phone': {
                     'value': request_data["phone"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_phone': {
+                            'error': _('Error! Phone number is invalid.')
+                        }
+                    }
                 }
             })
 
@@ -79,16 +89,26 @@ class StatusSubscribe(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 },
                 'endpoint': {
                     'value': request_data["endpoint"],
                     'sanitize': {
+                        'escape': {},
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_url': {
+                            'error': _('Error! Endpoint URL is invalid.')
+                        }
+                    }
                 },
                 'auth_token': {
                     'value': request_data["auth_token"],

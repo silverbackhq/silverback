@@ -59,7 +59,7 @@ class TestStatusSubscribe(TestCase):
         response = self.client.post(reverse("app.api.private.v1.status_subscribe.endpoint"), {
             "type": "phone",
             "email": "",
-            "phone": "+12345678",
+            "phone": "00312345678",
             "endpoint": "",
             "auth_token": ""
         })
