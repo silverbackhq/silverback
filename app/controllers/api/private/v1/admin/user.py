@@ -239,8 +239,8 @@ class Users(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
-            "offset": "",
-            "limit": ""
+            "offset": 0,
+            "limit": 20
         })
 
         try:
@@ -248,7 +248,7 @@ class Users(View):
             limit = int(request_data["limit"])
         except Exception:
             offset = 0
-            limit = 0
+            limit = 20
 
         return JsonResponse(self.__response.send_private_success([], {
             'users': self.__format_users(self.__user.get_all(offset, limit)),

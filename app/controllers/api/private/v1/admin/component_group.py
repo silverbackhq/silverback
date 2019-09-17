@@ -110,8 +110,8 @@ class ComponentGroups(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
-            "offset": "",
-            "limit": ""
+            "offset": 0,
+            "limit": 20
         })
 
         try:
@@ -119,7 +119,7 @@ class ComponentGroups(View):
             limit = int(request_data["limit"])
         except Exception:
             offset = 0
-            limit = 0
+            limit = 20
 
         return JsonResponse(self.__response.send_private_success([], {
             'groups': self.__format_groups(self.__component_group.get_all(offset, limit)),

@@ -100,8 +100,8 @@ class Notifications(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
-            "offset": "",
-            "limit": ""
+            "offset": 0,
+            "limit": 20
         })
 
         try:
@@ -109,7 +109,7 @@ class Notifications(View):
             limit = int(request_data["limit"])
         except Exception:
             offset = 0
-            limit = 0
+            limit = 20
 
         return JsonResponse(self.__response.send_private_success([], {
             'notifications': self.__format_notification(self.__notification.get(self.__user_id, offset, limit)),

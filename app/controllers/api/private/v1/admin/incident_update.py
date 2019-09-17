@@ -145,8 +145,8 @@ class IncidentUpdates(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
-            "offset": "",
-            "limit": ""
+            "offset": 0,
+            "limit": 20
         })
 
         try:
@@ -154,7 +154,7 @@ class IncidentUpdates(View):
             limit = int(request_data["limit"])
         except Exception:
             offset = 0
-            limit = 0
+            limit = 20
 
         return JsonResponse(self.__response.send_private_success([], {
             'updates': self.__format_incident_updates(self.__incident_update.get_all(incident_id, offset, limit), incident_id),
