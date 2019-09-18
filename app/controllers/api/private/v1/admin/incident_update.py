@@ -82,13 +82,16 @@ class IncidentUpdates(View):
                 },
                 'validate': {}
             },
-            # @TODO add validate filter
             'datetime': {
                 'value': request_data["datetime"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'sv_datetime': {
+                        'error': _('Error! Datetime is invalid.')
+                    }
+                }
             },
             'status': {
                 'value': request_data["status"],
@@ -239,13 +242,16 @@ class IncidentUpdate(View):
                 },
                 'validate': {}
             },
-            # @TODO add validate filter
             'datetime': {
                 'value': request_data["datetime"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'sv_datetime': {
+                        'error': _('Error! Datetime is invalid.')
+                    }
+                }
             },
             'status': {
                 'value': request_data["status"],

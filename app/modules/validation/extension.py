@@ -9,6 +9,7 @@
 # Standard Library
 import re
 import os
+import datetime
 
 # Third Party Library
 from twilio.rest import Client
@@ -107,6 +108,13 @@ class ExtraRules(Validator):
 
     def sv_slug(self):
         return True if validate_slug(self._input) is None else False
+
+    def sv_datetime(self, date_format='%Y-%m-%d %H:%M:%S'):
+        try:
+            datetime.datetime.strptime(self._input, date_format)
+            return True
+        except ValueError:
+            return False
 
     def sv_phone(self):
         if os.getenv("TEXT_MESSAGING_DRIVER", "twilio") == "twilio" and os.getenv("TWILIO_ACCOUNT_SID") and os.getenv("TWILIO_AUTH_TOKEN"):
