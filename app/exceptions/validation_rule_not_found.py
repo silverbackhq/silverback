@@ -1,5 +1,9 @@
 """
-Validation Rule Not Found
+    Validation Rule Not Found
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 

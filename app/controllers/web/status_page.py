@@ -1,5 +1,9 @@
 """
-Status Page Web Controller
+    Status Page Web Controller
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

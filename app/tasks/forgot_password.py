@@ -1,5 +1,9 @@
 """
-Forgot Password Tasks
+    Forgot Password Tasks
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

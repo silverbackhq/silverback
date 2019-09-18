@@ -1,5 +1,9 @@
 """
-Funnel Module
+    Funnel Module
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 

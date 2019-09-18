@@ -1,5 +1,9 @@
 """
-Notify Subscriber Tasks
+    Notify Subscriber Tasks
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

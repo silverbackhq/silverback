@@ -1,5 +1,9 @@
 """
-User Entity Module
+    User Entity
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

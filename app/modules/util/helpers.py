@@ -1,5 +1,9 @@
 """
-Helpers Module
+    Helpers Module
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

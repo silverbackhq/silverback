@@ -1,9 +1,12 @@
 """
-Template Extra Tags
+    Template Extra Tags
+    ~~~~~~~~~~~~~~
 
-{% load extras %}
+    {% load extras %}
+    {{ somevariable|cut:"0" }}
 
-{{ somevariable|cut:"0" }}
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

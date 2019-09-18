@@ -1,5 +1,9 @@
 """
-Component Module
+    Component Module
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Local Library

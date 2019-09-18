@@ -1,5 +1,9 @@
 """
-Incident Update Web Controller
+    Incident Update Web Controller
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

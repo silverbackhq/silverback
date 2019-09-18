@@ -1,5 +1,9 @@
 """
-Silverback Info
+    Silverback Info
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

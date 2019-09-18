@@ -1,5 +1,9 @@
 """
-Builder API Endpoint
+    Builder API Endpoint
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

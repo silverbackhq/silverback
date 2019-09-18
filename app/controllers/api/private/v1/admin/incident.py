@@ -1,5 +1,9 @@
 """
-Incident API Endpoint
+    Incident API Endpoint
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

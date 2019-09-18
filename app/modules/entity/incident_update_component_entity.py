@@ -1,5 +1,9 @@
 """
-Incident Update Component Module
+    Incident Update Component Entity
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

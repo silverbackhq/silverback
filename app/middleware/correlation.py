@@ -1,5 +1,9 @@
 """
-Correlation Middleware
+    Correlation Middleware
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Local Library

@@ -1,5 +1,9 @@
 """
-Not Found Web Controller
+    Not Found Web Controller
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

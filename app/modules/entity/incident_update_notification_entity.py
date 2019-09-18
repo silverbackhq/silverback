@@ -1,5 +1,9 @@
 """
-Incident Update Notification Module
+    Incident Update Notification Entity
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

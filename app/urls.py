@@ -1,5 +1,9 @@
 """
-Routes For Silverback
+    Routes For Silverback
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

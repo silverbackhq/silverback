@@ -1,5 +1,9 @@
 """
-Load Tasks
+    Load Tasks
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 from .forgot_password import *         # noqa: F401 F403

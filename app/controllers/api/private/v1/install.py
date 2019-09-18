@@ -1,5 +1,9 @@
 """
-Install API Endpoint
+    Install API Endpoint
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library
@@ -19,6 +23,7 @@ from app.modules.core.notification import Notification as NotificationModule
 
 
 class Install(View):
+    """Install Endpoints Controller"""
 
     __request = None
     __response = None

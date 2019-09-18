@@ -1,5 +1,9 @@
 """
-Register Request Entity Module
+    Register Request Entity
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

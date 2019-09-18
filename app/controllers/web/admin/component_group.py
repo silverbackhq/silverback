@@ -1,5 +1,9 @@
 """
-Component Group Web Controller
+    Component Group Web Controller
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

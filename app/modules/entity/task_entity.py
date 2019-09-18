@@ -1,5 +1,9 @@
 """
-Task Entity Module
+    Task Entity
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

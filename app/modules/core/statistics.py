@@ -1,5 +1,9 @@
 """
-Statistics Module
+    Statistics Module
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Local Library

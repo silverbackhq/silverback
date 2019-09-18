@@ -1,5 +1,9 @@
 """
-Missing Argument Exception
+    Missing Argument Exception
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 

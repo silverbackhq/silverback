@@ -1,5 +1,9 @@
 """
-Metric Entity Module
+    Metric Entity
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Local Library

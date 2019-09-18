@@ -1,5 +1,9 @@
 """
-Builder Web Controller
+    Builder Web Controller
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

@@ -1,5 +1,9 @@
 """
-Activity Model
+    Activity Model
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

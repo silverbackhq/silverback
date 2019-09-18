@@ -1,5 +1,9 @@
 """
-Sanitization Rule Not Found
+    Sanitization Rule Not Found
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 

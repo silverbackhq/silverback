@@ -1,5 +1,9 @@
 """
-Subscriber Entity Module
+    Subscriber Entity
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Standard Library

@@ -1,5 +1,9 @@
 """
-Incident Update Model
+    Incident Update Model
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

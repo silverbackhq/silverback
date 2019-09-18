@@ -1,5 +1,9 @@
 """
-Option Entity Test Cases
+    Option Entity Test Cases
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 from django.test import TestCase

@@ -1,5 +1,9 @@
 """
-Prometheus Service
+    Prometheus Service
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 

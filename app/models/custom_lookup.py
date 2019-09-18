@@ -1,5 +1,9 @@
 """
-Custom Lookup
+    Custom Lookup
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

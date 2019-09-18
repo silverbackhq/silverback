@@ -1,5 +1,9 @@
 """
-Statistics Web Controller
+    Statistics Web Controller
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

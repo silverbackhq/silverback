@@ -1,5 +1,9 @@
 """
-Activities API Endpoint
+    Activities API Endpoint
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

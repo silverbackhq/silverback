@@ -1,7 +1,11 @@
 """
-Health Check Command
+    Health Check Command
+    ~~~~~~~~~~~~~~
 
-see https://docs.djangoproject.com/en/2.0/howto/custom-management-commands/
+    see https://docs.djangoproject.com/en/2.0/howto/custom-management-commands/
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Third Party Library

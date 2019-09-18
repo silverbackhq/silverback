@@ -1,5 +1,9 @@
 """
-Incident Module
+    Incident Module
+    ~~~~~~~~~~~~~~
+
+    :copyright: silverbackhq
+    :license: BSD-3-Clause
 """
 
 # Local Library
