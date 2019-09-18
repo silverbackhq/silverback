@@ -276,7 +276,6 @@ class BuilderSettings(View):
         })
 
         self.__form.add_inputs({
-            # @TODO add validate filter
             'builder_headline': {
                 'value': request_data["builder_headline"],
                 'sanitize': {
@@ -312,7 +311,6 @@ class BuilderSettings(View):
                     }
                 }
             },
-            # @TODO add validate filter
             'builder_about': {
                 'value': request_data["builder_about"],
                 'sanitize': {

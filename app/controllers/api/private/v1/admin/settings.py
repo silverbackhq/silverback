@@ -102,7 +102,6 @@ class Settings(View):
                     }
                 }
             },
-            # @TODO add validate filter
             'app_description': {
                 'value': request_data["app_description"],
                 'sanitize': {
@@ -116,7 +115,6 @@ class Settings(View):
                     'optional': {}
                 }
             },
-            # @TODO add validate filter
             "prometheus_token": {
                 'value': request_data["prometheus_token"],
                 'sanitize': {
@@ -130,7 +128,6 @@ class Settings(View):
                     'optional': {}
                 }
             },
-            # @TODO add validate filter
             "newrelic_api_key": {
                 'value': request_data["newrelic_api_key"],
                 'sanitize': {
@@ -144,7 +141,6 @@ class Settings(View):
                     'optional': {}
                 }
             },
-            # @TODO add validate filter
             'google_analytics_account': {
                 'value': request_data["google_analytics_account"],
                 'sanitize': {

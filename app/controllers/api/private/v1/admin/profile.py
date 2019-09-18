@@ -152,7 +152,6 @@ class Profile(View):
                     }
                 }
             },
-            # @TODO add validate filter
             'job_title': {
                 'value': request_data["job_title"],
                 'sanitize': {
@@ -166,7 +165,6 @@ class Profile(View):
                     'optional': {}
                 }
             },
-            # @TODO add validate filter
             'company': {
                 'value': request_data["company"],
                 'sanitize': {
@@ -180,7 +178,6 @@ class Profile(View):
                     'optional': {}
                 }
             },
-            # @TODO add validate filter
             'address': {
                 'value': request_data["address"],
                 'sanitize': {

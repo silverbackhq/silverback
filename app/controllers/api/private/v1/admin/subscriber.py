@@ -174,13 +174,18 @@ class Subscribers(View):
                         }
                     }
                 },
-                # @TODO add validate filter
                 'auth_token': {
                     'value': request_data["auth_token"],
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'length_between': {
+                            'param': [0, 80],
+                            'error': _('Error! Token is very long.')
+                        },
+                        'optional': {}
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -452,13 +457,18 @@ class Subscriber(View):
                         }
                     }
                 },
-                # @TODO add validate filter
                 'auth_token': {
                     'value': request_data["auth_token"],
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'length_between': {
+                            'param': [0, 80],
+                            'error': _('Error! Token is very long.')
+                        },
+                        'optional': {}
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
