@@ -90,7 +90,6 @@ class Users(View):
                 'username': {
                     'value': request_data["username"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -106,7 +105,6 @@ class Users(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -144,7 +142,6 @@ class Users(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -349,7 +346,6 @@ class User(View):
                 'username': {
                     'value': request_data["username"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -365,7 +361,6 @@ class User(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -419,7 +414,6 @@ class User(View):
                 'username': {
                     'value': request_data["username"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -435,7 +429,6 @@ class User(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {

@@ -58,7 +58,6 @@ class Login(View):
             'username': {
                 'value': request_data["username"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {

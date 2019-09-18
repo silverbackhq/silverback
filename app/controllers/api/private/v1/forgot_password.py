@@ -50,7 +50,6 @@ class ForgotPassword(View):
             'email': {
                 'value': request_data["email"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {

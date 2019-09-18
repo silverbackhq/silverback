@@ -289,7 +289,6 @@ class BuilderSettings(View):
             'builder_favicon_url': {
                 'value': request_data["builder_favicon_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -301,7 +300,6 @@ class BuilderSettings(View):
             'builder_logo_url': {
                 'value': request_data["builder_logo_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {

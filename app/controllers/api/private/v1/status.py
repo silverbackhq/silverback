@@ -55,7 +55,6 @@ class StatusSubscribe(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -72,7 +71,6 @@ class StatusSubscribe(View):
                 'phone': {
                     'value': request_data["phone"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -89,7 +87,6 @@ class StatusSubscribe(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -101,7 +98,6 @@ class StatusSubscribe(View):
                 'endpoint': {
                     'value': request_data["endpoint"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {

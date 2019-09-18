@@ -71,7 +71,6 @@ class Subscribers(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -112,7 +111,6 @@ class Subscribers(View):
                 'phone': {
                     'value': request_data["phone"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -153,7 +151,6 @@ class Subscribers(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -165,7 +162,6 @@ class Subscribers(View):
                 'endpoint': {
                     'value': request_data["endpoint"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -353,7 +349,6 @@ class Subscriber(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -394,7 +389,6 @@ class Subscriber(View):
                 'phone': {
                     'value': request_data["phone"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -435,7 +429,6 @@ class Subscriber(View):
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {
@@ -447,7 +440,6 @@ class Subscriber(View):
                 'endpoint': {
                     'value': request_data["endpoint"],
                     'sanitize': {
-                        'escape': {},
                         'strip': {}
                     },
                     'validate': {

@@ -64,7 +64,6 @@ class Settings(View):
             'app_name': {
                 'value': request_data["app_name"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -80,7 +79,6 @@ class Settings(View):
             'app_email': {
                 'value': request_data["app_email"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -92,7 +90,6 @@ class Settings(View):
             'app_url': {
                 'value': request_data["app_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {

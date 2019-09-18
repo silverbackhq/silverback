@@ -65,7 +65,6 @@ class Install(View):
             'app_name': {
                 'value': request_data["app_name"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -81,7 +80,6 @@ class Install(View):
             'app_email': {
                 'value': request_data["app_email"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -93,7 +91,6 @@ class Install(View):
             'app_url': {
                 'value': request_data["app_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -105,7 +102,6 @@ class Install(View):
             'admin_username': {
                 'value': request_data["admin_username"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -121,7 +117,6 @@ class Install(View):
             'admin_email': {
                 'value': request_data["admin_email"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {

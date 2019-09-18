@@ -125,7 +125,6 @@ class Profile(View):
             'username': {
                 'value': request_data["username"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -141,7 +140,6 @@ class Profile(View):
             'email': {
                 'value': request_data["email"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -195,7 +193,6 @@ class Profile(View):
             'github_url': {
                 'value': request_data["github_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -212,7 +209,6 @@ class Profile(View):
             'twitter_url': {
                 'value': request_data["twitter_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -229,7 +225,6 @@ class Profile(View):
             'facebook_url': {
                 'value': request_data["facebook_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {

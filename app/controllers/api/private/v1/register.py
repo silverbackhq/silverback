@@ -89,7 +89,6 @@ class Register(View):
             'username': {
                 'value': request_data["username"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -105,7 +104,6 @@ class Register(View):
             'email': {
                 'value': request_data["email"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
