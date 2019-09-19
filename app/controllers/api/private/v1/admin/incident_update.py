@@ -80,13 +80,17 @@ class IncidentUpdates(View):
         })
 
         self.__form.add_inputs({
-            # @TODO add validate filter
             'message': {
                 'value': request_data["message"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 3000000],
+                        'error': _('Error! Update message must be 1 to 3M characters long.')
+                    }
+                }
             },
             'datetime': {
                 'value': request_data["datetime"],
@@ -240,13 +244,17 @@ class IncidentUpdate(View):
         })
 
         self.__form.add_inputs({
-            # @TODO add validate filter
             'message': {
                 'value': request_data["message"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 3000000],
+                        'error': _('Error! Update message must be 1 to 3M characters long.')
+                    }
+                }
             },
             'datetime': {
                 'value': request_data["datetime"],

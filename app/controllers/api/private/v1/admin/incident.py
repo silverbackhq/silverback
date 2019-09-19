@@ -62,7 +62,6 @@ class Incidents(View):
         })
 
         self.__form.add_inputs({
-            # @TODO add validate filter
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -199,7 +198,6 @@ class Incident(View):
         })
 
         self.__form.add_inputs({
-            # @TODO add validate filter
             'name': {
                 'value': request_data["name"],
                 'sanitize': {

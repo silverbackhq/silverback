@@ -61,7 +61,6 @@ class ComponentGroups(View):
         })
 
         self.__form.add_inputs({
-            # @TODO add validate filter
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -69,18 +68,23 @@ class ComponentGroups(View):
                 },
                 'validate': {
                     'length_between': {
-                        'param': [1, 90],
-                        'error': _('Error! Component group name must be 1 to 90 characters long.')
+                        'param': [1, 60],
+                        'error': _('Error! Component name must be 1 to 60 characters long.')
                     }
                 }
             },
-            # @TODO add validate filter
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [0, 150],
+                        'error': _('Error! Component name description must be less than 150 characters long.')
+                    },
+                    'optional': {}
+                }
             },
             'uptime': {
                 'value': request_data["uptime"],
@@ -97,6 +101,8 @@ class ComponentGroups(View):
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+
+        # @TODO Validate if name not used before
 
         result = self.__component_group.insert_one({
             "name": self.__form.get_sinput("name"),
@@ -192,7 +198,6 @@ class ComponentGroup(View):
         })
 
         self.__form.add_inputs({
-            # @TODO add validate filter
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -200,18 +205,23 @@ class ComponentGroup(View):
                 },
                 'validate': {
                     'length_between': {
-                        'param': [1, 90],
-                        'error': _('Error! Component group name must be 1 to 90 characters long.')
+                        'param': [1, 60],
+                        'error': _('Error! Component name must be 1 to 60 characters long.')
                     }
                 }
             },
-            # @TODO add validate filter
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [0, 150],
+                        'error': _('Error! Component name description must be less than 150 characters long.')
+                    },
+                    'optional': {}
+                }
             },
             'uptime': {
                 'value': request_data["uptime"],
@@ -228,6 +238,8 @@ class ComponentGroup(View):
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+
+        # @TODO Validate if name not used before
 
         result = self.__component_group.update_one_by_id(group_id, {
             "name": self.__form.get_sinput("name"),
