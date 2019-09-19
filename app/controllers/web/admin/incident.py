@@ -31,6 +31,7 @@ from app.modules.core.incident_update import IncidentUpdate as IncidentUpdateMod
 
 
 class IncidentList(View):
+    """Incident List Page Controller"""
 
     template_name = 'templates/admin/incident/list.html'
 
@@ -53,6 +54,7 @@ class IncidentList(View):
 
 
 class IncidentAdd(View):
+    """Incident Add Page Controller"""
 
     template_name = 'templates/admin/incident/add.html'
 
@@ -75,6 +77,7 @@ class IncidentAdd(View):
 
 
 class IncidentEdit(View):
+    """Incident Edit Page Controller"""
 
     template_name = 'templates/admin/incident/edit.html'
 
@@ -103,6 +106,7 @@ class IncidentEdit(View):
 
 
 class IncidentView(View):
+    """Incident View Page Controller"""
 
     template_name = 'templates/admin/incident/view.html'
 

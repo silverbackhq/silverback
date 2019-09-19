@@ -28,6 +28,7 @@ from app.modules.core.decorators import login_if_not_authenticated_or_no_permiss
 
 
 class Settings(View):
+    """Settings Page Controller"""
 
     template_name = 'templates/admin/settings.html'
 

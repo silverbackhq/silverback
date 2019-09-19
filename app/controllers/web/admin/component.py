@@ -28,6 +28,7 @@ from app.modules.core.component import Component as ComponentModule
 
 
 class ComponentList(View):
+    """Component List Page Controller"""
 
     template_name = 'templates/admin/component/list.html'
 
@@ -47,6 +48,7 @@ class ComponentList(View):
 
 
 class ComponentAdd(View):
+    """Component Add Page Controller"""
 
     template_name = 'templates/admin/component/add.html'
 
@@ -67,6 +69,7 @@ class ComponentAdd(View):
 
 
 class ComponentEdit(View):
+    """Component Edit Page Controller"""
 
     template_name = 'templates/admin/component/edit.html'
 

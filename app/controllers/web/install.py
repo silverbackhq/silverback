@@ -28,6 +28,7 @@ from app.modules.core.install import Install as InstallModule
 
 
 class Install(View):
+    """Install Page Controller"""
 
     template_name = 'templates/install.html'
 

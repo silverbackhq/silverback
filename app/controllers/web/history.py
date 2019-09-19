@@ -27,6 +27,7 @@ from app.modules.core.decorators import redirect_if_not_installed
 
 
 class AtomHistory(View):
+    """Atom History Page Controller"""
 
     @redirect_if_not_installed
     def get(self, request):
@@ -55,6 +56,7 @@ class AtomHistory(View):
 
 
 class RssHistory(View):
+    """RSS History Page Controller"""
 
     @redirect_if_not_installed
     def get(self, request):

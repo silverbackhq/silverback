@@ -28,6 +28,7 @@ from app.modules.core.decorators import redirect_if_not_installed
 
 
 class ForgotPassword(View):
+    """Forgot Password Page Controller"""
 
     template_name = 'templates/forgot_password.html'
 

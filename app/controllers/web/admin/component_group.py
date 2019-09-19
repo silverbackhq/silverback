@@ -28,6 +28,7 @@ from app.modules.core.component_group import ComponentGroup as ComponentGroupMod
 
 
 class ComponentGroupList(View):
+    """Component Group List Page Controller"""
 
     template_name = 'templates/admin/component_group/list.html'
 
@@ -47,6 +48,7 @@ class ComponentGroupList(View):
 
 
 class ComponentGroupAdd(View):
+    """Component Group Add Page Controller"""
 
     template_name = 'templates/admin/component_group/add.html'
 
@@ -66,6 +68,7 @@ class ComponentGroupAdd(View):
 
 
 class ComponentGroupEdit(View):
+    """Component Group Edit Page Controller"""
 
     template_name = 'templates/admin/component_group/edit.html'
 

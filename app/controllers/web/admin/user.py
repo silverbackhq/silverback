@@ -28,6 +28,7 @@ from app.modules.core.decorators import login_if_not_authenticated_or_no_permiss
 
 
 class UserList(View):
+    """User List Page Controller"""
 
     template_name = 'templates/admin/user/list.html'
 
@@ -47,6 +48,7 @@ class UserList(View):
 
 
 class UserAdd(View):
+    """User Add Page Controller"""
 
     template_name = 'templates/admin/user/add.html'
 
@@ -66,6 +68,7 @@ class UserAdd(View):
 
 
 class UserEdit(View):
+    """User Edit Page Controller"""
 
     template_name = 'templates/admin/user/edit.html'
 

@@ -29,6 +29,7 @@ from app.modules.core.decorators import redirect_if_not_installed
 
 
 class Login(View):
+    """Login Page Controller"""
 
     template_name = 'templates/login.html'
 

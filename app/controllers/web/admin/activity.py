@@ -28,6 +28,7 @@ from app.modules.core.decorators import login_if_not_authenticated
 
 
 class Activity(View):
+    """Activity List Page Controller"""
 
     template_name = 'templates/admin/activity.html'
 

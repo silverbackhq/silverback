@@ -27,6 +27,7 @@ from app.modules.core.decorators import login_if_not_authenticated
 
 
 class Notification(View):
+    """Notification List Page Controller"""
 
     template_name = 'templates/admin/notification.html'
 

@@ -25,6 +25,7 @@ from app.modules.core.statistics import Statistics as StatisticsModule
 
 
 class Statistics(View):
+    """Statistics Page Controller"""
 
     @redirect_if_not_installed
     @protect_metric_with_auth_key

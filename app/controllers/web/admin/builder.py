@@ -30,6 +30,7 @@ from app.modules.core.decorators import login_if_not_authenticated_or_no_permiss
 
 
 class Builder(View):
+    """Builder Page Controller"""
 
     template_name = 'templates/admin/builder.html'
 

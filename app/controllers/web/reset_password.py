@@ -31,6 +31,7 @@ from app.modules.core.reset_password import ResetPassword as ResetPasswordModule
 
 
 class ResetPassword(View):
+    """Reset Password Page Controller"""
 
     template_name = 'templates/reset_password.html'
 

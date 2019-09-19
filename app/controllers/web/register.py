@@ -31,6 +31,7 @@ from app.modules.core.decorators import redirect_if_not_installed
 
 
 class Register(View):
+    """Register Page Controller"""
 
     template_name = 'templates/register.html'
 

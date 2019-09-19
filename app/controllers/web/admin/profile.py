@@ -27,6 +27,7 @@ from app.modules.core.decorators import login_if_not_authenticated
 
 
 class Profile(View):
+    """Profile Page Controller"""
 
     template_name = 'templates/admin/profile.html'
 

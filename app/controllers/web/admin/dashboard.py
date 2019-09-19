@@ -27,6 +27,7 @@ from app.modules.core.dashboard import Dashboard as DashboardModule
 
 
 class Dashboard(View):
+    """Dashboard Page Controller"""
 
     template_name = 'templates/admin/dashboard.html'
 

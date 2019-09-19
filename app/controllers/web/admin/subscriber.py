@@ -28,6 +28,7 @@ from app.modules.core.decorators import login_if_not_authenticated
 
 
 class SubscriberList(View):
+    """Subscriber List Page Controller"""
 
     template_name = 'templates/admin/subscriber/list.html'
 
@@ -47,6 +48,7 @@ class SubscriberList(View):
 
 
 class SubscriberAdd(View):
+    """Subscriber Add Page Controller"""
 
     template_name = 'templates/admin/subscriber/add.html'
 
@@ -66,6 +68,7 @@ class SubscriberAdd(View):
 
 
 class SubscriberEdit(View):
+    """Subscriber Edit Page Controller"""
 
     template_name = 'templates/admin/subscriber/edit.html'
 

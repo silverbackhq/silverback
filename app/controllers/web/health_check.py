@@ -24,6 +24,7 @@ from app.modules.core.response import Response
 
 
 class HealthCheck(View):
+    """Health Check Page Controller"""
 
     def get(self, request):
 

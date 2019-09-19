@@ -24,6 +24,7 @@ from app.modules.core.decorators import login_if_not_authenticated
 
 
 class Logout(View):
+    """Logout Controller"""
 
     @login_if_not_authenticated
     def get(self, request):

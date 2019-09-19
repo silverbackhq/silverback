@@ -28,6 +28,7 @@ from app.modules.core.status_page import StatusPage as StatusPageModule
 
 
 class StatusPageIndex(View):
+    """Status Page Index Page Controller"""
 
     template_name = 'templates/status_page_index.html'
 
@@ -56,6 +57,7 @@ class StatusPageIndex(View):
 
 
 class StatusPageHistory(View):
+    """Status Page History Page Controller"""
 
     template_name = 'templates/status_page_history.html'
 
@@ -93,6 +95,7 @@ class StatusPageHistory(View):
 
 
 class StatusPageSingle(View):
+    """Status Page Single Page Controller"""
 
     template_name = 'templates/status_page_single.html'
 
