@@ -77,6 +77,6 @@ Shoutout to these awesome open source projects and their maintainers.
 
 ## License
 
-© 2019, Silverback. Released under [BSD-3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
+© 2019, Silverback. Released under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 **Silverback** is authored and maintained by [@silverbackhq](https://github.com/silverbackhq).
