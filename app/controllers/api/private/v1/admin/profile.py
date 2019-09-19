@@ -28,6 +28,7 @@ from app.modules.core.decorators import allow_if_authenticated
 
 
 class Profile(View):
+    """Update Profile Private Endpoint Controller"""
 
     __request = None
     __response = None

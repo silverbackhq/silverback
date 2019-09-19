@@ -28,6 +28,7 @@ from app.modules.core.reset_password import ResetPassword as ResetPasswordModule
 
 
 class ResetPassword(View):
+    """Reset Password Private Endpoint Controller"""
 
     __request = None
     __response = None

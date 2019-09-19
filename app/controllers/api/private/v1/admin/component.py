@@ -29,6 +29,7 @@ from app.modules.core.component import Component as ComponentModule
 
 
 class Components(View):
+    """Create and List Components Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -183,6 +184,7 @@ class Components(View):
 
 
 class Component(View):
+    """Update and Delete Component Private Endpoint Controller"""
 
     __request = None
     __response = None

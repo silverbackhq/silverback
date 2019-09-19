@@ -29,7 +29,7 @@ from app.modules.core.notification import Notification as NotificationModule
 
 
 class Install(View):
-    """Install Endpoints Controller"""
+    """Install Private Endpoint Controller"""
 
     __request = None
     __response = None

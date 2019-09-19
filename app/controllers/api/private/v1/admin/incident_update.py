@@ -36,6 +36,7 @@ from app.modules.core.incident_update_notification import IncidentUpdateNotifica
 
 
 class IncidentUpdates(View):
+    """Create and List Incident Updates Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -211,6 +212,7 @@ class IncidentUpdates(View):
 
 
 class IncidentUpdate(View):
+    """Update and Delete Incident Update Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -330,6 +332,7 @@ class IncidentUpdate(View):
 
 
 class IncidentUpdatesNotify(View):
+    """Notify Subscribers about Incident Update Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -392,6 +395,7 @@ class IncidentUpdatesNotify(View):
 
 
 class IncidentUpdatesComponents(View):
+    """Link Component to Incident Update Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -475,6 +479,7 @@ class IncidentUpdatesComponents(View):
 
 
 class IncidentUpdatesComponent(View):
+    """Remove Component from Incident Update Private Endpoint Controller"""
 
     __request = None
     __response = None

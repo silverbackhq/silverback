@@ -27,6 +27,7 @@ from app.modules.core.subscriber import Subscriber as SubscriberModule
 
 
 class StatusSubscribe(View):
+    """Subscribe Private Endpoint Controller"""
 
     __request = None
     __response = None

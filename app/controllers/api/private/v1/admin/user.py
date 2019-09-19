@@ -29,6 +29,7 @@ from app.modules.core.decorators import allow_if_authenticated_and_has_permissio
 
 
 class Users(View):
+    """Create and List Users Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -286,6 +287,7 @@ class Users(View):
 
 
 class User(View):
+    """Update and Delete User Private Endpoint Controller"""
 
     __request = None
     __response = None

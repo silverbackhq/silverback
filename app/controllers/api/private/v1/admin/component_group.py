@@ -29,6 +29,7 @@ from app.modules.core.component_group import ComponentGroup as ComponentGroupMod
 
 
 class ComponentGroups(View):
+    """Create and List Component Groups Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -166,6 +167,7 @@ class ComponentGroups(View):
 
 
 class ComponentGroup(View):
+    """Update and Delete Component Group Private Endpoint Controller"""
 
     __request = None
     __response = None

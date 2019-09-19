@@ -34,6 +34,7 @@ from app.modules.core.component_group import ComponentGroup as ComponentGroupMod
 
 
 class BuilderSystemMetrics(View):
+    """Add and Remove Builder System Metrics Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -138,6 +139,7 @@ class BuilderSystemMetrics(View):
 
 
 class BuilderComponents(View):
+    """Add and Remove Builder Components Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -250,6 +252,7 @@ class BuilderComponents(View):
 
 
 class BuilderSettings(View):
+    """Update Builder Settings Private Endpoint Controller"""
 
     __request = None
     __response = None

@@ -31,6 +31,7 @@ from app.modules.core.decorators import stop_request_if_authenticated
 
 
 class Register(View):
+    """Register Private Endpoint Controller"""
 
     __request = None
     __response = None

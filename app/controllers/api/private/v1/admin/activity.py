@@ -27,6 +27,7 @@ from app.modules.core.activity import Activity as ActivityModule
 
 
 class Activities(View):
+    """List Activities Private Endpoint Controller"""
 
     __request = None
     __response = None

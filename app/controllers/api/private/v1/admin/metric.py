@@ -29,6 +29,7 @@ from app.modules.core.decorators import allow_if_authenticated
 
 
 class Metrics(View):
+    """Create and List Metrics Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -196,6 +197,7 @@ class Metrics(View):
 
 
 class Metric(View):
+    """Update and Delete Metric Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -339,6 +341,7 @@ class Metric(View):
 
 
 class NewRelicApps(View):
+    """List NewRelic Apps Private Endpoint Controller"""
 
     __request = None
     __response = None

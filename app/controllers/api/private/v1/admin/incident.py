@@ -30,6 +30,7 @@ from app.modules.core.incident import Incident as IncidentModule
 
 
 class Incidents(View):
+    """Create and List Incidents Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -166,6 +167,7 @@ class Incidents(View):
 
 
 class Incident(View):
+    """Update Incident Private Endpoint Controller"""
 
     __request = None
     __response = None

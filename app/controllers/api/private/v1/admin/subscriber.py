@@ -29,6 +29,7 @@ from app.modules.core.subscriber import Subscriber as SubscriberModule
 
 
 class Subscribers(View):
+    """Create and List Subscribers Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -312,6 +313,7 @@ class Subscribers(View):
 
 
 class Subscriber(View):
+    """Update and Delete Subscriber Private Endpoint Controller"""
 
     __request = None
     __response = None

@@ -28,6 +28,7 @@ from app.modules.core.notification import Notification as NotificationModule
 
 
 class LatestNotifications(View):
+    """List and Update Latest Notifications Private Endpoint Controller"""
 
     __request = None
     __response = None
@@ -81,6 +82,7 @@ class LatestNotifications(View):
 
 
 class Notifications(View):
+    """List Notifications Private Endpoint Controller"""
 
     __request = None
     __response = None

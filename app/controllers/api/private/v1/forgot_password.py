@@ -28,6 +28,7 @@ from app.modules.core.forgot_password import ForgotPassword as ForgotPasswordMod
 
 
 class ForgotPassword(View):
+    """Forgot Password Private Endpoint Controller"""
 
     __request = None
     __response = None

@@ -30,6 +30,7 @@ from app.modules.core.decorators import allow_if_authenticated_and_has_permissio
 
 
 class Settings(View):
+    """Update Settings Private Endpoint Controller"""
 
     __request = None
     __response = None
