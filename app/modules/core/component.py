@@ -38,6 +38,21 @@ class Component():
             "group_name": "" if component.group is None else component.group.name
         }
 
+    def get_one_by_name(self, name):
+        component = self.__component_entity.get_one_by_name(name)
+
+        if not component:
+            return False
+
+        return {
+            "id": component.id,
+            "name": component.name,
+            "description": component.description,
+            "uptime": component.uptime,
+            "group_id": "" if component.group is None else component.group.id,
+            "group_name": "" if component.group is None else component.group.name
+        }
+
     def insert_one(self, component):
         return self.__component_entity.insert_one(component)
 

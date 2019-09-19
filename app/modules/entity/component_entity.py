@@ -65,6 +65,13 @@ class ComponentEntity():
         except Exception:
             return False
 
+    def get_one_by_name(self, name):
+        try:
+            component = Component.objects.get(name=name)
+            return False if component.pk is None else component
+        except Exception:
+            return False
+
     def delete_one_by_id(self, id):
         component = self.get_one_by_id(id)
         if component is not False:

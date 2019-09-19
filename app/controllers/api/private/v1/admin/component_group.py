@@ -96,7 +96,12 @@ class ComponentGroups(View):
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
-        # @TODO Validate if name not used before
+        # Check if group name not used
+        if self.__component_group.get_one_by_name(self.__form.get_sinput("name")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Component group name is used before.")
+            }], {}, self.__correlation_id))
 
         result = self.__component_group.insert_one({
             "name": self.__form.get_sinput("name"),
@@ -227,7 +232,14 @@ class ComponentGroup(View):
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
-        # @TODO Validate if name not used before
+        # Check if group name not used elsewhere
+        current_group = self.__component_group.get_one_by_name(self.__form.get_sinput("name"))
+
+        if current_group and not current_group["id"] == group_id:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Component group name is used before.")
+            }], {}, self.__correlation_id))
 
         result = self.__component_group.update_one_by_id(group_id, {
             "name": self.__form.get_sinput("name"),

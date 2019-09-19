@@ -36,6 +36,19 @@ class ComponentGroup():
             "description": group.description,
         }
 
+    def get_one_by_name(self, name):
+        group = self.__component_group_entity.get_one_by_name(name)
+
+        if not group:
+            return False
+
+        return {
+            "id": group.id,
+            "name": group.name,
+            "uptime": group.uptime,
+            "description": group.description,
+        }
+
     def insert_one(self, group):
         return self.__component_group_entity.insert_one(group)
 

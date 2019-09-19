@@ -58,6 +58,13 @@ class ComponentGroupEntity():
         except Exception:
             return False
 
+    def get_one_by_name(self, name):
+        try:
+            group = ComponentGroup.objects.get(name=name)
+            return False if group.pk is None else group
+        except Exception:
+            return False
+
     def delete_one_by_id(self, id):
         group = self.get_one_by_id(id)
         if group is not False:

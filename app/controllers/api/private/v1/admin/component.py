@@ -26,6 +26,7 @@ from app.modules.core.response import Response
 from app.modules.validation.extension import ExtraRules
 from app.modules.core.decorators import allow_if_authenticated
 from app.modules.core.component import Component as ComponentModule
+from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
 
 
 class Components(View):
@@ -37,6 +38,7 @@ class Components(View):
         self.__helpers = Helpers()
         self.__form = Form()
         self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
         self.__user_id = None
@@ -110,8 +112,19 @@ class Components(View):
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
-        # @TODO Validate if name not used before
-        # @TODO Validate group id is valid
+        # Check if component name not used
+        if self.__component.get_one_by_name(self.__form.get_sinput("name")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Component name is used before.")
+            }], {}, self.__correlation_id))
+
+        # Check if group id is valid
+        if self.__form.get_sinput("group") and not self.__component_group.get_one_by_id(self.__form.get_sinput("group")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Component group is invalid.")
+            }], {}, self.__correlation_id))
 
         result = self.__component.insert_one({
             "name": self.__form.get_sinput("name"),
@@ -185,6 +198,7 @@ class Component(View):
         self.__helpers = Helpers()
         self.__form = Form()
         self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
         self.__user_id = None
@@ -258,8 +272,21 @@ class Component(View):
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
-        # @TODO Validate if name not used before
-        # @TODO Validate group id is valid
+        # Check if component name not used elsewhere
+        current_component = self.__component.get_one_by_name(self.__form.get_sinput("name"))
+
+        if current_component and not current_component["id"] == component_id:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Component name is used before.")
+            }], {}, self.__correlation_id))
+
+        # Check if group id is valid
+        if self.__form.get_sinput("group") and not self.__component_group.get_one_by_id(self.__form.get_sinput("group")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Component group is invalid.")
+            }], {}, self.__correlation_id))
 
         result = self.__component.update_one_by_id(component_id, {
             "name": self.__form.get_sinput("name"),
