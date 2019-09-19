@@ -25,8 +25,6 @@ from app.settings.info import APP_ROOT
 
 class Crypto():
 
-    __app_crypto_key = None
-
     def __init__(self):
         load_dotenv(dotenv_path=os.path.join(APP_ROOT, ".env"))
         self.__app_crypto_key = os.getenv("APP_CRYPTO_KEY")

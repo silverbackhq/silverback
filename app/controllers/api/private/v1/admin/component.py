@@ -31,15 +31,6 @@ from app.modules.core.component import Component as ComponentModule
 class Components(View):
     """Create and List Components Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __component = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -48,6 +39,8 @@ class Components(View):
         self.__component = ComponentModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
+        self.__user_id = None
+        self.__correlation_id = ""
 
     @allow_if_authenticated
     def post(self, request):
@@ -186,15 +179,6 @@ class Components(View):
 class Component(View):
     """Update and Delete Component Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __component = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -203,6 +187,8 @@ class Component(View):
         self.__component = ComponentModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__form.add_validator(ExtraRules())
+        self.__user_id = None
+        self.__correlation_id = ""
 
     @allow_if_authenticated
     def post(self, request, component_id):

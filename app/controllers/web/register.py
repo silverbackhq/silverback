@@ -33,10 +33,6 @@ from app.modules.core.decorators import redirect_if_not_installed
 class Register(View):
 
     template_name = 'templates/register.html'
-    __user = None
-    __context = None
-    __option_entity = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     @redirect_if_authenticated

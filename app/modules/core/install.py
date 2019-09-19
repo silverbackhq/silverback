@@ -41,9 +41,6 @@ class Install():
         "is_active": True,
         "is_staff": False
     }
-    __option_entity = None
-    __user_entity = None
-    __acl = None
 
     def __init__(self):
         self.__option_entity = OptionEntity()

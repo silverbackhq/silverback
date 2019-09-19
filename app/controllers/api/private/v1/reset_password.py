@@ -30,14 +30,6 @@ from app.modules.core.reset_password import ResetPassword as ResetPasswordModule
 class ResetPassword(View):
     """Reset Password Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __reset_password = None
-    __logger = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -45,6 +37,7 @@ class ResetPassword(View):
         self.__form = Form()
         self.__reset_password = ResetPasswordModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @stop_request_if_authenticated

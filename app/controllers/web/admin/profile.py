@@ -22,21 +22,19 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.core.profile import Profile
+from app.modules.core.profile import Profile as ProfileModule
 from app.modules.core.decorators import login_if_not_authenticated
 
 
 class Profile(View):
 
     template_name = 'templates/admin/profile.html'
-    __context = Context()
-    __profile = Profile()
-    __user_id = None
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__context = Context()
+        self.__profile = ProfileModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__user_id = request.user.id
         self.__context.autoload_options()

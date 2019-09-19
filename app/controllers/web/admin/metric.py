@@ -31,13 +31,12 @@ from app.modules.core.decorators import login_if_not_authenticated
 class MetricList(View):
 
     template_name = 'templates/admin/metric/list.html'
-    __context = Context()
-    __metric = MetricModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__context = Context()
+        self.__metric = MetricModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -51,13 +50,11 @@ class MetricList(View):
 class MetricAdd(View):
 
     template_name = 'templates/admin/metric/add.html'
-    __context = Context()
-    __metric = MetricModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
-
+        self.__context = Context()
+        self.__metric = MetricModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -71,13 +68,12 @@ class MetricAdd(View):
 class MetricEdit(View):
 
     template_name = 'templates/admin/metric/edit.html'
-    __context = Context()
-    __metric = MetricModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, metric_id):
 
+        self.__context = Context()
+        self.__metric = MetricModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         metric = self.__metric.get_one_by_id(metric_id)
 

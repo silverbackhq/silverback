@@ -25,12 +25,6 @@ from app.modules.core.response import Response
 
 class HealthCheck(View):
 
-    __response = None
-    __correlation_id = None
-    __health = None
-    __helpers = None
-    __logger = None
-
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""

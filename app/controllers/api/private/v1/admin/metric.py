@@ -31,15 +31,6 @@ from app.modules.core.decorators import allow_if_authenticated
 class Metrics(View):
     """Create and List Metrics Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __metric = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -47,6 +38,8 @@ class Metrics(View):
         self.__form = Form()
         self.__metric = MetricModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -199,15 +192,6 @@ class Metrics(View):
 class Metric(View):
     """Update and Delete Metric Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __metric = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -215,6 +199,8 @@ class Metric(View):
         self.__form = Form()
         self.__metric = MetricModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -343,15 +329,6 @@ class Metric(View):
 class NewRelicApps(View):
     """List NewRelic Apps Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __metric = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -359,6 +336,8 @@ class NewRelicApps(View):
         self.__form = Form()
         self.__metric = MetricModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

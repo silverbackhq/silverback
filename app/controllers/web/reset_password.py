@@ -33,10 +33,6 @@ from app.modules.core.reset_password import ResetPassword as ResetPasswordModule
 class ResetPassword(View):
 
     template_name = 'templates/reset_password.html'
-    __reset_password_core = None
-    __context = None
-    __option_entity = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     @redirect_if_authenticated

@@ -31,14 +31,11 @@ from app.modules.entity.user_entity import UserEntity
 
 class Context():
 
-    __data = {}
-    __option_entity = None
-    __user_entity = None
-
     def __init__(self):
 
         self.__option_entity = OptionEntity()
         self.__user_entity = UserEntity()
+        self.__data = {}
         self.__data["AUTHOR"] = AUTHOR
         self.__data["COPYRIGHT"] = COPYRIGHT
         self.__data["LICENSE"] = LICENSE

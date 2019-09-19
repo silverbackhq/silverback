@@ -30,13 +30,12 @@ from app.modules.core.component_group import ComponentGroup as ComponentGroupMod
 class ComponentGroupList(View):
 
     template_name = 'templates/admin/component_group/list.html'
-    __context = Context()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__context = Context()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -50,13 +49,12 @@ class ComponentGroupList(View):
 class ComponentGroupAdd(View):
 
     template_name = 'templates/admin/component_group/add.html'
-    __context = Context()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__context = Context()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -70,13 +68,12 @@ class ComponentGroupAdd(View):
 class ComponentGroupEdit(View):
 
     template_name = 'templates/admin/component_group/edit.html'
-    __context = Context()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, group_id):
 
+        self.__context = Context()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         group = self.__component_group.get_one_by_id(group_id)
 

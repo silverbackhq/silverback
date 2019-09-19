@@ -32,7 +32,8 @@ from django.utils.translation import activate
 
 class Helpers():
 
-    __loggers = {}
+    def __init__(self):
+        self.__loggers = {}
 
     def slugify(self, text, allow_unicode=False):
         return slugify(text, allow_unicode=allow_unicode)

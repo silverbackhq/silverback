@@ -30,15 +30,6 @@ from app.modules.core.decorators import allow_if_authenticated
 class Profile(View):
     """Update Profile Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __profile_module = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -46,6 +37,8 @@ class Profile(View):
         self.__form = Form()
         self.__profile_module = ProfileModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

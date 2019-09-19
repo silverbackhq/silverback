@@ -25,8 +25,6 @@ class Subscriber():
     PHONE = "phone"
     ENDPOINT = "endpoint"
 
-    __subscriber_entity = None
-
     def __init__(self):
         self.__subscriber_entity = SubscriberEntity()
 

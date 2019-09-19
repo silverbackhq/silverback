@@ -28,11 +28,6 @@ from app.modules.core.decorators import redirect_if_not_installed
 
 class AtomHistory(View):
 
-    __context = None
-    __option_entity = None
-    __fg = None
-    __correlation_id = None
-
     @redirect_if_not_installed
     def get(self, request):
 
@@ -60,11 +55,6 @@ class AtomHistory(View):
 
 
 class RssHistory(View):
-
-    __context = None
-    __option_entity = None
-    __fg = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request):

@@ -31,15 +31,6 @@ from app.modules.core.component_group import ComponentGroup as ComponentGroupMod
 class ComponentGroups(View):
     """Create and List Component Groups Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __component_group = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -47,6 +38,8 @@ class ComponentGroups(View):
         self.__form = Form()
         self.__component_group = ComponentGroupModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -169,15 +162,6 @@ class ComponentGroups(View):
 class ComponentGroup(View):
     """Update and Delete Component Group Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __component_group = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -185,6 +169,8 @@ class ComponentGroup(View):
         self.__form = Form()
         self.__component_group = ComponentGroupModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

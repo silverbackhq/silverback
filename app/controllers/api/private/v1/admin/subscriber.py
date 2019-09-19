@@ -31,15 +31,6 @@ from app.modules.core.subscriber import Subscriber as SubscriberModule
 class Subscribers(View):
     """Create and List Subscribers Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __subscriber = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -47,6 +38,8 @@ class Subscribers(View):
         self.__form = Form()
         self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -315,15 +308,6 @@ class Subscribers(View):
 class Subscriber(View):
     """Update and Delete Subscriber Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __subscriber = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -331,6 +315,8 @@ class Subscriber(View):
         self.__form = Form()
         self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

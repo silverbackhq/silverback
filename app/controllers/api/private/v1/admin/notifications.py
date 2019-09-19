@@ -30,15 +30,6 @@ from app.modules.core.notification import Notification as NotificationModule
 class LatestNotifications(View):
     """List and Update Latest Notifications Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __notification = None
-    __correlation_id = None
-
     def __init__(self):
         self.__helpers = Helpers()
         self.__form = Form()
@@ -46,6 +37,8 @@ class LatestNotifications(View):
         self.__response = Response()
         self.__request = Request()
         self.__notification = NotificationModule()
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -84,16 +77,6 @@ class LatestNotifications(View):
 class Notifications(View):
     """List Notifications Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __notification = None
-    __humanize = None
-    __correlation_id = None
-
     def __init__(self):
         self.__helpers = Helpers()
         self.__form = Form()
@@ -102,6 +85,8 @@ class Notifications(View):
         self.__request = Request()
         self.__notification = NotificationModule()
         self.__humanize = Humanize()
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

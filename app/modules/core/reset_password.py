@@ -22,9 +22,6 @@ from app.modules.entity.reset_request_entity import ResetRequestEntity
 
 class ResetPassword():
 
-    __reset_request_entity = None
-    __user_entity = None
-
     def __init__(self):
         self.__user_entity = UserEntity()
         self.__reset_request_entity = ResetRequestEntity()

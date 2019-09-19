@@ -21,9 +21,6 @@ from app.modules.util.helpers import Helpers
 
 class Logging():
 
-    __helpers = None
-    __logger = None
-
     def __init__(self, get_response):
         self.__helpers = Helpers()
         self.get_response = get_response

@@ -31,9 +31,6 @@ from app.modules.core.decorators import redirect_if_not_installed
 class Login(View):
 
     template_name = 'templates/login.html'
-    __context = None
-    __option_entity = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     @redirect_if_authenticated

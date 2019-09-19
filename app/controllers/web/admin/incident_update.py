@@ -36,16 +36,14 @@ from app.modules.core.incident_update_notification import IncidentUpdateNotifica
 class IncidentUpdateAdd(View):
 
     template_name = 'templates/admin/incident/update/add.html'
-    __context = Context()
-    __incident = IncidentModule()
-    __incident_update = IncidentUpdateModule()
-    __component = ComponentModule()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, incident_id):
-
+        self.__context = Context()
+        self.__incident = IncidentModule()
+        self.__incident_update = IncidentUpdateModule()
+        self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
@@ -65,18 +63,17 @@ class IncidentUpdateAdd(View):
 class IncidentUpdateView(View):
 
     template_name = 'templates/admin/incident/update/view.html'
-    __context = Context()
-    __incident = IncidentModule()
-    __incident_update = IncidentUpdateModule()
-    __incident_update_component = IncidentUpdateComponentModule()
-    __component = ComponentModule()
-    __component_group = ComponentGroupModule()
-    __incident_update_notification = IncidentUpdateNotificationModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
+        self.__context = Context()
+        self.__incident = IncidentModule()
+        self.__incident_update = IncidentUpdateModule()
+        self.__incident_update_component = IncidentUpdateComponentModule()
+        self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
+        self.__incident_update_notification = IncidentUpdateNotificationModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
@@ -142,16 +139,15 @@ class IncidentUpdateView(View):
 class IncidentUpdateEdit(View):
 
     template_name = 'templates/admin/incident/update/edit.html'
-    __context = Context()
-    __incident = IncidentModule()
-    __incident_update = IncidentUpdateModule()
-    __component = ComponentModule()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
+        self.__context = Context()
+        self.__incident = IncidentModule()
+        self.__incident_update = IncidentUpdateModule()
+        self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 

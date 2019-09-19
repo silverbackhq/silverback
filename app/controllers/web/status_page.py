@@ -30,10 +30,6 @@ from app.modules.core.status_page import StatusPage as StatusPageModule
 class StatusPageIndex(View):
 
     template_name = 'templates/status_page_index.html'
-    __context = None
-    __option_entity = None
-    __status_page_module = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request):
@@ -62,10 +58,6 @@ class StatusPageIndex(View):
 class StatusPageHistory(View):
 
     template_name = 'templates/status_page_history.html'
-    __context = None
-    __option_entity = None
-    __status_page_module = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request, period):
@@ -103,10 +95,6 @@ class StatusPageHistory(View):
 class StatusPageSingle(View):
 
     template_name = 'templates/status_page_single.html'
-    __context = None
-    __option_entity = None
-    __status_page_module = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request, uri):

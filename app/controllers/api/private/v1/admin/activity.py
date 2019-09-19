@@ -29,15 +29,6 @@ from app.modules.core.activity import Activity as ActivityModule
 class Activities(View):
     """List Activities Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __activity = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -45,6 +36,8 @@ class Activities(View):
         self.__form = Form()
         self.__activity = ActivityModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

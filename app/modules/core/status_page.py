@@ -39,14 +39,6 @@ from app.modules.entity.incident_update_component_entity import IncidentUpdateCo
 
 class StatusPage():
 
-    __option_entity = None
-    __incident_entity = None
-    __incident_update_entity = None
-    __incident_update_component_entity = None
-    __component_group_entity = None
-    __component_entity = None
-    __metric_entity = None
-
     def __init__(self):
         self.__option_entity = OptionEntity()
         self.__incident_entity = IncidentEntity()

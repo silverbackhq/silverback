@@ -25,11 +25,6 @@ from app.modules.entity.profile_entity import ProfileEntity
 
 class Profile():
 
-    __option_entity = None
-    __user_entity = None
-    __token = None
-    __profile_entity = None
-
     def __init__(self):
         self.__option_entity = OptionEntity()
         self.__user_entity = UserEntity()

@@ -18,8 +18,6 @@ from app.modules.entity.incident_update_component_entity import IncidentUpdateCo
 
 class IncidentUpdateComponent():
 
-    __incident_update_component_entity = None
-
     def __init__(self):
         self.__incident_update_component_entity = IncidentUpdateComponentEntity()
 

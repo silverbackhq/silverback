@@ -18,8 +18,6 @@ from app.modules.entity.option_entity import OptionEntity
 
 class Settings():
 
-    __option_entity = None
-
     def __init__(self):
         self.__option_entity = OptionEntity()
 

@@ -31,15 +31,6 @@ from app.modules.core.notification import Notification as NotificationModule
 class Install(View):
     """Install Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __install = None
-    __logger = None
-    __notification = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -48,6 +39,7 @@ class Install(View):
         self.__install = InstallModule()
         self.__notification = NotificationModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @stop_request_if_installed

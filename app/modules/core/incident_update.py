@@ -19,9 +19,6 @@ from app.modules.entity.incident_update_entity import IncidentUpdateEntity
 
 class IncidentUpdate():
 
-    __incident_update_entity = None
-    __incident_entity = None
-
     def __init__(self):
         self.__incident_update_entity = IncidentUpdateEntity()
         self.__incident_entity = IncidentEntity()

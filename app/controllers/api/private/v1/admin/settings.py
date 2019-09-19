@@ -32,16 +32,6 @@ from app.modules.core.decorators import allow_if_authenticated_and_has_permissio
 class Settings(View):
     """Update Settings Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __settings_module = None
-    __logger = None
-    __acl = None
-    __activity_module = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -51,6 +41,7 @@ class Settings(View):
         self.__acl = ACL()
         self.__activity_module = ActivityModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")

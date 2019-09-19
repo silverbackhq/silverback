@@ -31,15 +31,6 @@ from app.modules.core.decorators import allow_if_authenticated_and_has_permissio
 class Users(View):
     """Create and List Users Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __user = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -47,6 +38,8 @@ class Users(View):
         self.__form = Form()
         self.__user = UserModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
@@ -289,15 +282,6 @@ class Users(View):
 class User(View):
     """Update and Delete User Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __user = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -305,6 +289,8 @@ class User(View):
         self.__form = Form()
         self.__user = UserModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")

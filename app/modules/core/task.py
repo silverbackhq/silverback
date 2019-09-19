@@ -22,8 +22,6 @@ from app.modules.entity.task_entity import TaskEntity
 
 class Task():
 
-    __task_entity = None
-
     def __init__(self):
         self.__task_entity = TaskEntity()
 

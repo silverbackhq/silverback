@@ -21,10 +21,6 @@ from app.modules.util.helpers import Helpers
 
 class Request():
 
-    __request = None
-    __helpers = None
-    __logger = None
-
     def __init__(self, request=None):
         self.__request = request
         self.__helpers = Helpers()

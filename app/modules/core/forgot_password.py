@@ -25,10 +25,6 @@ from app.modules.core.task import Task as TaskCore
 
 class ForgotPassword():
 
-    __reset_request_entity = None
-    __option_entity = None
-    __user_entity = None
-    __task_core = None
     __reset_expire_option = 24
     __messages_count_option = 5
 

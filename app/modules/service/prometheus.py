@@ -15,8 +15,6 @@
 
 class Prometheus():
 
-    __metrics = []
-
     def __init__(self, metrics=[]):
         self.__metrics = metrics
 

@@ -23,9 +23,6 @@ from app.modules.core.response import Response
 
 class Errors():
 
-    __helpers = None
-    __logger = None
-
     def __init__(self, get_response):
         self.__helpers = Helpers()
         self.get_response = get_response

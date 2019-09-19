@@ -36,16 +36,6 @@ from app.modules.core.component_group import ComponentGroup as ComponentGroupMod
 class BuilderSystemMetrics(View):
     """Add and Remove Builder System Metrics Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __settings = None
-    __metric = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -54,6 +44,8 @@ class BuilderSystemMetrics(View):
         self.__metric = MetricModule()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
@@ -141,17 +133,6 @@ class BuilderSystemMetrics(View):
 class BuilderComponents(View):
     """Add and Remove Builder Components Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __settings = None
-    __component = None
-    __component_group = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -161,6 +142,8 @@ class BuilderComponents(View):
         self.__component_group = ComponentGroupModule()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
@@ -254,15 +237,6 @@ class BuilderComponents(View):
 class BuilderSettings(View):
     """Update Builder Settings Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __settings = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -270,6 +244,8 @@ class BuilderSettings(View):
         self.__settings = Settings()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")

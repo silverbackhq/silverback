@@ -32,15 +32,14 @@ from app.modules.core.decorators import login_if_not_authenticated_or_no_permiss
 class Builder(View):
 
     template_name = 'templates/admin/builder.html'
-    __context = Context()
-    __metric = MetricModule()
-    __component = ComponentModule()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated_or_no_permission("manage_settings")
     def get(self, request):
 
+        self.__context = Context()
+        self.__metric = MetricModule()
+        self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)

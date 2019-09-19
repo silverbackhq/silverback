@@ -23,9 +23,6 @@ from app.modules.entity.user_entity import UserEntity
 
 class Login():
 
-    __option_entity = None
-    __user_entity = None
-
     def __init__(self):
         self.__option_entity = OptionEntity()
         self.__user_entity = UserEntity()

@@ -18,8 +18,6 @@ from app.modules.entity.activity_entity import ActivityEntity
 
 class Activity():
 
-    __activity_entity = None
-
     def __init__(self):
         self.__activity_entity = ActivityEntity()
 

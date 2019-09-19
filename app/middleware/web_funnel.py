@@ -19,17 +19,11 @@ from app.modules.util.helpers import Helpers
 
 class WebFunnel():
 
-    __helpers = None
-    __logger = None
-    __funnel = None
-    __roles = {
-
-    }
-
     def __init__(self, get_response):
         self.__helpers = Helpers()
         self.__funnel = Funnel()
         self.get_response = get_response
+        self.__roles = {}
         self.__logger = self.__helpers.get_logger(__name__)
 
     def __call__(self, request):

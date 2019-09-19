@@ -32,15 +32,6 @@ from app.modules.core.incident import Incident as IncidentModule
 class Incidents(View):
     """Create and List Incidents Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -48,6 +39,8 @@ class Incidents(View):
         self.__form = Form()
         self.__incident = IncidentModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -169,15 +162,6 @@ class Incidents(View):
 class Incident(View):
     """Update Incident Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -185,6 +169,8 @@ class Incident(View):
         self.__form = Form()
         self.__incident = IncidentModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

@@ -30,14 +30,6 @@ from app.modules.core.forgot_password import ForgotPassword as ForgotPasswordMod
 class ForgotPassword(View):
     """Forgot Password Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __forgot_password = None
-    __logger = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -45,6 +37,7 @@ class ForgotPassword(View):
         self.__form = Form()
         self.__forgot_password = ForgotPasswordModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @stop_request_if_authenticated

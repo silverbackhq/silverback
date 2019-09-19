@@ -26,10 +26,6 @@ from app.modules.core.statistics import Statistics as StatisticsModule
 
 class Statistics(View):
 
-    __prometheus = None
-    __statistics = None
-    __correlation_id = None
-
     @redirect_if_not_installed
     @protect_metric_with_auth_key
     def get(self, request, type):

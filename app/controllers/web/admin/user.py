@@ -30,13 +30,12 @@ from app.modules.core.decorators import login_if_not_authenticated_or_no_permiss
 class UserList(View):
 
     template_name = 'templates/admin/user/list.html'
-    __context = Context()
-    __user = UserModule()
-    __correlation_id = None
 
     @login_if_not_authenticated_or_no_permission("manage_settings")
     def get(self, request):
 
+        self.__context = Context()
+        self.__user = UserModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -50,13 +49,12 @@ class UserList(View):
 class UserAdd(View):
 
     template_name = 'templates/admin/user/add.html'
-    __context = Context()
-    __user = UserModule()
-    __correlation_id = None
 
     @login_if_not_authenticated_or_no_permission("manage_settings")
     def get(self, request):
 
+        self.__context = Context()
+        self.__user = UserModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -70,13 +68,12 @@ class UserAdd(View):
 class UserEdit(View):
 
     template_name = 'templates/admin/user/edit.html'
-    __context = Context()
-    __user = UserModule()
-    __correlation_id = None
 
     @login_if_not_authenticated_or_no_permission("manage_settings")
     def get(self, request, user_id):
 
+        self.__context = Context()
+        self.__user = UserModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         user = self.__user.get_one_by_id(user_id)
 

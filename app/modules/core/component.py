@@ -19,9 +19,6 @@ from app.modules.entity.component_group_entity import ComponentGroupEntity
 
 class Component():
 
-    __component_group_entity = None
-    __component_entity = None
-
     def __init__(self):
         self.__component_group_entity = ComponentGroupEntity()
         self.__component_entity = ComponentEntity()

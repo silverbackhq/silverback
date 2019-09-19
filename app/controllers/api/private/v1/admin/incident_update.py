@@ -38,20 +38,6 @@ from app.modules.core.incident_update_notification import IncidentUpdateNotifica
 class IncidentUpdates(View):
     """Create and List Incident Updates Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident = None
-    __incident_update = None
-    __task = None
-    __notification = None
-    __subscriber = None
-    __incident_update_notification = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -64,6 +50,8 @@ class IncidentUpdates(View):
         self.__subscriber = SubscriberModule()
         self.__incident_update_notification = IncidentUpdateNotificationModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -214,15 +202,6 @@ class IncidentUpdates(View):
 class IncidentUpdate(View):
     """Update and Delete Incident Update Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident_update = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -230,6 +209,8 @@ class IncidentUpdate(View):
         self.__form = Form()
         self.__incident_update = IncidentUpdateModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -334,18 +315,6 @@ class IncidentUpdate(View):
 class IncidentUpdatesNotify(View):
     """Notify Subscribers about Incident Update Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident_update = None
-    __task = None
-    __notification = None
-    __subscriber = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -356,6 +325,8 @@ class IncidentUpdatesNotify(View):
         self.__notification = NotificationModule()
         self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -397,19 +368,6 @@ class IncidentUpdatesNotify(View):
 class IncidentUpdatesComponents(View):
     """Link Component to Incident Update Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident_update = None
-    __task = None
-    __notification = None
-    __subscriber = None
-    __incident_update_component = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -421,6 +379,8 @@ class IncidentUpdatesComponents(View):
         self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__incident_update_component = IncidentUpdateComponentModule()
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -481,15 +441,6 @@ class IncidentUpdatesComponents(View):
 class IncidentUpdatesComponent(View):
     """Remove Component from Incident Update Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident_update_component = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -497,6 +448,8 @@ class IncidentUpdatesComponent(View):
         self.__form = Form()
         self.__incident_update_component = IncidentUpdateComponentModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

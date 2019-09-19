@@ -30,9 +30,6 @@ from app.modules.core.decorators import redirect_if_not_installed
 class ForgotPassword(View):
 
     template_name = 'templates/forgot_password.html'
-    __context = None
-    __option_entity = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     @redirect_if_authenticated

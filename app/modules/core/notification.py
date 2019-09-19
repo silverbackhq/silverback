@@ -26,11 +26,6 @@ class Notification():
     ERROR = "error"
     MESSAGE = "message"
 
-    __notification_entity = None
-    __option_entity = None
-    __humanize = None
-    __app_name = None
-
     def __init__(self):
         self.__notification_entity = NotificationEntity()
         self.__option_entity = OptionEntity()

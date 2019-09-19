@@ -21,12 +21,6 @@ from app.modules.entity.profile_entity import ProfileEntity
 
 class Statistics():
 
-    __option_entity = None
-    __user_entity = None
-    __task_entity = None
-    __profile_entity = None
-    __app_name = ""
-
     def __init__(self):
         self.__option_entity = OptionEntity()
         self.__user_entity = UserEntity()

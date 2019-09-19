@@ -30,10 +30,6 @@ from app.modules.core.install import Install as InstallModule
 class Install(View):
 
     template_name = 'templates/install.html'
-    __context = None
-    __install = None
-    __option_entity = None
-    __correlation_id = None
 
     def get(self, request):
 

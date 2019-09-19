@@ -33,14 +33,6 @@ from app.modules.core.decorators import stop_request_if_authenticated
 class Register(View):
     """Register Private Endpoint Controller"""
 
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __user = None
-    __logger = None
-    __correlation_id = None
-
     def __init__(self):
         self.__request = Request()
         self.__response = Response()
@@ -48,6 +40,7 @@ class Register(View):
         self.__form = Form()
         self.__user = UserModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @stop_request_if_authenticated

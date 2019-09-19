@@ -30,12 +30,6 @@ from app.modules.entity.register_request_entity import RegisterRequestEntity
 
 class User():
 
-    __notification_entity = None
-    __option_entity = None
-    __user_entity = None
-    __acl = None
-    __register_request_entity = None
-    __task_core = None
     __register_expire_option = 24
 
     def __init__(self):

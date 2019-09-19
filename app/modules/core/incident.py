@@ -22,12 +22,6 @@ from app.modules.entity.incident_update_notification_entity import IncidentUpdat
 
 class Incident():
 
-    __incident_update_entity = None
-    __incident_entity = None
-    __incident_update_component_entity = None
-    __incident_update_notification_entity = None
-    __helpers = None
-
     def __init__(self):
         self.__incident_update_entity = IncidentUpdateEntity()
         self.__incident_entity = IncidentEntity()

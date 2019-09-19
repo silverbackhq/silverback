@@ -32,16 +32,6 @@ from app.modules.entity.incident_update_notification_entity import IncidentUpdat
 
 class Dashboard():
 
-    __incident = None
-    __incident_update = None
-    __incident_update_component = None
-    __incident_update_notification = None
-    __subscriber = None
-    __user = None
-    __component = None
-    __component_group = None
-    __metric = None
-
     def __init__(self):
         self.__incident = IncidentEntity()
         self.__incident_update = IncidentUpdateEntity()

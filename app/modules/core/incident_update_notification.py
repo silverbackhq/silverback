@@ -22,8 +22,6 @@ class IncidentUpdateNotification():
     FAILED = "failed"
     SUCCESS = "success"
 
-    __incident_update_notification_entity = None
-
     def __init__(self):
         self.__incident_update_notification_entity = IncidentUpdateNotificationEntity()
 
