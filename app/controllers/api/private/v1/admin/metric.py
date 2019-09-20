@@ -59,24 +59,36 @@ class Metrics(View):
         })
 
         self.__form.add_inputs({
-            # @TODO add validate filter
             'title': {
                 'value': request_data["title"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Metric title must be 1 to 60 characters long.')
+                    }
+                }
             },
-            # @TODO add validate filter
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [0, 150],
+                        'error': _('Error! Metric description must be less than 150 characters long.')
+                    },
+                    'optional': {}
+                }
             },
             'source': {
                 'value': request_data["source"],
+                'sanitize': {
+                    'strip': {}
+                },
                 'validate': {
                     'any_of': {
                         'param': [["newrelic"]],
@@ -84,37 +96,53 @@ class Metrics(View):
                     }
                 }
             },
-            # @TODO add validate filter
             'application': {
                 'value': request_data["application"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Application must be 1 to 60 characters long.')
+                    }
+                }
             },
-            # @TODO add validate filter
             'metric': {
                 'value': request_data["metric"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Metric must be 1 to 60 characters long.')
+                    }
+                }
             },
-            # @TODO add validate filter
             'x_axis': {
                 'value': request_data["x_axis"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 40],
+                        'error': _('Error! X-Axis label must be 1 to 40 characters long.')
+                    }
+                }
             },
-            # @TODO add validate filter
             'y_axis': {
                 'value': request_data["y_axis"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 40],
+                        'error': _('Error! Y-Axis label must be 1 to 40 characters long.')
+                    }
+                }
             }
         })
 
@@ -122,6 +150,12 @@ class Metrics(View):
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+
+        if self.__metric.get_one_by_title(self.__form.get_sinput("title")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Metric title is used before.")
+            }], {}, self.__correlation_id))
 
         result = self.__metric.insert_one({
             "title": self.__form.get_sinput("title"),
@@ -220,24 +254,36 @@ class Metric(View):
         })
 
         self.__form.add_inputs({
-            # @TODO add validate filter
             'title': {
                 'value': request_data["title"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Metric title must be 1 to 60 characters long.')
+                    }
+                }
             },
-            # @TODO add validate filter
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [0, 150],
+                        'error': _('Error! Metric description must be less than 150 characters long.')
+                    },
+                    'optional': {}
+                }
             },
             'source': {
                 'value': request_data["source"],
+                'sanitize': {
+                    'strip': {}
+                },
                 'validate': {
                     'any_of': {
                         'param': [["newrelic"]],
@@ -245,37 +291,53 @@ class Metric(View):
                     }
                 }
             },
-            # @TODO add validate filter
             'application': {
                 'value': request_data["application"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Application must be 1 to 60 characters long.')
+                    }
+                }
             },
-            # @TODO add validate filter
             'metric': {
                 'value': request_data["metric"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Metric must be 1 to 60 characters long.')
+                    }
+                }
             },
-            # @TODO add validate filter
             'x_axis': {
                 'value': request_data["x_axis"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 40],
+                        'error': _('Error! X-Axis label must be 1 to 40 characters long.')
+                    }
+                }
             },
-            # @TODO add validate filter
             'y_axis': {
                 'value': request_data["y_axis"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 40],
+                        'error': _('Error! Y-Axis label must be 1 to 40 characters long.')
+                    }
+                }
             }
         })
 
@@ -283,6 +345,14 @@ class Metric(View):
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+
+        current_metric = self.__metric.get_one_by_title(self.__form.get_sinput("title"))
+
+        if current_metric and not current_metric["id"] == metric_id:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Metric title is used before.")
+            }], {}, self.__correlation_id))
 
         result = self.__metric.update_one_by_id(metric_id, {
             "title": self.__form.get_sinput("title"),

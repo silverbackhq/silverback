@@ -85,6 +85,13 @@ class MetricEntity():
         except Exception:
             return False
 
+    def get_one_by_title(self, title):
+        try:
+            metric = Metric.objects.get(title=title)
+            return False if metric.pk is None else metric
+        except Exception:
+            return False
+
     def delete_one_by_id(self, id):
         metric = self.get_one_by_id(id)
         if metric is not False:

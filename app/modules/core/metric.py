@@ -49,6 +49,22 @@ class Metric():
             "y_axis": metric.y_axis
         }
 
+    def get_one_by_title(self, title):
+        metric = self.__metric_entity.get_one_by_title(title)
+
+        if not metric:
+            return False
+
+        return {
+            "id": metric.id,
+            "title": metric.title,
+            "description": metric.description,
+            "source": metric.source,
+            "data": metric.data,
+            "x_axis": metric.x_axis,
+            "y_axis": metric.y_axis
+        }
+
     def insert_one(self, metric):
         return self.__metric_entity.insert_one(metric)
 
