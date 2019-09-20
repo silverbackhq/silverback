@@ -6,6 +6,7 @@
   - Review existing issues and provide feedback or react to them.
 
 - With pull requests:
+  - We follow [Google Python Style Guide](http://google.github.io/styleguide/pyguide.html).
   - Open your pull request against `master` or `develop` if exists.
   - Your pull request should have no more than two commits, if not you should squash them.
   - It should pass all tests in the available continuous integrations systems such as TravisCI.
