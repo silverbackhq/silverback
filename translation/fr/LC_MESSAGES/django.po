@@ -601,259 +601,260 @@ msgstr "Erreur : un problème est survenu pendant la suppression d'un utilisate
 
 #: app/controllers/api/private/v1/forbidden.py:17
 msgid "Error! Access forbidden due to invalid CSRF token."
-msgstr ""
+msgstr "Erreur : accès interdit car le jeton CSRF n'est pas valide."
 
 #: app/controllers/api/private/v1/forgot_password.py:70
 msgid "Error! Email is not exist."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail n'existe pas."
 
 #: app/controllers/api/private/v1/forgot_password.py:79
 msgid "Sorry! You already exceeded the maximum number of reset requests!"
-msgstr ""
+msgstr "Désolé, vous avez déjà dépassé le nombre maximum de requêtes de réinitialisation."
 
 #: app/controllers/api/private/v1/forgot_password.py:96
 msgid "Error! Something goes wrong while sending reset instructions."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'envoi des instructions de réinitialisation."
 
 #: app/controllers/api/private/v1/forgot_password.py:101
 msgid "Reset instructions sent successfully."
-msgstr ""
+msgstr "Les instructions de réinitialisation ont été envoyées avec succès."
 
 #: app/controllers/api/private/v1/install.py:47
 #: app/modules/core/decorators.py:73
 msgid "Error! Application is already installed."
-msgstr ""
+msgstr "Erreur : l'application est déjà installée."
 
 #: app/controllers/api/private/v1/install.py:165
 msgid "Installation"
-msgstr ""
+msgstr "Installation"
 
 #: app/controllers/api/private/v1/install.py:166
 msgid "Silverback installed successfully"
-msgstr ""
+msgstr "Silverback a été installé avec succès."
 
 #: app/controllers/api/private/v1/install.py:176
 msgid "Application installed successfully."
-msgstr ""
+msgstr "L'application a été installée avec succès."
 
 #: app/controllers/api/private/v1/install.py:181
 msgid "Error! Something goes wrong during installing."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'installation."
 
 #: app/controllers/api/private/v1/login.py:43
 msgid "Error! User is already authenticated."
-msgstr ""
+msgstr "Erreur : l'utilisateur est déjà authentifié."
 
 #: app/controllers/api/private/v1/login.py:62
 #: app/controllers/api/private/v1/login.py:70
 #: app/controllers/api/private/v1/login.py:74
 #: app/controllers/api/private/v1/login.py:93
 msgid "Error! Username or password is invalid."
-msgstr ""
+msgstr "Erreur : le nom d'utilisateur ou le mot de passe n'est pas valide."
 
 #: app/controllers/api/private/v1/login.py:88
 msgid "You logged in successfully."
-msgstr ""
+msgstr "Connexion réussie."
 
 #: app/controllers/api/private/v1/register.py:137
 msgid "Error! Register token is invalid or expired."
-msgstr ""
+msgstr "Erreur : le jeton d'inscription n'est pas valide ou a expiré."
 
 #: app/controllers/api/private/v1/reset_password.py:79
 msgid "Error! Reset token is expired or invalid."
-msgstr ""
+msgstr "Erreur : le jeton de réinitialisation n'est pas valide ou a expiré."
 
 #: app/controllers/api/private/v1/reset_password.py:92
 msgid "Error! Something goes wrong while resetting password."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la réinitialisation du mot de passe."
 
 #: app/controllers/web/admin/activity.py:34
 #, python-format
 msgid "Activity · %s"
-msgstr ""
+msgstr "Activité · %s"
 
 #: app/controllers/web/admin/builder.py:44
 #, python-format
 msgid "Status Page Builder · %s"
-msgstr ""
+msgstr "Générateur de page de statut · %s"
 
 #: app/controllers/web/admin/component.py:32
 #, python-format
 msgid "Components · %s"
-msgstr ""
+msgstr "Composants · %s"
 
 #: app/controllers/web/admin/component.py:50
 #, python-format
 msgid "Add a Component · %s"
-msgstr ""
+msgstr "Ajouter un composant · %s"
 
 #: app/controllers/web/admin/component.py:74
 #, python-format
 msgid "Edit Component · %s"
-msgstr ""
+msgstr "Modifier le composant · %s"
 
 #: app/controllers/web/admin/component_group.py:32
 #, python-format
 msgid "Component Groups · %s"
-msgstr ""
+msgstr "Groupes de composants · %s"
 
 #: app/controllers/web/admin/component_group.py:50
 #, python-format
 msgid "Add a Component Group · %s"
-msgstr ""
+msgstr "Ajouter un groupe de composants · %s"
 
 #: app/controllers/web/admin/component_group.py:73
 #, python-format
 msgid "Edit Component Group · %s"
-msgstr ""
+msgstr "Modifier le groupe de composants · %s"
 
 #: app/controllers/web/admin/dashboard.py:31
 #, python-format
 msgid "Dashboard · %s"
-msgstr ""
+msgstr "Tableau de bord · %s"
 
 #: app/controllers/web/admin/incident.py:38
 #, python-format
 msgid "Incidents · %s"
-msgstr ""
+msgstr "Incidents · %s"
 
 #: app/controllers/web/admin/incident.py:59
 #, python-format
 msgid "Add an Incident · %s"
-msgstr ""
+msgstr "Ajouter un incident · %s"
 
 #: app/controllers/web/admin/incident.py:85
 #, python-format
 msgid "Edit Incident · %s"
-msgstr ""
+msgstr "Modifier l'incident · %s"
 
 #: app/controllers/web/admin/incident.py:112
 #, python-format
 msgid "View Incident · %s"
-msgstr ""
+msgstr "Afficher l'incident · %s"
 
 #: app/controllers/web/admin/incident_update.py:46
 #, python-format
 msgid "Add Incident Update  · %s"
-msgstr ""
+msgstr "Ajouter une mise à jour d'incident  · %s"
 
 #: app/controllers/web/admin/incident_update.py:94
 #, python-format
 msgid "View Incident Update  · %s"
-msgstr ""
+msgstr "Afficher la mise à jour d'incident  · %s"
 
 #: app/controllers/web/admin/incident_update.py:153
 #, python-format
 msgid "Edit Incident Update  · %s"
-msgstr ""
+msgstr "Modifier la mise à jour d'incident  · %s"
 
 #: app/controllers/web/admin/logout.py:21
 msgid "You've been logged out successfully"
-msgstr ""
+msgstr "Déconnexion réussie."
 
 #: app/controllers/web/admin/metric.py:33
 #, python-format
 msgid "Metrics · %s"
-msgstr ""
+msgstr "Indicateurs · %s"
 
 #: app/controllers/web/admin/metric.py:51
 #, python-format
 msgid "Add a Metric · %s"
-msgstr ""
+msgstr "Ajouter un indicateur · %s"
 
 #: app/controllers/web/admin/metric.py:74
 #, python-format
 msgid "Edit Metric · %s"
-msgstr ""
+msgstr "Modifier un indicateur · %s"
 
 #: app/controllers/web/admin/notification.py:32
 #, python-format
 msgid "Notification · %s"
-msgstr ""
+msgstr "Notification · %s"
 
 #: app/controllers/web/admin/profile.py:34
 #, python-format
 msgid "Profile · %s"
-msgstr ""
+msgstr "Profil · %s"
 
 #: app/controllers/web/admin/settings.py:55
 #, python-format
 msgid "Settings · %s"
-msgstr ""
+msgstr "Paramètres · %s"
 
 #: app/controllers/web/admin/subscriber.py:32
 #, python-format
 msgid "Subscribers · %s"
-msgstr ""
+msgstr "Abonnés · %s"
 
 #: app/controllers/web/admin/subscriber.py:50
 #, python-format
 msgid "Add an Subscriber · %s"
-msgstr ""
+msgstr "Ajouter un abonné · %s"
 
 #: app/controllers/web/admin/subscriber.py:73
 #, python-format
 msgid "Edit Subscriber · %s"
-msgstr ""
+msgstr "Modifier l'abonné · %s"
 
 #: app/controllers/web/admin/user.py:32
 #, python-format
 msgid "Users · %s"
-msgstr ""
+msgstr "Utilisateurs · %s"
 
 #: app/controllers/web/admin/user.py:50
 #, python-format
 msgid "Add a User · %s"
-msgstr ""
+msgstr "Ajouter un utilisateur · %s"
 
 #: app/controllers/web/admin/user.py:73
 #, python-format
 msgid "Edit User · %s"
-msgstr ""
+msgstr "Modifier l'utilisateur · %s"
 
 #: app/controllers/web/error.py:30
 #, python-format
 msgid "500 · %s"
-msgstr ""
+msgstr "500 · %s"
 
 #: app/controllers/web/forgot_password.py:35
 #, python-format
 msgid "Forgot Password · %s"
-msgstr ""
+msgstr "Mot de passe oublié · %s"
 
 #: app/controllers/web/install.py:37
 #, python-format
 msgid "Installation · %s"
-msgstr ""
+msgstr "Installation · %s"
 
 #: app/controllers/web/login.py:36
 #, python-format
 msgid "Login · %s"
-msgstr ""
+msgstr "Connexion · %s"
 
 #: app/controllers/web/not_found.py:31
 #, python-format
 msgid "404 · %s"
-msgstr ""
+msgstr "404 · %s"
 
 #: app/controllers/web/register.py:39
 msgid ""
 "Register token is expired or invalid, Please contact system administrator!"
 msgstr ""
+"Le jeton d'inscription n'est pas valide ou a expiré, veuillez contacter votre administrateur système."
 
 #: app/controllers/web/register.py:44
 #, python-format
 msgid "Register · %s"
-msgstr ""
+msgstr "Inscription · %s"
 
 #: app/controllers/web/reset_password.py:40
 #, python-format
 msgid "Reset Password · %s"
-msgstr ""
+msgstr "Réinitialiser le mot de passe · %s"
 
 #: app/controllers/web/reset_password.py:45
 msgid "Reset token is expired or invalid, Please request another token!"
-msgstr ""
+msgstr "Le jeton de réinitialisation n'est pas valide ou a expiré, veuillez demander un autre jeton."
 
 #: app/middleware/errors.py:30
 #, python-format
@@ -861,232 +862,235 @@ msgid ""
 "The server encountered something unexpected! %(method)s:%(path)s  - %(name)s "
 "- %(exception)s"
 msgstr ""
+"Le serveur a rencontré une erreur inattendue. %(method)s:%(path)s  - %(name)s "
+"- %(exception)s"
 
 #: app/middleware/errors.py:43
 msgid "Something goes wrong! Please contact a system administrator."
-msgstr ""
+msgstr "Une erreur est survenue. Veuillez contacter un administrateur système."
 
 #: app/middleware/logging.py:23
 #, python-format
 msgid "Request Method: %(method)s {'correlationId':'%(correlationId)s'}"
-msgstr ""
+msgstr "Méthode de la requête : %(method)s {'correlationId':'%(correlationId)s'}"
 
 #: app/middleware/logging.py:27
 #, python-format
 msgid "Request URL: %(path)s {'correlationId':'%(correlationId)s'}"
-msgstr ""
+msgstr "URL de la requête : %(path)s {'correlationId':'%(correlationId)s'}"
 
 #: app/middleware/logging.py:31
 #, python-format
 msgid "Request Body: %(body)s {'correlationId':'%(correlationId)s'}"
-msgstr ""
+msgstr "Corps de la requête : %(body)s {'correlationId':'%(correlationId)s'}"
 
 #: app/modules/core/decorators.py:41
 msgid "Error! Access forbidden for authenticated users."
-msgstr ""
+msgstr "Erreur : accès interdit pour les utilisateurs authentifiés."
 
 #: app/modules/core/decorators.py:83
 #, python-format
 msgid "Request Method: %s"
-msgstr ""
+msgstr "Méthode de la requête : %s"
 
 #: app/modules/core/decorators.py:84
 #, python-format
 msgid "Request URL: %s"
-msgstr ""
+msgstr "URL de la requête : %s"
 
 #: app/modules/core/decorators.py:85
 #, python-format
 msgid "Request Body: %s"
-msgstr ""
+msgstr "Corps de la requête : %s"
 
 #: app/modules/core/forgot_password.py:95
 #, python-format
 msgid "%s Password Reset"
-msgstr ""
+msgstr "%s Réinitialisation de mot de passe"
 
 #: app/modules/core/request.py:33
 msgid "App Incoming Request: "
-msgstr ""
+msgstr "Requête d'application entrante : "
 
 #: app/modules/core/response.py:28 app/modules/core/response.py:38
 #: app/modules/core/response.py:52 app/modules/core/response.py:62
 #: app/modules/core/response.py:72
 msgid "App Response: "
-msgstr ""
+msgstr "Réponse de l'application : "
 
 #: app/modules/core/status_page.py:54
 #, python-format
 msgid "Incident Report for %s"
-msgstr ""
+msgstr "Rapport d'incident pour %s"
 
 #: app/modules/core/user.py:143
 #, python-format
 msgid "%s Signup Invitation"
-msgstr ""
+msgstr "%s Invitation à s'inscrire"
 
 #: app/modules/util/humanize.py:24
 msgid "just now"
-msgstr ""
+msgstr "à l'instant"
 
 #: app/modules/util/humanize.py:26
 #, python-format
 msgid "%s seconds ago"
-msgstr ""
+msgstr "il y a %s secondes"
 
 #: app/modules/util/humanize.py:28
 msgid "a minute ago"
-msgstr ""
+msgstr "il y a une minute"
 
 #: app/modules/util/humanize.py:30
 #, python-format
 msgid "%s minutes ago"
-msgstr ""
+msgstr "il y a %s minutes"
 
 #: app/modules/util/humanize.py:34
 #, python-format
 msgid "%s hours ago"
-msgstr ""
+msgstr "il y a %s heures"
 
 #: app/modules/util/humanize.py:39
 #, python-format
 msgid "%s days ago"
-msgstr ""
+msgstr "il y a %s jours"
 
 #: app/modules/util/humanize.py:41
 #, python-format
 msgid "%s weeks ago"
-msgstr ""
+msgstr "il y a %s semaines"
 
 #: app/modules/util/humanize.py:43
 #, python-format
 msgid "%s months ago"
-msgstr ""
+msgstr "il y a %s mois"
 
 #: app/modules/util/humanize.py:45
 #, python-format
 msgid "%s years ago"
-msgstr ""
+msgstr "il y a %s ans"
 
 #: app/settings/basic.py:217
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: app/settings/basic.py:218
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: app/settings/basic.py:219
 msgid "Deutsch"
-msgstr ""
+msgstr "Allemand"
 
 #: app/tasks/notify_subscriber.py:51 app/tasks/notify_subscriber.py:89
 #, python-format
 msgid "%(app_name)s Incident Update: %(incident_name)s"
-msgstr ""
+msgstr "Mise à jour d'incident pour %(app_name)s : %(incident_name)s"
 
 #: themes/default/layouts/mail.html:293
 msgid "Sent with"
-msgstr ""
+msgstr "Envoyé avec"
 
 #: themes/default/layouts/mail.html:293
 msgid "from"
-msgstr ""
+msgstr "de"
 
 #: themes/default/mails/incident_update.html:8
 #: themes/default/mails/register_invitation.html:8
 #: themes/default/mails/reset_password.html:8
 msgid "Hi there,"
-msgstr ""
+msgstr "Bonjour,"
 
 #: themes/default/mails/incident_update.html:17
 msgid "Posted"
-msgstr ""
+msgstr "Publié"
 
 #: themes/default/mails/incident_update.html:29
 msgid "Incident Report"
-msgstr ""
+msgstr "Rapport d'incident"
 
 #: themes/default/mails/incident_update.html:37
 #: themes/default/mails/register_invitation.html:26
 #: themes/default/mails/reset_password.html:26
 msgid "Thanks,"
-msgstr ""
+msgstr "Merci,"
 
 #: themes/default/mails/incident_update.html:37
 #: themes/default/mails/register_invitation.html:26
 #: themes/default/mails/reset_password.html:26
 msgid "Team"
-msgstr ""
+msgstr "L'équipe"
 
 #: themes/default/mails/register_invitation.html:9
 msgid "Someone invited you to create your account."
-msgstr ""
+msgstr "Vous avez reçu une invitation pour créer votre compte."
 
 #: themes/default/mails/register_invitation.html:17
 msgid "Create Account"
-msgstr ""
+msgstr "Créer un compte"
 
 #: themes/default/mails/register_invitation.html:25
 msgid "You can safely ignore this email :)"
-msgstr ""
+msgstr "Vous pouvez ignorer ce message :)"
 
 #: themes/default/mails/reset_password.html:9
 msgid "Someone requested a new password for your account."
-msgstr ""
+msgstr "Nous avons reçu une demande de réinitialisation pour le mot de passe de votre compte."
 
 #: themes/default/mails/reset_password.html:17
 msgid "Reset Your Password"
-msgstr ""
+msgstr "Réinitialisez votre mot de passe"
 
 #: themes/default/mails/reset_password.html:25
 msgid ""
 "If you didn't make this request then you can safely ignore this email :)"
 msgstr ""
+"Veuillez ignorer cet e-mail s'il ne fait pas suite à une requête de votre part :)"
 
 #: themes/default/partials/bottom-menu.html:15
 #: themes/default/templates/install.html:46
 msgid "Copyright"
-msgstr ""
+msgstr "Copyright"
 
 #: themes/default/partials/bottom-menu.html:15
 msgid "All Rights Reserved."
-msgstr ""
+msgstr "Tous droits réservés."
 
 #: themes/default/partials/header.html:21
 msgid "Are you sure!"
-msgstr ""
+msgstr "Êtes-vous sûr(e) ?"
 
 #: themes/default/partials/top-menu.html:27
 msgid "View All"
-msgstr ""
+msgstr "Afficher tout"
 
 #: themes/default/partials/top-menu.html:39
 #: themes/default/templates/admin/dashboard.html:13
 msgid "Dashboard"
-msgstr ""
+msgstr "Tableau de bord"
 
 #: themes/default/partials/top-menu.html:42
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: themes/default/partials/top-menu.html:45
 #: themes/default/templates/admin/activity.html:28
 msgid "Activity"
-msgstr ""
+msgstr "Activité"
 
 #: themes/default/partials/top-menu.html:48
 #: themes/default/templates/admin/component_group/list.html:26
 #: themes/default/templates/admin/dashboard.html:49
 msgid "Component Groups"
-msgstr ""
+msgstr "Groupes de composants"
 
 #: themes/default/partials/top-menu.html:51
 #: themes/default/templates/admin/component/list.html:26
 #: themes/default/templates/admin/component_group/list.html:40
 #: themes/default/templates/admin/dashboard.html:40
 msgid "Components"
-msgstr ""
+msgstr "Composants"
 
 #: themes/default/partials/top-menu.html:54
 #: themes/default/templates/admin/dashboard.html:22
@@ -1094,14 +1098,14 @@ msgstr ""
 #: themes/default/templates/admin/dashboard.html:431
 #: themes/default/templates/admin/incident/list.html:27
 msgid "Incidents"
-msgstr ""
+msgstr "Incidents"
 
 #: themes/default/partials/top-menu.html:57
 #: themes/default/templates/admin/builder.html:121
 #: themes/default/templates/admin/metric/list.html:26
 #: themes/default/templates/status_page_index.html:140
 msgid "System Metrics"
-msgstr ""
+msgstr "Indicateurs système"
 
 #: themes/default/partials/top-menu.html:60
 #: themes/default/templates/admin/dashboard.html:31
@@ -1109,58 +1113,58 @@ msgstr ""
 #: themes/default/templates/admin/dashboard.html:236
 #: themes/default/templates/admin/subscriber/list.html:26
 msgid "Subscribers"
-msgstr ""
+msgstr "Abonnés"
 
 #: themes/default/partials/top-menu.html:64
 msgid "Status Page Builder"
-msgstr ""
+msgstr "Générateur de page de statut"
 
 #: themes/default/partials/top-menu.html:67
 #: themes/default/templates/admin/dashboard.html:67
 #: themes/default/templates/admin/user/list.html:26
 msgid "Users"
-msgstr ""
+msgstr "Utilisateurs"
 
 #: themes/default/partials/top-menu.html:70
 #: themes/default/templates/admin/settings.html:16
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: themes/default/partials/top-menu.html:75
 msgid "Logout"
-msgstr ""
+msgstr "Déconnexion"
 
 #: themes/default/templates/404.html:8
 msgid "404"
-msgstr ""
+msgstr "404"
 
 #: themes/default/templates/404.html:9
 msgid "Page Not Found"
-msgstr ""
+msgstr "Page introuvable"
 
 #: themes/default/templates/404.html:10
 msgid "Sorry, but the page you are looking for not found!"
-msgstr ""
+msgstr "Désolé, la page que vous recherchez est introuvable."
 
 #: themes/default/templates/404.html:12 themes/default/templates/500.html:12
 msgid "Go back"
-msgstr ""
+msgstr "Retour"
 
 #: themes/default/templates/500.html:8
 msgid "500"
-msgstr ""
+msgstr "500"
 
 #: themes/default/templates/500.html:9
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Erreur interne du serveur"
 
 #: themes/default/templates/500.html:10
 msgid "The server encountered something unexpected!"
-msgstr ""
+msgstr "Le serveur a rencontré une erreur inattendue."
 
 #: themes/default/templates/admin/activity.html:8
 msgid "No activities yet!"
-msgstr ""
+msgstr "Aucune activité pour l'instant."
 
 #: themes/default/templates/admin/activity.html:29
 #: themes/default/templates/admin/component/list.html:41
@@ -1173,33 +1177,35 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:41
 #: themes/default/templates/admin/user/list.html:42
 msgid "Created"
-msgstr ""
+msgstr "Créé"
 
 #: themes/default/templates/admin/builder.html:19
 msgid "Headline"
-msgstr ""
+msgstr "Titre"
 
 #: themes/default/templates/admin/builder.html:21
 msgid ""
 "This text will appear at the top of your page. It's set to your service name "
 "by default."
 msgstr ""
+"Ce texte s'affichera en haut de votre page. Il est défini par défaut avec le nom "
+"de votre service."
 
 #: themes/default/templates/admin/builder.html:26
 msgid "Fav icon URL"
-msgstr ""
+msgstr "URL d'icône favorite"
 
 #: themes/default/templates/admin/builder.html:33
 msgid "Cover image URL"
-msgstr ""
+msgstr "URL d'image de couverture"
 
 #: themes/default/templates/admin/builder.html:39
 msgid "About"
-msgstr ""
+msgstr "À propos"
 
 #: themes/default/templates/admin/builder.html:41
 msgid "This text is placed at the top of the status page for your visitors."
-msgstr ""
+msgstr "Ce texte s'affichera en haut de la page de statut pour vos visiteurs."
 
 #: themes/default/templates/admin/builder.html:48
 #: themes/default/templates/admin/profile.html:71
@@ -1211,11 +1217,11 @@ msgstr ""
 #: themes/default/templates/status_page_index.html:33
 #: themes/default/templates/status_page_single.html:34
 msgid "Submit"
-msgstr ""
+msgstr "Envoyer"
 
 #: themes/default/templates/admin/builder.html:64
 msgid "Component / Component Group"
-msgstr ""
+msgstr "Composant / Groupe de composants"
 
 #: themes/default/templates/admin/builder.html:65
 #: themes/default/templates/admin/builder.html:122
@@ -1228,7 +1234,7 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:9
 #: themes/default/templates/admin/user/list.html:9
 msgid "Actions"
-msgstr ""
+msgstr "Actions"
 
 #: themes/default/templates/admin/builder.html:73
 msgid "Please select a component or a group"
