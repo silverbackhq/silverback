@@ -1238,21 +1238,21 @@ msgstr "Actions"
 
 #: themes/default/templates/admin/builder.html:73
 msgid "Please select a component or a group"
-msgstr ""
+msgstr "Veuillez sélectionner un composant ou un groupe."
 
 #: themes/default/templates/admin/builder.html:90
 #: themes/default/templates/admin/incident/update/view.html:118
 msgid "Please select a component"
-msgstr ""
+msgstr "Veuillez sélectionner un composant."
 
 #: themes/default/templates/admin/builder.html:130
 #: themes/default/templates/admin/builder.html:144
 msgid "Please select a metric"
-msgstr ""
+msgstr "Veuillez sélectionner un indicateur."
 
 #: themes/default/templates/admin/component/add.html:15
 msgid "Add a New Component"
-msgstr ""
+msgstr "Ajouter un nouveau composant"
 
 #: themes/default/templates/admin/component/add.html:21
 #: themes/default/templates/admin/component/edit.html:21
@@ -1265,12 +1265,12 @@ msgstr ""
 #: themes/default/templates/admin/incident/edit.html:21
 #: themes/default/templates/admin/incident/list.html:40
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: themes/default/templates/admin/component/add.html:22
 #: themes/default/templates/admin/component/edit.html:22
 msgid "Enter component name"
-msgstr ""
+msgstr "Entrer un nom pour le composant"
 
 #: themes/default/templates/admin/component/add.html:25
 #: themes/default/templates/admin/component/edit.html:25
@@ -1279,19 +1279,19 @@ msgstr ""
 #: themes/default/templates/admin/metric/add.html:33
 #: themes/default/templates/admin/metric/edit.html:37
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: themes/default/templates/admin/component/add.html:26
 #: themes/default/templates/admin/component/edit.html:26
 msgid "Enter component description"
-msgstr ""
+msgstr "Entrer une description pour le composant"
 
 #: themes/default/templates/admin/component/add.html:29
 #: themes/default/templates/admin/component/edit.html:29
 #: themes/default/templates/admin/component_group/add.html:29
 #: themes/default/templates/admin/component_group/edit.html:29
 msgid "Uptime"
-msgstr ""
+msgstr "Temps d'activité"
 
 #: themes/default/templates/admin/component/add.html:31
 #: themes/default/templates/admin/component/add.html:39
@@ -1316,7 +1316,7 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/edit.html:23
 #: themes/default/templates/admin/subscriber/edit.html:60
 msgid "Please Select a Value"
-msgstr ""
+msgstr "Veuillez sélectionner une valeur"
 
 #: themes/default/templates/admin/component/add.html:32
 #: themes/default/templates/admin/component/edit.html:32
@@ -1326,7 +1326,7 @@ msgstr ""
 #: themes/default/templates/admin/incident/update/edit.html:55
 #: themes/default/templates/admin/incident/update/view.html:39
 msgid "On"
-msgstr ""
+msgstr "Activé"
 
 #: themes/default/templates/admin/component/add.html:33
 #: themes/default/templates/admin/component/edit.html:33
@@ -1336,13 +1336,13 @@ msgstr ""
 #: themes/default/templates/admin/incident/update/edit.html:56
 #: themes/default/templates/admin/incident/update/view.html:41
 msgid "Off"
-msgstr ""
+msgstr "Désactivé"
 
 #: themes/default/templates/admin/component/add.html:37
 #: themes/default/templates/admin/component/edit.html:37
 #: themes/default/templates/admin/component/list.html:40
 msgid "Group"
-msgstr ""
+msgstr "Groupe"
 
 #: themes/default/templates/admin/component/add.html:50
 #: themes/default/templates/admin/component/edit.html:50
@@ -1359,11 +1359,11 @@ msgstr ""
 #: themes/default/templates/admin/user/add.html:61
 #: themes/default/templates/admin/user/edit.html:60
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #: themes/default/templates/admin/component/edit.html:15
 msgid "Edit Component"
-msgstr ""
+msgstr "Modifier le composant"
 
 #: themes/default/templates/admin/component/list.html:8
 #: themes/default/templates/admin/component_group/list.html:8
@@ -1374,7 +1374,7 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:8
 #: themes/default/templates/admin/user/list.html:8
 msgid "Manage"
-msgstr ""
+msgstr "Gérer"
 
 #: themes/default/templates/admin/component/list.html:10
 #: themes/default/templates/admin/component_group/list.html:10
@@ -1384,7 +1384,7 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:10
 #: themes/default/templates/admin/user/list.html:10
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: themes/default/templates/admin/component/list.html:11
 #: themes/default/templates/admin/component_group/list.html:11
@@ -1394,54 +1394,54 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:11
 #: themes/default/templates/admin/user/list.html:11
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
 #: themes/default/templates/admin/component/list.html:12
 msgid "You miss a lot of fun, create some components!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques composants !"
 
 #: themes/default/templates/admin/component/list.html:28
 msgid "New Component"
-msgstr ""
+msgstr "Nouveau composant"
 
 #: themes/default/templates/admin/component_group/add.html:15
 msgid "Add a New Component Group"
-msgstr ""
+msgstr "Ajouter un nouveau groupe de composants"
 
 #: themes/default/templates/admin/component_group/add.html:22
 #: themes/default/templates/admin/component_group/edit.html:22
 msgid "Enter group name"
-msgstr ""
+msgstr "Entrer un nom pour le groupe"
 
 #: themes/default/templates/admin/component_group/add.html:26
 #: themes/default/templates/admin/component_group/edit.html:26
 msgid "Enter group description"
-msgstr ""
+msgstr "Entrer une description pour le groupe"
 
 #: themes/default/templates/admin/component_group/edit.html:15
 msgid "Edit Component Group"
-msgstr ""
+msgstr "Modifier le groupe de composants"
 
 #: themes/default/templates/admin/component_group/list.html:12
 msgid "You miss a lot of fun, create some groups!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques groupes !"
 
 #: themes/default/templates/admin/component_group/list.html:28
 msgid "New Component Group"
-msgstr ""
+msgstr "Nouveau groupe de composants"
 
 #: themes/default/templates/admin/dashboard.html:58
 msgid "Metrics"
-msgstr ""
+msgstr "Indicateurs"
 
 #: themes/default/templates/admin/dashboard.html:86
 #: themes/default/templates/admin/dashboard.html:300
 msgid "Affected Components"
-msgstr ""
+msgstr "Composants affectés"
 
 #: themes/default/templates/admin/dashboard.html:93
 msgid "Component"
-msgstr ""
+msgstr "Composant"
 
 #: themes/default/templates/admin/dashboard.html:94
 #: themes/default/templates/admin/dashboard.html:180
@@ -1455,171 +1455,171 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/edit.html:58
 #: themes/default/templates/admin/subscriber/list.html:40
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 #: themes/default/templates/admin/dashboard.html:110
 msgid "Nice! No affected components today!"
-msgstr ""
+msgstr "Parfait, aucun composant affecté aujourd'hui."
 
 #: themes/default/templates/admin/dashboard.html:125
 #: themes/default/templates/admin/incident/view.html:56
 msgid "Notifications"
-msgstr ""
+msgstr "Notifications"
 
 #: themes/default/templates/admin/dashboard.html:139
 msgid "Total Delivered"
-msgstr ""
+msgstr "Total livrés"
 
 #: themes/default/templates/admin/dashboard.html:151
 msgid "Total Failed"
-msgstr ""
+msgstr "Total des échecs"
 
 #: themes/default/templates/admin/dashboard.html:173
 msgid "Open Incidents"
-msgstr ""
+msgstr "Incidents ouverts"
 
 #: themes/default/templates/admin/dashboard.html:202
 msgid "Nice! No open incidents."
-msgstr ""
+msgstr "Parfait, aucun incident ouvert."
 
 #: themes/default/templates/admin/dashboard.html:366
 msgid "Deliverd"
-msgstr ""
+msgstr "Livré"
 
 #: themes/default/templates/admin/dashboard.html:367
 #: themes/default/templates/admin/incident/update/view.html:169
 msgid "Failed"
-msgstr ""
+msgstr "Échoué"
 
 #: themes/default/templates/admin/incident/add.html:15
 msgid "Add a New Incident"
-msgstr ""
+msgstr "Ajouter un nouvel incident"
 
 #: themes/default/templates/admin/incident/add.html:22
 #: themes/default/templates/admin/incident/edit.html:22
 msgid "Enter incident name"
-msgstr ""
+msgstr "Entrer un nom pour l'incident"
 
 #: themes/default/templates/admin/incident/add.html:28
 #: themes/default/templates/admin/incident/edit.html:28
 msgid "Open"
-msgstr ""
+msgstr "Ouvrir"
 
 #: themes/default/templates/admin/incident/add.html:29
 #: themes/default/templates/admin/incident/edit.html:29
 msgid "Closed"
-msgstr ""
+msgstr "Fermés"
 
 #: themes/default/templates/admin/incident/edit.html:15
 msgid "Edit Incident"
-msgstr ""
+msgstr "Modifier l'incident"
 
 #: themes/default/templates/admin/incident/list.html:12
 #: themes/default/templates/admin/incident/view.html:12
 msgid "View"
-msgstr ""
+msgstr "Afficher"
 
 #: themes/default/templates/admin/incident/list.html:13
 msgid "You miss a lot of fun, create some incidents!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques incidents !"
 
 #: themes/default/templates/admin/incident/list.html:29
 msgid "New Incident"
-msgstr ""
+msgstr "Nouvel incident"
 
 #: themes/default/templates/admin/incident/update/add.html:30
 msgid "Add a New Update"
-msgstr ""
+msgstr "Ajouter une nouvelle mise à jour"
 
 #: themes/default/templates/admin/incident/update/add.html:36
 #: themes/default/templates/admin/incident/update/edit.html:36
 msgid "Datetime"
-msgstr ""
+msgstr "Date/Heure"
 
 #: themes/default/templates/admin/incident/update/add.html:38
 #: themes/default/templates/admin/incident/update/edit.html:38
 msgid "For example"
-msgstr ""
+msgstr "Par exemple"
 
 #: themes/default/templates/admin/incident/update/add.html:44
 #: themes/default/templates/admin/incident/update/edit.html:44
 msgid "Investigating"
-msgstr ""
+msgstr "Examen en cours"
 
 #: themes/default/templates/admin/incident/update/add.html:45
 #: themes/default/templates/admin/incident/update/edit.html:45
 msgid "Identified"
-msgstr ""
+msgstr "Identifié"
 
 #: themes/default/templates/admin/incident/update/add.html:46
 #: themes/default/templates/admin/incident/update/edit.html:46
 msgid "Monitoring"
-msgstr ""
+msgstr "Suivi en cours"
 
 #: themes/default/templates/admin/incident/update/add.html:47
 #: themes/default/templates/admin/incident/update/edit.html:47
 #: themes/default/templates/admin/profile.html:168
 #: themes/default/templates/admin/profile.html:179
 msgid "Update"
-msgstr ""
+msgstr "Mise à jour"
 
 #: themes/default/templates/admin/incident/update/add.html:48
 #: themes/default/templates/admin/incident/update/edit.html:48
 msgid "Resolved"
-msgstr ""
+msgstr "Résolu"
 
 #: themes/default/templates/admin/incident/update/add.html:52
 #: themes/default/templates/admin/incident/update/edit.html:52
 msgid "Notify Subscribers"
-msgstr ""
+msgstr "Notifier les abonnés"
 
 #: themes/default/templates/admin/incident/update/add.html:60
 #: themes/default/templates/admin/incident/update/edit.html:60
 msgid "Message (Markdown)"
-msgstr ""
+msgstr "Message (Markdown)"
 
 #: themes/default/templates/admin/incident/update/add.html:61
 #: themes/default/templates/admin/incident/update/edit.html:61
 msgid "Enter update message"
-msgstr ""
+msgstr "Entrer un message pour la mise à jour"
 
 #: themes/default/templates/admin/incident/update/edit.html:30
 msgid "Edit Update"
-msgstr ""
+msgstr "Modifier la mise à jour"
 
 #: themes/default/templates/admin/incident/update/view.html:29
 #: themes/default/templates/admin/notification.html:30
 msgid "Notification"
-msgstr ""
+msgstr "Notification"
 
 #: themes/default/templates/admin/incident/update/view.html:39
 #: themes/default/templates/admin/incident/update/view.html:41
 msgid "Notify Subscribers:"
-msgstr ""
+msgstr "Notifier les abonnés :"
 
 #: themes/default/templates/admin/incident/update/view.html:43
 msgid "Total Subscribers:"
-msgstr ""
+msgstr "Nombre total d'abonnés :"
 
 #: themes/default/templates/admin/incident/update/view.html:44
 msgid "Delivered Notifications:"
-msgstr ""
+msgstr "Notifications livrées :"
 
 #: themes/default/templates/admin/incident/update/view.html:45
 msgid "Failed Notifications:"
-msgstr ""
+msgstr "Notifications ayant échoué :"
 
 #: themes/default/templates/admin/incident/update/view.html:50
 msgid "Deliver"
-msgstr ""
+msgstr "Livrer"
 
 #: themes/default/templates/admin/incident/update/view.html:62
 msgid "Incident Update"
-msgstr ""
+msgstr "Mise à jour d'incident"
 
 #: themes/default/templates/admin/incident/update/view.html:87
 msgid "Affected Component"
-msgstr ""
+msgstr "Composant affecté"
 
 #: themes/default/templates/admin/incident/update/view.html:88
 #: themes/default/templates/admin/incident/view.html:55
@@ -1627,185 +1627,185 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/edit.html:21
 #: themes/default/templates/admin/subscriber/list.html:39
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: themes/default/templates/admin/incident/update/view.html:102
 msgid "N/A"
-msgstr ""
+msgstr "Non applicable"
 
 #: themes/default/templates/admin/incident/update/view.html:103
 #: themes/default/templates/admin/incident/update/view.html:127
 msgid "Operational"
-msgstr ""
+msgstr "Opérationnel"
 
 #: themes/default/templates/admin/incident/update/view.html:104
 #: themes/default/templates/admin/incident/update/view.html:128
 msgid "Degraded Performance"
-msgstr ""
+msgstr "Performances dégradées"
 
 #: themes/default/templates/admin/incident/update/view.html:105
 #: themes/default/templates/admin/incident/update/view.html:129
 msgid "Partial Outage"
-msgstr ""
+msgstr "Défaillance partielle"
 
 #: themes/default/templates/admin/incident/update/view.html:106
 #: themes/default/templates/admin/incident/update/view.html:130
 msgid "Major Outage"
-msgstr ""
+msgstr "Défaillance majeure"
 
 #: themes/default/templates/admin/incident/update/view.html:107
 #: themes/default/templates/admin/incident/update/view.html:131
 msgid "Maintenance"
-msgstr ""
+msgstr "Maintenance"
 
 #: themes/default/templates/admin/incident/update/view.html:126
 msgid "Please select a type"
-msgstr ""
+msgstr "Veuillez sélectionner un type."
 
 #: themes/default/templates/admin/incident/update/view.html:168
 msgid "Delivered"
-msgstr ""
+msgstr "Livré"
 
 #: themes/default/templates/admin/incident/view.html:13
 msgid "You miss a lot of fun, create some updates!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques mises à jour !"
 
 #: themes/default/templates/admin/incident/view.html:42
 msgid "Incident Updates"
-msgstr ""
+msgstr "Mises à jour d'incident"
 
 #: themes/default/templates/admin/incident/view.html:44
 msgid "New Update"
-msgstr ""
+msgstr "Nouvelle mise à jour"
 
 #: themes/default/templates/admin/incident/view.html:57
 msgid "Progress"
-msgstr ""
+msgstr "Progression"
 
 #: themes/default/templates/admin/incident/view.html:58
 msgid "Time"
-msgstr ""
+msgstr "Heure"
 
 #: themes/default/templates/admin/metric/add.html:23
 msgid "Add a New System Metric"
-msgstr ""
+msgstr "Ajouter un nouvel indicateur système"
 
 #: themes/default/templates/admin/metric/add.html:29
 #: themes/default/templates/admin/metric/edit.html:33
 #: themes/default/templates/admin/metric/list.html:39
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: themes/default/templates/admin/metric/add.html:30
 #: themes/default/templates/admin/metric/edit.html:34
 msgid "Enter title"
-msgstr ""
+msgstr "Entrer un titre"
 
 #: themes/default/templates/admin/metric/add.html:34
 #: themes/default/templates/admin/metric/edit.html:38
 msgid "Enter description"
-msgstr ""
+msgstr "Entrer une description"
 
 #: themes/default/templates/admin/metric/add.html:37
 #: themes/default/templates/admin/metric/edit.html:41
 msgid "X-Axis"
-msgstr ""
+msgstr "Axe X"
 
 #: themes/default/templates/admin/metric/add.html:38
 #: themes/default/templates/admin/metric/edit.html:42
 msgid "X-Axis title"
-msgstr ""
+msgstr "Titre pour l'axe X"
 
 #: themes/default/templates/admin/metric/add.html:41
 #: themes/default/templates/admin/metric/edit.html:45
 msgid "Y-Axis"
-msgstr ""
+msgstr "Axe Y"
 
 #: themes/default/templates/admin/metric/add.html:42
 #: themes/default/templates/admin/metric/edit.html:46
 msgid "Y-Axis title"
-msgstr ""
+msgstr "Titre pour l'axe Y"
 
 #: themes/default/templates/admin/metric/add.html:45
 #: themes/default/templates/admin/metric/edit.html:49
 #: themes/default/templates/admin/metric/list.html:40
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 #: themes/default/templates/admin/metric/add.html:48
 #: themes/default/templates/admin/metric/edit.html:52
 msgid "New Relic"
-msgstr ""
+msgstr "New Relic"
 
 #: themes/default/templates/admin/metric/add.html:53
 #: themes/default/templates/admin/metric/edit.html:57
 msgid "Application"
-msgstr ""
+msgstr "Application"
 
 #: themes/default/templates/admin/metric/add.html:62
 #: themes/default/templates/admin/metric/edit.html:66
 msgid "APM Metric"
-msgstr ""
+msgstr "Indicateur APM"
 
 #: themes/default/templates/admin/metric/add.html:65
 #: themes/default/templates/admin/metric/edit.html:69
 msgid "Apdex"
-msgstr ""
+msgstr "Apdex"
 
 #: themes/default/templates/admin/metric/add.html:66
 #: themes/default/templates/admin/metric/edit.html:70
 msgid "Error Rate"
-msgstr ""
+msgstr "Taux d'erreur"
 
 #: themes/default/templates/admin/metric/add.html:67
 #: themes/default/templates/admin/metric/edit.html:71
 msgid "Throughput"
-msgstr ""
+msgstr "Débit"
 
 #: themes/default/templates/admin/metric/add.html:68
 #: themes/default/templates/admin/metric/edit.html:72
 msgid "Errors"
-msgstr ""
+msgstr "Erreurs"
 
 #: themes/default/templates/admin/metric/add.html:69
 #: themes/default/templates/admin/metric/edit.html:73
 msgid "Response Time"
-msgstr ""
+msgstr "Délai de réponse"
 
 #: themes/default/templates/admin/metric/add.html:70
 #: themes/default/templates/admin/metric/edit.html:74
 msgid "Real User Response Time"
-msgstr ""
+msgstr "Délai de réponse utilisateur réel"
 
 #: themes/default/templates/admin/metric/add.html:71
 #: themes/default/templates/admin/metric/edit.html:75
 msgid "Real User Apdex"
-msgstr ""
+msgstr "Apdex utilisateur réel"
 
 #: themes/default/templates/admin/metric/edit.html:27
 msgid "Edit System Metric"
-msgstr ""
+msgstr "Modifier l'indicateur système"
 
 #: themes/default/templates/admin/metric/list.html:12
 msgid "You miss a lot of fun, create some metrics!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques indicateurs."
 
 #: themes/default/templates/admin/metric/list.html:28
 msgid "New Metric"
-msgstr ""
+msgstr "Nouvel indicateur"
 
 #: themes/default/templates/admin/notification.html:8
 msgid "No notifications yet!"
-msgstr ""
+msgstr "Aucune notification pour l'instant."
 
 #: themes/default/templates/admin/profile.html:58
 msgid "Old Password"
-msgstr ""
+msgstr "Ancien mot de passe"
 
 #: themes/default/templates/admin/profile.html:63
 #: themes/default/templates/reset_password.html:21
 msgid "New Password"
-msgstr ""
+msgstr "Nouveau mot de passe"
 
 #: themes/default/templates/admin/profile.html:85
 msgid "Edit Profile"
