@@ -189,7 +189,7 @@ msgstr "Erreur : le statut n'est pas valide."
 #: app/controllers/api/private/v1/admin/incident_update.py:98
 #: app/controllers/api/private/v1/admin/incident_update.py:248
 msgid "Error! Notify subscribers is invalid."
-msgstr "Erreur : le contenu du champ Notifier les abonnés n'est pas valide."
+msgstr "Erreur : choix non valide pour Notifier les abonnés."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:130
 msgid "Incident update created successfully."
@@ -472,7 +472,7 @@ msgstr "Erreur : le compte Google Analytics n'est pas valide."
 #: app/controllers/api/private/v1/admin/settings.py:165
 #: app/controllers/api/private/v1/admin/settings.py:177
 msgid "Error! Reset mails count is invalid."
-msgstr "Erreur : le nombre de messages à réinitialiser n'est pas valide."
+msgstr "Erreur : le nombre de messages de réinitialisation n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:189
 msgid "Error! Access token expiry interval is invalid."
@@ -1809,7 +1809,7 @@ msgstr "Nouveau mot de passe"
 
 #: themes/default/templates/admin/profile.html:85
 msgid "Edit Profile"
-msgstr ""
+msgstr "Modifier le profil"
 
 #: themes/default/templates/admin/profile.html:89
 #: themes/default/templates/admin/user/add.html:48
@@ -1817,7 +1817,7 @@ msgstr ""
 #: themes/default/templates/admin/user/list.html:39
 #: themes/default/templates/register.html:29
 msgid "Username"
-msgstr ""
+msgstr "Nom d'utilisateur"
 
 #: themes/default/templates/admin/profile.html:95
 #: themes/default/templates/admin/user/add.html:21
@@ -1825,125 +1825,125 @@ msgstr ""
 #: themes/default/templates/forgot_password.html:31
 #: themes/default/templates/register.html:33
 msgid "Email address"
-msgstr ""
+msgstr "Adresse e-mail"
 
 #: themes/default/templates/admin/profile.html:101
 #: themes/default/templates/admin/user/add.html:40
 #: themes/default/templates/admin/user/edit.html:21
 #: themes/default/templates/register.html:21
 msgid "First Name"
-msgstr ""
+msgstr "Prénom"
 
 #: themes/default/templates/admin/profile.html:107
 #: themes/default/templates/admin/user/add.html:44
 #: themes/default/templates/admin/user/edit.html:25
 #: themes/default/templates/register.html:25
 msgid "Last Name"
-msgstr ""
+msgstr "Nom"
 
 #: themes/default/templates/admin/profile.html:113
 msgid "Job Title"
-msgstr ""
+msgstr "Poste"
 
 #: themes/default/templates/admin/profile.html:119
 msgid "Company"
-msgstr ""
+msgstr "Société"
 
 #: themes/default/templates/admin/profile.html:125
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #: themes/default/templates/admin/profile.html:131
 msgid "Github URL"
-msgstr ""
+msgstr "URL Github"
 
 #: themes/default/templates/admin/profile.html:137
 msgid "Facebook URL"
-msgstr ""
+msgstr "URL Facebook"
 
 #: themes/default/templates/admin/profile.html:143
 msgid "Twitter URL"
-msgstr ""
+msgstr "URL Twitter"
 
 #: themes/default/templates/admin/profile.html:162
 msgid "Access Token"
-msgstr ""
+msgstr "Jeton d'accès"
 
 #: themes/default/templates/admin/profile.html:173
 msgid "Refresh Token"
-msgstr ""
+msgstr "Jeton d'actualisation"
 
 #: themes/default/templates/admin/settings.html:22
 #: themes/default/templates/install.html:17
 msgid "App Name"
-msgstr ""
+msgstr "Nom de l'application"
 
 #: themes/default/templates/admin/settings.html:26
 #: themes/default/templates/install.html:25
 msgid "App URL"
-msgstr ""
+msgstr "URL de l'application"
 
 #: themes/default/templates/admin/settings.html:30
 #: themes/default/templates/install.html:21
 msgid "App Email"
-msgstr ""
+msgstr "E-mail de l'application"
 
 #: themes/default/templates/admin/settings.html:34
 msgid "App Description"
-msgstr ""
+msgstr "Description de l'application"
 
 #: themes/default/templates/admin/settings.html:38
 msgid "Google Analytics Account"
-msgstr ""
+msgstr "Compte Google Analytics"
 
 #: themes/default/templates/admin/settings.html:42
 msgid "Max Reset Messages"
-msgstr ""
+msgstr "Nombre maximum de messages de réinitialisation"
 
 #: themes/default/templates/admin/settings.html:46
 msgid "Per Day"
-msgstr ""
+msgstr "Par jour"
 
 #: themes/default/templates/admin/settings.html:51
 msgid "Reset Message Expire After"
-msgstr ""
+msgstr "Le message de réinitialisation expire après"
 
 #: themes/default/templates/admin/settings.html:55
 #: themes/default/templates/admin/settings.html:64
 msgid "Hours"
-msgstr ""
+msgstr "Heures"
 
 #: themes/default/templates/admin/settings.html:60
 msgid "Access Token Expire After"
-msgstr ""
+msgstr "Le jeton d'accès expire après"
 
 #: themes/default/templates/admin/settings.html:69
 msgid "Prometheus Auth. Token"
-msgstr ""
+msgstr "Jeton d'authentification Prometheus"
 
 #: themes/default/templates/admin/settings.html:73
 msgid "New Relic API Key"
-msgstr ""
+msgstr "Clé API New Relic"
 
 #: themes/default/templates/admin/settings.html:90
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
 #: themes/default/templates/admin/settings.html:94
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: themes/default/templates/admin/settings.html:98
 msgid "Latest"
-msgstr ""
+msgstr "Dernière"
 
 #: themes/default/templates/admin/settings.html:103
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: themes/default/templates/admin/subscriber/add.html:16
 msgid "Add a New Subscriber"
-msgstr ""
+msgstr "Ajouter un nouvel abonné"
 
 #: themes/default/templates/admin/subscriber/add.html:25
 #: themes/default/templates/admin/subscriber/add.html:32
@@ -1953,21 +1953,21 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/edit.html:52
 #: themes/default/templates/admin/user/list.html:40
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: themes/default/templates/admin/subscriber/add.html:26
 #: themes/default/templates/admin/subscriber/add.html:38
 #: themes/default/templates/admin/subscriber/edit.html:25
 #: themes/default/templates/admin/subscriber/edit.html:37
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone"
 
 #: themes/default/templates/admin/subscriber/add.html:27
 #: themes/default/templates/admin/subscriber/add.html:44
 #: themes/default/templates/admin/subscriber/edit.html:26
 #: themes/default/templates/admin/subscriber/edit.html:43
 msgid "Endpoint"
-msgstr ""
+msgstr "Point de terminaison"
 
 #: themes/default/templates/admin/subscriber/add.html:33
 #: themes/default/templates/admin/subscriber/add.html:54
@@ -1978,110 +1978,110 @@ msgstr ""
 #: themes/default/templates/forgot_password.html:36
 #: themes/default/templates/register.html:34
 msgid "Enter email"
-msgstr ""
+msgstr "Entrer une adresse e-mail"
 
 #: themes/default/templates/admin/subscriber/add.html:39
 #: themes/default/templates/admin/subscriber/edit.html:38
 msgid "Enter phone"
-msgstr ""
+msgstr "Entrer un numéro de téléphone"
 
 #: themes/default/templates/admin/subscriber/add.html:45
 #: themes/default/templates/admin/subscriber/edit.html:44
 msgid "Enter endpoint URL"
-msgstr ""
+msgstr "Entrer une URL de point de terminaison"
 
 #: themes/default/templates/admin/subscriber/add.html:48
 #: themes/default/templates/admin/subscriber/edit.html:47
 msgid "Auth Token"
-msgstr ""
+msgstr "Jeton d'authentification"
 
 #: themes/default/templates/admin/subscriber/add.html:49
 #: themes/default/templates/admin/subscriber/edit.html:48
 msgid "Enter auth token"
-msgstr ""
+msgstr "Entrer un jeton d'authentification"
 
 #: themes/default/templates/admin/subscriber/add.html:50
 #: themes/default/templates/admin/subscriber/edit.html:49
 msgid "We'll send this on header as"
-msgstr ""
+msgstr "Nous enverrons cela dans le titre comme"
 
 #: themes/default/templates/admin/subscriber/add.html:55
 #: themes/default/templates/admin/subscriber/edit.html:54
 msgid "We'll send you email if your endpoint fails"
-msgstr ""
+msgstr "Nous vous enverrons un e-mail en cas de défaillance de votre point de terminaison"
 
 #: themes/default/templates/admin/subscriber/add.html:62
 #: themes/default/templates/admin/subscriber/edit.html:61
 msgid "Pending"
-msgstr ""
+msgstr "En attente"
 
 #: themes/default/templates/admin/subscriber/add.html:63
 #: themes/default/templates/admin/subscriber/edit.html:62
 msgid "Verified"
-msgstr ""
+msgstr "Vérifié"
 
 #: themes/default/templates/admin/subscriber/add.html:64
 #: themes/default/templates/admin/subscriber/edit.html:63
 msgid "Unverified"
-msgstr ""
+msgstr "Non vérifié"
 
 #: themes/default/templates/admin/subscriber/edit.html:15
 msgid "Edit Subscriber"
-msgstr ""
+msgstr "Modifier l'abonné"
 
 #: themes/default/templates/admin/subscriber/list.html:12
 msgid "You miss a lot of fun, create some subscribers!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques abonnés !"
 
 #: themes/default/templates/admin/subscriber/list.html:28
 msgid "New Subscriber"
-msgstr ""
+msgstr "Nouvel abonné"
 
 #: themes/default/templates/admin/user/add.html:15
 msgid "Add a New User"
-msgstr ""
+msgstr "Ajouter un nouvel abonné"
 
 #: themes/default/templates/admin/user/add.html:25
 #: themes/default/templates/admin/user/edit.html:33
 #: themes/default/templates/admin/user/list.html:41
 msgid "Role"
-msgstr ""
+msgstr "Rôle"
 
 #: themes/default/templates/admin/user/add.html:27
 msgid "Please Select a Role"
-msgstr ""
+msgstr "Veuillez sélectionner un rôle."
 
 #: themes/default/templates/admin/user/add.html:28
 #: themes/default/templates/admin/user/edit.html:35
 msgid "Admin"
-msgstr ""
+msgstr "Administrateur"
 
 #: themes/default/templates/admin/user/add.html:29
 #: themes/default/templates/admin/user/edit.html:36
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 
 #: themes/default/templates/admin/user/add.html:35
 msgid "Disable Invitation"
-msgstr ""
+msgstr "Désactiver l'invitation"
 
 #: themes/default/templates/admin/user/add.html:41
 #: themes/default/templates/admin/user/edit.html:22
 #: themes/default/templates/register.html:22
 msgid "Enter first name"
-msgstr ""
+msgstr "Entrer le prénom"
 
 #: themes/default/templates/admin/user/add.html:45
 #: themes/default/templates/admin/user/edit.html:26
 #: themes/default/templates/register.html:26
 msgid "Enter last name"
-msgstr ""
+msgstr "Entrer le nom"
 
 #: themes/default/templates/admin/user/add.html:49
 #: themes/default/templates/admin/user/edit.html:30
 #: themes/default/templates/register.html:30
 msgid "Enter username"
-msgstr ""
+msgstr "Entrer le nom d'utilisateur"
 
 #: themes/default/templates/admin/user/add.html:52
 #: themes/default/templates/admin/user/add.html:53
@@ -2093,128 +2093,130 @@ msgstr ""
 #: themes/default/templates/register.html:37
 #: themes/default/templates/register.html:38
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: themes/default/templates/admin/user/edit.html:15
 msgid "Edit User"
-msgstr ""
+msgstr "Modifier l'utilisateur"
 
 #: themes/default/templates/admin/user/edit.html:46
 msgid "Update Password"
-msgstr ""
+msgstr "Mettre à jour le mot de passe"
 
 #: themes/default/templates/admin/user/list.html:12
 msgid "You miss a lot of fun, create some users!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques utilisateurs !"
 
 #: themes/default/templates/admin/user/list.html:28
 msgid "New User"
-msgstr ""
+msgstr "Nouvel utilisateur"
 
 #: themes/default/templates/forgot_password.html:28
 msgid "Forgot password"
-msgstr ""
+msgstr "Mot de passe oublié"
 
 #: themes/default/templates/forgot_password.html:29
 msgid ""
 "Enter your email address and a link to reset your password will be emailed "
 "to you."
 msgstr ""
+"Entrez votre adresse e-mail pour recevoir un lien qui vous permettra de "
+"réinitialiser votre mot de passe."
 
 #: themes/default/templates/forgot_password.html:45
 msgid "Know it,"
-msgstr ""
+msgstr "Je m'en souviens,"
 
 #: themes/default/templates/forgot_password.html:45
 #: themes/default/templates/reset_password.html:35
 msgid "send me back"
-msgstr ""
+msgstr "ramenez-moi"
 
 #: themes/default/templates/forgot_password.html:45
 #: themes/default/templates/reset_password.html:35
 msgid "to the login page."
-msgstr ""
+msgstr "à la page de connexion."
 
 #: themes/default/templates/install.html:18
 msgid "Enter app name"
-msgstr ""
+msgstr "Entrer le nom de l'application"
 
 #: themes/default/templates/install.html:22
 msgid "Enter app email"
-msgstr ""
+msgstr "Entrer l'adresse e-mail de l'application"
 
 #: themes/default/templates/install.html:26
 msgid "Enter app url"
-msgstr ""
+msgstr "Entrer l'URL de l'application"
 
 #: themes/default/templates/install.html:29
 msgid "Admin Username"
-msgstr ""
+msgstr "Nom d'utilisateur de l'administrateur"
 
 #: themes/default/templates/install.html:30
 msgid "Enter admin username"
-msgstr ""
+msgstr "Entrer le nom d'utilisateur de l'administrateur"
 
 #: themes/default/templates/install.html:33
 msgid "Admin Email"
-msgstr ""
+msgstr "Adresse e-mail de l'administrateur"
 
 #: themes/default/templates/install.html:34
 msgid "Enter admin email"
-msgstr ""
+msgstr "Entrer l'adresse e-mail de l'administrateur"
 
 #: themes/default/templates/install.html:38
 msgid "Enter admin password"
-msgstr ""
+msgstr "Entrer le mot de passe de l'administrateur"
 
 #: themes/default/templates/install.html:41
 msgid "Install"
-msgstr ""
+msgstr "Installer"
 
 #: themes/default/templates/login.html:38
 msgid "Login to your account"
-msgstr ""
+msgstr "Connexion à votre compte"
 
 #: themes/default/templates/login.html:40
 msgid "Username or Email"
-msgstr ""
+msgstr "Nom d'utilisateur ou adresse e-mail"
 
 #: themes/default/templates/login.html:45
 msgid "Enter username or email"
-msgstr ""
+msgstr "Entrer le nom d'utilisateur ou l'adresse e-mail"
 
 #: themes/default/templates/login.html:51
 msgid "I forgot password"
-msgstr ""
+msgstr "J'ai oublié le mot de passe"
 
 #: themes/default/templates/login.html:61
 #: themes/default/templates/register.html:46
 msgid "Login"
-msgstr ""
+msgstr "Connexion"
 
 #: themes/default/templates/register.html:19
 msgid "Create new account"
-msgstr ""
+msgstr "Créer le compte"
 
 #: themes/default/templates/register.html:41
 msgid "Create a new account"
-msgstr ""
+msgstr "Créer un compte"
 
 #: themes/default/templates/register.html:46
 msgid "Already have account?"
-msgstr ""
+msgstr "Vous avez déjà un compte ?"
 
 #: themes/default/templates/reset_password.html:19
 msgid "Reset password"
-msgstr ""
+msgstr "Réinitialiser le mot de passe"
 
 #: themes/default/templates/reset_password.html:26
 msgid "Enter password"
-msgstr ""
+msgstr "Entrer le mot de passe"
 
 #: themes/default/templates/reset_password.html:35
 msgid "Cool,"
-msgstr ""
+msgstr "Pas de problème,"
 
 #: themes/default/templates/status_page_history.html:18
 #: themes/default/templates/status_page_history.html:25
@@ -2223,71 +2225,71 @@ msgstr ""
 #: themes/default/templates/status_page_single.html:18
 #: themes/default/templates/status_page_single.html:26
 msgid "Subscribe to Updates"
-msgstr ""
+msgstr "S'abonner pour recevoir les mises à jour"
 
 #: themes/default/templates/status_page_history.html:32
 #: themes/default/templates/status_page_index.html:32
 #: themes/default/templates/status_page_single.html:33
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: themes/default/templates/status_page_history.html:45
 #: themes/default/templates/status_page_index.html:210
 msgid "Incident History"
-msgstr ""
+msgstr "Historique des incidents"
 
 #: themes/default/templates/status_page_history.html:74
 #: themes/default/templates/status_page_index.html:198
 msgid "No incidents reported."
-msgstr ""
+msgstr "Aucun incident rapporté."
 
 #: themes/default/templates/status_page_history.html:86
 #: themes/default/templates/status_page_single.html:71
 msgid "Current Status"
-msgstr ""
+msgstr "Statut actuel"
 
 #: themes/default/templates/status_page_history.html:92
 #: themes/default/templates/status_page_index.html:216
 #: themes/default/templates/status_page_single.html:77
 msgid "Powered by Silverback"
-msgstr ""
+msgstr "Optimisé par Silverback"
 
 #: themes/default/templates/status_page_index.html:45
 msgid "All Systems Operational"
-msgstr ""
+msgstr "Tous les systèmes sont opérationnels."
 
 #: themes/default/templates/status_page_index.html:50
 msgid "Some services are experiencing interruptions"
-msgstr ""
+msgstr "Certains services sont affectés par des interruptions."
 
 #: themes/default/templates/status_page_index.html:55
 msgid "Many services are experiencing interruptions"
-msgstr ""
+msgstr "Un grand nombre de services sont affectés par des interruptions."
 
 #: themes/default/templates/status_page_index.html:66
 msgid "About This Site"
-msgstr ""
+msgstr "À propos de ce site"
 
 #: themes/default/templates/status_page_index.html:142
 msgid "Day"
-msgstr ""
+msgstr "Jour"
 
 #: themes/default/templates/status_page_index.html:143
 msgid "Week"
-msgstr ""
+msgstr "Semaine"
 
 #: themes/default/templates/status_page_index.html:144
 msgid "Month"
-msgstr ""
+msgstr "Mois"
 
 #: themes/default/templates/status_page_index.html:168
 msgid "Past Incidents"
-msgstr ""
+msgstr "Incidents passés"
 
 #: themes/default/templates/status_page_index.html:191
 msgid "No updates reported."
-msgstr ""
+msgstr "Aucune mise à jour rapportée."
 
 #: themes/default/templates/status_page_single.html:54
 msgid "Posted at"
-msgstr ""
+msgstr "Publié à"
