@@ -21,159 +21,159 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/builder.py:57
 #: app/controllers/api/private/v1/admin/builder.py:69
 msgid "Metric added successfully."
-msgstr ""
+msgstr "L'indicateur a été ajouté avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:75
 msgid "Error! Something goes wrong while adding metric."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'ajout de l'indicateur."
 
 #: app/controllers/api/private/v1/admin/builder.py:90
 #: app/controllers/api/private/v1/admin/builder.py:102
 #: app/controllers/api/private/v1/admin/metric.py:298
 msgid "Metric deleted successfully."
-msgstr ""
+msgstr "L'indicateur a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:108
 #: app/controllers/api/private/v1/admin/metric.py:304
 msgid "Error! Something goes wrong while deleting metric."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression de l'indicateur."
 
 #: app/controllers/api/private/v1/admin/builder.py:148
 #: app/controllers/api/private/v1/admin/builder.py:160
 msgid "Component added successfully."
-msgstr ""
+msgstr "Le composant a été ajouté avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:166
 msgid "Error! Something goes wrong while adding component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'ajout du composant."
 
 #: app/controllers/api/private/v1/admin/builder.py:181
 #: app/controllers/api/private/v1/admin/builder.py:193
 #: app/controllers/api/private/v1/admin/component.py:248
 msgid "Component deleted successfully."
-msgstr ""
+msgstr "Le composant a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:199
 #: app/controllers/api/private/v1/admin/component.py:254
 msgid "Error! Something goes wrong while deleting component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression du composant."
 
 #: app/controllers/api/private/v1/admin/builder.py:241
 msgid "Error! Headline is very long."
-msgstr ""
+msgstr "Erreur : le titre est trop long."
 
 #: app/controllers/api/private/v1/admin/builder.py:254
 msgid "Error! Favicon URL is invalid."
-msgstr ""
+msgstr "Erreur : l'URL d’icône favorite n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/builder.py:266
 msgid "Error! Image URL is invalid."
-msgstr ""
+msgstr "Erreur : l'URL de l'image n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/builder.py:278
 msgid "Error! About is very long."
-msgstr ""
+msgstr "Erreur : le contenu du champ À propos est trop long."
 
 #: app/controllers/api/private/v1/admin/builder.py:300
 #: app/controllers/api/private/v1/admin/settings.py:220
 msgid "Settings updated successfully."
-msgstr ""
+msgstr "Les paramètres ont été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:306
 #: app/controllers/api/private/v1/admin/settings.py:226
 msgid "Error! Something goes wrong while updating settings."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour des paramètres."
 
 #: app/controllers/api/private/v1/admin/component.py:59
 #: app/controllers/api/private/v1/admin/component.py:191
 msgid "Error! Component name must be 1 to 90 characters long."
-msgstr ""
+msgstr "Erreur : le nom du composant doit comporter 1 à 90 caractères."
 
 #: app/controllers/api/private/v1/admin/component.py:75
 #: app/controllers/api/private/v1/admin/component.py:207
 #: app/controllers/api/private/v1/admin/component_group.py:74
 #: app/controllers/api/private/v1/admin/component_group.py:198
 msgid "Error! Uptime is invalid."
-msgstr ""
+msgstr "Erreur : le temps d'activité n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/component.py:101
 msgid "Component created successfully."
-msgstr ""
+msgstr "Le composant a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/component.py:106
 msgid "Error! Something goes wrong while creating component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création du composant."
 
 #: app/controllers/api/private/v1/admin/component.py:233
 msgid "Component updated successfully."
-msgstr ""
+msgstr "Le composant a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/component.py:238
 msgid "Error! Something goes wrong while updating component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour du composant."
 
 #: app/controllers/api/private/v1/admin/component_group.py:58
 #: app/controllers/api/private/v1/admin/component_group.py:182
 msgid "Error! Component group name must be 1 to 90 characters long."
-msgstr ""
+msgstr "Erreur : le nom du groupe de composants doit comporter 1 à 90 caractères."
 
 #: app/controllers/api/private/v1/admin/component_group.py:94
 msgid "Component group created successfully."
-msgstr ""
+msgstr "Le groupe de composants a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/component_group.py:99
 msgid "Error! Something goes wrong while creating group."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création du groupe."
 
 #: app/controllers/api/private/v1/admin/component_group.py:218
 msgid "Component group updated successfully."
-msgstr ""
+msgstr "Le groupe de composants a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/component_group.py:223
 msgid "Error! Something goes wrong while updating group."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour du groupe."
 
 #: app/controllers/api/private/v1/admin/component_group.py:233
 msgid "Component group deleted successfully."
-msgstr ""
+msgstr "Le groupe de composants a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/component_group.py:239
 msgid "Error! Something goes wrong while deleting group."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression du groupe."
 
 #: app/controllers/api/private/v1/admin/incident.py:57
 #: app/controllers/api/private/v1/admin/incident.py:175
 msgid "Error! Incident name must be 1 to 200 characters long."
-msgstr ""
+msgstr "Erreur : le nom d'incident doit comporter 1 à 200 caractères."
 
 #: app/controllers/api/private/v1/admin/incident.py:66
 #: app/controllers/api/private/v1/admin/incident.py:184
 msgid "Error! Incident is invalid."
-msgstr ""
+msgstr "Erreur : l'incident n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/incident.py:86
 msgid "Incident created successfully."
-msgstr ""
+msgstr "L'incident a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/incident.py:91
 msgid "Error! Something goes wrong while creating incident."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de l'incident."
 
 #: app/controllers/api/private/v1/admin/incident.py:203
 msgid "Incident updated successfully."
-msgstr ""
+msgstr "L'incident a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/incident.py:208
 msgid "Error! Something goes wrong while updating incident."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de l'incident."
 
 #: app/controllers/api/private/v1/admin/incident.py:218
 msgid "Incident deleted successfully."
-msgstr ""
+msgstr "L'incident a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/incident.py:224
 msgid "Error! Something goes wrong while deleting incident."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression de l'incident."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:89
 #: app/controllers/api/private/v1/admin/incident_update.py:239
@@ -184,98 +184,98 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/subscriber.py:373
 #: app/controllers/api/private/v1/admin/subscriber.py:423
 msgid "Error! Status is invalid."
-msgstr ""
+msgstr "Erreur : le statut n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:98
 #: app/controllers/api/private/v1/admin/incident_update.py:248
 msgid "Error! Notify subscribers is invalid."
-msgstr ""
+msgstr "Erreur : choix non valide pour Notifier les abonnés."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:130
 msgid "Incident update created successfully."
-msgstr ""
+msgstr "La mise à jour d'incident a été créée avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:135
 msgid "Error! Something goes wrong while creating update."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de la mise à jour."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:269
 msgid "Incident update updated successfully."
-msgstr ""
+msgstr "La mise à jour d'incident a été modifiée avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:274
 msgid "Error! Something goes wrong while updating update."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la modification de la mise à jour."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:284
 msgid "Incident update deleted successfully."
-msgstr ""
+msgstr "La mise à jour d'incident a été supprimée avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:290
 msgid "Error! Something goes wrong while deleting incident update."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression de la mise à jour d'incident."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:344
 msgid "Notification delivery started successfully."
-msgstr ""
+msgstr "L'envoi des notifications a démarré avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:349
 msgid "Error! Something goes wrong while starting delivery."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant le démarrage de l'envoi."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:395
 msgid "Error! Component is required."
-msgstr ""
+msgstr "Erreur : composant requis."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:404
 msgid "Error! Type is required."
-msgstr ""
+msgstr "Erreur : type requis."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:424
 msgid "Affected component created successfully."
-msgstr ""
+msgstr "Le composant affecté a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:429
 msgid "Error! Something goes wrong while creating affected component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création du composant affecté."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:458
 msgid "Affected component deleted successfully."
-msgstr ""
+msgstr "Le composant affecté a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:464
 msgid "Error! Something goes wrong while deleting affected component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression du composant affecté."
 
 #: app/controllers/api/private/v1/admin/metric.py:73
 #: app/controllers/api/private/v1/admin/metric.py:229
 msgid "Error! Source is invalid."
-msgstr ""
+msgstr "Erreur : la source n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/metric.py:127
 msgid "Metric created successfully."
-msgstr ""
+msgstr "L'indicateur a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/metric.py:132
 msgid "Error! Something goes wrong while creating metric."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de l'indicateur."
 
 #: app/controllers/api/private/v1/admin/metric.py:283
 msgid "Metric updated successfully."
-msgstr ""
+msgstr "L'indicateur a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/metric.py:288
 msgid "Error! Something goes wrong while updating metric."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de l'indicateur."
 
 #: app/controllers/api/private/v1/admin/metric.py:333
 msgid "Error! Connecting to New Relic."
-msgstr ""
+msgstr "Erreur : connexion à New Relic."
 
 #: app/controllers/api/private/v1/admin/profile.py:53
 #: app/controllers/api/private/v1/admin/settings.py:48
 msgid "Error! Invalid Request."
-msgstr ""
+msgstr "Erreur : requête non valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:97
 #: app/controllers/api/private/v1/admin/user.py:63
@@ -283,7 +283,7 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/user.py:387
 #: app/controllers/api/private/v1/register.py:62
 msgid "Error! First name contains invalid characters."
-msgstr ""
+msgstr "Erreur : le prénom contient des caractères non valides."
 
 #: app/controllers/api/private/v1/admin/profile.py:101
 #: app/controllers/api/private/v1/admin/user.py:67
@@ -291,7 +291,7 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/user.py:391
 #: app/controllers/api/private/v1/register.py:66
 msgid "Error! First name must be 1 to 20 characters long."
-msgstr ""
+msgstr "Erreur : le prénom doit comporter 1 à 20 caractères."
 
 #: app/controllers/api/private/v1/admin/profile.py:112
 #: app/controllers/api/private/v1/admin/user.py:78
@@ -299,7 +299,7 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/user.py:402
 #: app/controllers/api/private/v1/register.py:77
 msgid "Error! Last name contains invalid characters."
-msgstr ""
+msgstr "Erreur : le nom contient des caractères non valides."
 
 #: app/controllers/api/private/v1/admin/profile.py:116
 #: app/controllers/api/private/v1/admin/user.py:82
@@ -307,7 +307,7 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/user.py:406
 #: app/controllers/api/private/v1/register.py:81
 msgid "Error! Last name must be 1 to 20 characters long."
-msgstr ""
+msgstr "Erreur : le nom doit comporter 1 à 20 caractères."
 
 #: app/controllers/api/private/v1/admin/profile.py:128
 #: app/controllers/api/private/v1/admin/user.py:94
@@ -316,7 +316,7 @@ msgstr ""
 #: app/controllers/api/private/v1/install.py:110
 #: app/controllers/api/private/v1/register.py:93
 msgid "Error! Username must be alpha numeric."
-msgstr ""
+msgstr "Erreur : le nom d'utilisateur doit uniquement être composé de caractères alphanumériques."
 
 #: app/controllers/api/private/v1/admin/profile.py:132
 #: app/controllers/api/private/v1/admin/user.py:98
@@ -325,160 +325,162 @@ msgstr ""
 #: app/controllers/api/private/v1/install.py:114
 #: app/controllers/api/private/v1/register.py:97
 msgid "Error! Username must be 5 to 10 characters long."
-msgstr ""
+msgstr "Erreur : le nom d'utilisateur doit comporter 5 à 10 caractères."
 
 #: app/controllers/api/private/v1/admin/profile.py:144
 #: app/controllers/api/private/v1/install.py:126
 #: app/controllers/api/private/v1/register.py:109
 msgid "Error! Admin email is invalid."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail d'administrateur n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:156
 msgid "Error! Job title is very long."
-msgstr ""
+msgstr "Erreur : le nom du poste est trop long."
 
 #: app/controllers/api/private/v1/admin/profile.py:169
 msgid "Error! Company is very long."
-msgstr ""
+msgstr "Erreur : le nom de société est trop long."
 
 #: app/controllers/api/private/v1/admin/profile.py:182
 msgid "Error! Address is very long."
-msgstr ""
+msgstr "Erreur : l'adresse est trop longue."
 
 #: app/controllers/api/private/v1/admin/profile.py:195
 msgid "Error! Github url is invalid."
-msgstr ""
+msgstr "Erreur : l'URL Github n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:199
 msgid "Error! Github url is very long."
-msgstr ""
+msgstr "Erreur : l'URL Github est trop longue."
 
 #: app/controllers/api/private/v1/admin/profile.py:212
 msgid "Error! Twitter url is invalid."
-msgstr ""
+msgstr "Erreur : l'URL Twitter n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:216
 msgid "Error! Twitter url is very long."
-msgstr ""
+msgstr "Erreur : l'URL Twitter est trop longue."
 
 #: app/controllers/api/private/v1/admin/profile.py:229
 msgid "Error! Facebook url is invalid."
-msgstr ""
+msgstr "Erreur : l'URL Facebook n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:233
 msgid "Error! Facebook url is very long."
-msgstr ""
+msgstr "Erreur : l'URL Facebook est trop longue."
 
 #: app/controllers/api/private/v1/admin/profile.py:248
 #: app/controllers/api/private/v1/admin/user.py:177
 #: app/controllers/api/private/v1/admin/user.py:469
 #: app/controllers/api/private/v1/register.py:145
 msgid "Error! Username is already used."
-msgstr ""
+msgstr "Erreur : ce nom d'utilisateur existe déjà."
 
 #: app/controllers/api/private/v1/admin/profile.py:254
 msgid "Error! Email is already used."
-msgstr ""
+msgstr "Erreur : cette adresse e-mail existe déjà."
 
 #: app/controllers/api/private/v1/admin/profile.py:273
 msgid "Profile updated successfully."
-msgstr ""
+msgstr "Le profil a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/profile.py:279
 msgid "Error! Something goes wrong while updating your profile."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de votre profil."
 
 #: app/controllers/api/private/v1/admin/profile.py:295
 #: app/controllers/api/private/v1/admin/profile.py:299
 #: app/controllers/api/private/v1/admin/profile.py:325
 msgid "Error! Old password is invalid."
-msgstr ""
+msgstr "Erreur : l'ancien mot de passe n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:307
 msgid ""
 "Error! New Password must contain at least uppercase letter, lowercase "
 "letter, numbers and special character."
 msgstr ""
+"Erreur : le nouveau mot de passe doit contenir au moins une lettre majuscule, une "
+"lettre minuscule, des chiffres et un caractère spécial."
 
 #: app/controllers/api/private/v1/admin/profile.py:311
 msgid "Error! New Password length must be from 8 to 20 characters."
-msgstr ""
+msgstr "Erreur : la longueur du nouveau mot de passe doit être comprise entre 8 et 20 caractères."
 
 #: app/controllers/api/private/v1/admin/profile.py:334
 #: app/controllers/api/private/v1/reset_password.py:97
 msgid "Password updated successfully."
-msgstr ""
+msgstr "Le mot de passe a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/profile.py:340
 msgid "Error! Something goes wrong while updating your password."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de votre mot de passe."
 
 #: app/controllers/api/private/v1/admin/profile.py:355
 #: app/controllers/api/private/v1/admin/profile.py:391
 msgid "Error! The provided token invalid, Please refresh the page."
-msgstr ""
+msgstr "Erreur : le jeton fourni n'est pas valide. Veuillez actualiser la page."
 
 #: app/controllers/api/private/v1/admin/profile.py:371
 msgid "Access token updated successfully."
-msgstr ""
+msgstr "Le jeton d'accès a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/profile.py:376
 msgid "Error! Something goes wrong while updating access token."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour du jeton d'accès."
 
 #: app/controllers/api/private/v1/admin/profile.py:407
 msgid "Refresh token updated successfully."
-msgstr ""
+msgstr "Le jeton d'actualisation a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/profile.py:412
 msgid "Error! Something goes wrong while updating refresh token."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour du jeton d'actualisation."
 
 #: app/controllers/api/private/v1/admin/settings.py:74
 #: app/controllers/api/private/v1/install.py:70
 msgid "Error! Application name must be alpha numeric."
-msgstr ""
+msgstr "Erreur : le nom d'application doit uniquement être composé de caractères alphanumériques."
 
 #: app/controllers/api/private/v1/admin/settings.py:78
 #: app/controllers/api/private/v1/install.py:74
 msgid "Error! Application name must be 2 to 30 characters long."
-msgstr ""
+msgstr "Erreur : le nom de l'application doit comporter 2 à 30 caractères."
 
 #: app/controllers/api/private/v1/admin/settings.py:90
 #: app/controllers/api/private/v1/install.py:86
 msgid "Error! Application email is invalid."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail de l'application n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:102
 #: app/controllers/api/private/v1/install.py:98
 msgid "Error! Application url is invalid."
-msgstr ""
+msgstr "Erreur : l'URL de l'application n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:114
 msgid "Error! App description is very long."
-msgstr ""
+msgstr "Erreur : la description de l'application est trop longue."
 
 #: app/controllers/api/private/v1/admin/settings.py:127
 #: app/controllers/api/private/v1/admin/settings.py:140
 msgid "Error! Prometheus token is invalid."
-msgstr ""
+msgstr "Erreur : le jeton Prometheus n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:153
 msgid "Error! Google analytics account is invalid."
-msgstr ""
+msgstr "Erreur : le compte Google Analytics n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:165
 #: app/controllers/api/private/v1/admin/settings.py:177
 msgid "Error! Reset mails count is invalid."
-msgstr ""
+msgstr "Erreur : le nombre de messages de réinitialisation n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:189
 msgid "Error! Access token expiry interval is invalid."
-msgstr ""
+msgstr "Erreur : l'intervalle d'expiration du jeton d'accès n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:216
 msgid "You updated application settings."
-msgstr ""
+msgstr "Vous avez mis à jour les paramètres de l'application."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:63
 #: app/controllers/api/private/v1/admin/subscriber.py:99
@@ -487,36 +489,36 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/subscriber.py:354
 #: app/controllers/api/private/v1/admin/subscriber.py:390
 msgid "Error! Type is invalid."
-msgstr ""
+msgstr "Erreur : le type n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:222
 msgid "Subscriber created successfully."
-msgstr ""
+msgstr "L'abonné a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:227
 msgid "Error! Something goes wrong while creating subscriber."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de l'abonné."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:470
 msgid "Subscriber updated successfully."
-msgstr ""
+msgstr "L'abonné a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:475
 msgid "Error! Something goes wrong while updating subscriber."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de l'abonné."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:485
 msgid "Subscriber deleted successfully."
-msgstr ""
+msgstr "L'abonné a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:491
 msgid "Error! Something goes wrong while deleting subscriber."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression de l'abonné."
 
 #: app/controllers/api/private/v1/admin/user.py:110
 #: app/controllers/api/private/v1/admin/user.py:148
 msgid "Error! User email is invalid."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail de l'utilisateur n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/user.py:118
 #: app/controllers/api/private/v1/admin/user.py:442
@@ -527,6 +529,8 @@ msgid ""
 "Error! Password must contain at least uppercase letter, lowercase letter, "
 "numbers and special character."
 msgstr ""
+"Erreur : le mot de passe doit contenir au moins une lettre majuscule, une "
+"lettre minuscule, des chiffres et un caractère spécial."
 
 #: app/controllers/api/private/v1/admin/user.py:122
 #: app/controllers/api/private/v1/admin/user.py:446
@@ -534,322 +538,323 @@ msgstr ""
 #: app/controllers/api/private/v1/register.py:121
 #: app/controllers/api/private/v1/reset_password.py:65
 msgid "Error! Password length must be from 8 to 20 characters."
-msgstr ""
+msgstr "Erreur : la longueur du mot de passe doit être comprise entre 8 et 20 caractères."
 
 #: app/controllers/api/private/v1/admin/user.py:131
 #: app/controllers/api/private/v1/admin/user.py:157
 #: app/controllers/api/private/v1/admin/user.py:373
 #: app/controllers/api/private/v1/admin/user.py:455
 msgid "Error! Role is invalid."
-msgstr ""
+msgstr "Erreur : le rôle n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/user.py:171
 #: app/controllers/api/private/v1/admin/user.py:475
 #: app/controllers/api/private/v1/register.py:151
 msgid "Error! Email is already used for other account."
-msgstr ""
+msgstr "Erreur : cette adresse e-mail est déjà attribuée à un autre compte."
 
 #: app/controllers/api/private/v1/admin/user.py:196
 #: app/controllers/api/private/v1/register.py:171
 msgid "Account created successfully."
-msgstr ""
+msgstr "Le compte a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/user.py:201
 #: app/controllers/api/private/v1/admin/user.py:507
 #: app/controllers/api/private/v1/register.py:176
 msgid "Error! Something goes wrong while creating your account."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de votre compte."
 
 #: app/controllers/api/private/v1/admin/user.py:215
 #: app/controllers/api/private/v1/forgot_password.py:88
 msgid "Error! Something goes wrong while creating reset request."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de la requête de réinitialisation."
 
 #: app/controllers/api/private/v1/admin/user.py:223
 msgid "Error! Something goes wrong while sending register request."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'envoi de la requête d'inscription."
 
 #: app/controllers/api/private/v1/admin/user.py:228
 msgid "Register Request instructions sent successfully."
-msgstr ""
+msgstr "Les instructions relatives à la requête d'inscription ont été envoyées avec succès."
 
 #: app/controllers/api/private/v1/admin/user.py:364
 #: app/controllers/api/private/v1/admin/user.py:434
 #: app/controllers/api/private/v1/forgot_password.py:56
 msgid "Error! Email is invalid."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/user.py:502
 msgid "User updated successfully."
-msgstr ""
+msgstr "L'utilisateur a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/user.py:517
 msgid "Error! You can't delete your account."
-msgstr ""
+msgstr "Erreur : vous ne pouvez pas supprimer votre compte."
 
 #: app/controllers/api/private/v1/admin/user.py:523
 msgid "User deleted successfully."
-msgstr ""
+msgstr "L'utilisateur a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/user.py:529
 msgid "Error! Something goes wrong while deleting a user."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression d'un utilisateur."
 
 #: app/controllers/api/private/v1/forbidden.py:17
 msgid "Error! Access forbidden due to invalid CSRF token."
-msgstr ""
+msgstr "Erreur : accès interdit car le jeton CSRF n'est pas valide."
 
 #: app/controllers/api/private/v1/forgot_password.py:70
 msgid "Error! Email is not exist."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail n'existe pas."
 
 #: app/controllers/api/private/v1/forgot_password.py:79
 msgid "Sorry! You already exceeded the maximum number of reset requests!"
-msgstr ""
+msgstr "Désolé, vous avez déjà dépassé le nombre maximum de requêtes de réinitialisation."
 
 #: app/controllers/api/private/v1/forgot_password.py:96
 msgid "Error! Something goes wrong while sending reset instructions."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'envoi des instructions de réinitialisation."
 
 #: app/controllers/api/private/v1/forgot_password.py:101
 msgid "Reset instructions sent successfully."
-msgstr ""
+msgstr "Les instructions de réinitialisation ont été envoyées avec succès."
 
 #: app/controllers/api/private/v1/install.py:47
 #: app/modules/core/decorators.py:73
 msgid "Error! Application is already installed."
-msgstr ""
+msgstr "Erreur : l'application est déjà installée."
 
 #: app/controllers/api/private/v1/install.py:165
 msgid "Installation"
-msgstr ""
+msgstr "Installation"
 
 #: app/controllers/api/private/v1/install.py:166
 msgid "Silverback installed successfully"
-msgstr ""
+msgstr "Silverback a été installé avec succès."
 
 #: app/controllers/api/private/v1/install.py:176
 msgid "Application installed successfully."
-msgstr ""
+msgstr "L'application a été installée avec succès."
 
 #: app/controllers/api/private/v1/install.py:181
 msgid "Error! Something goes wrong during installing."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'installation."
 
 #: app/controllers/api/private/v1/login.py:43
 msgid "Error! User is already authenticated."
-msgstr ""
+msgstr "Erreur : l'utilisateur est déjà authentifié."
 
 #: app/controllers/api/private/v1/login.py:62
 #: app/controllers/api/private/v1/login.py:70
 #: app/controllers/api/private/v1/login.py:74
 #: app/controllers/api/private/v1/login.py:93
 msgid "Error! Username or password is invalid."
-msgstr ""
+msgstr "Erreur : le nom d'utilisateur ou le mot de passe n'est pas valide."
 
 #: app/controllers/api/private/v1/login.py:88
 msgid "You logged in successfully."
-msgstr ""
+msgstr "Connexion réussie."
 
 #: app/controllers/api/private/v1/register.py:137
 msgid "Error! Register token is invalid or expired."
-msgstr ""
+msgstr "Erreur : le jeton d'inscription n'est pas valide ou a expiré."
 
 #: app/controllers/api/private/v1/reset_password.py:79
 msgid "Error! Reset token is expired or invalid."
-msgstr ""
+msgstr "Erreur : le jeton de réinitialisation n'est pas valide ou a expiré."
 
 #: app/controllers/api/private/v1/reset_password.py:92
 msgid "Error! Something goes wrong while resetting password."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la réinitialisation du mot de passe."
 
 #: app/controllers/web/admin/activity.py:34
 #, python-format
 msgid "Activity · %s"
-msgstr ""
+msgstr "Activité · %s"
 
 #: app/controllers/web/admin/builder.py:44
 #, python-format
 msgid "Status Page Builder · %s"
-msgstr ""
+msgstr "Générateur de page de statut · %s"
 
 #: app/controllers/web/admin/component.py:32
 #, python-format
 msgid "Components · %s"
-msgstr ""
+msgstr "Composants · %s"
 
 #: app/controllers/web/admin/component.py:50
 #, python-format
 msgid "Add a Component · %s"
-msgstr ""
+msgstr "Ajouter un composant · %s"
 
 #: app/controllers/web/admin/component.py:74
 #, python-format
 msgid "Edit Component · %s"
-msgstr ""
+msgstr "Modifier le composant · %s"
 
 #: app/controllers/web/admin/component_group.py:32
 #, python-format
 msgid "Component Groups · %s"
-msgstr ""
+msgstr "Groupes de composants · %s"
 
 #: app/controllers/web/admin/component_group.py:50
 #, python-format
 msgid "Add a Component Group · %s"
-msgstr ""
+msgstr "Ajouter un groupe de composants · %s"
 
 #: app/controllers/web/admin/component_group.py:73
 #, python-format
 msgid "Edit Component Group · %s"
-msgstr ""
+msgstr "Modifier le groupe de composants · %s"
 
 #: app/controllers/web/admin/dashboard.py:31
 #, python-format
 msgid "Dashboard · %s"
-msgstr ""
+msgstr "Tableau de bord · %s"
 
 #: app/controllers/web/admin/incident.py:38
 #, python-format
 msgid "Incidents · %s"
-msgstr ""
+msgstr "Incidents · %s"
 
 #: app/controllers/web/admin/incident.py:59
 #, python-format
 msgid "Add an Incident · %s"
-msgstr ""
+msgstr "Ajouter un incident · %s"
 
 #: app/controllers/web/admin/incident.py:85
 #, python-format
 msgid "Edit Incident · %s"
-msgstr ""
+msgstr "Modifier l'incident · %s"
 
 #: app/controllers/web/admin/incident.py:112
 #, python-format
 msgid "View Incident · %s"
-msgstr ""
+msgstr "Afficher l'incident · %s"
 
 #: app/controllers/web/admin/incident_update.py:46
 #, python-format
 msgid "Add Incident Update  · %s"
-msgstr ""
+msgstr "Ajouter une mise à jour d'incident  · %s"
 
 #: app/controllers/web/admin/incident_update.py:94
 #, python-format
 msgid "View Incident Update  · %s"
-msgstr ""
+msgstr "Afficher la mise à jour d'incident  · %s"
 
 #: app/controllers/web/admin/incident_update.py:153
 #, python-format
 msgid "Edit Incident Update  · %s"
-msgstr ""
+msgstr "Modifier la mise à jour d'incident  · %s"
 
 #: app/controllers/web/admin/logout.py:21
 msgid "You've been logged out successfully"
-msgstr ""
+msgstr "Déconnexion réussie."
 
 #: app/controllers/web/admin/metric.py:33
 #, python-format
 msgid "Metrics · %s"
-msgstr ""
+msgstr "Indicateurs · %s"
 
 #: app/controllers/web/admin/metric.py:51
 #, python-format
 msgid "Add a Metric · %s"
-msgstr ""
+msgstr "Ajouter un indicateur · %s"
 
 #: app/controllers/web/admin/metric.py:74
 #, python-format
 msgid "Edit Metric · %s"
-msgstr ""
+msgstr "Modifier un indicateur · %s"
 
 #: app/controllers/web/admin/notification.py:32
 #, python-format
 msgid "Notification · %s"
-msgstr ""
+msgstr "Notification · %s"
 
 #: app/controllers/web/admin/profile.py:34
 #, python-format
 msgid "Profile · %s"
-msgstr ""
+msgstr "Profil · %s"
 
 #: app/controllers/web/admin/settings.py:55
 #, python-format
 msgid "Settings · %s"
-msgstr ""
+msgstr "Paramètres · %s"
 
 #: app/controllers/web/admin/subscriber.py:32
 #, python-format
 msgid "Subscribers · %s"
-msgstr ""
+msgstr "Abonnés · %s"
 
 #: app/controllers/web/admin/subscriber.py:50
 #, python-format
 msgid "Add an Subscriber · %s"
-msgstr ""
+msgstr "Ajouter un abonné · %s"
 
 #: app/controllers/web/admin/subscriber.py:73
 #, python-format
 msgid "Edit Subscriber · %s"
-msgstr ""
+msgstr "Modifier l'abonné · %s"
 
 #: app/controllers/web/admin/user.py:32
 #, python-format
 msgid "Users · %s"
-msgstr ""
+msgstr "Utilisateurs · %s"
 
 #: app/controllers/web/admin/user.py:50
 #, python-format
 msgid "Add a User · %s"
-msgstr ""
+msgstr "Ajouter un utilisateur · %s"
 
 #: app/controllers/web/admin/user.py:73
 #, python-format
 msgid "Edit User · %s"
-msgstr ""
+msgstr "Modifier l'utilisateur · %s"
 
 #: app/controllers/web/error.py:30
 #, python-format
 msgid "500 · %s"
-msgstr ""
+msgstr "500 · %s"
 
 #: app/controllers/web/forgot_password.py:35
 #, python-format
 msgid "Forgot Password · %s"
-msgstr ""
+msgstr "Mot de passe oublié · %s"
 
 #: app/controllers/web/install.py:37
 #, python-format
 msgid "Installation · %s"
-msgstr ""
+msgstr "Installation · %s"
 
 #: app/controllers/web/login.py:36
 #, python-format
 msgid "Login · %s"
-msgstr ""
+msgstr "Connexion · %s"
 
 #: app/controllers/web/not_found.py:31
 #, python-format
 msgid "404 · %s"
-msgstr ""
+msgstr "404 · %s"
 
 #: app/controllers/web/register.py:39
 msgid ""
 "Register token is expired or invalid, Please contact system administrator!"
 msgstr ""
+"Le jeton d'inscription n'est pas valide ou a expiré, veuillez contacter votre administrateur système."
 
 #: app/controllers/web/register.py:44
 #, python-format
 msgid "Register · %s"
-msgstr ""
+msgstr "Inscription · %s"
 
 #: app/controllers/web/reset_password.py:40
 #, python-format
 msgid "Reset Password · %s"
-msgstr ""
+msgstr "Réinitialiser le mot de passe · %s"
 
 #: app/controllers/web/reset_password.py:45
 msgid "Reset token is expired or invalid, Please request another token!"
-msgstr ""
+msgstr "Le jeton de réinitialisation n'est pas valide ou a expiré, veuillez demander un autre jeton."
 
 #: app/middleware/errors.py:30
 #, python-format
@@ -857,232 +862,235 @@ msgid ""
 "The server encountered something unexpected! %(method)s:%(path)s  - %(name)s "
 "- %(exception)s"
 msgstr ""
+"Le serveur a rencontré une erreur inattendue. %(method)s:%(path)s  - %(name)s "
+"- %(exception)s"
 
 #: app/middleware/errors.py:43
 msgid "Something goes wrong! Please contact a system administrator."
-msgstr ""
+msgstr "Une erreur est survenue. Veuillez contacter un administrateur système."
 
 #: app/middleware/logging.py:23
 #, python-format
 msgid "Request Method: %(method)s {'correlationId':'%(correlationId)s'}"
-msgstr ""
+msgstr "Méthode de la requête : %(method)s {'correlationId':'%(correlationId)s'}"
 
 #: app/middleware/logging.py:27
 #, python-format
 msgid "Request URL: %(path)s {'correlationId':'%(correlationId)s'}"
-msgstr ""
+msgstr "URL de la requête : %(path)s {'correlationId':'%(correlationId)s'}"
 
 #: app/middleware/logging.py:31
 #, python-format
 msgid "Request Body: %(body)s {'correlationId':'%(correlationId)s'}"
-msgstr ""
+msgstr "Corps de la requête : %(body)s {'correlationId':'%(correlationId)s'}"
 
 #: app/modules/core/decorators.py:41
 msgid "Error! Access forbidden for authenticated users."
-msgstr ""
+msgstr "Erreur : accès interdit pour les utilisateurs authentifiés."
 
 #: app/modules/core/decorators.py:83
 #, python-format
 msgid "Request Method: %s"
-msgstr ""
+msgstr "Méthode de la requête : %s"
 
 #: app/modules/core/decorators.py:84
 #, python-format
 msgid "Request URL: %s"
-msgstr ""
+msgstr "URL de la requête : %s"
 
 #: app/modules/core/decorators.py:85
 #, python-format
 msgid "Request Body: %s"
-msgstr ""
+msgstr "Corps de la requête : %s"
 
 #: app/modules/core/forgot_password.py:95
 #, python-format
 msgid "%s Password Reset"
-msgstr ""
+msgstr "%s Réinitialisation de mot de passe"
 
 #: app/modules/core/request.py:33
 msgid "App Incoming Request: "
-msgstr ""
+msgstr "Requête d'application entrante : "
 
 #: app/modules/core/response.py:28 app/modules/core/response.py:38
 #: app/modules/core/response.py:52 app/modules/core/response.py:62
 #: app/modules/core/response.py:72
 msgid "App Response: "
-msgstr ""
+msgstr "Réponse de l'application : "
 
 #: app/modules/core/status_page.py:54
 #, python-format
 msgid "Incident Report for %s"
-msgstr ""
+msgstr "Rapport d'incident pour %s"
 
 #: app/modules/core/user.py:143
 #, python-format
 msgid "%s Signup Invitation"
-msgstr ""
+msgstr "%s Invitation à s'inscrire"
 
 #: app/modules/util/humanize.py:24
 msgid "just now"
-msgstr ""
+msgstr "à l'instant"
 
 #: app/modules/util/humanize.py:26
 #, python-format
 msgid "%s seconds ago"
-msgstr ""
+msgstr "il y a %s secondes"
 
 #: app/modules/util/humanize.py:28
 msgid "a minute ago"
-msgstr ""
+msgstr "il y a une minute"
 
 #: app/modules/util/humanize.py:30
 #, python-format
 msgid "%s minutes ago"
-msgstr ""
+msgstr "il y a %s minutes"
 
 #: app/modules/util/humanize.py:34
 #, python-format
 msgid "%s hours ago"
-msgstr ""
+msgstr "il y a %s heures"
 
 #: app/modules/util/humanize.py:39
 #, python-format
 msgid "%s days ago"
-msgstr ""
+msgstr "il y a %s jours"
 
 #: app/modules/util/humanize.py:41
 #, python-format
 msgid "%s weeks ago"
-msgstr ""
+msgstr "il y a %s semaines"
 
 #: app/modules/util/humanize.py:43
 #, python-format
 msgid "%s months ago"
-msgstr ""
+msgstr "il y a %s mois"
 
 #: app/modules/util/humanize.py:45
 #, python-format
 msgid "%s years ago"
-msgstr ""
+msgstr "il y a %s ans"
 
 #: app/settings/basic.py:217
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: app/settings/basic.py:218
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: app/settings/basic.py:219
 msgid "Deutsch"
-msgstr ""
+msgstr "Allemand"
 
 #: app/tasks/notify_subscriber.py:51 app/tasks/notify_subscriber.py:89
 #, python-format
 msgid "%(app_name)s Incident Update: %(incident_name)s"
-msgstr ""
+msgstr "Mise à jour d'incident pour %(app_name)s : %(incident_name)s"
 
 #: themes/default/layouts/mail.html:293
 msgid "Sent with"
-msgstr ""
+msgstr "Envoyé avec"
 
 #: themes/default/layouts/mail.html:293
 msgid "from"
-msgstr ""
+msgstr "de"
 
 #: themes/default/mails/incident_update.html:8
 #: themes/default/mails/register_invitation.html:8
 #: themes/default/mails/reset_password.html:8
 msgid "Hi there,"
-msgstr ""
+msgstr "Bonjour,"
 
 #: themes/default/mails/incident_update.html:17
 msgid "Posted"
-msgstr ""
+msgstr "Publié"
 
 #: themes/default/mails/incident_update.html:29
 msgid "Incident Report"
-msgstr ""
+msgstr "Rapport d'incident"
 
 #: themes/default/mails/incident_update.html:37
 #: themes/default/mails/register_invitation.html:26
 #: themes/default/mails/reset_password.html:26
 msgid "Thanks,"
-msgstr ""
+msgstr "Merci,"
 
 #: themes/default/mails/incident_update.html:37
 #: themes/default/mails/register_invitation.html:26
 #: themes/default/mails/reset_password.html:26
 msgid "Team"
-msgstr ""
+msgstr "L'équipe"
 
 #: themes/default/mails/register_invitation.html:9
 msgid "Someone invited you to create your account."
-msgstr ""
+msgstr "Vous avez reçu une invitation pour créer votre compte."
 
 #: themes/default/mails/register_invitation.html:17
 msgid "Create Account"
-msgstr ""
+msgstr "Créer un compte"
 
 #: themes/default/mails/register_invitation.html:25
 msgid "You can safely ignore this email :)"
-msgstr ""
+msgstr "Vous pouvez ignorer ce message :)"
 
 #: themes/default/mails/reset_password.html:9
 msgid "Someone requested a new password for your account."
-msgstr ""
+msgstr "Nous avons reçu une demande de réinitialisation pour le mot de passe de votre compte."
 
 #: themes/default/mails/reset_password.html:17
 msgid "Reset Your Password"
-msgstr ""
+msgstr "Réinitialisez votre mot de passe"
 
 #: themes/default/mails/reset_password.html:25
 msgid ""
 "If you didn't make this request then you can safely ignore this email :)"
 msgstr ""
+"Veuillez ignorer cet e-mail s'il ne fait pas suite à une requête de votre part :)"
 
 #: themes/default/partials/bottom-menu.html:15
 #: themes/default/templates/install.html:46
 msgid "Copyright"
-msgstr ""
+msgstr "Copyright"
 
 #: themes/default/partials/bottom-menu.html:15
 msgid "All Rights Reserved."
-msgstr ""
+msgstr "Tous droits réservés."
 
 #: themes/default/partials/header.html:21
 msgid "Are you sure!"
-msgstr ""
+msgstr "Êtes-vous sûr(e) ?"
 
 #: themes/default/partials/top-menu.html:27
 msgid "View All"
-msgstr ""
+msgstr "Afficher tout"
 
 #: themes/default/partials/top-menu.html:39
 #: themes/default/templates/admin/dashboard.html:13
 msgid "Dashboard"
-msgstr ""
+msgstr "Tableau de bord"
 
 #: themes/default/partials/top-menu.html:42
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: themes/default/partials/top-menu.html:45
 #: themes/default/templates/admin/activity.html:28
 msgid "Activity"
-msgstr ""
+msgstr "Activité"
 
 #: themes/default/partials/top-menu.html:48
 #: themes/default/templates/admin/component_group/list.html:26
 #: themes/default/templates/admin/dashboard.html:49
 msgid "Component Groups"
-msgstr ""
+msgstr "Groupes de composants"
 
 #: themes/default/partials/top-menu.html:51
 #: themes/default/templates/admin/component/list.html:26
 #: themes/default/templates/admin/component_group/list.html:40
 #: themes/default/templates/admin/dashboard.html:40
 msgid "Components"
-msgstr ""
+msgstr "Composants"
 
 #: themes/default/partials/top-menu.html:54
 #: themes/default/templates/admin/dashboard.html:22
@@ -1090,14 +1098,14 @@ msgstr ""
 #: themes/default/templates/admin/dashboard.html:431
 #: themes/default/templates/admin/incident/list.html:27
 msgid "Incidents"
-msgstr ""
+msgstr "Incidents"
 
 #: themes/default/partials/top-menu.html:57
 #: themes/default/templates/admin/builder.html:121
 #: themes/default/templates/admin/metric/list.html:26
 #: themes/default/templates/status_page_index.html:140
 msgid "System Metrics"
-msgstr ""
+msgstr "Indicateurs système"
 
 #: themes/default/partials/top-menu.html:60
 #: themes/default/templates/admin/dashboard.html:31
@@ -1105,58 +1113,58 @@ msgstr ""
 #: themes/default/templates/admin/dashboard.html:236
 #: themes/default/templates/admin/subscriber/list.html:26
 msgid "Subscribers"
-msgstr ""
+msgstr "Abonnés"
 
 #: themes/default/partials/top-menu.html:64
 msgid "Status Page Builder"
-msgstr ""
+msgstr "Générateur de page de statut"
 
 #: themes/default/partials/top-menu.html:67
 #: themes/default/templates/admin/dashboard.html:67
 #: themes/default/templates/admin/user/list.html:26
 msgid "Users"
-msgstr ""
+msgstr "Utilisateurs"
 
 #: themes/default/partials/top-menu.html:70
 #: themes/default/templates/admin/settings.html:16
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: themes/default/partials/top-menu.html:75
 msgid "Logout"
-msgstr ""
+msgstr "Déconnexion"
 
 #: themes/default/templates/404.html:8
 msgid "404"
-msgstr ""
+msgstr "404"
 
 #: themes/default/templates/404.html:9
 msgid "Page Not Found"
-msgstr ""
+msgstr "Page introuvable"
 
 #: themes/default/templates/404.html:10
 msgid "Sorry, but the page you are looking for not found!"
-msgstr ""
+msgstr "Désolé, la page que vous recherchez est introuvable."
 
 #: themes/default/templates/404.html:12 themes/default/templates/500.html:12
 msgid "Go back"
-msgstr ""
+msgstr "Retour"
 
 #: themes/default/templates/500.html:8
 msgid "500"
-msgstr ""
+msgstr "500"
 
 #: themes/default/templates/500.html:9
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Erreur interne du serveur"
 
 #: themes/default/templates/500.html:10
 msgid "The server encountered something unexpected!"
-msgstr ""
+msgstr "Le serveur a rencontré une erreur inattendue."
 
 #: themes/default/templates/admin/activity.html:8
 msgid "No activities yet!"
-msgstr ""
+msgstr "Aucune activité pour l'instant."
 
 #: themes/default/templates/admin/activity.html:29
 #: themes/default/templates/admin/component/list.html:41
@@ -1169,33 +1177,35 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:41
 #: themes/default/templates/admin/user/list.html:42
 msgid "Created"
-msgstr ""
+msgstr "Créé"
 
 #: themes/default/templates/admin/builder.html:19
 msgid "Headline"
-msgstr ""
+msgstr "Titre"
 
 #: themes/default/templates/admin/builder.html:21
 msgid ""
 "This text will appear at the top of your page. It's set to your service name "
 "by default."
 msgstr ""
+"Ce texte s'affichera en haut de votre page. Il est défini par défaut avec le nom "
+"de votre service."
 
 #: themes/default/templates/admin/builder.html:26
 msgid "Fav icon URL"
-msgstr ""
+msgstr "URL d'icône favorite"
 
 #: themes/default/templates/admin/builder.html:33
 msgid "Cover image URL"
-msgstr ""
+msgstr "URL d'image de couverture"
 
 #: themes/default/templates/admin/builder.html:39
 msgid "About"
-msgstr ""
+msgstr "À propos"
 
 #: themes/default/templates/admin/builder.html:41
 msgid "This text is placed at the top of the status page for your visitors."
-msgstr ""
+msgstr "Ce texte s'affichera en haut de la page de statut pour vos visiteurs."
 
 #: themes/default/templates/admin/builder.html:48
 #: themes/default/templates/admin/profile.html:71
@@ -1207,11 +1217,11 @@ msgstr ""
 #: themes/default/templates/status_page_index.html:33
 #: themes/default/templates/status_page_single.html:34
 msgid "Submit"
-msgstr ""
+msgstr "Envoyer"
 
 #: themes/default/templates/admin/builder.html:64
 msgid "Component / Component Group"
-msgstr ""
+msgstr "Composant / Groupe de composants"
 
 #: themes/default/templates/admin/builder.html:65
 #: themes/default/templates/admin/builder.html:122
@@ -1224,25 +1234,25 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:9
 #: themes/default/templates/admin/user/list.html:9
 msgid "Actions"
-msgstr ""
+msgstr "Actions"
 
 #: themes/default/templates/admin/builder.html:73
 msgid "Please select a component or a group"
-msgstr ""
+msgstr "Veuillez sélectionner un composant ou un groupe."
 
 #: themes/default/templates/admin/builder.html:90
 #: themes/default/templates/admin/incident/update/view.html:118
 msgid "Please select a component"
-msgstr ""
+msgstr "Veuillez sélectionner un composant."
 
 #: themes/default/templates/admin/builder.html:130
 #: themes/default/templates/admin/builder.html:144
 msgid "Please select a metric"
-msgstr ""
+msgstr "Veuillez sélectionner un indicateur."
 
 #: themes/default/templates/admin/component/add.html:15
 msgid "Add a New Component"
-msgstr ""
+msgstr "Ajouter un nouveau composant"
 
 #: themes/default/templates/admin/component/add.html:21
 #: themes/default/templates/admin/component/edit.html:21
@@ -1255,12 +1265,12 @@ msgstr ""
 #: themes/default/templates/admin/incident/edit.html:21
 #: themes/default/templates/admin/incident/list.html:40
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: themes/default/templates/admin/component/add.html:22
 #: themes/default/templates/admin/component/edit.html:22
 msgid "Enter component name"
-msgstr ""
+msgstr "Entrer un nom pour le composant"
 
 #: themes/default/templates/admin/component/add.html:25
 #: themes/default/templates/admin/component/edit.html:25
@@ -1269,19 +1279,19 @@ msgstr ""
 #: themes/default/templates/admin/metric/add.html:33
 #: themes/default/templates/admin/metric/edit.html:37
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: themes/default/templates/admin/component/add.html:26
 #: themes/default/templates/admin/component/edit.html:26
 msgid "Enter component description"
-msgstr ""
+msgstr "Entrer une description pour le composant"
 
 #: themes/default/templates/admin/component/add.html:29
 #: themes/default/templates/admin/component/edit.html:29
 #: themes/default/templates/admin/component_group/add.html:29
 #: themes/default/templates/admin/component_group/edit.html:29
 msgid "Uptime"
-msgstr ""
+msgstr "Temps d'activité"
 
 #: themes/default/templates/admin/component/add.html:31
 #: themes/default/templates/admin/component/add.html:39
@@ -1306,7 +1316,7 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/edit.html:23
 #: themes/default/templates/admin/subscriber/edit.html:60
 msgid "Please Select a Value"
-msgstr ""
+msgstr "Veuillez sélectionner une valeur"
 
 #: themes/default/templates/admin/component/add.html:32
 #: themes/default/templates/admin/component/edit.html:32
@@ -1316,7 +1326,7 @@ msgstr ""
 #: themes/default/templates/admin/incident/update/edit.html:55
 #: themes/default/templates/admin/incident/update/view.html:39
 msgid "On"
-msgstr ""
+msgstr "Activé"
 
 #: themes/default/templates/admin/component/add.html:33
 #: themes/default/templates/admin/component/edit.html:33
@@ -1326,13 +1336,13 @@ msgstr ""
 #: themes/default/templates/admin/incident/update/edit.html:56
 #: themes/default/templates/admin/incident/update/view.html:41
 msgid "Off"
-msgstr ""
+msgstr "Désactivé"
 
 #: themes/default/templates/admin/component/add.html:37
 #: themes/default/templates/admin/component/edit.html:37
 #: themes/default/templates/admin/component/list.html:40
 msgid "Group"
-msgstr ""
+msgstr "Groupe"
 
 #: themes/default/templates/admin/component/add.html:50
 #: themes/default/templates/admin/component/edit.html:50
@@ -1349,11 +1359,11 @@ msgstr ""
 #: themes/default/templates/admin/user/add.html:61
 #: themes/default/templates/admin/user/edit.html:60
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #: themes/default/templates/admin/component/edit.html:15
 msgid "Edit Component"
-msgstr ""
+msgstr "Modifier le composant"
 
 #: themes/default/templates/admin/component/list.html:8
 #: themes/default/templates/admin/component_group/list.html:8
@@ -1364,7 +1374,7 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:8
 #: themes/default/templates/admin/user/list.html:8
 msgid "Manage"
-msgstr ""
+msgstr "Gérer"
 
 #: themes/default/templates/admin/component/list.html:10
 #: themes/default/templates/admin/component_group/list.html:10
@@ -1374,7 +1384,7 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:10
 #: themes/default/templates/admin/user/list.html:10
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: themes/default/templates/admin/component/list.html:11
 #: themes/default/templates/admin/component_group/list.html:11
@@ -1384,54 +1394,54 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/list.html:11
 #: themes/default/templates/admin/user/list.html:11
 msgid "Edit"
-msgstr ""
+msgstr "Modifier"
 
 #: themes/default/templates/admin/component/list.html:12
 msgid "You miss a lot of fun, create some components!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques composants !"
 
 #: themes/default/templates/admin/component/list.html:28
 msgid "New Component"
-msgstr ""
+msgstr "Nouveau composant"
 
 #: themes/default/templates/admin/component_group/add.html:15
 msgid "Add a New Component Group"
-msgstr ""
+msgstr "Ajouter un nouveau groupe de composants"
 
 #: themes/default/templates/admin/component_group/add.html:22
 #: themes/default/templates/admin/component_group/edit.html:22
 msgid "Enter group name"
-msgstr ""
+msgstr "Entrer un nom pour le groupe"
 
 #: themes/default/templates/admin/component_group/add.html:26
 #: themes/default/templates/admin/component_group/edit.html:26
 msgid "Enter group description"
-msgstr ""
+msgstr "Entrer une description pour le groupe"
 
 #: themes/default/templates/admin/component_group/edit.html:15
 msgid "Edit Component Group"
-msgstr ""
+msgstr "Modifier le groupe de composants"
 
 #: themes/default/templates/admin/component_group/list.html:12
 msgid "You miss a lot of fun, create some groups!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques groupes !"
 
 #: themes/default/templates/admin/component_group/list.html:28
 msgid "New Component Group"
-msgstr ""
+msgstr "Nouveau groupe de composants"
 
 #: themes/default/templates/admin/dashboard.html:58
 msgid "Metrics"
-msgstr ""
+msgstr "Indicateurs"
 
 #: themes/default/templates/admin/dashboard.html:86
 #: themes/default/templates/admin/dashboard.html:300
 msgid "Affected Components"
-msgstr ""
+msgstr "Composants affectés"
 
 #: themes/default/templates/admin/dashboard.html:93
 msgid "Component"
-msgstr ""
+msgstr "Composant"
 
 #: themes/default/templates/admin/dashboard.html:94
 #: themes/default/templates/admin/dashboard.html:180
@@ -1445,171 +1455,171 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/edit.html:58
 #: themes/default/templates/admin/subscriber/list.html:40
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 #: themes/default/templates/admin/dashboard.html:110
 msgid "Nice! No affected components today!"
-msgstr ""
+msgstr "Parfait, aucun composant affecté aujourd'hui."
 
 #: themes/default/templates/admin/dashboard.html:125
 #: themes/default/templates/admin/incident/view.html:56
 msgid "Notifications"
-msgstr ""
+msgstr "Notifications"
 
 #: themes/default/templates/admin/dashboard.html:139
 msgid "Total Delivered"
-msgstr ""
+msgstr "Total livrés"
 
 #: themes/default/templates/admin/dashboard.html:151
 msgid "Total Failed"
-msgstr ""
+msgstr "Total des échecs"
 
 #: themes/default/templates/admin/dashboard.html:173
 msgid "Open Incidents"
-msgstr ""
+msgstr "Incidents ouverts"
 
 #: themes/default/templates/admin/dashboard.html:202
 msgid "Nice! No open incidents."
-msgstr ""
+msgstr "Parfait, aucun incident ouvert."
 
 #: themes/default/templates/admin/dashboard.html:366
 msgid "Deliverd"
-msgstr ""
+msgstr "Livré"
 
 #: themes/default/templates/admin/dashboard.html:367
 #: themes/default/templates/admin/incident/update/view.html:169
 msgid "Failed"
-msgstr ""
+msgstr "Échoué"
 
 #: themes/default/templates/admin/incident/add.html:15
 msgid "Add a New Incident"
-msgstr ""
+msgstr "Ajouter un nouvel incident"
 
 #: themes/default/templates/admin/incident/add.html:22
 #: themes/default/templates/admin/incident/edit.html:22
 msgid "Enter incident name"
-msgstr ""
+msgstr "Entrer un nom pour l'incident"
 
 #: themes/default/templates/admin/incident/add.html:28
 #: themes/default/templates/admin/incident/edit.html:28
 msgid "Open"
-msgstr ""
+msgstr "Ouvrir"
 
 #: themes/default/templates/admin/incident/add.html:29
 #: themes/default/templates/admin/incident/edit.html:29
 msgid "Closed"
-msgstr ""
+msgstr "Fermés"
 
 #: themes/default/templates/admin/incident/edit.html:15
 msgid "Edit Incident"
-msgstr ""
+msgstr "Modifier l'incident"
 
 #: themes/default/templates/admin/incident/list.html:12
 #: themes/default/templates/admin/incident/view.html:12
 msgid "View"
-msgstr ""
+msgstr "Afficher"
 
 #: themes/default/templates/admin/incident/list.html:13
 msgid "You miss a lot of fun, create some incidents!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques incidents !"
 
 #: themes/default/templates/admin/incident/list.html:29
 msgid "New Incident"
-msgstr ""
+msgstr "Nouvel incident"
 
 #: themes/default/templates/admin/incident/update/add.html:30
 msgid "Add a New Update"
-msgstr ""
+msgstr "Ajouter une nouvelle mise à jour"
 
 #: themes/default/templates/admin/incident/update/add.html:36
 #: themes/default/templates/admin/incident/update/edit.html:36
 msgid "Datetime"
-msgstr ""
+msgstr "Date/Heure"
 
 #: themes/default/templates/admin/incident/update/add.html:38
 #: themes/default/templates/admin/incident/update/edit.html:38
 msgid "For example"
-msgstr ""
+msgstr "Par exemple"
 
 #: themes/default/templates/admin/incident/update/add.html:44
 #: themes/default/templates/admin/incident/update/edit.html:44
 msgid "Investigating"
-msgstr ""
+msgstr "Examen en cours"
 
 #: themes/default/templates/admin/incident/update/add.html:45
 #: themes/default/templates/admin/incident/update/edit.html:45
 msgid "Identified"
-msgstr ""
+msgstr "Identifié"
 
 #: themes/default/templates/admin/incident/update/add.html:46
 #: themes/default/templates/admin/incident/update/edit.html:46
 msgid "Monitoring"
-msgstr ""
+msgstr "Suivi en cours"
 
 #: themes/default/templates/admin/incident/update/add.html:47
 #: themes/default/templates/admin/incident/update/edit.html:47
 #: themes/default/templates/admin/profile.html:168
 #: themes/default/templates/admin/profile.html:179
 msgid "Update"
-msgstr ""
+msgstr "Mise à jour"
 
 #: themes/default/templates/admin/incident/update/add.html:48
 #: themes/default/templates/admin/incident/update/edit.html:48
 msgid "Resolved"
-msgstr ""
+msgstr "Résolu"
 
 #: themes/default/templates/admin/incident/update/add.html:52
 #: themes/default/templates/admin/incident/update/edit.html:52
 msgid "Notify Subscribers"
-msgstr ""
+msgstr "Notifier les abonnés"
 
 #: themes/default/templates/admin/incident/update/add.html:60
 #: themes/default/templates/admin/incident/update/edit.html:60
 msgid "Message (Markdown)"
-msgstr ""
+msgstr "Message (Markdown)"
 
 #: themes/default/templates/admin/incident/update/add.html:61
 #: themes/default/templates/admin/incident/update/edit.html:61
 msgid "Enter update message"
-msgstr ""
+msgstr "Entrer un message pour la mise à jour"
 
 #: themes/default/templates/admin/incident/update/edit.html:30
 msgid "Edit Update"
-msgstr ""
+msgstr "Modifier la mise à jour"
 
 #: themes/default/templates/admin/incident/update/view.html:29
 #: themes/default/templates/admin/notification.html:30
 msgid "Notification"
-msgstr ""
+msgstr "Notification"
 
 #: themes/default/templates/admin/incident/update/view.html:39
 #: themes/default/templates/admin/incident/update/view.html:41
 msgid "Notify Subscribers:"
-msgstr ""
+msgstr "Notifier les abonnés :"
 
 #: themes/default/templates/admin/incident/update/view.html:43
 msgid "Total Subscribers:"
-msgstr ""
+msgstr "Nombre total d'abonnés :"
 
 #: themes/default/templates/admin/incident/update/view.html:44
 msgid "Delivered Notifications:"
-msgstr ""
+msgstr "Notifications livrées :"
 
 #: themes/default/templates/admin/incident/update/view.html:45
 msgid "Failed Notifications:"
-msgstr ""
+msgstr "Notifications ayant échoué :"
 
 #: themes/default/templates/admin/incident/update/view.html:50
 msgid "Deliver"
-msgstr ""
+msgstr "Livrer"
 
 #: themes/default/templates/admin/incident/update/view.html:62
 msgid "Incident Update"
-msgstr ""
+msgstr "Mise à jour d'incident"
 
 #: themes/default/templates/admin/incident/update/view.html:87
 msgid "Affected Component"
-msgstr ""
+msgstr "Composant affecté"
 
 #: themes/default/templates/admin/incident/update/view.html:88
 #: themes/default/templates/admin/incident/view.html:55
@@ -1617,189 +1627,189 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/edit.html:21
 #: themes/default/templates/admin/subscriber/list.html:39
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: themes/default/templates/admin/incident/update/view.html:102
 msgid "N/A"
-msgstr ""
+msgstr "Non applicable"
 
 #: themes/default/templates/admin/incident/update/view.html:103
 #: themes/default/templates/admin/incident/update/view.html:127
 msgid "Operational"
-msgstr ""
+msgstr "Opérationnel"
 
 #: themes/default/templates/admin/incident/update/view.html:104
 #: themes/default/templates/admin/incident/update/view.html:128
 msgid "Degraded Performance"
-msgstr ""
+msgstr "Performances dégradées"
 
 #: themes/default/templates/admin/incident/update/view.html:105
 #: themes/default/templates/admin/incident/update/view.html:129
 msgid "Partial Outage"
-msgstr ""
+msgstr "Défaillance partielle"
 
 #: themes/default/templates/admin/incident/update/view.html:106
 #: themes/default/templates/admin/incident/update/view.html:130
 msgid "Major Outage"
-msgstr ""
+msgstr "Défaillance majeure"
 
 #: themes/default/templates/admin/incident/update/view.html:107
 #: themes/default/templates/admin/incident/update/view.html:131
 msgid "Maintenance"
-msgstr ""
+msgstr "Maintenance"
 
 #: themes/default/templates/admin/incident/update/view.html:126
 msgid "Please select a type"
-msgstr ""
+msgstr "Veuillez sélectionner un type."
 
 #: themes/default/templates/admin/incident/update/view.html:168
 msgid "Delivered"
-msgstr ""
+msgstr "Livré"
 
 #: themes/default/templates/admin/incident/view.html:13
 msgid "You miss a lot of fun, create some updates!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques mises à jour !"
 
 #: themes/default/templates/admin/incident/view.html:42
 msgid "Incident Updates"
-msgstr ""
+msgstr "Mises à jour d'incident"
 
 #: themes/default/templates/admin/incident/view.html:44
 msgid "New Update"
-msgstr ""
+msgstr "Nouvelle mise à jour"
 
 #: themes/default/templates/admin/incident/view.html:57
 msgid "Progress"
-msgstr ""
+msgstr "Progression"
 
 #: themes/default/templates/admin/incident/view.html:58
 msgid "Time"
-msgstr ""
+msgstr "Heure"
 
 #: themes/default/templates/admin/metric/add.html:23
 msgid "Add a New System Metric"
-msgstr ""
+msgstr "Ajouter un nouvel indicateur système"
 
 #: themes/default/templates/admin/metric/add.html:29
 #: themes/default/templates/admin/metric/edit.html:33
 #: themes/default/templates/admin/metric/list.html:39
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: themes/default/templates/admin/metric/add.html:30
 #: themes/default/templates/admin/metric/edit.html:34
 msgid "Enter title"
-msgstr ""
+msgstr "Entrer un titre"
 
 #: themes/default/templates/admin/metric/add.html:34
 #: themes/default/templates/admin/metric/edit.html:38
 msgid "Enter description"
-msgstr ""
+msgstr "Entrer une description"
 
 #: themes/default/templates/admin/metric/add.html:37
 #: themes/default/templates/admin/metric/edit.html:41
 msgid "X-Axis"
-msgstr ""
+msgstr "Axe X"
 
 #: themes/default/templates/admin/metric/add.html:38
 #: themes/default/templates/admin/metric/edit.html:42
 msgid "X-Axis title"
-msgstr ""
+msgstr "Titre pour l'axe X"
 
 #: themes/default/templates/admin/metric/add.html:41
 #: themes/default/templates/admin/metric/edit.html:45
 msgid "Y-Axis"
-msgstr ""
+msgstr "Axe Y"
 
 #: themes/default/templates/admin/metric/add.html:42
 #: themes/default/templates/admin/metric/edit.html:46
 msgid "Y-Axis title"
-msgstr ""
+msgstr "Titre pour l'axe Y"
 
 #: themes/default/templates/admin/metric/add.html:45
 #: themes/default/templates/admin/metric/edit.html:49
 #: themes/default/templates/admin/metric/list.html:40
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 #: themes/default/templates/admin/metric/add.html:48
 #: themes/default/templates/admin/metric/edit.html:52
 msgid "New Relic"
-msgstr ""
+msgstr "New Relic"
 
 #: themes/default/templates/admin/metric/add.html:53
 #: themes/default/templates/admin/metric/edit.html:57
 msgid "Application"
-msgstr ""
+msgstr "Application"
 
 #: themes/default/templates/admin/metric/add.html:62
 #: themes/default/templates/admin/metric/edit.html:66
 msgid "APM Metric"
-msgstr ""
+msgstr "Indicateur APM"
 
 #: themes/default/templates/admin/metric/add.html:65
 #: themes/default/templates/admin/metric/edit.html:69
 msgid "Apdex"
-msgstr ""
+msgstr "Apdex"
 
 #: themes/default/templates/admin/metric/add.html:66
 #: themes/default/templates/admin/metric/edit.html:70
 msgid "Error Rate"
-msgstr ""
+msgstr "Taux d'erreur"
 
 #: themes/default/templates/admin/metric/add.html:67
 #: themes/default/templates/admin/metric/edit.html:71
 msgid "Throughput"
-msgstr ""
+msgstr "Débit"
 
 #: themes/default/templates/admin/metric/add.html:68
 #: themes/default/templates/admin/metric/edit.html:72
 msgid "Errors"
-msgstr ""
+msgstr "Erreurs"
 
 #: themes/default/templates/admin/metric/add.html:69
 #: themes/default/templates/admin/metric/edit.html:73
 msgid "Response Time"
-msgstr ""
+msgstr "Délai de réponse"
 
 #: themes/default/templates/admin/metric/add.html:70
 #: themes/default/templates/admin/metric/edit.html:74
 msgid "Real User Response Time"
-msgstr ""
+msgstr "Délai de réponse utilisateur réel"
 
 #: themes/default/templates/admin/metric/add.html:71
 #: themes/default/templates/admin/metric/edit.html:75
 msgid "Real User Apdex"
-msgstr ""
+msgstr "Apdex utilisateur réel"
 
 #: themes/default/templates/admin/metric/edit.html:27
 msgid "Edit System Metric"
-msgstr ""
+msgstr "Modifier l'indicateur système"
 
 #: themes/default/templates/admin/metric/list.html:12
 msgid "You miss a lot of fun, create some metrics!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques indicateurs."
 
 #: themes/default/templates/admin/metric/list.html:28
 msgid "New Metric"
-msgstr ""
+msgstr "Nouvel indicateur"
 
 #: themes/default/templates/admin/notification.html:8
 msgid "No notifications yet!"
-msgstr ""
+msgstr "Aucune notification pour l'instant."
 
 #: themes/default/templates/admin/profile.html:58
 msgid "Old Password"
-msgstr ""
+msgstr "Ancien mot de passe"
 
 #: themes/default/templates/admin/profile.html:63
 #: themes/default/templates/reset_password.html:21
 msgid "New Password"
-msgstr ""
+msgstr "Nouveau mot de passe"
 
 #: themes/default/templates/admin/profile.html:85
 msgid "Edit Profile"
-msgstr ""
+msgstr "Modifier le profil"
 
 #: themes/default/templates/admin/profile.html:89
 #: themes/default/templates/admin/user/add.html:48
@@ -1807,7 +1817,7 @@ msgstr ""
 #: themes/default/templates/admin/user/list.html:39
 #: themes/default/templates/register.html:29
 msgid "Username"
-msgstr ""
+msgstr "Nom d'utilisateur"
 
 #: themes/default/templates/admin/profile.html:95
 #: themes/default/templates/admin/user/add.html:21
@@ -1815,125 +1825,125 @@ msgstr ""
 #: themes/default/templates/forgot_password.html:31
 #: themes/default/templates/register.html:33
 msgid "Email address"
-msgstr ""
+msgstr "Adresse e-mail"
 
 #: themes/default/templates/admin/profile.html:101
 #: themes/default/templates/admin/user/add.html:40
 #: themes/default/templates/admin/user/edit.html:21
 #: themes/default/templates/register.html:21
 msgid "First Name"
-msgstr ""
+msgstr "Prénom"
 
 #: themes/default/templates/admin/profile.html:107
 #: themes/default/templates/admin/user/add.html:44
 #: themes/default/templates/admin/user/edit.html:25
 #: themes/default/templates/register.html:25
 msgid "Last Name"
-msgstr ""
+msgstr "Nom"
 
 #: themes/default/templates/admin/profile.html:113
 msgid "Job Title"
-msgstr ""
+msgstr "Poste"
 
 #: themes/default/templates/admin/profile.html:119
 msgid "Company"
-msgstr ""
+msgstr "Société"
 
 #: themes/default/templates/admin/profile.html:125
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #: themes/default/templates/admin/profile.html:131
 msgid "Github URL"
-msgstr ""
+msgstr "URL Github"
 
 #: themes/default/templates/admin/profile.html:137
 msgid "Facebook URL"
-msgstr ""
+msgstr "URL Facebook"
 
 #: themes/default/templates/admin/profile.html:143
 msgid "Twitter URL"
-msgstr ""
+msgstr "URL Twitter"
 
 #: themes/default/templates/admin/profile.html:162
 msgid "Access Token"
-msgstr ""
+msgstr "Jeton d'accès"
 
 #: themes/default/templates/admin/profile.html:173
 msgid "Refresh Token"
-msgstr ""
+msgstr "Jeton d'actualisation"
 
 #: themes/default/templates/admin/settings.html:22
 #: themes/default/templates/install.html:17
 msgid "App Name"
-msgstr ""
+msgstr "Nom de l'application"
 
 #: themes/default/templates/admin/settings.html:26
 #: themes/default/templates/install.html:25
 msgid "App URL"
-msgstr ""
+msgstr "URL de l'application"
 
 #: themes/default/templates/admin/settings.html:30
 #: themes/default/templates/install.html:21
 msgid "App Email"
-msgstr ""
+msgstr "E-mail de l'application"
 
 #: themes/default/templates/admin/settings.html:34
 msgid "App Description"
-msgstr ""
+msgstr "Description de l'application"
 
 #: themes/default/templates/admin/settings.html:38
 msgid "Google Analytics Account"
-msgstr ""
+msgstr "Compte Google Analytics"
 
 #: themes/default/templates/admin/settings.html:42
 msgid "Max Reset Messages"
-msgstr ""
+msgstr "Nombre maximum de messages de réinitialisation"
 
 #: themes/default/templates/admin/settings.html:46
 msgid "Per Day"
-msgstr ""
+msgstr "Par jour"
 
 #: themes/default/templates/admin/settings.html:51
 msgid "Reset Message Expire After"
-msgstr ""
+msgstr "Le message de réinitialisation expire après"
 
 #: themes/default/templates/admin/settings.html:55
 #: themes/default/templates/admin/settings.html:64
 msgid "Hours"
-msgstr ""
+msgstr "Heures"
 
 #: themes/default/templates/admin/settings.html:60
 msgid "Access Token Expire After"
-msgstr ""
+msgstr "Le jeton d'accès expire après"
 
 #: themes/default/templates/admin/settings.html:69
 msgid "Prometheus Auth. Token"
-msgstr ""
+msgstr "Jeton d'authentification Prometheus"
 
 #: themes/default/templates/admin/settings.html:73
 msgid "New Relic API Key"
-msgstr ""
+msgstr "Clé API New Relic"
 
 #: themes/default/templates/admin/settings.html:90
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
 #: themes/default/templates/admin/settings.html:94
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: themes/default/templates/admin/settings.html:98
 msgid "Latest"
-msgstr ""
+msgstr "Dernière"
 
 #: themes/default/templates/admin/settings.html:103
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: themes/default/templates/admin/subscriber/add.html:16
 msgid "Add a New Subscriber"
-msgstr ""
+msgstr "Ajouter un nouvel abonné"
 
 #: themes/default/templates/admin/subscriber/add.html:25
 #: themes/default/templates/admin/subscriber/add.html:32
@@ -1943,21 +1953,21 @@ msgstr ""
 #: themes/default/templates/admin/subscriber/edit.html:52
 #: themes/default/templates/admin/user/list.html:40
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: themes/default/templates/admin/subscriber/add.html:26
 #: themes/default/templates/admin/subscriber/add.html:38
 #: themes/default/templates/admin/subscriber/edit.html:25
 #: themes/default/templates/admin/subscriber/edit.html:37
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone"
 
 #: themes/default/templates/admin/subscriber/add.html:27
 #: themes/default/templates/admin/subscriber/add.html:44
 #: themes/default/templates/admin/subscriber/edit.html:26
 #: themes/default/templates/admin/subscriber/edit.html:43
 msgid "Endpoint"
-msgstr ""
+msgstr "Point de terminaison"
 
 #: themes/default/templates/admin/subscriber/add.html:33
 #: themes/default/templates/admin/subscriber/add.html:54
@@ -1968,110 +1978,110 @@ msgstr ""
 #: themes/default/templates/forgot_password.html:36
 #: themes/default/templates/register.html:34
 msgid "Enter email"
-msgstr ""
+msgstr "Entrer une adresse e-mail"
 
 #: themes/default/templates/admin/subscriber/add.html:39
 #: themes/default/templates/admin/subscriber/edit.html:38
 msgid "Enter phone"
-msgstr ""
+msgstr "Entrer un numéro de téléphone"
 
 #: themes/default/templates/admin/subscriber/add.html:45
 #: themes/default/templates/admin/subscriber/edit.html:44
 msgid "Enter endpoint URL"
-msgstr ""
+msgstr "Entrer une URL de point de terminaison"
 
 #: themes/default/templates/admin/subscriber/add.html:48
 #: themes/default/templates/admin/subscriber/edit.html:47
 msgid "Auth Token"
-msgstr ""
+msgstr "Jeton d'authentification"
 
 #: themes/default/templates/admin/subscriber/add.html:49
 #: themes/default/templates/admin/subscriber/edit.html:48
 msgid "Enter auth token"
-msgstr ""
+msgstr "Entrer un jeton d'authentification"
 
 #: themes/default/templates/admin/subscriber/add.html:50
 #: themes/default/templates/admin/subscriber/edit.html:49
 msgid "We'll send this on header as"
-msgstr ""
+msgstr "Nous enverrons cela dans le titre comme"
 
 #: themes/default/templates/admin/subscriber/add.html:55
 #: themes/default/templates/admin/subscriber/edit.html:54
 msgid "We'll send you email if your endpoint fails"
-msgstr ""
+msgstr "Nous vous enverrons un e-mail en cas de défaillance de votre point de terminaison"
 
 #: themes/default/templates/admin/subscriber/add.html:62
 #: themes/default/templates/admin/subscriber/edit.html:61
 msgid "Pending"
-msgstr ""
+msgstr "En attente"
 
 #: themes/default/templates/admin/subscriber/add.html:63
 #: themes/default/templates/admin/subscriber/edit.html:62
 msgid "Verified"
-msgstr ""
+msgstr "Vérifié"
 
 #: themes/default/templates/admin/subscriber/add.html:64
 #: themes/default/templates/admin/subscriber/edit.html:63
 msgid "Unverified"
-msgstr ""
+msgstr "Non vérifié"
 
 #: themes/default/templates/admin/subscriber/edit.html:15
 msgid "Edit Subscriber"
-msgstr ""
+msgstr "Modifier l'abonné"
 
 #: themes/default/templates/admin/subscriber/list.html:12
 msgid "You miss a lot of fun, create some subscribers!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques abonnés !"
 
 #: themes/default/templates/admin/subscriber/list.html:28
 msgid "New Subscriber"
-msgstr ""
+msgstr "Nouvel abonné"
 
 #: themes/default/templates/admin/user/add.html:15
 msgid "Add a New User"
-msgstr ""
+msgstr "Ajouter un nouvel abonné"
 
 #: themes/default/templates/admin/user/add.html:25
 #: themes/default/templates/admin/user/edit.html:33
 #: themes/default/templates/admin/user/list.html:41
 msgid "Role"
-msgstr ""
+msgstr "Rôle"
 
 #: themes/default/templates/admin/user/add.html:27
 msgid "Please Select a Role"
-msgstr ""
+msgstr "Veuillez sélectionner un rôle."
 
 #: themes/default/templates/admin/user/add.html:28
 #: themes/default/templates/admin/user/edit.html:35
 msgid "Admin"
-msgstr ""
+msgstr "Administrateur"
 
 #: themes/default/templates/admin/user/add.html:29
 #: themes/default/templates/admin/user/edit.html:36
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 
 #: themes/default/templates/admin/user/add.html:35
 msgid "Disable Invitation"
-msgstr ""
+msgstr "Désactiver l'invitation"
 
 #: themes/default/templates/admin/user/add.html:41
 #: themes/default/templates/admin/user/edit.html:22
 #: themes/default/templates/register.html:22
 msgid "Enter first name"
-msgstr ""
+msgstr "Entrer le prénom"
 
 #: themes/default/templates/admin/user/add.html:45
 #: themes/default/templates/admin/user/edit.html:26
 #: themes/default/templates/register.html:26
 msgid "Enter last name"
-msgstr ""
+msgstr "Entrer le nom"
 
 #: themes/default/templates/admin/user/add.html:49
 #: themes/default/templates/admin/user/edit.html:30
 #: themes/default/templates/register.html:30
 msgid "Enter username"
-msgstr ""
+msgstr "Entrer le nom d'utilisateur"
 
 #: themes/default/templates/admin/user/add.html:52
 #: themes/default/templates/admin/user/add.html:53
@@ -2083,128 +2093,130 @@ msgstr ""
 #: themes/default/templates/register.html:37
 #: themes/default/templates/register.html:38
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: themes/default/templates/admin/user/edit.html:15
 msgid "Edit User"
-msgstr ""
+msgstr "Modifier l'utilisateur"
 
 #: themes/default/templates/admin/user/edit.html:46
 msgid "Update Password"
-msgstr ""
+msgstr "Mettre à jour le mot de passe"
 
 #: themes/default/templates/admin/user/list.html:12
 msgid "You miss a lot of fun, create some users!"
-msgstr ""
+msgstr "Vous ratez le meilleur, créez quelques utilisateurs !"
 
 #: themes/default/templates/admin/user/list.html:28
 msgid "New User"
-msgstr ""
+msgstr "Nouvel utilisateur"
 
 #: themes/default/templates/forgot_password.html:28
 msgid "Forgot password"
-msgstr ""
+msgstr "Mot de passe oublié"
 
 #: themes/default/templates/forgot_password.html:29
 msgid ""
 "Enter your email address and a link to reset your password will be emailed "
 "to you."
 msgstr ""
+"Entrez votre adresse e-mail pour recevoir un lien qui vous permettra de "
+"réinitialiser votre mot de passe."
 
 #: themes/default/templates/forgot_password.html:45
 msgid "Know it,"
-msgstr ""
+msgstr "Je m'en souviens,"
 
 #: themes/default/templates/forgot_password.html:45
 #: themes/default/templates/reset_password.html:35
 msgid "send me back"
-msgstr ""
+msgstr "ramenez-moi"
 
 #: themes/default/templates/forgot_password.html:45
 #: themes/default/templates/reset_password.html:35
 msgid "to the login page."
-msgstr ""
+msgstr "à la page de connexion."
 
 #: themes/default/templates/install.html:18
 msgid "Enter app name"
-msgstr ""
+msgstr "Entrer le nom de l'application"
 
 #: themes/default/templates/install.html:22
 msgid "Enter app email"
-msgstr ""
+msgstr "Entrer l'adresse e-mail de l'application"
 
 #: themes/default/templates/install.html:26
 msgid "Enter app url"
-msgstr ""
+msgstr "Entrer l'URL de l'application"
 
 #: themes/default/templates/install.html:29
 msgid "Admin Username"
-msgstr ""
+msgstr "Nom d'utilisateur de l'administrateur"
 
 #: themes/default/templates/install.html:30
 msgid "Enter admin username"
-msgstr ""
+msgstr "Entrer le nom d'utilisateur de l'administrateur"
 
 #: themes/default/templates/install.html:33
 msgid "Admin Email"
-msgstr ""
+msgstr "Adresse e-mail de l'administrateur"
 
 #: themes/default/templates/install.html:34
 msgid "Enter admin email"
-msgstr ""
+msgstr "Entrer l'adresse e-mail de l'administrateur"
 
 #: themes/default/templates/install.html:38
 msgid "Enter admin password"
-msgstr ""
+msgstr "Entrer le mot de passe de l'administrateur"
 
 #: themes/default/templates/install.html:41
 msgid "Install"
-msgstr ""
+msgstr "Installer"
 
 #: themes/default/templates/login.html:38
 msgid "Login to your account"
-msgstr ""
+msgstr "Connexion à votre compte"
 
 #: themes/default/templates/login.html:40
 msgid "Username or Email"
-msgstr ""
+msgstr "Nom d'utilisateur ou adresse e-mail"
 
 #: themes/default/templates/login.html:45
 msgid "Enter username or email"
-msgstr ""
+msgstr "Entrer le nom d'utilisateur ou l'adresse e-mail"
 
 #: themes/default/templates/login.html:51
 msgid "I forgot password"
-msgstr ""
+msgstr "J'ai oublié le mot de passe"
 
 #: themes/default/templates/login.html:61
 #: themes/default/templates/register.html:46
 msgid "Login"
-msgstr ""
+msgstr "Connexion"
 
 #: themes/default/templates/register.html:19
 msgid "Create new account"
-msgstr ""
+msgstr "Créer le compte"
 
 #: themes/default/templates/register.html:41
 msgid "Create a new account"
-msgstr ""
+msgstr "Créer un compte"
 
 #: themes/default/templates/register.html:46
 msgid "Already have account?"
-msgstr ""
+msgstr "Vous avez déjà un compte ?"
 
 #: themes/default/templates/reset_password.html:19
 msgid "Reset password"
-msgstr ""
+msgstr "Réinitialiser le mot de passe"
 
 #: themes/default/templates/reset_password.html:26
 msgid "Enter password"
-msgstr ""
+msgstr "Entrer le mot de passe"
 
 #: themes/default/templates/reset_password.html:35
 msgid "Cool,"
-msgstr ""
+msgstr "Pas de problème,"
 
 #: themes/default/templates/status_page_history.html:18
 #: themes/default/templates/status_page_history.html:25
@@ -2213,71 +2225,71 @@ msgstr ""
 #: themes/default/templates/status_page_single.html:18
 #: themes/default/templates/status_page_single.html:26
 msgid "Subscribe to Updates"
-msgstr ""
+msgstr "S'abonner pour recevoir les mises à jour"
 
 #: themes/default/templates/status_page_history.html:32
 #: themes/default/templates/status_page_index.html:32
 #: themes/default/templates/status_page_single.html:33
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: themes/default/templates/status_page_history.html:45
 #: themes/default/templates/status_page_index.html:210
 msgid "Incident History"
-msgstr ""
+msgstr "Historique des incidents"
 
 #: themes/default/templates/status_page_history.html:74
 #: themes/default/templates/status_page_index.html:198
 msgid "No incidents reported."
-msgstr ""
+msgstr "Aucun incident rapporté."
 
 #: themes/default/templates/status_page_history.html:86
 #: themes/default/templates/status_page_single.html:71
 msgid "Current Status"
-msgstr ""
+msgstr "Statut actuel"
 
 #: themes/default/templates/status_page_history.html:92
 #: themes/default/templates/status_page_index.html:216
 #: themes/default/templates/status_page_single.html:77
 msgid "Powered by Silverback"
-msgstr ""
+msgstr "Optimisé par Silverback"
 
 #: themes/default/templates/status_page_index.html:45
 msgid "All Systems Operational"
-msgstr ""
+msgstr "Tous les systèmes sont opérationnels."
 
 #: themes/default/templates/status_page_index.html:50
 msgid "Some services are experiencing interruptions"
-msgstr ""
+msgstr "Certains services sont affectés par des interruptions."
 
 #: themes/default/templates/status_page_index.html:55
 msgid "Many services are experiencing interruptions"
-msgstr ""
+msgstr "Un grand nombre de services sont affectés par des interruptions."
 
 #: themes/default/templates/status_page_index.html:66
 msgid "About This Site"
-msgstr ""
+msgstr "À propos de ce site"
 
 #: themes/default/templates/status_page_index.html:142
 msgid "Day"
-msgstr ""
+msgstr "Jour"
 
 #: themes/default/templates/status_page_index.html:143
 msgid "Week"
-msgstr ""
+msgstr "Semaine"
 
 #: themes/default/templates/status_page_index.html:144
 msgid "Month"
-msgstr ""
+msgstr "Mois"
 
 #: themes/default/templates/status_page_index.html:168
 msgid "Past Incidents"
-msgstr ""
+msgstr "Incidents passés"
 
 #: themes/default/templates/status_page_index.html:191
 msgid "No updates reported."
-msgstr ""
+msgstr "Aucune mise à jour rapportée."
 
 #: themes/default/templates/status_page_single.html:54
 msgid "Posted at"
-msgstr ""
+msgstr "Publié à"

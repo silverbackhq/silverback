@@ -35,10 +35,11 @@ from app.modules.entity.component_entity import ComponentEntity
 from app.modules.entity.component_group_entity import ComponentGroupEntity
 from app.modules.entity.incident_update_entity import IncidentUpdateEntity
 from app.modules.entity.incident_update_component_entity import IncidentUpdateComponentEntity
+from app.modules.core.constants import Constants
 
 
 class StatusPage():
-
+  
     def __init__(self):
         self.__option_entity = OptionEntity()
         self.__incident_entity = IncidentEntity()
@@ -47,13 +48,55 @@ class StatusPage():
         self.__component_group_entity = ComponentGroupEntity()
         self.__component_entity = ComponentEntity()
         self.__metric_entity = MetricEntity()
+        self.__load_system_status()
+
+    def __load_system_status(self):
+        open_incidents = self.__incident_entity.get_by_status("open")
+
+        self.__system_status = {
+            "affected_components_map": {},
+            "affected_components_status": {},
+            "affected_groups_map": {},
+            "affected_groups_status": {},
+            "overall_status": Constants.COMPONENT_STATUSES["operational"],
+        }
+
+        for open_incident in open_incidents:
+            updates = self.__incident_update_entity.get_all(open_incident.id, 0, 1)
+            for update in updates:
+                update_components = self.__incident_update_component_entity.get_all(update.id)
+                for update_component in update_components:
+                    if update_component.component.name not in self.__system_status["affected_components_status"].keys():
+                        self.__system_status["affected_components_status"][update_component.component.name] = update_component.type
+                        if update_component.component.group:
+                            self.__system_status["affected_groups_status"][update_component.component.group.name] = update_component.type
+                    if update_component.component.name not in self.__system_status["affected_components_map"].keys():
+                        self.__system_status["affected_components_map"][update_component.component.name] = update_component.component.id
+                        if update_component.component.group:
+                            self.__system_status["affected_groups_map"][update_component.component.group.name] = update_component.component.group.id
+
+        if "major_outage" in self.__system_status["affected_components_status"].values():
+            self.__system_status["overall_status"] = Constants.COMPONENT_STATUSES["major_outage"]
+
+        elif "partial_outage" in self.__system_status["affected_components_status"].values():
+            self.__system_status["overall_status"] = Constants.COMPONENT_STATUSES["partial_outage"]
+
+        elif "degraded_performance" in self.__system_status["affected_components_status"].values():
+            self.__system_status["overall_status"] = Constants.COMPONENT_STATUSES["degraded_performance"]
+
+        elif "maintenance" in self.__system_status["affected_components_status"].values():
+            self.__system_status["overall_status"] = Constants.COMPONENT_STATUSES["maintenance"]
 
     def get_system_status(self):
-        # Get Open Incidents
-        # if it has no resolved update
-        # Check the last incident updates
-        # Check it has any component is affected
-        return "operational"
+
+        affected_components = len(self.__system_status["affected_components_map"].keys())
+
+        if affected_components == 0:
+            return "normal"
+        elif affected_components <= 2:
+            return "medium"
+        elif affected_components > 2:
+            return "high"
 
     def get_about_site(self):
         option = self.__option_entity.get_one_by_key("builder_about")
@@ -74,7 +117,6 @@ class StatusPage():
         if incident:
             incident_data = {
                 "headline": incident.name,
-                "headline_class": "text-danger",
                 "status": incident.status,
                 "sub_headline": _("Incident Report for %s") % (app_name.value),
                 "affected_components": [],
@@ -291,8 +333,7 @@ class StatusPage():
                         services.append({
                             "name": component.name,
                             "description": component.description,
-                            "current_status": self.get_status(component.id, "component"),
-                            "current_status_class": "bg-green",
+                            "current_status": self.get_status(component.name, "component"),
                             "uptime_chart": self.get_uptime_chart(component.id, "component"),
                             "sub_services": []
                         })
@@ -301,8 +342,7 @@ class StatusPage():
                     services.append({
                         "name": group.name,
                         "description": group.description,
-                        "current_status": self.get_status(group.id, "group"),
-                        "current_status_class": "bg-green",
+                        "current_status": self.get_status(group.name, "group"),
                         "uptime_chart": self.get_uptime_chart(group.id, "group"),
                         "sub_services": self.get_sub_services(group.id)
                     })
@@ -316,35 +356,20 @@ class StatusPage():
             services.append({
                 "name": item.name,
                 "description": item.description,
-                "current_status": self.get_status(item.id, "component"),
-                "current_status_class": "bg-green",
+                "current_status": self.get_status(item.name, "component"),
                 "uptime_chart": self.get_uptime_chart(item.id, "component"),
                 "sub_services": []
             })
         return services
 
-    def get_status(self, id, type):
-        # Get Open Incidents
-        # if it has no resolved update
-        # Check the last incident updates
-        # Check if the component is affected
-        if type == "component":
-            return "Operational"
+    def get_status(self, name, type):
+        if type == "component" and name in self.__system_status["affected_components_status"].keys():
+            return Constants.COMPONENT_STATUSES[self.__system_status["affected_components_status"][name]]
 
-        # Get Group Components
-        # Get Open Incidents
-        # if it has no resolved update
-        # Check the last incident updates
-        # Check if one of the group components is affected
-        elif type == "group":
-            return "Operational"
+        elif type == "group" and name in self.__system_status["affected_groups_status"].keys():
+            return Constants.COMPONENT_STATUSES[self.__system_status["affected_groups_status"][name]]
 
-    def __get_affectd_components(self):
-        # Get Open Incidents
-        # if it has no resolved update
-        # Check the last incident updates
-        # Create a list of affected components
-        return {}
+        return Constants.COMPONENT_STATUSES["operational"]
 
     def get_uptime_chart(self, id, type, period=90):
         return []
