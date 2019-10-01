@@ -21,159 +21,159 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/builder.py:57
 #: app/controllers/api/private/v1/admin/builder.py:69
 msgid "Metric added successfully."
-msgstr ""
+msgstr "L'indicateur a été ajouté avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:75
 msgid "Error! Something goes wrong while adding metric."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'ajout de l'indicateur."
 
 #: app/controllers/api/private/v1/admin/builder.py:90
 #: app/controllers/api/private/v1/admin/builder.py:102
 #: app/controllers/api/private/v1/admin/metric.py:298
 msgid "Metric deleted successfully."
-msgstr ""
+msgstr "L'indicateur a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:108
 #: app/controllers/api/private/v1/admin/metric.py:304
 msgid "Error! Something goes wrong while deleting metric."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression de l'indicateur."
 
 #: app/controllers/api/private/v1/admin/builder.py:148
 #: app/controllers/api/private/v1/admin/builder.py:160
 msgid "Component added successfully."
-msgstr ""
+msgstr "Le composant a été ajouté avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:166
 msgid "Error! Something goes wrong while adding component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'ajout du composant."
 
 #: app/controllers/api/private/v1/admin/builder.py:181
 #: app/controllers/api/private/v1/admin/builder.py:193
 #: app/controllers/api/private/v1/admin/component.py:248
 msgid "Component deleted successfully."
-msgstr ""
+msgstr "Le composant a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:199
 #: app/controllers/api/private/v1/admin/component.py:254
 msgid "Error! Something goes wrong while deleting component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression du composant."
 
 #: app/controllers/api/private/v1/admin/builder.py:241
 msgid "Error! Headline is very long."
-msgstr ""
+msgstr "Erreur : le titre est trop long."
 
 #: app/controllers/api/private/v1/admin/builder.py:254
 msgid "Error! Favicon URL is invalid."
-msgstr ""
+msgstr "Erreur : l'URL d’icône favorite n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/builder.py:266
 msgid "Error! Image URL is invalid."
-msgstr ""
+msgstr "Erreur : l'URL de l'image n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/builder.py:278
 msgid "Error! About is very long."
-msgstr ""
+msgstr "Erreur : le contenu du champ À propos est trop long."
 
 #: app/controllers/api/private/v1/admin/builder.py:300
 #: app/controllers/api/private/v1/admin/settings.py:220
 msgid "Settings updated successfully."
-msgstr ""
+msgstr "Les paramètres ont été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/builder.py:306
 #: app/controllers/api/private/v1/admin/settings.py:226
 msgid "Error! Something goes wrong while updating settings."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour des paramètres."
 
 #: app/controllers/api/private/v1/admin/component.py:59
 #: app/controllers/api/private/v1/admin/component.py:191
 msgid "Error! Component name must be 1 to 90 characters long."
-msgstr ""
+msgstr "Erreur : le nom du composant doit comporter 1 à 90 caractères."
 
 #: app/controllers/api/private/v1/admin/component.py:75
 #: app/controllers/api/private/v1/admin/component.py:207
 #: app/controllers/api/private/v1/admin/component_group.py:74
 #: app/controllers/api/private/v1/admin/component_group.py:198
 msgid "Error! Uptime is invalid."
-msgstr ""
+msgstr "Erreur : le temps d'activité n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/component.py:101
 msgid "Component created successfully."
-msgstr ""
+msgstr "Le composant a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/component.py:106
 msgid "Error! Something goes wrong while creating component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création du composant."
 
 #: app/controllers/api/private/v1/admin/component.py:233
 msgid "Component updated successfully."
-msgstr ""
+msgstr "Le composant a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/component.py:238
 msgid "Error! Something goes wrong while updating component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour du composant."
 
 #: app/controllers/api/private/v1/admin/component_group.py:58
 #: app/controllers/api/private/v1/admin/component_group.py:182
 msgid "Error! Component group name must be 1 to 90 characters long."
-msgstr ""
+msgstr "Erreur : le nom du groupe de composants doit comporter 1 à 90 caractères."
 
 #: app/controllers/api/private/v1/admin/component_group.py:94
 msgid "Component group created successfully."
-msgstr ""
+msgstr "Le groupe de composants a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/component_group.py:99
 msgid "Error! Something goes wrong while creating group."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création du groupe."
 
 #: app/controllers/api/private/v1/admin/component_group.py:218
 msgid "Component group updated successfully."
-msgstr ""
+msgstr "Le groupe de composants a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/component_group.py:223
 msgid "Error! Something goes wrong while updating group."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour du groupe."
 
 #: app/controllers/api/private/v1/admin/component_group.py:233
 msgid "Component group deleted successfully."
-msgstr ""
+msgstr "Le groupe de composants a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/component_group.py:239
 msgid "Error! Something goes wrong while deleting group."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression du groupe."
 
 #: app/controllers/api/private/v1/admin/incident.py:57
 #: app/controllers/api/private/v1/admin/incident.py:175
 msgid "Error! Incident name must be 1 to 200 characters long."
-msgstr ""
+msgstr "Erreur : le nom d'incident doit comporter 1 à 200 caractères."
 
 #: app/controllers/api/private/v1/admin/incident.py:66
 #: app/controllers/api/private/v1/admin/incident.py:184
 msgid "Error! Incident is invalid."
-msgstr ""
+msgstr "Erreur : l'incident n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/incident.py:86
 msgid "Incident created successfully."
-msgstr ""
+msgstr "L'incident a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/incident.py:91
 msgid "Error! Something goes wrong while creating incident."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de l'incident."
 
 #: app/controllers/api/private/v1/admin/incident.py:203
 msgid "Incident updated successfully."
-msgstr ""
+msgstr "L'incident a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/incident.py:208
 msgid "Error! Something goes wrong while updating incident."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de l'incident."
 
 #: app/controllers/api/private/v1/admin/incident.py:218
 msgid "Incident deleted successfully."
-msgstr ""
+msgstr "L'incident a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/incident.py:224
 msgid "Error! Something goes wrong while deleting incident."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression de l'incident."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:89
 #: app/controllers/api/private/v1/admin/incident_update.py:239
@@ -184,98 +184,98 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/subscriber.py:373
 #: app/controllers/api/private/v1/admin/subscriber.py:423
 msgid "Error! Status is invalid."
-msgstr ""
+msgstr "Erreur : le statut n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:98
 #: app/controllers/api/private/v1/admin/incident_update.py:248
 msgid "Error! Notify subscribers is invalid."
-msgstr ""
+msgstr "Erreur : le contenu du champ Notifier les abonnés n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:130
 msgid "Incident update created successfully."
-msgstr ""
+msgstr "La mise à jour d'incident a été créée avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:135
 msgid "Error! Something goes wrong while creating update."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de la mise à jour."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:269
 msgid "Incident update updated successfully."
-msgstr ""
+msgstr "La mise à jour d'incident a été modifiée avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:274
 msgid "Error! Something goes wrong while updating update."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la modification de la mise à jour."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:284
 msgid "Incident update deleted successfully."
-msgstr ""
+msgstr "La mise à jour d'incident a été supprimée avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:290
 msgid "Error! Something goes wrong while deleting incident update."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression de la mise à jour d'incident."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:344
 msgid "Notification delivery started successfully."
-msgstr ""
+msgstr "L'envoi des notifications a démarré avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:349
 msgid "Error! Something goes wrong while starting delivery."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant le démarrage de l'envoi."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:395
 msgid "Error! Component is required."
-msgstr ""
+msgstr "Erreur : composant requis."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:404
 msgid "Error! Type is required."
-msgstr ""
+msgstr "Erreur : type requis."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:424
 msgid "Affected component created successfully."
-msgstr ""
+msgstr "Le composant affecté a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:429
 msgid "Error! Something goes wrong while creating affected component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création du composant affecté."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:458
 msgid "Affected component deleted successfully."
-msgstr ""
+msgstr "Le composant affecté a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/incident_update.py:464
 msgid "Error! Something goes wrong while deleting affected component."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression du composant affecté."
 
 #: app/controllers/api/private/v1/admin/metric.py:73
 #: app/controllers/api/private/v1/admin/metric.py:229
 msgid "Error! Source is invalid."
-msgstr ""
+msgstr "Erreur : la source n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/metric.py:127
 msgid "Metric created successfully."
-msgstr ""
+msgstr "L'indicateur a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/metric.py:132
 msgid "Error! Something goes wrong while creating metric."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de l'indicateur."
 
 #: app/controllers/api/private/v1/admin/metric.py:283
 msgid "Metric updated successfully."
-msgstr ""
+msgstr "L'indicateur a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/metric.py:288
 msgid "Error! Something goes wrong while updating metric."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de l'indicateur."
 
 #: app/controllers/api/private/v1/admin/metric.py:333
 msgid "Error! Connecting to New Relic."
-msgstr ""
+msgstr "Erreur : connexion à New Relic."
 
 #: app/controllers/api/private/v1/admin/profile.py:53
 #: app/controllers/api/private/v1/admin/settings.py:48
 msgid "Error! Invalid Request."
-msgstr ""
+msgstr "Erreur : requête non valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:97
 #: app/controllers/api/private/v1/admin/user.py:63
@@ -283,7 +283,7 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/user.py:387
 #: app/controllers/api/private/v1/register.py:62
 msgid "Error! First name contains invalid characters."
-msgstr ""
+msgstr "Erreur : le prénom contient des caractères non valides."
 
 #: app/controllers/api/private/v1/admin/profile.py:101
 #: app/controllers/api/private/v1/admin/user.py:67
@@ -291,7 +291,7 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/user.py:391
 #: app/controllers/api/private/v1/register.py:66
 msgid "Error! First name must be 1 to 20 characters long."
-msgstr ""
+msgstr "Erreur : le prénom doit comporter 1 à 20 caractères."
 
 #: app/controllers/api/private/v1/admin/profile.py:112
 #: app/controllers/api/private/v1/admin/user.py:78
@@ -299,7 +299,7 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/user.py:402
 #: app/controllers/api/private/v1/register.py:77
 msgid "Error! Last name contains invalid characters."
-msgstr ""
+msgstr "Erreur : le nom contient des caractères non valides."
 
 #: app/controllers/api/private/v1/admin/profile.py:116
 #: app/controllers/api/private/v1/admin/user.py:82
@@ -307,7 +307,7 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/user.py:406
 #: app/controllers/api/private/v1/register.py:81
 msgid "Error! Last name must be 1 to 20 characters long."
-msgstr ""
+msgstr "Erreur : le nom doit comporter 1 à 20 caractères."
 
 #: app/controllers/api/private/v1/admin/profile.py:128
 #: app/controllers/api/private/v1/admin/user.py:94
@@ -316,7 +316,7 @@ msgstr ""
 #: app/controllers/api/private/v1/install.py:110
 #: app/controllers/api/private/v1/register.py:93
 msgid "Error! Username must be alpha numeric."
-msgstr ""
+msgstr "Erreur : le nom d'utilisateur doit uniquement être composé de caractères alphanumériques."
 
 #: app/controllers/api/private/v1/admin/profile.py:132
 #: app/controllers/api/private/v1/admin/user.py:98
@@ -325,160 +325,162 @@ msgstr ""
 #: app/controllers/api/private/v1/install.py:114
 #: app/controllers/api/private/v1/register.py:97
 msgid "Error! Username must be 5 to 10 characters long."
-msgstr ""
+msgstr "Erreur : le nom d'utilisateur doit comporter 5 à 10 caractères."
 
 #: app/controllers/api/private/v1/admin/profile.py:144
 #: app/controllers/api/private/v1/install.py:126
 #: app/controllers/api/private/v1/register.py:109
 msgid "Error! Admin email is invalid."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail d'administrateur n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:156
 msgid "Error! Job title is very long."
-msgstr ""
+msgstr "Erreur : le nom du poste est trop long."
 
 #: app/controllers/api/private/v1/admin/profile.py:169
 msgid "Error! Company is very long."
-msgstr ""
+msgstr "Erreur : le nom de société est trop long."
 
 #: app/controllers/api/private/v1/admin/profile.py:182
 msgid "Error! Address is very long."
-msgstr ""
+msgstr "Erreur : l'adresse est trop longue."
 
 #: app/controllers/api/private/v1/admin/profile.py:195
 msgid "Error! Github url is invalid."
-msgstr ""
+msgstr "Erreur : l'URL Github n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:199
 msgid "Error! Github url is very long."
-msgstr ""
+msgstr "Erreur : l'URL Github est trop longue."
 
 #: app/controllers/api/private/v1/admin/profile.py:212
 msgid "Error! Twitter url is invalid."
-msgstr ""
+msgstr "Erreur : l'URL Twitter n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:216
 msgid "Error! Twitter url is very long."
-msgstr ""
+msgstr "Erreur : l'URL Twitter est trop longue."
 
 #: app/controllers/api/private/v1/admin/profile.py:229
 msgid "Error! Facebook url is invalid."
-msgstr ""
+msgstr "Erreur : l'URL Facebook n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:233
 msgid "Error! Facebook url is very long."
-msgstr ""
+msgstr "Erreur : l'URL Facebook est trop longue."
 
 #: app/controllers/api/private/v1/admin/profile.py:248
 #: app/controllers/api/private/v1/admin/user.py:177
 #: app/controllers/api/private/v1/admin/user.py:469
 #: app/controllers/api/private/v1/register.py:145
 msgid "Error! Username is already used."
-msgstr ""
+msgstr "Erreur : ce nom d'utilisateur existe déjà."
 
 #: app/controllers/api/private/v1/admin/profile.py:254
 msgid "Error! Email is already used."
-msgstr ""
+msgstr "Erreur : cette adresse e-mail existe déjà."
 
 #: app/controllers/api/private/v1/admin/profile.py:273
 msgid "Profile updated successfully."
-msgstr ""
+msgstr "Le profil a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/profile.py:279
 msgid "Error! Something goes wrong while updating your profile."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de votre profil."
 
 #: app/controllers/api/private/v1/admin/profile.py:295
 #: app/controllers/api/private/v1/admin/profile.py:299
 #: app/controllers/api/private/v1/admin/profile.py:325
 msgid "Error! Old password is invalid."
-msgstr ""
+msgstr "Erreur : l'ancien mot de passe n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/profile.py:307
 msgid ""
 "Error! New Password must contain at least uppercase letter, lowercase "
 "letter, numbers and special character."
 msgstr ""
+"Erreur : le nouveau mot de passe doit contenir au moins une lettre majuscule, une "
+"lettre minuscule, des chiffres et un caractère spécial."
 
 #: app/controllers/api/private/v1/admin/profile.py:311
 msgid "Error! New Password length must be from 8 to 20 characters."
-msgstr ""
+msgstr "Erreur : la longueur du nouveau mot de passe doit être comprise entre 8 et 20 caractères."
 
 #: app/controllers/api/private/v1/admin/profile.py:334
 #: app/controllers/api/private/v1/reset_password.py:97
 msgid "Password updated successfully."
-msgstr ""
+msgstr "Le mot de passe a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/profile.py:340
 msgid "Error! Something goes wrong while updating your password."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de votre mot de passe."
 
 #: app/controllers/api/private/v1/admin/profile.py:355
 #: app/controllers/api/private/v1/admin/profile.py:391
 msgid "Error! The provided token invalid, Please refresh the page."
-msgstr ""
+msgstr "Erreur : le jeton fourni n'est pas valide. Veuillez actualiser la page."
 
 #: app/controllers/api/private/v1/admin/profile.py:371
 msgid "Access token updated successfully."
-msgstr ""
+msgstr "Le jeton d'accès a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/profile.py:376
 msgid "Error! Something goes wrong while updating access token."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour du jeton d'accès."
 
 #: app/controllers/api/private/v1/admin/profile.py:407
 msgid "Refresh token updated successfully."
-msgstr ""
+msgstr "Le jeton d'actualisation a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/profile.py:412
 msgid "Error! Something goes wrong while updating refresh token."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour du jeton d'actualisation."
 
 #: app/controllers/api/private/v1/admin/settings.py:74
 #: app/controllers/api/private/v1/install.py:70
 msgid "Error! Application name must be alpha numeric."
-msgstr ""
+msgstr "Erreur : le nom d'application doit uniquement être composé de caractères alphanumériques."
 
 #: app/controllers/api/private/v1/admin/settings.py:78
 #: app/controllers/api/private/v1/install.py:74
 msgid "Error! Application name must be 2 to 30 characters long."
-msgstr ""
+msgstr "Erreur : le nom de l'application doit comporter 2 à 30 caractères."
 
 #: app/controllers/api/private/v1/admin/settings.py:90
 #: app/controllers/api/private/v1/install.py:86
 msgid "Error! Application email is invalid."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail de l'application n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:102
 #: app/controllers/api/private/v1/install.py:98
 msgid "Error! Application url is invalid."
-msgstr ""
+msgstr "Erreur : l'URL de l'application n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:114
 msgid "Error! App description is very long."
-msgstr ""
+msgstr "Erreur : la description de l'application est trop longue."
 
 #: app/controllers/api/private/v1/admin/settings.py:127
 #: app/controllers/api/private/v1/admin/settings.py:140
 msgid "Error! Prometheus token is invalid."
-msgstr ""
+msgstr "Erreur : le jeton Prometheus n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:153
 msgid "Error! Google analytics account is invalid."
-msgstr ""
+msgstr "Erreur : le compte Google Analytics n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:165
 #: app/controllers/api/private/v1/admin/settings.py:177
 msgid "Error! Reset mails count is invalid."
-msgstr ""
+msgstr "Erreur : le nombre de messages à réinitialiser n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:189
 msgid "Error! Access token expiry interval is invalid."
-msgstr ""
+msgstr "Erreur : l'intervalle d'expiration du jeton d'accès n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/settings.py:216
 msgid "You updated application settings."
-msgstr ""
+msgstr "Vous avez mis à jour les paramètres de l'application."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:63
 #: app/controllers/api/private/v1/admin/subscriber.py:99
@@ -487,36 +489,36 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/subscriber.py:354
 #: app/controllers/api/private/v1/admin/subscriber.py:390
 msgid "Error! Type is invalid."
-msgstr ""
+msgstr "Erreur : le type n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:222
 msgid "Subscriber created successfully."
-msgstr ""
+msgstr "L'abonné a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:227
 msgid "Error! Something goes wrong while creating subscriber."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de l'abonné."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:470
 msgid "Subscriber updated successfully."
-msgstr ""
+msgstr "L'abonné a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:475
 msgid "Error! Something goes wrong while updating subscriber."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la mise à jour de l'abonné."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:485
 msgid "Subscriber deleted successfully."
-msgstr ""
+msgstr "L'abonné a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/subscriber.py:491
 msgid "Error! Something goes wrong while deleting subscriber."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression de l'abonné."
 
 #: app/controllers/api/private/v1/admin/user.py:110
 #: app/controllers/api/private/v1/admin/user.py:148
 msgid "Error! User email is invalid."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail de l'utilisateur n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/user.py:118
 #: app/controllers/api/private/v1/admin/user.py:442
@@ -527,6 +529,8 @@ msgid ""
 "Error! Password must contain at least uppercase letter, lowercase letter, "
 "numbers and special character."
 msgstr ""
+"Erreur : le mot de passe doit contenir au moins une lettre majuscule, une "
+"lettre minuscule, des chiffres et un caractère spécial."
 
 #: app/controllers/api/private/v1/admin/user.py:122
 #: app/controllers/api/private/v1/admin/user.py:446
@@ -534,66 +538,66 @@ msgstr ""
 #: app/controllers/api/private/v1/register.py:121
 #: app/controllers/api/private/v1/reset_password.py:65
 msgid "Error! Password length must be from 8 to 20 characters."
-msgstr ""
+msgstr "Erreur : la longueur du mot de passe doit être comprise entre 8 et 20 caractères."
 
 #: app/controllers/api/private/v1/admin/user.py:131
 #: app/controllers/api/private/v1/admin/user.py:157
 #: app/controllers/api/private/v1/admin/user.py:373
 #: app/controllers/api/private/v1/admin/user.py:455
 msgid "Error! Role is invalid."
-msgstr ""
+msgstr "Erreur : le rôle n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/user.py:171
 #: app/controllers/api/private/v1/admin/user.py:475
 #: app/controllers/api/private/v1/register.py:151
 msgid "Error! Email is already used for other account."
-msgstr ""
+msgstr "Erreur : cette adresse e-mail est déjà attribuée à un autre compte."
 
 #: app/controllers/api/private/v1/admin/user.py:196
 #: app/controllers/api/private/v1/register.py:171
 msgid "Account created successfully."
-msgstr ""
+msgstr "Le compte a été créé avec succès."
 
 #: app/controllers/api/private/v1/admin/user.py:201
 #: app/controllers/api/private/v1/admin/user.py:507
 #: app/controllers/api/private/v1/register.py:176
 msgid "Error! Something goes wrong while creating your account."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de votre compte."
 
 #: app/controllers/api/private/v1/admin/user.py:215
 #: app/controllers/api/private/v1/forgot_password.py:88
 msgid "Error! Something goes wrong while creating reset request."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la création de la requête de réinitialisation."
 
 #: app/controllers/api/private/v1/admin/user.py:223
 msgid "Error! Something goes wrong while sending register request."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant l'envoi de la requête d'inscription."
 
 #: app/controllers/api/private/v1/admin/user.py:228
 msgid "Register Request instructions sent successfully."
-msgstr ""
+msgstr "Les instructions relatives à la requête d'inscription ont été envoyées avec succès."
 
 #: app/controllers/api/private/v1/admin/user.py:364
 #: app/controllers/api/private/v1/admin/user.py:434
 #: app/controllers/api/private/v1/forgot_password.py:56
 msgid "Error! Email is invalid."
-msgstr ""
+msgstr "Erreur : l'adresse e-mail n'est pas valide."
 
 #: app/controllers/api/private/v1/admin/user.py:502
 msgid "User updated successfully."
-msgstr ""
+msgstr "L'utilisateur a été mis à jour avec succès."
 
 #: app/controllers/api/private/v1/admin/user.py:517
 msgid "Error! You can't delete your account."
-msgstr ""
+msgstr "Erreur : vous ne pouvez pas supprimer votre compte."
 
 #: app/controllers/api/private/v1/admin/user.py:523
 msgid "User deleted successfully."
-msgstr ""
+msgstr "L'utilisateur a été supprimé avec succès."
 
 #: app/controllers/api/private/v1/admin/user.py:529
 msgid "Error! Something goes wrong while deleting a user."
-msgstr ""
+msgstr "Erreur : un problème est survenu pendant la suppression d'un utilisateur."
 
 #: app/controllers/api/private/v1/forbidden.py:17
 msgid "Error! Access forbidden due to invalid CSRF token."
