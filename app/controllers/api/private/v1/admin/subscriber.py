@@ -1,6 +1,16 @@
-"""
-Subscriber API Endpoint
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Third Party Library
 from django.views import View
@@ -19,15 +29,7 @@ from app.modules.core.subscriber import Subscriber as SubscriberModule
 
 
 class Subscribers(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __subscriber = None
-    __correlation_id = None
+    """Create and List Subscribers Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -36,6 +38,8 @@ class Subscribers(View):
         self.__form = Form()
         self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -73,7 +77,11 @@ class Subscribers(View):
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -109,7 +117,11 @@ class Subscribers(View):
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_phone': {
+                            'error': _('Error! Phone number is invalid.')
+                        }
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -145,21 +157,35 @@ class Subscribers(View):
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 },
                 'endpoint': {
                     'value': request_data["endpoint"],
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_url': {
+                            'error': _('Error! Endpoint URL is invalid.')
+                        }
+                    }
                 },
                 'auth_token': {
                     'value': request_data["auth_token"],
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'length_between': {
+                            'param': [0, 80],
+                            'error': _('Error! Token is very long.')
+                        },
+                        'optional': {}
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -196,6 +222,7 @@ class Subscribers(View):
                 "auth_token": "",
                 "external_id": external_id
             })
+
         elif request_data["type"] == "phone":
 
             result = self.__subscriber.insert_one({
@@ -238,8 +265,8 @@ class Subscribers(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
-            "offset": "",
-            "limit": ""
+            "offset": 0,
+            "limit": 20
         })
 
         try:
@@ -247,7 +274,7 @@ class Subscribers(View):
             limit = int(request_data["limit"])
         except Exception:
             offset = 0
-            limit = 0
+            limit = 20
 
         return JsonResponse(self.__response.send_private_success([], {
             'subscribers': self.__format_subscribers(self.__subscriber.get_all(offset, limit)),
@@ -279,15 +306,7 @@ class Subscribers(View):
 
 
 class Subscriber(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __subscriber = None
-    __correlation_id = None
+    """Update and Delete Subscriber Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -296,6 +315,8 @@ class Subscriber(View):
         self.__form = Form()
         self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -333,7 +354,11 @@ class Subscriber(View):
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -369,7 +394,11 @@ class Subscriber(View):
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_phone': {
+                            'error': _('Error! Phone number is invalid.')
+                        }
+                    }
                 },
                 'status': {
                     'value': request_data["status"],
@@ -405,21 +434,35 @@ class Subscriber(View):
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_email': {
+                            'error': _('Error! Email is invalid.')
+                        }
+                    }
                 },
                 'endpoint': {
                     'value': request_data["endpoint"],
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'sv_url': {
+                            'error': _('Error! Endpoint URL is invalid.')
+                        }
+                    }
                 },
                 'auth_token': {
                     'value': request_data["auth_token"],
                     'sanitize': {
                         'strip': {}
                     },
-                    'validate': {}
+                    'validate': {
+                        'length_between': {
+                            'param': [0, 80],
+                            'error': _('Error! Token is very long.')
+                        },
+                        'optional': {}
+                    }
                 },
                 'status': {
                     'value': request_data["status"],

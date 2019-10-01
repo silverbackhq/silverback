@@ -20,7 +20,7 @@ from django.shortcuts import reverse
 from app.tests.testing_base import TestingBase
 
 
-class TestHome(TestCase):
+class TestLogin(TestCase):
 
     def setUp(self):
         tb = TestingBase()
@@ -39,5 +39,5 @@ class TestHome(TestCase):
         tb.uninstall()
 
     def test_get(self):
-        response = self.client.get(reverse("app.web.status_page_index"))
+        response = self.client.get(reverse("app.web.login"))
         self.assertEqual(response.status_code, 200)

@@ -1,6 +1,16 @@
-"""
-Forgot Password Module
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Third Party Library
 from django.utils import timezone
@@ -15,10 +25,6 @@ from app.modules.core.task import Task as TaskCore
 
 class ForgotPassword():
 
-    __reset_request_entity = None
-    __option_entity = None
-    __user_entity = None
-    __task_core = None
     __reset_expire_option = 24
     __messages_count_option = 5
 

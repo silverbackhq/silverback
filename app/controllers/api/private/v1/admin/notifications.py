@@ -1,6 +1,16 @@
-"""
-Notifications API Endpoint
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Third Party Library
 from django.views import View
@@ -18,15 +28,7 @@ from app.modules.core.notification import Notification as NotificationModule
 
 
 class LatestNotifications(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __notification = None
-    __correlation_id = None
+    """List and Update Latest Notifications Private Endpoint Controller"""
 
     def __init__(self):
         self.__helpers = Helpers()
@@ -35,6 +37,8 @@ class LatestNotifications(View):
         self.__response = Response()
         self.__request = Request()
         self.__notification = NotificationModule()
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -71,16 +75,7 @@ class LatestNotifications(View):
 
 
 class Notifications(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __notification = None
-    __humanize = None
-    __correlation_id = None
+    """List Notifications Private Endpoint Controller"""
 
     def __init__(self):
         self.__helpers = Helpers()
@@ -90,6 +85,8 @@ class Notifications(View):
         self.__request = Request()
         self.__notification = NotificationModule()
         self.__humanize = Humanize()
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -100,8 +97,8 @@ class Notifications(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
-            "offset": "",
-            "limit": ""
+            "offset": 0,
+            "limit": 20
         })
 
         try:
@@ -109,7 +106,7 @@ class Notifications(View):
             limit = int(request_data["limit"])
         except Exception:
             offset = 0
-            limit = 0
+            limit = 20
 
         return JsonResponse(self.__response.send_private_success([], {
             'notifications': self.__format_notification(self.__notification.get(self.__user_id, offset, limit)),

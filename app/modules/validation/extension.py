@@ -1,14 +1,29 @@
-"""
-Validation Extensions
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Standard Library
 import re
+import os
+import datetime
 
 # Third Party Library
-from django.core.signing import Signer
+from twilio.rest import Client
 from pyvalitron.validator import Validator
+from twilio.base.exceptions import TwilioRestException
+from django.core.signing import Signer
 from django.core.validators import URLValidator
+from django.core.validators import validate_slug
 from django.core.validators import validate_email
 from django.core.validators import validate_ipv4_address
 from django.core.validators import validate_ipv6_address
@@ -97,19 +112,29 @@ class ExtraRules(Validator):
         regex = re.compile(r'^[0-9]+$')
         return bool(regex.match(self._input))
 
-    def sv_host_slug(self):
-        regex = re.compile(r'^[a-z0-9-_]+$')
-        return bool(regex.match(self._input))
+    def sv_slug(self):
+        return True if validate_slug(self._input) is None else False
 
-    def sv_host_name(self):
-        regex = re.compile(r'^[a-zA-Z0-9-_\s]+$')
-        return bool(regex.match(self._input))
+    def sv_datetime(self, date_format='%Y-%m-%d %H:%M:%S'):
+        try:
+            datetime.datetime.strptime(self._input, date_format)
+            return True
+        except ValueError:
+            return False
 
-    def sv_host_server(self):
-        return True
-
-    def sv_tls_certificate(self):
-        return True
+    def sv_phone(self):
+        if os.getenv("TEXT_MESSAGING_DRIVER", "twilio") == "twilio" and os.getenv("TWILIO_ACCOUNT_SID") and os.getenv("TWILIO_AUTH_TOKEN"):
+            client = Client(os.getenv("TWILIO_ACCOUNT_SID"), os.getenv("TWILIO_AUTH_TOKEN"))
+            try:
+                client.lookups.phone_numbers(self._input).fetch(type="carrier")
+                return True
+            except TwilioRestException as e:
+                if e.code == 20404:
+                    return False
+                else:
+                    raise e
+        else:
+            return self.sv_numeric() and len(self._input) >= 9
 
     def optional(self):
         return self._input == ""

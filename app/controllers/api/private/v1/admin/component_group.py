@@ -1,6 +1,16 @@
-"""
-Component Groups API Endpoint
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Third Party Library
 from django.views import View
@@ -19,15 +29,7 @@ from app.modules.core.component_group import ComponentGroup as ComponentGroupMod
 
 
 class ComponentGroups(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __component_group = None
-    __correlation_id = None
+    """Create and List Component Groups Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -36,6 +38,8 @@ class ComponentGroups(View):
         self.__form = Form()
         self.__component_group = ComponentGroupModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -58,8 +62,8 @@ class ComponentGroups(View):
                 },
                 'validate': {
                     'length_between': {
-                        'param': [1, 90],
-                        'error': _('Error! Component group name must be 1 to 90 characters long.')
+                        'param': [1, 60],
+                        'error': _('Error! Component name must be 1 to 60 characters long.')
                     }
                 }
             },
@@ -68,7 +72,13 @@ class ComponentGroups(View):
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [0, 150],
+                        'error': _('Error! Component name description must be less than 150 characters long.')
+                    },
+                    'optional': {}
+                }
             },
             'uptime': {
                 'value': request_data["uptime"],
@@ -85,6 +95,13 @@ class ComponentGroups(View):
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+
+        # Check if group name not used
+        if self.__component_group.get_one_by_name(self.__form.get_sinput("name")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Component group name is used before.")
+            }], {}, self.__correlation_id))
 
         result = self.__component_group.insert_one({
             "name": self.__form.get_sinput("name"),
@@ -110,8 +127,8 @@ class ComponentGroups(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
-            "offset": "",
-            "limit": ""
+            "offset": 0,
+            "limit": 20
         })
 
         try:
@@ -119,7 +136,7 @@ class ComponentGroups(View):
             limit = int(request_data["limit"])
         except Exception:
             offset = 0
-            limit = 0
+            limit = 20
 
         return JsonResponse(self.__response.send_private_success([], {
             'groups': self.__format_groups(self.__component_group.get_all(offset, limit)),
@@ -148,15 +165,7 @@ class ComponentGroups(View):
 
 
 class ComponentGroup(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __component_group = None
-    __correlation_id = None
+    """Update and Delete Component Group Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -165,6 +174,8 @@ class ComponentGroup(View):
         self.__form = Form()
         self.__component_group = ComponentGroupModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -187,8 +198,8 @@ class ComponentGroup(View):
                 },
                 'validate': {
                     'length_between': {
-                        'param': [1, 90],
-                        'error': _('Error! Component group name must be 1 to 90 characters long.')
+                        'param': [1, 60],
+                        'error': _('Error! Component name must be 1 to 60 characters long.')
                     }
                 }
             },
@@ -197,7 +208,13 @@ class ComponentGroup(View):
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [0, 150],
+                        'error': _('Error! Component name description must be less than 150 characters long.')
+                    },
+                    'optional': {}
+                }
             },
             'uptime': {
                 'value': request_data["uptime"],
@@ -214,6 +231,15 @@ class ComponentGroup(View):
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+
+        # Check if group name not used elsewhere
+        current_group = self.__component_group.get_one_by_name(self.__form.get_sinput("name"))
+
+        if current_group and not current_group["id"] == group_id:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Component group name is used before.")
+            }], {}, self.__correlation_id))
 
         result = self.__component_group.update_one_by_id(group_id, {
             "name": self.__form.get_sinput("name"),

@@ -1,6 +1,16 @@
-"""
-Component Web Controller
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Standard Library
 import os
@@ -18,15 +28,15 @@ from app.modules.core.component import Component as ComponentModule
 
 
 class ComponentList(View):
+    """Component List Page Controller"""
 
     template_name = 'templates/admin/component/list.html'
-    __context = Context()
-    __component = ComponentModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__context = Context()
+        self.__component = ComponentModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -38,15 +48,15 @@ class ComponentList(View):
 
 
 class ComponentAdd(View):
+    """Component Add Page Controller"""
 
     template_name = 'templates/admin/component/add.html'
-    __context = Context()
-    __component = ComponentModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__context = Context()
+        self.__component = ComponentModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -59,15 +69,15 @@ class ComponentAdd(View):
 
 
 class ComponentEdit(View):
+    """Component Edit Page Controller"""
 
     template_name = 'templates/admin/component/edit.html'
-    __context = Context()
-    __component = ComponentModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, component_id):
 
+        self.__context = Context()
+        self.__component = ComponentModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         component = self.__component.get_one_by_id(component_id)
 

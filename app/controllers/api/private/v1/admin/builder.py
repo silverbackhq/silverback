@@ -1,6 +1,16 @@
-"""
-Builder API Endpoint
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Standard Library
 import json
@@ -24,16 +34,7 @@ from app.modules.core.component_group import ComponentGroup as ComponentGroupMod
 
 
 class BuilderSystemMetrics(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __settings = None
-    __metric = None
-    __correlation_id = None
+    """Add and Remove Builder System Metrics Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -43,6 +44,8 @@ class BuilderSystemMetrics(View):
         self.__metric = MetricModule()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
@@ -128,17 +131,7 @@ class BuilderSystemMetrics(View):
 
 
 class BuilderComponents(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __settings = None
-    __component = None
-    __component_group = None
-    __correlation_id = None
+    """Add and Remove Builder Components Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -149,6 +142,8 @@ class BuilderComponents(View):
         self.__component_group = ComponentGroupModule()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
@@ -246,15 +241,7 @@ class BuilderComponents(View):
 
 
 class BuilderSettings(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __settings = None
-    __correlation_id = None
+    """Update Builder Settings Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -263,6 +250,8 @@ class BuilderSettings(View):
         self.__settings = Settings()
         self.__form = Form()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
@@ -294,7 +283,6 @@ class BuilderSettings(View):
             'builder_favicon_url': {
                 'value': request_data["builder_favicon_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -306,7 +294,6 @@ class BuilderSettings(View):
             'builder_logo_url': {
                 'value': request_data["builder_logo_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {

@@ -1,6 +1,16 @@
-"""
-Incident Updates API Endpoint
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Third Party Library
 from django.views import View
@@ -26,20 +36,7 @@ from app.modules.core.incident_update_notification import IncidentUpdateNotifica
 
 
 class IncidentUpdates(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident = None
-    __incident_update = None
-    __task = None
-    __notification = None
-    __subscriber = None
-    __incident_update_notification = None
-    __correlation_id = None
+    """Create and List Incident Updates Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -53,6 +50,8 @@ class IncidentUpdates(View):
         self.__subscriber = SubscriberModule()
         self.__incident_update_notification = IncidentUpdateNotificationModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -75,14 +74,23 @@ class IncidentUpdates(View):
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 3000000],
+                        'error': _('Error! Update message must be 1 to 3M characters long.')
+                    }
+                }
             },
             'datetime': {
                 'value': request_data["datetime"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'sv_datetime': {
+                        'error': _('Error! Datetime is invalid.')
+                    }
+                }
             },
             'status': {
                 'value': request_data["status"],
@@ -145,8 +153,8 @@ class IncidentUpdates(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
-            "offset": "",
-            "limit": ""
+            "offset": 0,
+            "limit": 20
         })
 
         try:
@@ -154,7 +162,7 @@ class IncidentUpdates(View):
             limit = int(request_data["limit"])
         except Exception:
             offset = 0
-            limit = 0
+            limit = 20
 
         return JsonResponse(self.__response.send_private_success([], {
             'updates': self.__format_incident_updates(self.__incident_update.get_all(incident_id, offset, limit), incident_id),
@@ -192,15 +200,7 @@ class IncidentUpdates(View):
 
 
 class IncidentUpdate(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident_update = None
-    __correlation_id = None
+    """Update and Delete Incident Update Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -209,6 +209,8 @@ class IncidentUpdate(View):
         self.__form = Form()
         self.__incident_update = IncidentUpdateModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -230,14 +232,23 @@ class IncidentUpdate(View):
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 3000000],
+                        'error': _('Error! Update message must be 1 to 3M characters long.')
+                    }
+                }
             },
             'datetime': {
                 'value': request_data["datetime"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'sv_datetime': {
+                        'error': _('Error! Datetime is invalid.')
+                    }
+                }
             },
             'status': {
                 'value': request_data["status"],
@@ -302,18 +313,7 @@ class IncidentUpdate(View):
 
 
 class IncidentUpdatesNotify(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident_update = None
-    __task = None
-    __notification = None
-    __subscriber = None
-    __correlation_id = None
+    """Notify Subscribers about Incident Update Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -325,6 +325,8 @@ class IncidentUpdatesNotify(View):
         self.__notification = NotificationModule()
         self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -364,19 +366,7 @@ class IncidentUpdatesNotify(View):
 
 
 class IncidentUpdatesComponents(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident_update = None
-    __task = None
-    __notification = None
-    __subscriber = None
-    __incident_update_component = None
-    __correlation_id = None
+    """Link Component to Incident Update Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -389,6 +379,8 @@ class IncidentUpdatesComponents(View):
         self.__subscriber = SubscriberModule()
         self.__logger = self.__helpers.get_logger(__name__)
         self.__incident_update_component = IncidentUpdateComponentModule()
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -447,15 +439,7 @@ class IncidentUpdatesComponents(View):
 
 
 class IncidentUpdatesComponent(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __incident_update_component = None
-    __correlation_id = None
+    """Remove Component from Incident Update Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -464,6 +448,8 @@ class IncidentUpdatesComponent(View):
         self.__form = Form()
         self.__incident_update_component = IncidentUpdateComponentModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

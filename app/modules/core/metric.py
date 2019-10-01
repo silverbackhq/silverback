@@ -1,6 +1,16 @@
-"""
-Metric Module
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Standard Library
 import json
@@ -15,19 +25,32 @@ from app.modules.entity.option_entity import OptionEntity
 
 class Metric():
 
-    __metric_entity = None
-    __option_entity = None
-    __newrelic = None
-
     def __init__(self):
         self.__option_entity = OptionEntity()
         self.__metric_entity = MetricEntity()
         new_relic_api = self.__option_entity.get_one_by_key("newrelic_api_key")
+        self.__newrelic = None
         if new_relic_api:
             self.__newrelic = NewRelic_Provider(new_relic_api.value)
 
     def get_one_by_id(self, id):
         metric = self.__metric_entity.get_one_by_id(id)
+
+        if not metric:
+            return False
+
+        return {
+            "id": metric.id,
+            "title": metric.title,
+            "description": metric.description,
+            "source": metric.source,
+            "data": metric.data,
+            "x_axis": metric.x_axis,
+            "y_axis": metric.y_axis
+        }
+
+    def get_one_by_title(self, title):
+        metric = self.__metric_entity.get_one_by_title(title)
 
         if not metric:
             return False

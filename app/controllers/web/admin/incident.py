@@ -1,6 +1,16 @@
-"""
-Incident Web Controller
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Standard Library
 import os
@@ -21,18 +31,18 @@ from app.modules.core.incident_update import IncidentUpdate as IncidentUpdateMod
 
 
 class IncidentList(View):
+    """Incident List Page Controller"""
 
     template_name = 'templates/admin/incident/list.html'
-    __context = Context()
-    __incident = IncidentModule()
-    __incident_update = IncidentUpdateModule()
-    __component = ComponentModule()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__context = Context()
+        self.__incident = IncidentModule()
+        self.__incident_update = IncidentUpdateModule()
+        self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -44,18 +54,18 @@ class IncidentList(View):
 
 
 class IncidentAdd(View):
+    """Incident Add Page Controller"""
 
     template_name = 'templates/admin/incident/add.html'
-    __context = Context()
-    __incident = IncidentModule()
-    __incident_update = IncidentUpdateModule()
-    __component = ComponentModule()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request):
 
+        self.__context = Context()
+        self.__incident = IncidentModule()
+        self.__incident_update = IncidentUpdateModule()
+        self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
@@ -67,18 +77,18 @@ class IncidentAdd(View):
 
 
 class IncidentEdit(View):
+    """Incident Edit Page Controller"""
 
     template_name = 'templates/admin/incident/edit.html'
-    __context = Context()
-    __incident = IncidentModule()
-    __incident_update = IncidentUpdateModule()
-    __component = ComponentModule()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, incident_id):
 
+        self.__context = Context()
+        self.__incident = IncidentModule()
+        self.__incident_update = IncidentUpdateModule()
+        self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
@@ -96,18 +106,18 @@ class IncidentEdit(View):
 
 
 class IncidentView(View):
+    """Incident View Page Controller"""
 
     template_name = 'templates/admin/incident/view.html'
-    __context = Context()
-    __incident = IncidentModule()
-    __incident_update = IncidentUpdateModule()
-    __component = ComponentModule()
-    __component_group = ComponentGroupModule()
-    __correlation_id = None
 
     @login_if_not_authenticated
     def get(self, request, incident_id):
 
+        self.__context = Context()
+        self.__incident = IncidentModule()
+        self.__incident_update = IncidentUpdateModule()
+        self.__component = ComponentModule()
+        self.__component_group = ComponentGroupModule()
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 

@@ -1,6 +1,16 @@
-"""
-Status Page Web Controller
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Standard Library
 import os
@@ -18,12 +28,9 @@ from app.modules.core.status_page import StatusPage as StatusPageModule
 
 
 class StatusPageIndex(View):
+    """Status Page Index Page Controller"""
 
     template_name = 'templates/status_page_index.html'
-    __context = None
-    __option_entity = None
-    __status_page_module = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request):
@@ -50,12 +57,9 @@ class StatusPageIndex(View):
 
 
 class StatusPageHistory(View):
+    """Status Page History Page Controller"""
 
     template_name = 'templates/status_page_history.html'
-    __context = None
-    __option_entity = None
-    __status_page_module = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request, period):
@@ -91,12 +95,9 @@ class StatusPageHistory(View):
 
 
 class StatusPageSingle(View):
+    """Status Page Single Page Controller"""
 
     template_name = 'templates/status_page_single.html'
-    __context = None
-    __option_entity = None
-    __status_page_module = None
-    __correlation_id = None
 
     @redirect_if_not_installed
     def get(self, request, uri):

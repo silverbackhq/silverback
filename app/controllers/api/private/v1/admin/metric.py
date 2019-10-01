@@ -1,6 +1,16 @@
-"""
-Metrics API Endpoint
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Third Party Library
 from django.views import View
@@ -19,15 +29,7 @@ from app.modules.core.decorators import allow_if_authenticated
 
 
 class Metrics(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __metric = None
-    __correlation_id = None
+    """Create and List Metrics Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -36,6 +38,8 @@ class Metrics(View):
         self.__form = Form()
         self.__metric = MetricModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -60,17 +64,31 @@ class Metrics(View):
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Metric title must be 1 to 60 characters long.')
+                    }
+                }
             },
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [0, 150],
+                        'error': _('Error! Metric description must be less than 150 characters long.')
+                    },
+                    'optional': {}
+                }
             },
             'source': {
                 'value': request_data["source"],
+                'sanitize': {
+                    'strip': {}
+                },
                 'validate': {
                     'any_of': {
                         'param': [["newrelic"]],
@@ -83,28 +101,48 @@ class Metrics(View):
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Application must be 1 to 60 characters long.')
+                    }
+                }
             },
             'metric': {
                 'value': request_data["metric"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Metric must be 1 to 60 characters long.')
+                    }
+                }
             },
             'x_axis': {
                 'value': request_data["x_axis"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 40],
+                        'error': _('Error! X-Axis label must be 1 to 40 characters long.')
+                    }
+                }
             },
             'y_axis': {
                 'value': request_data["y_axis"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 40],
+                        'error': _('Error! Y-Axis label must be 1 to 40 characters long.')
+                    }
+                }
             }
         })
 
@@ -112,6 +150,12 @@ class Metrics(View):
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+
+        if self.__metric.get_one_by_title(self.__form.get_sinput("title")):
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Metric title is used before.")
+            }], {}, self.__correlation_id))
 
         result = self.__metric.insert_one({
             "title": self.__form.get_sinput("title"),
@@ -143,8 +187,8 @@ class Metrics(View):
         self.__request.set_request(request)
 
         request_data = self.__request.get_request_data("get", {
-            "offset": "",
-            "limit": ""
+            "offset": 0,
+            "limit": 20
         })
 
         try:
@@ -152,7 +196,7 @@ class Metrics(View):
             limit = int(request_data["limit"])
         except Exception:
             offset = 0
-            limit = 0
+            limit = 20
 
         return JsonResponse(self.__response.send_private_success([], {
             'metrics': self.__format_metrics(self.__metric.get_all(offset, limit)),
@@ -180,15 +224,7 @@ class Metrics(View):
 
 
 class Metric(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __metric = None
-    __correlation_id = None
+    """Update and Delete Metric Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -197,6 +233,8 @@ class Metric(View):
         self.__form = Form()
         self.__metric = MetricModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -221,17 +259,31 @@ class Metric(View):
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Metric title must be 1 to 60 characters long.')
+                    }
+                }
             },
             'description': {
                 'value': request_data["description"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [0, 150],
+                        'error': _('Error! Metric description must be less than 150 characters long.')
+                    },
+                    'optional': {}
+                }
             },
             'source': {
                 'value': request_data["source"],
+                'sanitize': {
+                    'strip': {}
+                },
                 'validate': {
                     'any_of': {
                         'param': [["newrelic"]],
@@ -244,28 +296,48 @@ class Metric(View):
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Application must be 1 to 60 characters long.')
+                    }
+                }
             },
             'metric': {
                 'value': request_data["metric"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 60],
+                        'error': _('Error! Metric must be 1 to 60 characters long.')
+                    }
+                }
             },
             'x_axis': {
                 'value': request_data["x_axis"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 40],
+                        'error': _('Error! X-Axis label must be 1 to 40 characters long.')
+                    }
+                }
             },
             'y_axis': {
                 'value': request_data["y_axis"],
                 'sanitize': {
                     'strip': {}
                 },
-                'validate': {}
+                'validate': {
+                    'length_between': {
+                        'param': [1, 40],
+                        'error': _('Error! Y-Axis label must be 1 to 40 characters long.')
+                    }
+                }
             }
         })
 
@@ -273,6 +345,14 @@ class Metric(View):
 
         if not self.__form.is_passed():
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+
+        current_metric = self.__metric.get_one_by_title(self.__form.get_sinput("title"))
+
+        if current_metric and not current_metric["id"] == metric_id:
+            return JsonResponse(self.__response.send_private_failure([{
+                "type": "error",
+                "message": _("Error! Metric title is used before.")
+            }], {}, self.__correlation_id))
 
         result = self.__metric.update_one_by_id(metric_id, {
             "title": self.__form.get_sinput("title"),
@@ -317,15 +397,7 @@ class Metric(View):
 
 
 class NewRelicApps(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __metric = None
-    __correlation_id = None
+    """List NewRelic Apps Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -334,6 +406,8 @@ class NewRelicApps(View):
         self.__form = Form()
         self.__metric = MetricModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated

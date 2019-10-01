@@ -1,6 +1,16 @@
-"""
-Profile API Endpoint
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Third Party Library
 from django.views import View
@@ -18,15 +28,7 @@ from app.modules.core.decorators import allow_if_authenticated
 
 
 class Profile(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __logger = None
-    __user_id = None
-    __profile_module = None
-    __correlation_id = None
+    """Update Profile Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -35,6 +37,8 @@ class Profile(View):
         self.__form = Form()
         self.__profile_module = ProfileModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__user_id = None
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
@@ -125,7 +129,6 @@ class Profile(View):
             'username': {
                 'value': request_data["username"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -141,7 +144,6 @@ class Profile(View):
             'email': {
                 'value': request_data["email"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -192,7 +194,6 @@ class Profile(View):
             'github_url': {
                 'value': request_data["github_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -209,7 +210,6 @@ class Profile(View):
             'twitter_url': {
                 'value': request_data["twitter_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -226,7 +226,6 @@ class Profile(View):
             'facebook_url': {
                 'value': request_data["facebook_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {

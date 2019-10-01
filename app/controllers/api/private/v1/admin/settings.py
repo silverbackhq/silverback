@@ -1,6 +1,16 @@
-"""
-Settings API Endpoint
-"""
+# Copyright 2019 Silverbackhq
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 # Third Party Library
 from django.views import View
@@ -20,16 +30,7 @@ from app.modules.core.decorators import allow_if_authenticated_and_has_permissio
 
 
 class Settings(View):
-
-    __request = None
-    __response = None
-    __helpers = None
-    __form = None
-    __settings_module = None
-    __logger = None
-    __acl = None
-    __activity_module = None
-    __correlation_id = None
+    """Update Settings Private Endpoint Controller"""
 
     def __init__(self):
         self.__request = Request()
@@ -40,6 +41,7 @@ class Settings(View):
         self.__acl = ACL()
         self.__activity_module = ActivityModule()
         self.__logger = self.__helpers.get_logger(__name__)
+        self.__correlation_id = ""
         self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
@@ -64,7 +66,6 @@ class Settings(View):
             'app_name': {
                 'value': request_data["app_name"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -80,7 +81,6 @@ class Settings(View):
             'app_email': {
                 'value': request_data["app_email"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
@@ -92,7 +92,6 @@ class Settings(View):
             'app_url': {
                 'value': request_data["app_url"],
                 'sanitize': {
-                    'escape': {},
                     'strip': {}
                 },
                 'validate': {
