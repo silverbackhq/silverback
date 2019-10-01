@@ -39,7 +39,7 @@ from app.modules.core.constants import Constants
 
 
 class StatusPage():
-  
+
     def __init__(self):
         self.__option_entity = OptionEntity()
         self.__incident_entity = IncidentEntity()
