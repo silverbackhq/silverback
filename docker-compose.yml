@@ -37,7 +37,7 @@ services:
 
     # Web UI Service
     web:
-        image: "clivern_silverback:1.0.0"
+        image: "clivern/silverback:latest"
         build: .
         command: 'gunicorn --bind 0.0.0.0:8000 app.wsgi'
         volumes:
@@ -53,9 +53,9 @@ services:
             timeout: 1s
             retries: 5
 
-    # Worker Service
+    # Worker1 Service
     worker1:
-        image: "clivern_silverback:1.0.0"
+        image: "clivern/silverback:latest"
         build: .
         command: 'celery -A app worker --loglevel=info -n worker1'
         volumes:
@@ -66,7 +66,25 @@ services:
             - rabbitmq
         restart: always
         healthcheck:
-            test: 'python3 manage.py health check'
+            test: 'python manage.py health check'
+            interval: 3s
+            timeout: 1s
+            retries: 5
+
+    # Worker2 Service
+    worker2:
+        image: "clivern/silverback:latest"
+        build: .
+        command: 'celery -A app worker --loglevel=info -n worker2'
+        volumes:
+            - '.:/app'
+        depends_on:
+            - db
+            - redis
+            - rabbitmq
+        restart: always
+        healthcheck:
+            test: 'python manage.py health check'
             interval: 3s
             timeout: 1s
             retries: 5
