@@ -39,9 +39,10 @@
 
 ## Installation
 
-- Install [for development purposes](INSTALLATION_GUIDE.md#development) ([see requirements details](INSTALLATION_GUIDE.md#requirements)).
-- Install [on production](INSTALLATION_GUIDE.md#production) ([see requirements details](INSTALLATION_GUIDE.md#requirements)).
-- [Run with Docker.](INSTALLATION_GUIDE.md#run-with-docker)
+- [Install for Development Purposes.](deployments/development/README.md)
+- [Install on Ubuntu 18.04.](deployments/ubuntu-18.04/README.md)
+- [Install on Docker Compose.](deployments/docker-compose/README.md)
+- [Install on Kubernetes.](deployments/k8s/README.md)
 
 
 ## Versioning
