@@ -1,7 +1,7 @@
 ## Install for Development Purposes
 
 
-#### Requirements
+### Requirements
 
 - Python 3 or later
 - A Supported Database: MySQL, PostgreSQL.
@@ -9,7 +9,7 @@
 - RabbitMQ Server (optional for notifications).
 
 
-#### Steps
+### Steps
 
 In order to run silverback for development purposes, we will use `virtualenv`.
 
@@ -46,4 +46,16 @@ $ python3 manage.py runserver
 
 # Exit the virtualenv
 $ deactivate
+```
+
+### FAQ
+
+- **Error while installing `requirements.txt` `mysql_config: command not found`:**
+
+Edit the `/bin/activate` file from the virtualenv directory and update the following lines:
+```bash
+_OLD_VIRTUAL_PATH="$PATH"
+PATH="$VIRTUAL_ENV/bin:$PATH"
+PATH="$PATH:/usr/local/mysql/bin/"
+export PATH
 ```
