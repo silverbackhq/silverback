@@ -13,7 +13,6 @@ python:
   - "3.7"
   - "3.7-dev"  # 3.7 development branch
   - "3.8-dev"  # 3.8 development branch
-  - "3.8"
   - "nightly"  # nightly build
 
 matrix:
@@ -21,6 +20,7 @@ matrix:
   - python: "3.5"
   - python: "3.5-dev"
   - python: "3.8-dev"
+  - python: "3.8"
   - python: "nightly"
  
 # command to install dependencies
