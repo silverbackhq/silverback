@@ -21,84 +21,84 @@ msgstr ""
 #: app/controllers/api/private/v1/admin/builder.py:57
 #: app/controllers/api/private/v1/admin/builder.py:69
 msgid "Metric added successfully."
-msgstr "Messwert erfolgreich hinzugefügt."
+msgstr "Metric succesvol toegevoegd."
 
 #: app/controllers/api/private/v1/admin/builder.py:75
 msgid "Error! Something goes wrong while adding metric."
-msgstr "Fehler! Etwas ging schief beim Hinzufügen des Messwerts."
+msgstr "Error! Er gaat iets mis bij het toevoegen van een metric."
 
 #: app/controllers/api/private/v1/admin/builder.py:90
 #: app/controllers/api/private/v1/admin/builder.py:102
 #: app/controllers/api/private/v1/admin/metric.py:298
 msgid "Metric deleted successfully."
-msgstr "Messwert erfolgreich gelöscht."
+msgstr "Metric succesvol verwijderd."
 
 #: app/controllers/api/private/v1/admin/builder.py:108
 #: app/controllers/api/private/v1/admin/metric.py:304
 msgid "Error! Something goes wrong while deleting metric."
-msgstr "Fehler! Messwert konnte nicht gelöscht werden."
+msgstr "Error! Er gaat iets mis bij het verwijderen van de metric."
 
 #: app/controllers/api/private/v1/admin/builder.py:148
 #: app/controllers/api/private/v1/admin/builder.py:160
 msgid "Component added successfully."
-msgstr "Komponente erfolgreich hinzugefügt."
+msgstr "Component succesvol toegevoegd."
 
 #: app/controllers/api/private/v1/admin/builder.py:166
 msgid "Error! Something goes wrong while adding component."
-msgstr "Fehler! Komponente konnte nicht hinzugefügt werden."
+msgstr "Error! Er gaat iets mis bij het toevoegen van een component."
 
 #: app/controllers/api/private/v1/admin/builder.py:181
 #: app/controllers/api/private/v1/admin/builder.py:193
 #: app/controllers/api/private/v1/admin/component.py:248
 msgid "Component deleted successfully."
-msgstr "Komponente erfolgreich gelöscht."
+msgstr "Component succesvol verwijderd."
 
 #: app/controllers/api/private/v1/admin/builder.py:199
 #: app/controllers/api/private/v1/admin/component.py:254
 msgid "Error! Something goes wrong while deleting component."
-msgstr "Fehler! Komponente konnte nicht gelöscht werden."
+msgstr "Error! Er gaat iets mis bij het verwijderen van de component."
 
 #: app/controllers/api/private/v1/admin/builder.py:241
 msgid "Error! Headline is very long."
-msgstr "Fehler! Überschrift ist zu lang."
+msgstr "Error! Hoofdlijn is te lang"
 
 #: app/controllers/api/private/v1/admin/builder.py:254
 msgid "Error! Favicon URL is invalid."
-msgstr "Fehler! Favicon URL ist ungültig."
+msgstr "Error! Favicon URL is niet geldig."
 
 #: app/controllers/api/private/v1/admin/builder.py:266
 msgid "Error! Image URL is invalid."
-msgstr "Fehler! Bild URL ist ungültig."
+msgstr "Error! URL voor plaatje is niet geldig."
 
 #: app/controllers/api/private/v1/admin/builder.py:278
 msgid "Error! About is very long."
-msgstr "Fehler! About-Text ist zu lang."
+msgstr "Error! About-Text is te lang."
 
 #: app/controllers/api/private/v1/admin/builder.py:300
 #: app/controllers/api/private/v1/admin/settings.py:220
 msgid "Settings updated successfully."
-msgstr "Einstellungen erfolgreich gespeichert."
+msgstr "Settings succesvol bijgewerkt."
 
 #: app/controllers/api/private/v1/admin/builder.py:306
 #: app/controllers/api/private/v1/admin/settings.py:226
 msgid "Error! Something goes wrong while updating settings."
-msgstr "Fehler! Etwas ging schief beim Speichern der Einstellungen."
+msgstr "Error! Iets gaat fout bij het updaten van de settings."
 
 #: app/controllers/api/private/v1/admin/component.py:59
 #: app/controllers/api/private/v1/admin/component.py:191
 msgid "Error! Component name must be 1 to 90 characters long."
-msgstr "Fehler! Komponent-Name muss 1 bis 90 Zeichen lang sein."
+msgstr "Error! Component naam moet tussen de 1 en 90 tekens lang zijn."
 
 #: app/controllers/api/private/v1/admin/component.py:75
 #: app/controllers/api/private/v1/admin/component.py:207
 #: app/controllers/api/private/v1/admin/component_group.py:74
 #: app/controllers/api/private/v1/admin/component_group.py:198
 msgid "Error! Uptime is invalid."
-msgstr "Fehler! Ungültige Laufzeit."
+msgstr "Error! online tijd is niet geldig"
 
 #: app/controllers/api/private/v1/admin/component.py:101
 msgid "Component created successfully."
-msgstr "Komponent erfolgreich erstellt."
+msgstr "Component succesvol aangemaakt."
 
 #: app/controllers/api/private/v1/admin/component.py:106
 msgid "Error! Something goes wrong while creating component."
