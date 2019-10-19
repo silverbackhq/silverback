@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-11 19:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/controllers/api/private/v1/admin/builder.py:57
+#: app/controllers/api/private/v1/admin/builder.py:69
+msgid "Metric added successfully."
+msgstr "Metric succesvol toegevoegd."
+
+#: app/controllers/api/private/v1/admin/builder.py:75
+msgid "Error! Something goes wrong while adding metric."
+msgstr "Error! Er gaat iets mis bij het toevoegen van een metric."
+
+#: app/controllers/api/private/v1/admin/builder.py:90
+#: app/controllers/api/private/v1/admin/builder.py:102
+#: app/controllers/api/private/v1/admin/metric.py:298
+msgid "Metric deleted successfully."
+msgstr "Metric succesvol verwijderd."
+
+#: app/controllers/api/private/v1/admin/builder.py:108
+#: app/controllers/api/private/v1/admin/metric.py:304
+msgid "Error! Something goes wrong while deleting metric."
+msgstr "Error! Er gaat iets mis bij het verwijderen van de metric."
+
+#: app/controllers/api/private/v1/admin/builder.py:148
+#: app/controllers/api/private/v1/admin/builder.py:160
+msgid "Component added successfully."
+msgstr "Component succesvol toegevoegd."
+
+#: app/controllers/api/private/v1/admin/builder.py:166
+msgid "Error! Something goes wrong while adding component."
+msgstr "Error! Er gaat iets mis bij het toevoegen van een component."
+
+#: app/controllers/api/private/v1/admin/builder.py:181
+#: app/controllers/api/private/v1/admin/builder.py:193
+#: app/controllers/api/private/v1/admin/component.py:248
+msgid "Component deleted successfully."
+msgstr "Component succesvol verwijderd."
+
+#: app/controllers/api/private/v1/admin/builder.py:199
+#: app/controllers/api/private/v1/admin/component.py:254
+msgid "Error! Something goes wrong while deleting component."
+msgstr "Error! Er gaat iets mis bij het verwijderen van de component."
+
+#: app/controllers/api/private/v1/admin/builder.py:241
+msgid "Error! Headline is very long."
+msgstr "Error! Hoofdlijn is te lang"
+
+#: app/controllers/api/private/v1/admin/builder.py:254
+msgid "Error! Favicon URL is invalid."
+msgstr "Error! Favicon URL is niet geldig."
+
+#: app/controllers/api/private/v1/admin/builder.py:266
+msgid "Error! Image URL is invalid."
+msgstr "Error! URL voor plaatje is niet geldig."
+
+#: app/controllers/api/private/v1/admin/builder.py:278
+msgid "Error! About is very long."
+msgstr "Error! About-Text is te lang."
+
+#: app/controllers/api/private/v1/admin/builder.py:300
+#: app/controllers/api/private/v1/admin/settings.py:220
+msgid "Settings updated successfully."
+msgstr "Settings succesvol bijgewerkt."
+
+#: app/controllers/api/private/v1/admin/builder.py:306
+#: app/controllers/api/private/v1/admin/settings.py:226
+msgid "Error! Something goes wrong while updating settings."
+msgstr "Error! Iets gaat fout bij het updaten van de settings."
+
+#: app/controllers/api/private/v1/admin/component.py:59
+#: app/controllers/api/private/v1/admin/component.py:191
+msgid "Error! Component name must be 1 to 90 characters long."
+msgstr "Error! Component naam moet tussen de 1 en 90 tekens lang zijn."
+
+#: app/controllers/api/private/v1/admin/component.py:75
+#: app/controllers/api/private/v1/admin/component.py:207
+#: app/controllers/api/private/v1/admin/component_group.py:74
+#: app/controllers/api/private/v1/admin/component_group.py:198
+msgid "Error! Uptime is invalid."
+msgstr "Error! online tijd is niet geldig"
+
+#: app/controllers/api/private/v1/admin/component.py:101
+msgid "Component created successfully."
+msgstr "Component succesvol aangemaakt."
