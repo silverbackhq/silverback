@@ -20,6 +20,7 @@ matrix:
   - python: "3.5"
   - python: "3.5-dev"
   - python: "3.8-dev"
+  - python: "3.8"
   - python: "nightly"
  
 # command to install dependencies
