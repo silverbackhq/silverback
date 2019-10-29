@@ -34,6 +34,7 @@
 - Asynchronous workers for subscriber notifications with ability to run any number to scale.
 - Realtime administration dashboard.
 - Multilingual.
+- Easy Theme System! Easily give silverback a complete makeover.
 - and much more ...
 
 
