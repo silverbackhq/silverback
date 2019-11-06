@@ -1,5 +1,5 @@
 Django==2.2.7
-mysqlclient==1.4.4
+mysqlclient==1.4.5
 python-dotenv==0.10.3
 gunicorn==19.9.0
 requests==2.22.0
