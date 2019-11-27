@@ -17,5 +17,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Run make liteci
       run: |
+        sudo apt-get update
         sudo apt-get install libmysqlclient-dev libpq-dev python-dev
         make liteci
