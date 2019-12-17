@@ -9,7 +9,7 @@ celery==4.4.0
 redis==3.3.11
 cryptography==2.8
 markdown2==2.3.8
-twilio==6.34.0
+twilio==6.35.0
 pyumetric==0.0.4
 pyvalitron==1.1.3
 feedgen==0.8.0
