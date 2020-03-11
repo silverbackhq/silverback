@@ -16,4 +16,9 @@ RUN rm -rf ./assets
 
 EXPOSE 8000
 
+VOLUME /app/storage
+
+HEALTHCHECK --interval=5s --timeout=2s --retries=5 --start-period=2s \
+  CMD python manage.py health check
+
 CMD ["gunicorn"  , "-b", "0.0.0.0:8000", "app.wsgi"]
