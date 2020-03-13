@@ -12,17 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Standard Library
+import json
+
 # Third Party Library
 from celery import shared_task
+from django.utils.translation import gettext as _
 
 # Local Library
+from app.modules.util.helpers import Helpers
 from app.modules.core.task import Task as TaskModule
 from app.modules.core.subscriber import Subscriber as SubscriberModule
 from app.modules.core.incident_update_notification import IncidentUpdateNotification as IncidentUpdateNotificationModule
 
 
 @shared_task
-def incident_update(incident_update_id, user_id):
+def incident_update(incident_update_id, user_id, correlation_id=""):
+    logger = Helpers().get_logger(__name__)
+
+    logger.info(
+        _("Worker started processing incident_update task with parameters %(parameters)s {'correlationId':'%(correlationId)s'}") % {
+            "parameters": json.dumps({}),
+            "correlationId": correlation_id
+        }
+    )
 
     incident_update_notification_module = IncidentUpdateNotificationModule()
     subscriber_module = SubscriberModule()

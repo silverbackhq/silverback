@@ -12,14 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Standard Library
+import json
+
 # Third Party Library
 from celery import shared_task
 from django.core.mail import send_mail
+from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
+
+# Local Library
+from app.modules.util.helpers import Helpers
 
 
 @shared_task
-def register_request_email(app_name, app_email, app_url, recipient_list, token, subject, template, fail_silently=False):
+def register_request_email(app_name, app_email, app_url, recipient_list, token, subject, template, fail_silently=False, correlation_id=""):
+    logger = Helpers().get_logger(__name__)
+
+    logger.info(
+        _("Worker started processing register_request_email task with parameters %(parameters)s {'correlationId':'%(correlationId)s'}") % {
+            "parameters": json.dumps({}),
+            "correlationId": correlation_id
+        }
+    )
+
     try:
         send_mail(
             subject,

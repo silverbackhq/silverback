@@ -12,23 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Standard Library
+import json
+
 # Third Party Library
 from celery import shared_task
+from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.entity.option_entity import OptionEntity
+from app.modules.util.helpers import Helpers
 from app.modules.core.subscriber import Subscriber as SubscriberModule
 
 
 @shared_task
-def verify_subscriber(subscriber_id):
+def verify_subscriber(subscriber_id, correlation_id=""):
+    logger = Helpers().get_logger(__name__)
 
-    # option_entity = OptionEntity()
+    logger.info(
+        _("Worker started processing verify_subscriber task with parameters %(parameters)s {'correlationId':'%(correlationId)s'}") % {
+            "parameters": json.dumps({}),
+            "correlationId": correlation_id
+        }
+    )
+
     subscriber_module = SubscriberModule()
-
-    # app_name = option_entity.get_value_by_key("app_name")
-    # app_email = option_entity.get_value_by_key("app_email")
-    # app_url = option_entity.get_value_by_key("app_url")
     subscriber = subscriber_module.get_one_by_id(subscriber_id)
 
     if not subscriber:
