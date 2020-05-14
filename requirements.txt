@@ -6,7 +6,7 @@ requests==2.23.0
 psycopg2==2.8.5
 jsonschema==3.2.0
 celery==4.4.2
-redis==3.5.0
+redis==3.5.2
 cryptography==2.9.2
 markdown2==2.3.8
 twilio==6.39.0
