@@ -75,7 +75,7 @@ def notify_subscriber(notification_id):
             status = __deliver_webhook(
                 subscriber.endpoint,
                 subscriber.auth_token,
-                '{}' % ()
+                "{}"
             )
 
         if status:
@@ -113,7 +113,7 @@ def notify_subscriber(notification_id):
             status = __deliver_webhook(
                 subscriber.endpoint,
                 subscriber.auth_token,
-                '{}' % ()
+                "{}"
             )
         if status:
             # message sent again
