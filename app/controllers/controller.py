@@ -25,6 +25,7 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.validation.extension import ExtraRules
 from app.exceptions.server_error import ServerError
+from app.middleware.correlation import CorrelationFilter
 
 
 class Controller():
@@ -66,10 +67,11 @@ class Controller():
     def get_correlation(self, request):
         return request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
-    def get_logger(self):
+    def get_logger(self, correlation_id=""):
         if not self.__logger:
             self.__helpers = self.get_helpers()
             self.__logger = self.__helpers.get_logger(__name__)
+            self.__logger.addFilter(CorrelationFilter(correlation_id))
         return self.__logger
 
     def get_request(self):

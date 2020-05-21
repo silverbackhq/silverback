@@ -19,6 +19,7 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.util.helpers import Helpers
+from app.middleware.correlation import CorrelationFilter
 
 # Third Party
 from django.http import JsonResponse
@@ -34,27 +35,26 @@ class Logging():
     def __call__(self, request):
         correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
-        self.__logger.info(_("%(method)s Request to %(path)s with %(body)s {'correlationId':'%(correlationId)s'}") % {
+        self.__logger.addFilter(CorrelationFilter(correlation_id))
+
+        self.__logger.info(_("Incoming %(method)s Request to %(path)s with %(body)s") % {
             "method": request.method,
             "path": request.path,
-            "body": self.__hide_secure_values_from_request(request.body),
-            "correlationId": correlation_id
+            "body": self.__hide_secure_values_from_request(request.body)
         })
 
         response = self.get_response(request)
 
         if isinstance(response, JsonResponse):
-            self.__logger.info(_("Outgoing %(status)s Response to %(path)s with %(body)s {'correlationId':'%(correlationId)s'}") % {
+            self.__logger.info(_("Outgoing %(status)s Response to %(path)s with %(body)s") % {
                 "status": response.status_code,
                 "path": request.path,
-                "body": self.__hide_secure_values_from_response(json.loads(response.content)),
-                "correlationId": correlation_id
+                "body": self.__hide_secure_values_from_response(json.loads(response.content))
             })
         else:
-            self.__logger.info(_("Outgoing %(status)s Response to %(path)s: <html>.. {'correlationId':'%(correlationId)s'}") % {
+            self.__logger.info(_("Outgoing %(status)s Response to %(path)s: <html>..") % {
                 "status": response.status_code,
-                "path": request.path,
-                "correlationId": correlation_id
+                "path": request.path
             })
 
         return response

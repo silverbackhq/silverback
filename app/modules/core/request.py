@@ -17,6 +17,7 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.util.helpers import Helpers
+from app.middleware.correlation import CorrelationFilter
 
 
 class Request():
@@ -34,6 +35,7 @@ class Request():
         log_data = {}
         correlation_id = self.__request.META["X-Correlation-ID"] if "X-Correlation-ID" in self.__request.META else ""
         data_bag = self.__request.POST if method.lower() == "post" else self.__request.GET
+        self.__logger.addFilter(CorrelationFilter(correlation_id))
 
         for key, default in predicted.items():
             if "password" in key:
@@ -44,9 +46,8 @@ class Request():
                 log_data[key] = data_bag[key] if key in data_bag else default
             request_data[key] = data_bag[key] if key in data_bag else default
 
-        self.__logger.info(_("Required request data: %(data)s {'correlationId':'%(correlationId)s'}") % {
-            "data": self.__helpers.json_dumps(log_data),
-            "correlationId": correlation_id
+        self.__logger.info(_("Required request data: %(data)s") % {
+            "data": self.__helpers.json_dumps(log_data)
         })
 
         return request_data

@@ -19,6 +19,7 @@ from django.utils.translation import gettext as _
 # Local Library
 from app.modules.util.helpers import Helpers
 from app.exceptions.client_error import ClientError
+from app.middleware.correlation import CorrelationFilter
 
 
 class Errors():
@@ -36,24 +37,24 @@ class Errors():
 
         correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
+        self.__logger.addFilter(CorrelationFilter(correlation_id))
+
         if isinstance(exception, ClientError):
             self.__logger.info(
-                _("Client error thrown %(method)s:%(path)s  - %(name)s - %(exception)s {'correlationId':'%(correlationId)s'}") % {
+                _("Client error thrown %(method)s:%(path)s  - %(name)s - %(exception)s") % {
                     "method": request.method,
                     "path": request.path,
                     "name": exception.__class__.__name__,
-                    "exception": exception,
-                    "correlationId": correlation_id
+                    "exception": exception
                 }
             )
         else:
             self.__logger.error(
-                _("The server encountered something unexpected! %(method)s:%(path)s  - %(name)s - %(exception)s {'correlationId':'%(correlationId)s'}") % {
+                _("The server encountered something unexpected! %(method)s:%(path)s  - %(name)s - %(exception)s") % {
                     "method": request.method,
                     "path": request.path,
                     "name": exception.__class__.__name__,
-                    "exception": exception,
-                    "correlationId": correlation_id
+                    "exception": exception
                 }
             )
 

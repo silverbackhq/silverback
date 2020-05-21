@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Standard Library
+import logging
+
 # Local Library
 from app.modules.util.helpers import Helpers
 
@@ -28,3 +31,14 @@ class Correlation():
         response = self.get_response(request)
 
         return response
+
+
+class CorrelationFilter(logging.Filter):
+
+    def __init__(self, correlation_id=""):
+        self.correlation_id = correlation_id
+
+    def filter(self, record):
+        if not hasattr(record, 'correlation_id'):
+            record.correlation_id = self.correlation_id
+        return True
