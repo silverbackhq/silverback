@@ -25,7 +25,6 @@ from app.modules.util.helpers import Helpers
 from app.modules.core.request import Request
 from app.modules.validation.extension import ExtraRules
 from app.exceptions.server_error import ServerError
-from app.exceptions.error_codes import ErrorCodes
 
 
 class Controller():
@@ -36,7 +35,7 @@ class Controller():
     __form = None
     __logger = None
 
-    def json(self, messages, status = "success", status_code=HTTPStatus.OK, payload={}):
+    def json(self, messages, payload={}, status="success", status_code=HTTPStatus.OK):
         response = {
             "status": status
         }

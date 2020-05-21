@@ -20,7 +20,6 @@ from django.utils.translation import gettext as _
 # Local Library
 from app.modules.core.health import Health
 from app.modules.util.helpers import Helpers
-from app.modules.core.response import Response
 
 
 class HealthCheck(View):
@@ -29,7 +28,6 @@ class HealthCheck(View):
     def get(self, request):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__response = Response()
         self.__health = Health()
         self.__helpers = Helpers()
         self.__logger = self.__helpers.get_logger(__name__)
@@ -54,6 +52,7 @@ class HealthCheck(View):
                 "correlationId": self.__correlation_id
             })
 
-        return JsonResponse(self.__response.send({
-            "status": status
-        }, self.__correlation_id), status=200 if status == Health.OK else 503)
+        return JsonResponse({
+            "status": status,
+            "messages": []
+        }, status=200 if status == Health.OK else 503)

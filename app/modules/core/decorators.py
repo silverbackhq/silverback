@@ -21,7 +21,6 @@ from django.http import Http404
 # Local Library
 from app.modules.core.acl import ACL
 from app.modules.util.helpers import Helpers
-from app.modules.core.response import Response
 from app.modules.entity.option_entity import OptionEntity
 
 
@@ -30,11 +29,13 @@ def allow_if_authenticated_and_has_permission(permission):
         def wrap(controller, request, *args, **kwargs):
             acl = ACL()
             if not request.user or not request.user.is_authenticated or not acl.user_has_permission(request.user.id, permission):
-                response = Response()
-                return JsonResponse(response.send_private_failure([{
-                    "type": "error",
-                    "message": _("Oops! Access forbidden.")
-                }]))
+                return JsonResponse({
+                    "status": "failure",
+                    "messages": [{
+                        "type": "error",
+                        "message": _("Oops! Access forbidden.")
+                    }]
+                })
             return function(controller, request, *args, **kwargs)
         return wrap
     return wrapper
@@ -85,11 +86,13 @@ def login_if_not_authenticated(function):
 def stop_request_if_authenticated(function):
     def wrap(controller, request, *args, **kwargs):
         if request.user and request.user.is_authenticated:
-            response = Response()
-            return JsonResponse(response.send_private_failure([{
-                "type": "error",
-                "message": _("Error! Access forbidden for authenticated users.")
-            }]))
+            return JsonResponse({
+                "status": "failure",
+                "messages": [{
+                    "type": "error",
+                    "message": _("Error! Access forbidden for authenticated users.")
+                }]
+            })
         return function(controller, request, *args, **kwargs)
     return wrap
 
@@ -97,11 +100,13 @@ def stop_request_if_authenticated(function):
 def allow_if_authenticated(function):
     def wrap(controller, request, *args, **kwargs):
         if not request.user or not request.user.is_authenticated:
-            response = Response()
-            return JsonResponse(response.send_private_failure([{
-                "type": "error",
-                "message": _("Oops! Access forbidden.")
-            }]))
+            return JsonResponse({
+                "status": "failure",
+                "messages": [{
+                    "type": "error",
+                    "message": _("Oops! Access forbidden.")
+                }]
+            })
         return function(controller, request, *args, **kwargs)
     return wrap
 
@@ -129,11 +134,13 @@ def stop_request_if_installed(function):
     def wrap(controller, request, *args, **kwargs):
         installed = False if OptionEntity().get_one_by_key("app_installed") is False else True
         if installed:
-            response = Response()
-            return JsonResponse(response.send_private_failure([{
-                "type": "error",
-                "message": _("Error! Application is already installed.")
-            }]))
+            return JsonResponse({
+                "status": "failure",
+                "messages": [{
+                    "type": "error",
+                    "message": _("Error! Application is already installed.")
+                }]
+            })
         return function(controller, request, *args, **kwargs)
     return wrap
 

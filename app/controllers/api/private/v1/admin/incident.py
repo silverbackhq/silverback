@@ -15,47 +15,34 @@
 # Third Party Library
 from django.views import View
 from django.urls import reverse
-from pyvalitron.form import Form
-from django.http import JsonResponse
 from django.forms.fields import DateTimeField
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.util.helpers import Helpers
-from app.modules.core.request import Request
-from app.modules.core.response import Response
-from app.modules.validation.extension import ExtraRules
+from app.controllers.controller import Controller
 from app.modules.core.decorators import allow_if_authenticated
 from app.modules.core.incident import Incident as IncidentModule
 
 
-class Incidents(View):
+class Incidents(View, Controller):
     """Create and List Incidents Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__incident = IncidentModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
+        self.__correlation_id = self.get_correlation(request)
+        self.get_request().set_request(request)
 
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request().get_request_data("post", {
             "name": "",
             "status": "",
             "datetime": "",
         })
 
-        self.__form.add_inputs({
+        self.get_form().add_inputs({
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -90,36 +77,36 @@ class Incidents(View):
             }
         })
 
-        self.__form.process()
+        self.get_form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.get_form().is_passed():
+            return self.json(self.get_form().get_errors())
 
         result = self.__incident.insert_one({
-            "name": self.__form.get_sinput("name"),
-            "status": self.__form.get_sinput("status"),
-            "datetime": DateTimeField().clean(self.__form.get_sinput("datetime")),
+            "name": self.get_form().get_sinput("name"),
+            "status": self.get_form().get_sinput("status"),
+            "datetime": DateTimeField().clean(self.get_form().get_sinput("datetime")),
             "uri": self.__incident.generate_uri(6)
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Incident created successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating incident.")
-            }], {}, self.__correlation_id))
+            }])
 
     @allow_if_authenticated
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
+        self.__correlation_id = self.get_correlation(request)
+        self.get_request().set_request(request)
 
-        request_data = self.__request.get_request_data("get", {
+        request_data = self.get_request().get_request_data("get", {
             "offset": 0,
             "limit": 20
         })
@@ -131,14 +118,14 @@ class Incidents(View):
             offset = 0
             limit = 20
 
-        return JsonResponse(self.__response.send_private_success([], {
+        return self.json([], {
             'incidents': self.__format_incidents(self.__incident.get_all(offset, limit)),
             'metadata': {
                 'offset': offset,
                 'limit': limit,
                 'count': self.__incident.count_all()
             }
-        }, self.__correlation_id))
+        })
 
     def __format_incidents(self, incidents):
         incidents_list = []
@@ -159,33 +146,25 @@ class Incidents(View):
         return incidents_list
 
 
-class Incident(View):
+class Incident(View, Controller):
     """Update Incident Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__incident = IncidentModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
     def post(self, request, incident_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
+        self.__correlation_id = self.get_correlation(request)
+        self.get_request().set_request(request)
 
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request().get_request_data("post", {
             "name": "",
             "status": "",
             "datetime": "",
         })
 
-        self.__form.add_inputs({
+        self.get_form().add_inputs({
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -220,42 +199,41 @@ class Incident(View):
             }
         })
 
-        self.__form.process()
+        self.get_form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.get_form().is_passed():
+            return self.json(self.get_form().get_errors())
 
         result = self.__incident.update_one_by_id(incident_id, {
-            "name": self.__form.get_sinput("name"),
-            "status": self.__form.get_sinput("status"),
-            "datetime": DateTimeField().clean(self.__form.get_sinput("datetime"))
+            "name": self.get_form().get_sinput("name"),
+            "status": self.get_form().get_sinput("status"),
+            "datetime": DateTimeField().clean(self.get_form().get_sinput("datetime"))
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Incident updated successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating incident.")
-            }], {}, self.__correlation_id))
+            }])
 
     @allow_if_authenticated
     def delete(self, request, incident_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__incident.delete_one_by_id(incident_id):
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Incident deleted successfully.")
-            }], {}, self.__correlation_id))
-
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting incident.")
-            }], {}, self.__correlation_id))
+            }])

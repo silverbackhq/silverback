@@ -17,51 +17,38 @@ import json
 
 # Third Party Library
 from django.views import View
-from pyvalitron.form import Form
-from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.util.helpers import Helpers
-from app.modules.core.request import Request
-from app.modules.core.response import Response
+from app.controllers.controller import Controller
 from app.modules.core.settings import Settings
-from app.modules.validation.extension import ExtraRules
 from app.modules.core.metric import Metric as MetricModule
 from app.modules.core.component import Component as ComponentModule
 from app.modules.core.decorators import allow_if_authenticated_and_has_permission
 from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
 
 
-class BuilderSystemMetrics(View):
+class BuilderSystemMetrics(View, Controller):
     """Add and Remove Builder System Metrics Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
         self.__settings = Settings()
         self.__metric = MetricModule()
-        self.__form = Form()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
-        request_data = self.__request.get_request_data("post", {
+        self.__correlation_id = self.get_correlation(request)
+        self.get_request().set_request(request)
+        request_data = self.get_request().get_request_data("post", {
             "metric_id": ""
         })
 
         if request_data["metric_id"] == "" or not self.__metric.get_one_by_id(request_data["metric_id"].replace("m-", "")):
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Metric is required.")
-            }], {}))
+            }])
 
         metrics = self.__settings.get_value_by_key(
             "builder_metrics",
@@ -71,10 +58,10 @@ class BuilderSystemMetrics(View):
         metrics = json.loads(metrics)
 
         if request_data["metric_id"] in metrics:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Metric added successfully.")
-            }], {}))
+            }])
 
         metrics.append(request_data["metric_id"])
 
@@ -83,21 +70,21 @@ class BuilderSystemMetrics(View):
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Metric added successfully.")
-            }], {}))
+            }])
 
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while adding metric.")
-            }], {}))
+            }])
 
     @allow_if_authenticated_and_has_permission("manage_settings")
     def delete(self, request, metric_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request)
         metrics = self.__settings.get_value_by_key(
             "builder_metrics",
             json.dumps([])
@@ -106,10 +93,10 @@ class BuilderSystemMetrics(View):
         metrics = json.loads(metrics)
 
         if metric_id not in metrics:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Metric deleted successfully.")
-            }], {}))
+            }])
 
         metrics.remove(metric_id)
 
@@ -118,60 +105,52 @@ class BuilderSystemMetrics(View):
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Metric deleted successfully.")
-            }], {}))
+            }])
 
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting metric.")
-            }], {}))
+            }])
 
 
-class BuilderComponents(View):
+class BuilderComponents(View, Controller):
     """Add and Remove Builder Components Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
         self.__settings = Settings()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
-        self.__form = Form()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
-        request_data = self.__request.get_request_data("post", {
+        self.__correlation_id = self.get_correlation(request)
+        self.get_request().set_request(request)
+        request_data = self.get_request().get_request_data("post", {
             "component_id": ""
         })
 
         if request_data["component_id"] == "" or ("c-" not in request_data["component_id"] and "g-" not in request_data["component_id"]):
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Compnent or compnent group is required.")
-            }], {}))
+            }])
 
         if "c-" in request_data["component_id"] and not self.__component.get_one_by_id(request_data["component_id"].replace("c-", "")):
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Compnent or compnent group is required.")
-            }], {}))
+            }])
 
         if "g-" in request_data["component_id"] and not self.__component_group.get_one_by_id(request_data["component_id"].replace("g-", "")):
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Compnent or compnent group is required.")
-            }], {}))
+            }])
 
         components = self.__settings.get_value_by_key(
             "builder_components",
@@ -181,10 +160,10 @@ class BuilderComponents(View):
         components = json.loads(components)
 
         if request_data["component_id"] in components:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Component added successfully.")
-            }], {}))
+            }])
 
         components.append(request_data["component_id"])
 
@@ -193,21 +172,21 @@ class BuilderComponents(View):
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Component added successfully.")
-            }], {}))
+            }])
 
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while adding component.")
-            }], {}))
+            }])
 
     @allow_if_authenticated_and_has_permission("manage_settings")
     def delete(self, request, component_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request)
         components = self.__settings.get_value_by_key(
             "builder_components",
             json.dumps([])
@@ -216,10 +195,10 @@ class BuilderComponents(View):
         components = json.loads(components)
 
         if component_id not in components:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Component deleted successfully.")
-            }], {}))
+            }])
 
         components.remove(component_id)
 
@@ -228,45 +207,37 @@ class BuilderComponents(View):
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Component deleted successfully.")
-            }], {}))
+            }])
 
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting component.")
-            }], {}))
+            }])
 
 
-class BuilderSettings(View):
+class BuilderSettings(View, Controller):
     """Update Builder Settings Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
         self.__settings = Settings()
-        self.__form = Form()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
-        request_data = self.__request.get_request_data("post", {
+        self.__correlation_id = self.get_correlation(request)
+        self.get_request().set_request(request)
+        request_data = self.get_request().get_request_data("post", {
             "builder_headline": "",
             "builder_favicon_url": "",
             "builder_logo_url": "",
             "builder_about": ""
         })
 
-        self.__form.add_inputs({
+        self.get_form().add_inputs({
             'builder_headline': {
                 'value': request_data["builder_headline"],
                 'sanitize': {
@@ -317,26 +288,26 @@ class BuilderSettings(View):
             },
         })
 
-        self.__form.process()
+        self.get_form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}))
+        if not self.get_form().is_passed():
+            return self.json(self.get_form().get_errors())
 
         result = self.__settings.update_options({
-            "builder_headline": self.__form.get_sinput("builder_headline"),
-            "builder_favicon_url": self.__form.get_sinput("builder_favicon_url"),
-            "builder_logo_url": self.__form.get_sinput("builder_logo_url"),
-            "builder_about": self.__form.get_sinput("builder_about")
+            "builder_headline": self.get_form().get_sinput("builder_headline"),
+            "builder_favicon_url": self.get_form().get_sinput("builder_favicon_url"),
+            "builder_logo_url": self.get_form().get_sinput("builder_logo_url"),
+            "builder_about": self.get_form().get_sinput("builder_about")
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Settings updated successfully.")
-            }], {}))
+            }])
 
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating settings.")
-            }], {}))
+            }])

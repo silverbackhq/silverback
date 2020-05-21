@@ -18,8 +18,8 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.util.helpers import Helpers
-from app.exceptions.server_error import ServerError
 from app.exceptions.client_error import ClientError
+
 
 class Errors():
 
@@ -64,8 +64,7 @@ class Errors():
                 "status": "failure",
                 "messages": [{
                     "type": "error",
-                    "message": str(exception) if isinstance(exception, ClientError)
-                        else _("Something goes wrong! Please contact a system administrator.")
+                    "message": str(exception) if isinstance(exception, ClientError) else _("Something goes wrong! Please contact a system administrator.")
                 }]
             })
 

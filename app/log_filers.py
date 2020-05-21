@@ -15,7 +15,7 @@
 # Standard Library
 import logging
 
+
 class CorrelationFilter(logging.Filter):
-     def filter(self, record):
-        # print(record)
+    def filter(self, record):
         return record

@@ -15,17 +15,12 @@
 # Third Party Library
 from django.views import View
 from django.urls import reverse
-from pyvalitron.form import Form
-from django.http import JsonResponse
 from django.forms.fields import DateTimeField
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.util.helpers import Helpers
-from app.modules.core.request import Request
-from app.modules.core.response import Response
+from app.controllers.controller import Controller
 from app.modules.core.task import Task as Task_Module
-from app.modules.validation.extension import ExtraRules
 from app.modules.core.decorators import allow_if_authenticated
 from app.modules.core.incident import Incident as IncidentModule
 from app.modules.core.subscriber import Subscriber as SubscriberModule
@@ -35,40 +30,32 @@ from app.modules.core.incident_update_component import IncidentUpdateComponent a
 from app.modules.core.incident_update_notification import IncidentUpdateNotification as IncidentUpdateNotificationModule
 
 
-class IncidentUpdates(View):
+class IncidentUpdates(View, Controller):
     """Create and List Incident Updates Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__task = Task_Module()
         self.__notification = NotificationModule()
         self.__subscriber = SubscriberModule()
         self.__incident_update_notification = IncidentUpdateNotificationModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
     def post(self, request, incident_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
-        self.__request.set_request(request)
+        self.get_request().set_request(request)
 
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request().get_request_data("post", {
             "status": "",
             "notify_subscribers": "",
             "message": "",
             "datetime": "",
         })
 
-        self.__form.add_inputs({
+        self.get_form().add_inputs({
             'message': {
                 'value': request_data["message"],
                 'sanitize': {
@@ -112,21 +99,21 @@ class IncidentUpdates(View):
             }
         })
 
-        self.__form.process()
+        self.get_form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.get_form().is_passed():
+            return self.json(self.get_form().get_errors())
 
         result = self.__incident_update.insert_one({
-            "notify_subscribers": self.__form.get_sinput("notify_subscribers"),
-            "datetime": DateTimeField().clean(self.__form.get_sinput("datetime")),
+            "notify_subscribers": self.get_form().get_sinput("notify_subscribers"),
+            "datetime": DateTimeField().clean(self.get_form().get_sinput("datetime")),
             "total_suscribers": self.__subscriber.count_by_status(SubscriberModule.VERIFIED),
-            "message": self.__form.get_sinput("message"),
-            "status": self.__form.get_sinput("status"),
+            "message": self.get_form().get_sinput("message"),
+            "status": self.get_form().get_sinput("status"),
             "incident_id": incident_id
         })
 
-        if self.__form.get_sinput("status") == "resolved":
+        if self.get_form().get_sinput("status") == "resolved":
             self.__incident.update_one_by_id(incident_id, {
                 "status": "closed"
             })
@@ -136,23 +123,23 @@ class IncidentUpdates(View):
             })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Incident update created successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating update.")
-            }], {}, self.__correlation_id))
+            }])
 
     @allow_if_authenticated
     def get(self, request, incident_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
+        self.__correlation_id = self.get_correlation(request)
+        self.get_request().set_request(request)
 
-        request_data = self.__request.get_request_data("get", {
+        request_data = self.get_request().get_request_data("get", {
             "offset": 0,
             "limit": 20
         })
@@ -164,14 +151,14 @@ class IncidentUpdates(View):
             offset = 0
             limit = 20
 
-        return JsonResponse(self.__response.send_private_success([], {
+        return self.json([], {
             'updates': self.__format_incident_updates(self.__incident_update.get_all(incident_id, offset, limit), incident_id),
             'metadata': {
                 'offset': offset,
                 'limit': limit,
                 'count': self.__incident_update.count_all(incident_id)
             }
-        }, self.__correlation_id))
+        })
 
     def __format_incident_updates(self, updates, incident_id):
         updates_list = []
@@ -199,34 +186,26 @@ class IncidentUpdates(View):
         return updates_list
 
 
-class IncidentUpdate(View):
+class IncidentUpdate(View, Controller):
     """Update and Delete Incident Update Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__incident_update = IncidentUpdateModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
+        self.__correlation_id = self.get_correlation(request)
+        self.get_request().set_request(request)
 
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request().get_request_data("post", {
             "status": "",
             "notify_subscribers": "",
             "message": "",
             "datetime": "",
         })
 
-        self.__form.add_inputs({
+        self.get_form().add_inputs({
             'message': {
                 'value': request_data["message"],
                 'sanitize': {
@@ -270,69 +249,61 @@ class IncidentUpdate(View):
             }
         })
 
-        self.__form.process()
+        self.get_form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.get_form().is_passed():
+            return self.json(self.get_form().get_errors())
 
         result = self.__incident_update.update_one_by_id(update_id, {
-            "notify_subscribers": self.__form.get_sinput("notify_subscribers"),
-            "datetime": DateTimeField().clean(self.__form.get_sinput("datetime")),
-            "message": self.__form.get_sinput("message"),
-            "status": self.__form.get_sinput("status")
+            "notify_subscribers": self.get_form().get_sinput("notify_subscribers"),
+            "datetime": DateTimeField().clean(self.get_form().get_sinput("datetime")),
+            "message": self.get_form().get_sinput("message"),
+            "status": self.get_form().get_sinput("status")
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Incident update updated successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating update.")
-            }], {}, self.__correlation_id))
+            }])
 
     @allow_if_authenticated
     def delete(self, request, incident_id, update_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__incident_update.delete_one_by_id(update_id):
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Incident update deleted successfully.")
-            }], {}, self.__correlation_id))
+            }])
 
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting incident update.")
-            }], {}, self.__correlation_id))
+            }])
 
 
-class IncidentUpdatesNotify(View):
+class IncidentUpdatesNotify(View, Controller):
     """Notify Subscribers about Incident Update Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__incident_update = IncidentUpdateModule()
         self.__task = Task_Module()
         self.__notification = NotificationModule()
         self.__subscriber = SubscriberModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         task = self.__task.delay("incident_update", {
@@ -354,48 +325,40 @@ class IncidentUpdatesNotify(View):
             })
 
         if task and result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Notification delivery started successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while starting delivery.")
-            }], {}, self.__correlation_id))
+            }])
 
 
-class IncidentUpdatesComponents(View):
+class IncidentUpdatesComponents(View, Controller):
     """Link Component to Incident Update Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__incident_update = IncidentUpdateModule()
         self.__task = Task_Module()
         self.__notification = NotificationModule()
         self.__subscriber = SubscriberModule()
-        self.__logger = self.__helpers.get_logger(__name__)
         self.__incident_update_component = IncidentUpdateComponentModule()
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
-        self.__request.set_request(request)
+        self.get_request().set_request(request)
 
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request().get_request_data("post", {
             "type": "",
             "component_id": ""
         })
 
-        self.__form.add_inputs({
+        self.get_form().add_inputs({
             'component_id': {
                 'value': request_data["component_id"],
                 'validate': {
@@ -415,57 +378,49 @@ class IncidentUpdatesComponents(View):
             }
         })
 
-        self.__form.process()
+        self.get_form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.get_form().is_passed():
+            return self.json(self.get_form().get_errors())
 
         result = self.__incident_update_component.insert_one({
-            "component_id": int(self.__form.get_sinput("component_id")),
-            "type": self.__form.get_sinput("type"),
+            "component_id": int(self.get_form().get_sinput("component_id")),
+            "type": self.get_form().get_sinput("type"),
             "incident_update_id": int(update_id)
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Affected component created successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating affected component.")
-            }], {}, self.__correlation_id))
+            }])
 
 
-class IncidentUpdatesComponent(View):
+class IncidentUpdatesComponent(View, Controller):
     """Remove Component from Incident Update Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__incident_update_component = IncidentUpdateComponentModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
     def delete(self, request, incident_id, update_id, item_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__incident_update_component.delete_one_by_id(item_id):
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Affected component deleted successfully.")
-            }], {}, self.__correlation_id))
+            }])
 
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting affected component.")
-            }], {}, self.__correlation_id))
+            }])
