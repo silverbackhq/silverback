@@ -14,54 +14,36 @@
 
 # Third Party Library
 from django.views import View
-from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # Local Library
-from pyvalitron.form import Form
-from app.modules.util.helpers import Helpers
-from app.modules.core.request import Request
-from app.modules.core.response import Response
-from app.modules.validation.extension import ExtraRules
+from app.controllers.controller import Controller
 from app.modules.core.install import Install as InstallModule
 from app.modules.core.decorators import stop_request_if_installed
 from app.modules.core.notification import Notification as NotificationModule
 
 
-class Install(View):
+class Install(View, Controller):
     """Install Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__install = InstallModule()
         self.__notification = NotificationModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @stop_request_if_installed
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-
-        self.__logger.info(_("Check if application is installed"))
+        self.__correlation_id = self.get_correlation(request)
 
         if self.__install.is_installed():
-            self.__logger.error(_("Application is already installed"))
-
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Application is already installed.")
-            }], {}, self.__correlation_id))
+            }])
 
-        self.__logger.info(_("Validate incoming request data"))
+        self.get_request().set_request(request)
 
-        self.__request.set_request(request)
-
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request().get_request_data("post", {
             "app_name": "",
             "app_email": "",
             "app_url": "",
@@ -70,7 +52,7 @@ class Install(View):
             "admin_password": ""
         })
 
-        self.__form.add_inputs({
+        self.get_form().add_inputs({
             'app_name': {
                 'value': request_data["app_name"],
                 'sanitize': {
@@ -148,35 +130,31 @@ class Install(View):
             }
         })
 
-        self.__form.process()
+        self.get_form().process()
 
-        if not self.__form.is_passed():
-            self.__logger.info(_("Request data is invalid"))
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.get_form().is_passed():
+            return self.json(self.get_form().get_errors())
 
         self.__install.set_app_data(
-            self.__form.get_sinput("app_name"),
-            self.__form.get_sinput("app_email"),
-            self.__form.get_sinput("app_url")
+            self.get_form().get_sinput("app_name"),
+            self.get_form().get_sinput("app_email"),
+            self.get_form().get_sinput("app_url")
         )
         self.__install.set_admin_data(
-            self.__form.get_sinput("admin_username"),
-            self.__form.get_sinput("admin_email"),
-            self.__form.get_sinput("admin_password")
+            self.get_form().get_sinput("admin_username"),
+            self.get_form().get_sinput("admin_email"),
+            self.get_form().get_sinput("admin_password")
         )
 
         try:
-            self.__logger.info(_("Run database migrations, store options and create admin account"))
             user_id = self.__install.install()
         except Exception as exception:
-            self.__logger.error(_("Something went wrong during installation"))
-            self.__logger.error(_("Internal server error during installation: %(exception)s {'correlationId':'%(correlationId)s'}") % {
+            self.get_logger().error(_("Internal server error during installation: %(exception)s {'correlationId':'%(correlationId)s'}") % {
                 "exception": exception,
                 "correlationId": self.__correlation_id
             })
 
         if user_id:
-            self.__logger.info(_("Application installed successfully. Trigger a notification"))
             self.__notification.create_notification({
                 "highlight": _('Installation'),
                 "notification": _('Silverback installed successfully'),
@@ -187,13 +165,12 @@ class Install(View):
                 "task_id": None
             })
 
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Application installed successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            self.__logger.error(_("Something went wrong during installation"))
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something went wrong during installation.")
-            }], {}, self.__correlation_id))
+            }])

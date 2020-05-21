@@ -54,6 +54,11 @@ class Controller():
 
         response["messages"] = messages
 
+        # Change status to failure if one message has type error
+        for message in messages:
+            if message["type"] == "error":
+                response["status"] = "failure"
+
         if len(payload) > 0:
             response["payload"] = payload
 

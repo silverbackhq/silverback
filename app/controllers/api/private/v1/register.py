@@ -17,40 +17,28 @@ import json
 
 # Third Party Library
 from django.views import View
-from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # Local Library
-from pyvalitron.form import Form
-from app.modules.util.helpers import Helpers
-from app.modules.core.request import Request
-from app.modules.core.response import Response
-from app.modules.validation.extension import ExtraRules
-from app.modules.core.user import User as UserModule
+from app.controllers.controller import Controller
 from app.modules.core.decorators import stop_request_if_authenticated
+from app.modules.core.user import User as UserModule
 
 
-class Register(View):
+class Register(View, Controller):
     """Register Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__user = UserModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @stop_request_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request)
 
-        self.__request.set_request(request)
+        self.get_request().set_request(request)
 
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request().get_request_data("post", {
             "register_request_token": "",
             "first_name": "",
             "last_name": "",
@@ -59,7 +47,7 @@ class Register(View):
             "password": ""
         })
 
-        self.__form.add_inputs({
+        self.get_form().add_inputs({
             'first_name': {
                 'value': request_data["first_name"],
                 'sanitize': {
@@ -130,39 +118,39 @@ class Register(View):
             }
         })
 
-        self.__form.process()
+        self.get_form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.get_form().is_passed():
+            return self.json(self.get_form().get_errors())
 
         register_request = self.__user.get_register_request_by_token(request_data["register_request_token"])
 
         if not register_request:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Register token is invalid or expired.")
-            }], {}, self.__correlation_id))
+            }])
 
         payload = json.loads(register_request.payload)
 
-        if self.__user.username_used(self.__form.get_sinput("username")):
-            return JsonResponse(self.__response.send_private_failure([{
+        if self.__user.username_used(self.get_form().get_sinput("username")):
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
-            }], {}, self.__correlation_id))
+            }])
 
-        if self.__user.email_used(self.__form.get_sinput("email")):
-            return JsonResponse(self.__response.send_private_failure([{
+        if self.__user.email_used(self.get_form().get_sinput("email")):
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
-            }], {}, self.__correlation_id))
+            }])
 
         result = self.__user.insert_one({
-            "username": self.__form.get_sinput("username"),
-            "email": self.__form.get_sinput("email"),
-            "first_name": self.__form.get_sinput("first_name"),
-            "last_name": self.__form.get_sinput("last_name"),
-            "password": self.__form.get_sinput("password"),
+            "username": self.get_form().get_sinput("username"),
+            "email": self.get_form().get_sinput("email"),
+            "first_name": self.get_form().get_sinput("first_name"),
+            "last_name": self.get_form().get_sinput("last_name"),
+            "password": self.get_form().get_sinput("password"),
             "is_staff": False,
             "is_active": True,
             "is_superuser": True if payload["role"] == "admin" else False
@@ -170,12 +158,12 @@ class Register(View):
 
         if result:
             self.__user.delete_register_request_by_token(request_data["register_request_token"])
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Account created successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating your account.")
-            }], {}, self.__correlation_id))
+            }])
