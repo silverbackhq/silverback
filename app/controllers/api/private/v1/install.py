@@ -47,11 +47,17 @@ class Install(View):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
+        self.__logger.info(_("Check if application is installed"))
+
         if self.__install.is_installed():
+            self.__logger.error(_("Application is already installed"))
+
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Application is already installed.")
             }], {}, self.__correlation_id))
+
+        self.__logger.info(_("Validate incoming request data"))
 
         self.__request.set_request(request)
 
@@ -145,6 +151,7 @@ class Install(View):
         self.__form.process()
 
         if not self.__form.is_passed():
+            self.__logger.info(_("Request data is invalid"))
             return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
 
         self.__install.set_app_data(
@@ -159,14 +166,17 @@ class Install(View):
         )
 
         try:
+            self.__logger.info(_("Run database migrations, store options and create admin account"))
             user_id = self.__install.install()
         except Exception as exception:
+            self.__logger.error(_("Something went wrong during installation"))
             self.__logger.error(_("Internal server error during installation: %(exception)s {'correlationId':'%(correlationId)s'}") % {
                 "exception": exception,
                 "correlationId": self.__correlation_id
             })
 
         if user_id:
+            self.__logger.info(_("Application installed successfully. Trigger a notification"))
             self.__notification.create_notification({
                 "highlight": _('Installation'),
                 "notification": _('Silverback installed successfully'),
@@ -182,7 +192,8 @@ class Install(View):
                 "message": _("Application installed successfully.")
             }], {}, self.__correlation_id))
         else:
+            self.__logger.error(_("Something went wrong during installation"))
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
-                "message": _("Error! Something goes wrong during installing.")
+                "message": _("Error! Something went wrong during installation.")
             }], {}, self.__correlation_id))
