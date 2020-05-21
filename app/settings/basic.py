@@ -215,6 +215,11 @@ LOGGING = {
             'format': '%(levelname)s %(asctime)s %(message)s'
         },
     },
+    'filters': {
+        'correlation_filter': {
+            '()': 'app.log_filers.CorrelationFilter',
+        }
+    },
     'handlers': {
         'file': {
             'level': 'DEBUG',

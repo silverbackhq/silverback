@@ -14,51 +14,40 @@
 
 # Third Party Library
 from django.views import View
-from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # Local Library
-from pyvalitron.form import Form
-from app.modules.util.helpers import Helpers
-from app.modules.core.request import Request
-from app.modules.core.response import Response
-from app.modules.validation.extension import ExtraRules
 from app.modules.core.login import Login as LoginModule
 from app.modules.core.decorators import stop_request_if_authenticated
+from app.controllers.controller import Controller
 
 
-class Login(View):
+class Login(View, Controller):
     """Login Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
+        super(Login, self).__init__()
         self.__login = LoginModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @stop_request_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        self.__correlation_id = self.get_correlation(request);
 
         if self.__login.is_authenticated(request):
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! User is already authenticated.")
-            }], {}, self.__correlation_id))
+            }], "success")
 
-        self.__request.set_request(request)
+        self.get_request().set_request(request)
 
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request().get_request_data("post", {
             "username": "",
             "password": ""
         })
 
-        self.__form.add_inputs({
+        self.get_form().add_inputs({
             'username': {
                 'value': request_data["username"],
                 'sanitize': {
@@ -84,18 +73,19 @@ class Login(View):
             }
         })
 
-        self.__form.process()
+        self.get_form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.get_form().is_passed():
+            return self.json(self.get_form().get_errors(), "failure")
 
-        if self.__login.authenticate(self.__form.get_sinput("username"), self.__form.get_sinput("password"), request):
-            return JsonResponse(self.__response.send_private_success([{
+        if self.__login.authenticate(self.get_form().get_sinput("username"), self.get_form().get_sinput("password"), request):
+            return self.json([{
                 "type": "success",
                 "message": _("You logged in successfully.")
-            }], {}, self.__correlation_id))
+            }], "success")
+
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Username or password is invalid.")
-            }], {}, self.__correlation_id))
+            }], "failure")

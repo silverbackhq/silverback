@@ -12,16 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Third Party Library
-from django.views import View
+# Standard Library
+import logging
 
-
-class Auth(View):
-
-    def get(self):
-        # To get current refresh token
-        pass
-
-    def post(self):
-        # To Get your new API token in case it is expired
-        pass
+class CorrelationFilter(logging.Filter):
+     def filter(self, record):
+        # print(record)
+        return record

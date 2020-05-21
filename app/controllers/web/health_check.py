@@ -48,7 +48,7 @@ class HealthCheck(View):
                 "correlationId": self.__correlation_id
             })
         else:
-            self.__logger.debug(_("Health Check Result: %(status)s %(errors)s {'correlationId':'%(correlationId)s'}") % {
+            self.__logger.info(_("Health Check Result: %(status)s %(errors)s {'correlationId':'%(correlationId)s'}") % {
                 "status": status,
                 "errors": self.__helpers.json_dumps(errors),
                 "correlationId": self.__correlation_id

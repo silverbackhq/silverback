@@ -12,6 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .celery import app as celery_app
+from app.exceptions.error_codes import ErrorCodes
 
-__all__ = (celery_app)
+
+class ServerError(Exception):
+    """ServerError Custom Exception"""
+
+    def __init__(self, message, error_code=None, extra={}):
+        Exception.__init__(self, message)
+        self.error_code = ErrorCodes().SERVER_ERROR if error_code is None else error_code
+        self.extra = extra
+
+    def get_error_code(self):
+        return self.error_code

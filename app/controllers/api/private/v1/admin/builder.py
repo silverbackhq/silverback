@@ -61,7 +61,7 @@ class BuilderSystemMetrics(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Metric is required.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         metrics = self.__settings.get_value_by_key(
             "builder_metrics",
@@ -74,7 +74,7 @@ class BuilderSystemMetrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric added successfully.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         metrics.append(request_data["metric_id"])
 
@@ -86,13 +86,13 @@ class BuilderSystemMetrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric added successfully.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while adding metric.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
     @allow_if_authenticated_and_has_permission("manage_settings")
     def delete(self, request, metric_id):
@@ -109,7 +109,7 @@ class BuilderSystemMetrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric deleted successfully.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         metrics.remove(metric_id)
 
@@ -121,13 +121,13 @@ class BuilderSystemMetrics(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Metric deleted successfully.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting metric.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
 
 class BuilderComponents(View):
@@ -159,19 +159,19 @@ class BuilderComponents(View):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Compnent or compnent group is required.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         if "c-" in request_data["component_id"] and not self.__component.get_one_by_id(request_data["component_id"].replace("c-", "")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Compnent or compnent group is required.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         if "g-" in request_data["component_id"] and not self.__component_group.get_one_by_id(request_data["component_id"].replace("g-", "")):
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Compnent or compnent group is required.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         components = self.__settings.get_value_by_key(
             "builder_components",
@@ -184,7 +184,7 @@ class BuilderComponents(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component added successfully.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         components.append(request_data["component_id"])
 
@@ -196,13 +196,13 @@ class BuilderComponents(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component added successfully.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while adding component.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
     @allow_if_authenticated_and_has_permission("manage_settings")
     def delete(self, request, component_id):
@@ -219,7 +219,7 @@ class BuilderComponents(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component deleted successfully.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         components.remove(component_id)
 
@@ -231,13 +231,13 @@ class BuilderComponents(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Component deleted successfully.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting component.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
 
 class BuilderSettings(View):
@@ -320,7 +320,7 @@ class BuilderSettings(View):
         self.__form.process()
 
         if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}))
 
         result = self.__settings.update_options({
             "builder_headline": self.__form.get_sinput("builder_headline"),
@@ -333,10 +333,10 @@ class BuilderSettings(View):
             return JsonResponse(self.__response.send_private_success([{
                 "type": "success",
                 "message": _("Settings updated successfully.")
-            }], {}, self.__correlation_id))
+            }], {}))
 
         else:
             return JsonResponse(self.__response.send_private_failure([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating settings.")
-            }], {}, self.__correlation_id))
+            }], {}))

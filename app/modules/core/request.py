@@ -44,7 +44,7 @@ class Request():
                 log_data[key] = data_bag[key] if key in data_bag else default
             request_data[key] = data_bag[key] if key in data_bag else default
 
-        self.__logger.debug(_("App Incoming Request: %(data)s {'correlationId':'%(correlationId)s'}") % {
+        self.__logger.info(_("Required request data: %(data)s {'correlationId':'%(correlationId)s'}") % {
             "data": self.__helpers.json_dumps(log_data),
             "correlationId": correlation_id
         })
