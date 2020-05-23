@@ -29,11 +29,7 @@ class StatusSubscribe(View, Controller):
 
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "type": "",
             "email": "",
             "phone": "",
@@ -43,7 +39,7 @@ class StatusSubscribe(View, Controller):
 
         if request_data["type"] == "email":
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
@@ -59,7 +55,7 @@ class StatusSubscribe(View, Controller):
 
         elif request_data["type"] == "phone":
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'phone': {
                     'value': request_data["phone"],
                     'sanitize': {
@@ -75,7 +71,7 @@ class StatusSubscribe(View, Controller):
 
         elif request_data["type"] == "endpoint":
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
@@ -120,21 +116,21 @@ class StatusSubscribe(View, Controller):
                 "message": _("Error! Invalid request.")
             }])
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        external_id = self.get_helpers().generate_uuid()
+        external_id = self.helpers().generate_uuid()
 
         while self.__subscriber.get_one_by_external_id(external_id) is not False:
-            external_id = self.get_helpers().generate_uuid()
+            external_id = self.helpers().generate_uuid()
 
         if request_data["type"] == "email":
             result = self.__subscriber.insert_one({
                 "status": "pending",
                 "type": "email",
-                "email": self.get_form().get_sinput("email"),
+                "email": self.form().get_sinput("email"),
                 "phone": "",
                 "endpoint": "",
                 "auth_token": "",
@@ -146,7 +142,7 @@ class StatusSubscribe(View, Controller):
                 "status": "pending",
                 "type": "phone",
                 "email": "",
-                "phone": self.get_form().get_sinput("phone"),
+                "phone": self.form().get_sinput("phone"),
                 "endpoint": "",
                 "auth_token": "",
                 "external_id": external_id
@@ -156,10 +152,10 @@ class StatusSubscribe(View, Controller):
             result = self.__subscriber.insert_one({
                 "status": "pending",
                 "type": "endpoint",
-                "email": self.get_form().get_sinput("email"),
+                "email": self.form().get_sinput("email"),
                 "phone": "",
-                "endpoint": self.get_form().get_sinput("endpoint"),
-                "auth_token": self.get_form().get_sinput("auth_token"),
+                "endpoint": self.form().get_sinput("endpoint"),
+                "auth_token": self.form().get_sinput("auth_token"),
                 "external_id": external_id
             })
 

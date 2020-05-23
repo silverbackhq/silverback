@@ -44,18 +44,16 @@ class IncidentUpdates(View, Controller):
     @allow_if_authenticated
     def post(self, request, incident_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
-        self.get_request().set_request(request)
 
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "status": "",
             "notify_subscribers": "",
             "message": "",
             "datetime": "",
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'message': {
                 'value': request_data["message"],
                 'sanitize': {
@@ -99,21 +97,21 @@ class IncidentUpdates(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         result = self.__incident_update.insert_one({
-            "notify_subscribers": self.get_form().get_sinput("notify_subscribers"),
-            "datetime": DateTimeField().clean(self.get_form().get_sinput("datetime")),
+            "notify_subscribers": self.form().get_sinput("notify_subscribers"),
+            "datetime": DateTimeField().clean(self.form().get_sinput("datetime")),
             "total_suscribers": self.__subscriber.count_by_status(SubscriberModule.VERIFIED),
-            "message": self.get_form().get_sinput("message"),
-            "status": self.get_form().get_sinput("status"),
+            "message": self.form().get_sinput("message"),
+            "status": self.form().get_sinput("status"),
             "incident_id": incident_id
         })
 
-        if self.get_form().get_sinput("status") == "resolved":
+        if self.form().get_sinput("status") == "resolved":
             self.__incident.update_one_by_id(incident_id, {
                 "status": "closed"
             })
@@ -136,10 +134,7 @@ class IncidentUpdates(View, Controller):
     @allow_if_authenticated
     def get(self, request, incident_id):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("get", {
+        request_data = self.get_request_data(request, "get", {
             "offset": 0,
             "limit": 20
         })
@@ -195,17 +190,14 @@ class IncidentUpdate(View, Controller):
     @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "status": "",
             "notify_subscribers": "",
             "message": "",
             "datetime": "",
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'message': {
                 'value': request_data["message"],
                 'sanitize': {
@@ -249,16 +241,16 @@ class IncidentUpdate(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         result = self.__incident_update.update_one_by_id(update_id, {
-            "notify_subscribers": self.get_form().get_sinput("notify_subscribers"),
-            "datetime": DateTimeField().clean(self.get_form().get_sinput("datetime")),
-            "message": self.get_form().get_sinput("message"),
-            "status": self.get_form().get_sinput("status")
+            "notify_subscribers": self.form().get_sinput("notify_subscribers"),
+            "datetime": DateTimeField().clean(self.form().get_sinput("datetime")),
+            "message": self.form().get_sinput("message"),
+            "status": self.form().get_sinput("status")
         })
 
         if result:
@@ -275,7 +267,6 @@ class IncidentUpdate(View, Controller):
     @allow_if_authenticated
     def delete(self, request, incident_id, update_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__incident_update.delete_one_by_id(update_id):
@@ -303,7 +294,6 @@ class IncidentUpdatesNotify(View, Controller):
     @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         task = self.__task.delay("incident_update", {
@@ -349,16 +339,14 @@ class IncidentUpdatesComponents(View, Controller):
     @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
-        self.get_request().set_request(request)
 
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "type": "",
             "component_id": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'component_id': {
                 'value': request_data["component_id"],
                 'validate': {
@@ -378,14 +366,14 @@ class IncidentUpdatesComponents(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         result = self.__incident_update_component.insert_one({
-            "component_id": int(self.get_form().get_sinput("component_id")),
-            "type": self.get_form().get_sinput("type"),
+            "component_id": int(self.form().get_sinput("component_id")),
+            "type": self.form().get_sinput("type"),
             "incident_update_id": int(update_id)
         })
 
@@ -410,7 +398,6 @@ class IncidentUpdatesComponent(View, Controller):
     @allow_if_authenticated
     def delete(self, request, incident_id, update_id, item_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__incident_update_component.delete_one_by_id(item_id):

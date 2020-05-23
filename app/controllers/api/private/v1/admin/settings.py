@@ -35,9 +35,7 @@ class Settings(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "app_name": "",
             "app_email": "",
             "app_url": "",
@@ -50,7 +48,7 @@ class Settings(View, Controller):
             "newrelic_api_key": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'app_name': {
                 'value': request_data["app_name"],
                 'sanitize': {
@@ -178,22 +176,22 @@ class Settings(View, Controller):
             },
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         result = self.__settings_module.update_options({
-            "app_name": self.get_form().get_sinput("app_name"),
-            "app_email": self.get_form().get_sinput("app_email"),
-            "app_url": self.get_form().get_sinput("app_url"),
-            "app_description": self.get_form().get_sinput("app_description"),
-            "google_analytics_account": self.get_form().get_sinput("google_analytics_account"),
-            "reset_mails_messages_count": self.get_form().get_sinput("reset_mails_messages_count"),
-            "reset_mails_expire_after": self.get_form().get_sinput("reset_mails_expire_after"),
-            "access_tokens_expire_after": self.get_form().get_sinput("access_tokens_expire_after"),
-            "prometheus_token": self.get_form().get_sinput("prometheus_token"),
-            "newrelic_api_key":  self.get_form().get_sinput("newrelic_api_key")
+            "app_name": self.form().get_sinput("app_name"),
+            "app_email": self.form().get_sinput("app_email"),
+            "app_url": self.form().get_sinput("app_url"),
+            "app_description": self.form().get_sinput("app_description"),
+            "google_analytics_account": self.form().get_sinput("google_analytics_account"),
+            "reset_mails_messages_count": self.form().get_sinput("reset_mails_messages_count"),
+            "reset_mails_expire_after": self.form().get_sinput("reset_mails_expire_after"),
+            "access_tokens_expire_after": self.form().get_sinput("access_tokens_expire_after"),
+            "prometheus_token": self.form().get_sinput("prometheus_token"),
+            "newrelic_api_key":  self.form().get_sinput("newrelic_api_key")
         })
 
         if result:

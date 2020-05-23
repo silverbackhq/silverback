@@ -31,22 +31,18 @@ class Login(View, Controller):
     @stop_request_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-
         if self.__login.is_authenticated(request):
             return self.json([{
                 "type": "error",
                 "message": _("Error! User is already authenticated.")
             }])
 
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "username": "",
             "password": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'username': {
                 'value': request_data["username"],
                 'sanitize': {
@@ -72,12 +68,12 @@ class Login(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        if self.__login.authenticate(self.get_form().get_sinput("username"), self.get_form().get_sinput("password"), request):
+        if self.__login.authenticate(self.form().get_sinput("username"), self.form().get_sinput("password"), request):
             return self.json([{
                 "type": "success",
                 "message": _("You logged in successfully.")

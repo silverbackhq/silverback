@@ -19,7 +19,6 @@ from django.utils.translation import gettext as _
 # Local Library
 from app.modules.util.helpers import Helpers
 from app.exceptions.client_error import ClientError
-from app.middleware.correlation import CorrelationFilter
 
 
 class Errors():
@@ -34,10 +33,6 @@ class Errors():
         return response
 
     def process_exception(self, request, exception):
-
-        correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-
-        self.__logger.addFilter(CorrelationFilter(correlation_id))
 
         if isinstance(exception, ClientError):
             self.__logger.info(

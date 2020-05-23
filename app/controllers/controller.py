@@ -22,16 +22,13 @@ from pyvalitron.form import Form
 
 # Local Library
 from app.modules.util.helpers import Helpers
-from app.modules.core.request import Request
 from app.modules.validation.extension import ExtraRules
 from app.exceptions.server_error import ServerError
-from app.middleware.correlation import CorrelationFilter
 
 
 class Controller():
     """Base Controller"""
 
-    __request = None
     __helpers = None
     __form = None
     __logger = None
@@ -64,27 +61,42 @@ class Controller():
 
         return JsonResponse(response, status=status_code)
 
-    def get_correlation(self, request):
+    def correlation(self, request):
         return request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
 
-    def get_logger(self, correlation_id=""):
+    def logger(self, request):
         if not self.__logger:
-            self.__helpers = self.get_helpers()
+            self.__helpers = self.helpers()
             self.__logger = self.__helpers.get_logger(__name__)
-            self.__logger.addFilter(CorrelationFilter(correlation_id))
+
         return self.__logger
 
-    def get_request(self):
-        if not self.__request:
-            self.__request = Request()
-        return self.__request
+    def get_request_data(self, request, method, predicted):
+        request_data = {}
+        log_data = {}
+        data_bag = request.POST if method.lower() == "post" else request.GET
 
-    def get_helpers(self):
+        for key, default in predicted.items():
+            if "password" in key:
+                log_data[key] = "<hidden>" if key in data_bag else default
+            elif "token" in key:
+                log_data[key] = "<hidden>" if key in data_bag else default
+            else:
+                log_data[key] = data_bag[key] if key in data_bag else default
+            request_data[key] = data_bag[key] if key in data_bag else default
+
+        self.logger(request).info(_("Required request data: %(data)s") % {
+            "data": self.helpers().json_dumps(log_data)
+        })
+
+        return request_data
+
+    def helpers(self):
         if not self.__helpers:
             self.__helpers = Helpers()
         return self.__helpers
 
-    def get_form(self):
+    def form(self):
         if not self.__form:
             self.__form = Form()
             self.__form.add_validator(ExtraRules())

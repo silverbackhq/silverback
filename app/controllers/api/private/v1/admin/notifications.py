@@ -30,8 +30,6 @@ class LatestNotifications(View, Controller):
 
     @allow_if_authenticated
     def get(self, request):
-
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         return self.json(
@@ -42,11 +40,9 @@ class LatestNotifications(View, Controller):
     @allow_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
-        self.get_request().set_request(request)
 
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "notification_id": ""
         })
 
@@ -70,11 +66,8 @@ class Notifications(View, Controller):
     @allow_if_authenticated
     def get(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("get", {
+        request_data = self.get_request_data(request, "get", {
             "offset": 0,
             "limit": 20
         })

@@ -38,9 +38,7 @@ class BuilderSystemMetrics(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "metric_id": ""
         })
 
@@ -84,7 +82,6 @@ class BuilderSystemMetrics(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def delete(self, request, metric_id):
 
-        self.__correlation_id = self.get_correlation(request)
         metrics = self.__settings.get_value_by_key(
             "builder_metrics",
             json.dumps([])
@@ -128,9 +125,7 @@ class BuilderComponents(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "component_id": ""
         })
 
@@ -186,7 +181,6 @@ class BuilderComponents(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def delete(self, request, component_id):
 
-        self.__correlation_id = self.get_correlation(request)
         components = self.__settings.get_value_by_key(
             "builder_components",
             json.dumps([])
@@ -228,16 +222,14 @@ class BuilderSettings(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "builder_headline": "",
             "builder_favicon_url": "",
             "builder_logo_url": "",
             "builder_about": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'builder_headline': {
                 'value': request_data["builder_headline"],
                 'sanitize': {
@@ -288,16 +280,16 @@ class BuilderSettings(View, Controller):
             },
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         result = self.__settings.update_options({
-            "builder_headline": self.get_form().get_sinput("builder_headline"),
-            "builder_favicon_url": self.get_form().get_sinput("builder_favicon_url"),
-            "builder_logo_url": self.get_form().get_sinput("builder_logo_url"),
-            "builder_about": self.get_form().get_sinput("builder_about")
+            "builder_headline": self.form().get_sinput("builder_headline"),
+            "builder_favicon_url": self.form().get_sinput("builder_favicon_url"),
+            "builder_logo_url": self.form().get_sinput("builder_logo_url"),
+            "builder_about": self.form().get_sinput("builder_about")
         })
 
         if result:

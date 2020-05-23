@@ -32,10 +32,7 @@ class Subscribers(View, Controller):
     @allow_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "type": "",
             "email": "",
             "phone": "",
@@ -46,7 +43,7 @@ class Subscribers(View, Controller):
 
         if request_data["type"] == "email":
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'type': {
                     'value': request_data["type"],
                     'sanitize': {
@@ -86,7 +83,7 @@ class Subscribers(View, Controller):
 
         elif request_data["type"] == "phone":
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'type': {
                     'value': request_data["type"],
                     'sanitize': {
@@ -126,7 +123,7 @@ class Subscribers(View, Controller):
 
         else:
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'type': {
                     'value': request_data["type"],
                     'sanitize': {
@@ -188,10 +185,10 @@ class Subscribers(View, Controller):
                 }
             })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         external_id = self.__helpers.generate_uuid()
 
@@ -201,9 +198,9 @@ class Subscribers(View, Controller):
         if request_data["type"] == "email":
 
             result = self.__subscriber.insert_one({
-                "status": self.get_form().get_sinput("status"),
-                "type": self.get_form().get_sinput("type"),
-                "email": self.get_form().get_sinput("email"),
+                "status": self.form().get_sinput("status"),
+                "type": self.form().get_sinput("type"),
+                "email": self.form().get_sinput("email"),
                 "phone": "",
                 "endpoint": "",
                 "auth_token": "",
@@ -213,10 +210,10 @@ class Subscribers(View, Controller):
         elif request_data["type"] == "phone":
 
             result = self.__subscriber.insert_one({
-                "status": self.get_form().get_sinput("status"),
-                "type": self.get_form().get_sinput("type"),
+                "status": self.form().get_sinput("status"),
+                "type": self.form().get_sinput("type"),
                 "email": "",
-                "phone": self.get_form().get_sinput("phone"),
+                "phone": self.form().get_sinput("phone"),
                 "endpoint": "",
                 "auth_token": "",
                 "external_id": external_id
@@ -225,12 +222,12 @@ class Subscribers(View, Controller):
         else:
 
             result = self.__subscriber.insert_one({
-                "status": self.get_form().get_sinput("status"),
-                "type": self.get_form().get_sinput("type"),
-                "email": self.get_form().get_sinput("email"),
+                "status": self.form().get_sinput("status"),
+                "type": self.form().get_sinput("type"),
+                "email": self.form().get_sinput("email"),
                 "phone": "",
-                "endpoint": self.get_form().get_sinput("endpoint"),
-                "auth_token": self.get_form().get_sinput("auth_token"),
+                "endpoint": self.form().get_sinput("endpoint"),
+                "auth_token": self.form().get_sinput("auth_token"),
                 "external_id": external_id
             })
 
@@ -248,10 +245,7 @@ class Subscribers(View, Controller):
     @allow_if_authenticated
     def get(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("get", {
+        request_data = self.get_request_data(request, "get", {
             "offset": 0,
             "limit": 20
         })
@@ -301,10 +295,7 @@ class Subscriber(View, Controller):
     @allow_if_authenticated
     def post(self, request, subscriber_id):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "type": "",
             "email": "",
             "phone": "",
@@ -315,7 +306,7 @@ class Subscriber(View, Controller):
 
         if request_data["type"] == "email":
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'type': {
                     'value': request_data["type"],
                     'sanitize': {
@@ -355,7 +346,7 @@ class Subscriber(View, Controller):
 
         elif request_data["type"] == "phone":
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'type': {
                     'value': request_data["type"],
                     'sanitize': {
@@ -395,7 +386,7 @@ class Subscriber(View, Controller):
 
         else:
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'type': {
                     'value': request_data["type"],
                     'sanitize': {
@@ -457,17 +448,17 @@ class Subscriber(View, Controller):
                 }
             })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         if request_data["type"] == "email":
 
             result = self.__subscriber.update_one_by_id(subscriber_id, {
-                "status": self.get_form().get_sinput("status"),
-                "type": self.get_form().get_sinput("type"),
-                "email": self.get_form().get_sinput("email"),
+                "status": self.form().get_sinput("status"),
+                "type": self.form().get_sinput("type"),
+                "email": self.form().get_sinput("email"),
                 "phone": "",
                 "endpoint": "",
                 "auth_token": ""
@@ -476,10 +467,10 @@ class Subscriber(View, Controller):
         elif request_data["type"] == "phone":
 
             result = self.__subscriber.update_one_by_id(subscriber_id, {
-                "status": self.get_form().get_sinput("status"),
-                "type": self.get_form().get_sinput("type"),
+                "status": self.form().get_sinput("status"),
+                "type": self.form().get_sinput("type"),
                 "email": "",
-                "phone": self.get_form().get_sinput("phone"),
+                "phone": self.form().get_sinput("phone"),
                 "endpoint": "",
                 "auth_token": ""
             })
@@ -487,12 +478,12 @@ class Subscriber(View, Controller):
         else:
 
             result = self.__subscriber.update_one_by_id(subscriber_id, {
-                "status": self.get_form().get_sinput("status"),
-                "type": self.get_form().get_sinput("type"),
-                "email": self.get_form().get_sinput("email"),
+                "status": self.form().get_sinput("status"),
+                "type": self.form().get_sinput("type"),
+                "email": self.form().get_sinput("email"),
                 "phone": "",
-                "endpoint": self.get_form().get_sinput("endpoint"),
-                "auth_token": self.get_form().get_sinput("auth_token")
+                "endpoint": self.form().get_sinput("endpoint"),
+                "auth_token": self.form().get_sinput("auth_token")
             })
 
         if result:
@@ -509,7 +500,6 @@ class Subscriber(View, Controller):
     @allow_if_authenticated
     def delete(self, request, subscriber_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__subscriber.delete_one_by_id(subscriber_id):

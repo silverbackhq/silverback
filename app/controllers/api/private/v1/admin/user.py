@@ -32,10 +32,7 @@ class Users(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "invitation": "",
             "first_name": "",
             "last_name": "",
@@ -47,7 +44,7 @@ class Users(View, Controller):
 
         if request_data["invitation"] != "":
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'first_name': {
                     'value': request_data["first_name"],
                     'sanitize': {
@@ -129,7 +126,7 @@ class Users(View, Controller):
 
         else:
 
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'email': {
                     'value': request_data["email"],
                     'sanitize': {
@@ -152,18 +149,18 @@ class Users(View, Controller):
                 }
             })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        if self.__user.email_used(self.get_form().get_sinput("email")):
+        if self.__user.email_used(self.form().get_sinput("email")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
             }])
 
-        if request_data["invitation"] != "" and self.__user.username_used(self.get_form().get_sinput("username")):
+        if request_data["invitation"] != "" and self.__user.username_used(self.form().get_sinput("username")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
@@ -172,14 +169,14 @@ class Users(View, Controller):
         if request_data["invitation"] != "":
 
             result = self.__user.insert_one({
-                "username": self.get_form().get_sinput("username"),
-                "email": self.get_form().get_sinput("email"),
-                "first_name": self.get_form().get_sinput("first_name"),
-                "last_name": self.get_form().get_sinput("last_name"),
-                "password": self.get_form().get_sinput("password"),
+                "username": self.form().get_sinput("username"),
+                "email": self.form().get_sinput("email"),
+                "first_name": self.form().get_sinput("first_name"),
+                "last_name": self.form().get_sinput("last_name"),
+                "password": self.form().get_sinput("password"),
                 "is_staff": False,
                 "is_active": True,
-                "is_superuser": True if self.get_form().get_sinput("role") == "admin" else False
+                "is_superuser": True if self.form().get_sinput("role") == "admin" else False
             })
 
             if result:
@@ -194,11 +191,11 @@ class Users(View, Controller):
                 }])
         else:
 
-            self.__user.delete_register_request_by_email(self.get_form().get_sinput("email"))
+            self.__user.delete_register_request_by_email(self.form().get_sinput("email"))
 
             token = self.__user.create_register_request(
-                self.get_form().get_sinput("email"),
-                self.get_form().get_sinput("role")
+                self.form().get_sinput("email"),
+                self.form().get_sinput("role")
             )
 
             if not token:
@@ -207,7 +204,7 @@ class Users(View, Controller):
                     "message": _("Error! Something goes wrong while creating reset request.")
                 }])
 
-            message = self.__user.send_register_request_message(self.get_form().get_sinput("email"), token)
+            message = self.__user.send_register_request_message(self.form().get_sinput("email"), token)
 
             if not message:
                 return self.json([{
@@ -223,10 +220,7 @@ class Users(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def get(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("get", {
+        request_data = self.get_request_data(request, "get", {
             "offset": 0,
             "limit": 20
         })
@@ -275,10 +269,7 @@ class User(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request, user_id):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "first_name": "",
             "last_name": "",
             "username": "",
@@ -289,7 +280,7 @@ class User(View, Controller):
         })
 
         if request_data["update_password"] == "":
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'first_name': {
                     'value': request_data["first_name"],
                     'sanitize': {
@@ -357,7 +348,7 @@ class User(View, Controller):
                 }
             })
         else:
-            self.get_form().add_inputs({
+            self.form().add_inputs({
                 'first_name': {
                     'value': request_data["first_name"],
                     'sanitize': {
@@ -437,18 +428,18 @@ class User(View, Controller):
                 }
             })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        if self.__user.username_used_elsewhere(user_id, self.get_form().get_sinput("username")):
+        if self.__user.username_used_elsewhere(user_id, self.form().get_sinput("username")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
             }])
 
-        if self.__user.email_used_elsewhere(user_id, self.get_form().get_sinput("email")):
+        if self.__user.email_used_elsewhere(user_id, self.form().get_sinput("email")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
@@ -457,22 +448,22 @@ class User(View, Controller):
         if request_data["update_password"] == "":
 
             result = self.__user.update_one_by_id(user_id, {
-                "username": self.get_form().get_sinput("username"),
-                "email": self.get_form().get_sinput("email"),
-                "first_name": self.get_form().get_sinput("first_name"),
-                "last_name": self.get_form().get_sinput("last_name"),
-                "is_superuser": True if self.get_form().get_sinput("role") == "admin" else False
+                "username": self.form().get_sinput("username"),
+                "email": self.form().get_sinput("email"),
+                "first_name": self.form().get_sinput("first_name"),
+                "last_name": self.form().get_sinput("last_name"),
+                "is_superuser": True if self.form().get_sinput("role") == "admin" else False
             })
 
         else:
 
             result = self.__user.update_one_by_id(user_id, {
-                "username": self.get_form().get_sinput("username"),
-                "email": self.get_form().get_sinput("email"),
-                "first_name": self.get_form().get_sinput("first_name"),
-                "last_name": self.get_form().get_sinput("last_name"),
-                "password": self.get_form().get_sinput("password"),
-                "is_superuser": True if self.get_form().get_sinput("role") == "admin" else False
+                "username": self.form().get_sinput("username"),
+                "email": self.form().get_sinput("email"),
+                "first_name": self.form().get_sinput("first_name"),
+                "last_name": self.form().get_sinput("last_name"),
+                "password": self.form().get_sinput("password"),
+                "is_superuser": True if self.form().get_sinput("role") == "admin" else False
             })
 
         if result:
@@ -489,7 +480,6 @@ class User(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def delete(self, request, user_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__user_id == user_id:

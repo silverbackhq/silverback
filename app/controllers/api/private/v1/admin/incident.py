@@ -33,16 +33,13 @@ class Incidents(View, Controller):
     @allow_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "name": "",
             "status": "",
             "datetime": "",
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -77,15 +74,15 @@ class Incidents(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         result = self.__incident.insert_one({
-            "name": self.get_form().get_sinput("name"),
-            "status": self.get_form().get_sinput("status"),
-            "datetime": DateTimeField().clean(self.get_form().get_sinput("datetime")),
+            "name": self.form().get_sinput("name"),
+            "status": self.form().get_sinput("status"),
+            "datetime": DateTimeField().clean(self.form().get_sinput("datetime")),
             "uri": self.__incident.generate_uri(6)
         })
 
@@ -103,10 +100,7 @@ class Incidents(View, Controller):
     @allow_if_authenticated
     def get(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("get", {
+        request_data = self.get_request_data(request, "get", {
             "offset": 0,
             "limit": 20
         })
@@ -155,16 +149,13 @@ class Incident(View, Controller):
     @allow_if_authenticated
     def post(self, request, incident_id):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "name": "",
             "status": "",
             "datetime": "",
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -199,15 +190,15 @@ class Incident(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         result = self.__incident.update_one_by_id(incident_id, {
-            "name": self.get_form().get_sinput("name"),
-            "status": self.get_form().get_sinput("status"),
-            "datetime": DateTimeField().clean(self.get_form().get_sinput("datetime"))
+            "name": self.form().get_sinput("name"),
+            "status": self.form().get_sinput("status"),
+            "datetime": DateTimeField().clean(self.form().get_sinput("datetime"))
         })
 
         if result:
@@ -224,7 +215,6 @@ class Incident(View, Controller):
     @allow_if_authenticated
     def delete(self, request, incident_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__incident.delete_one_by_id(incident_id):

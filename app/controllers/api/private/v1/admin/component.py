@@ -34,17 +34,14 @@ class Components(View, Controller):
     @allow_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "name": "",
             "description": "",
             "uptime": "",
             "group": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -94,30 +91,30 @@ class Components(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         # Check if component name not used
-        if self.__component.get_one_by_name(self.get_form().get_sinput("name")):
+        if self.__component.get_one_by_name(self.form().get_sinput("name")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Component name is used before.")
             }])
 
         # Check if group id is valid
-        if self.get_form().get_sinput("group") and not self.__component_group.get_one_by_id(self.get_form().get_sinput("group")):
+        if self.form().get_sinput("group") and not self.__component_group.get_one_by_id(self.form().get_sinput("group")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Component group is invalid.")
             }])
 
         result = self.__component.insert_one({
-            "name": self.get_form().get_sinput("name"),
-            "description": self.get_form().get_sinput("description"),
-            "uptime": self.get_form().get_sinput("uptime"),
-            "group_id": None if self.get_form().get_sinput("group") == "" else self.get_form().get_sinput("group")
+            "name": self.form().get_sinput("name"),
+            "description": self.form().get_sinput("description"),
+            "uptime": self.form().get_sinput("uptime"),
+            "group_id": None if self.form().get_sinput("group") == "" else self.form().get_sinput("group")
         })
 
         if result:
@@ -134,10 +131,7 @@ class Components(View, Controller):
     @allow_if_authenticated
     def get(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("get", {
+        request_data = self.get_request_data(request, "get", {
             "offset": 0,
             "limit": 20
         })
@@ -186,17 +180,14 @@ class Component(View, Controller):
     @allow_if_authenticated
     def post(self, request, component_id):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "name": "",
             "description": "",
             "uptime": "",
             "group": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -246,13 +237,13 @@ class Component(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         # Check if component name not used elsewhere
-        current_component = self.__component.get_one_by_name(self.get_form().get_sinput("name"))
+        current_component = self.__component.get_one_by_name(self.form().get_sinput("name"))
 
         if current_component and not current_component["id"] == component_id:
             return self.json([{
@@ -261,17 +252,17 @@ class Component(View, Controller):
             }])
 
         # Check if group id is valid
-        if self.get_form().get_sinput("group") and not self.__component_group.get_one_by_id(self.get_form().get_sinput("group")):
+        if self.form().get_sinput("group") and not self.__component_group.get_one_by_id(self.form().get_sinput("group")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Component group is invalid.")
             }])
 
         result = self.__component.update_one_by_id(component_id, {
-            "name": self.get_form().get_sinput("name"),
-            "description": self.get_form().get_sinput("description"),
-            "uptime": self.get_form().get_sinput("uptime"),
-            "group_id": None if self.get_form().get_sinput("group") == "" else self.get_form().get_sinput("group")
+            "name": self.form().get_sinput("name"),
+            "description": self.form().get_sinput("description"),
+            "uptime": self.form().get_sinput("uptime"),
+            "group_id": None if self.form().get_sinput("group") == "" else self.form().get_sinput("group")
         })
 
         if result:
@@ -288,7 +279,6 @@ class Component(View, Controller):
     @allow_if_authenticated
     def delete(self, request, component_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__component.delete_one_by_id(component_id):

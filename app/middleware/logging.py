@@ -19,7 +19,6 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.util.helpers import Helpers
-from app.middleware.correlation import CorrelationFilter
 
 # Third Party
 from django.http import JsonResponse
@@ -33,9 +32,6 @@ class Logging():
         self.__logger = self.__helpers.get_logger(__name__)
 
     def __call__(self, request):
-        correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-
-        self.__logger.addFilter(CorrelationFilter(correlation_id))
 
         self.__logger.info(_("Incoming %(method)s Request to %(path)s with %(body)s") % {
             "method": request.method,

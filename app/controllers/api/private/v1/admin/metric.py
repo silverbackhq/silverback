@@ -32,10 +32,7 @@ class Metrics(View, Controller):
     @allow_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "title": "",
             "description": "",
             "source": "",
@@ -45,7 +42,7 @@ class Metrics(View, Controller):
             "y_axis": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'title': {
                 'value': request_data["title"],
                 'sanitize': {
@@ -133,26 +130,26 @@ class Metrics(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        if self.__metric.get_one_by_title(self.get_form().get_sinput("title")):
+        if self.__metric.get_one_by_title(self.form().get_sinput("title")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Metric title is used before.")
             }])
 
         result = self.__metric.insert_one({
-            "title": self.get_form().get_sinput("title"),
-            "description": self.get_form().get_sinput("description"),
-            "source": self.get_form().get_sinput("source"),
-            "x_axis": self.get_form().get_sinput("x_axis"),
-            "y_axis": self.get_form().get_sinput("y_axis"),
+            "title": self.form().get_sinput("title"),
+            "description": self.form().get_sinput("description"),
+            "source": self.form().get_sinput("source"),
+            "x_axis": self.form().get_sinput("x_axis"),
+            "y_axis": self.form().get_sinput("y_axis"),
             "data": '{"application":"%s", "metric":"%s"}' % (
-                self.get_form().get_sinput("application"),
-                self.get_form().get_sinput("metric")
+                self.form().get_sinput("application"),
+                self.form().get_sinput("metric")
             )
         })
 
@@ -170,10 +167,7 @@ class Metrics(View, Controller):
     @allow_if_authenticated
     def get(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("get", {
+        request_data = self.get_request_data(request, "get", {
             "offset": 0,
             "limit": 20
         })
@@ -219,10 +213,7 @@ class Metric(View, Controller):
     @allow_if_authenticated
     def post(self, request, metric_id):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "title": "",
             "description": "",
             "source": "",
@@ -232,7 +223,7 @@ class Metric(View, Controller):
             "y_axis": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'title': {
                 'value': request_data["title"],
                 'sanitize': {
@@ -320,12 +311,12 @@ class Metric(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        current_metric = self.__metric.get_one_by_title(self.get_form().get_sinput("title"))
+        current_metric = self.__metric.get_one_by_title(self.form().get_sinput("title"))
 
         if current_metric and not current_metric["id"] == metric_id:
             return self.json([{
@@ -334,14 +325,14 @@ class Metric(View, Controller):
             }])
 
         result = self.__metric.update_one_by_id(metric_id, {
-            "title": self.get_form().get_sinput("title"),
-            "description": self.get_form().get_sinput("description"),
-            "source": self.get_form().get_sinput("source"),
-            "x_axis": self.get_form().get_sinput("x_axis"),
-            "y_axis": self.get_form().get_sinput("y_axis"),
+            "title": self.form().get_sinput("title"),
+            "description": self.form().get_sinput("description"),
+            "source": self.form().get_sinput("source"),
+            "x_axis": self.form().get_sinput("x_axis"),
+            "y_axis": self.form().get_sinput("y_axis"),
             "data": '{"application":"%s", "metric":"%s"}' % (
-                self.get_form().get_sinput("application"),
-                self.get_form().get_sinput("metric")
+                self.form().get_sinput("application"),
+                self.form().get_sinput("metric")
             )
         })
 
@@ -359,7 +350,6 @@ class Metric(View, Controller):
     @allow_if_authenticated
     def delete(self, request, metric_id):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
         if self.__metric.delete_one_by_id(metric_id):
@@ -383,15 +373,13 @@ class NewRelicApps(View, Controller):
     @allow_if_authenticated
     def get(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-
         result = False
+
         try:
             result = self.__metric.get_new_relic_apps()
         except Exception as e:
-            self.__logger.error(_("Error while listing newrelic applications: %(error)s {'correlationId':'%(correlationId)s'}") % {
-                "error": str(e),
-                "correlationId": self.__correlation_id
+            self.logger().error(_("Error while listing newrelic applications: %(error)s") % {
+                "error": str(e)
             })
 
         if result is False:

@@ -31,16 +31,12 @@ class ResetPassword(View, Controller):
     @stop_request_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "reset_token": "",
             "new_password": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'reset_token': {
                 'value': request_data["reset_token"],
                 'sanitize': {
@@ -63,23 +59,23 @@ class ResetPassword(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        if not self.__reset_password.check_token(self.get_form().get_sinput("reset_token")):
+        if not self.__reset_password.check_token(self.form().get_sinput("reset_token")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Reset token is expired or invalid.")
             }])
 
         result = self.__reset_password.reset_password(
-            self.get_form().get_sinput("reset_token"),
-            self.get_form().get_sinput("new_password")
+            self.form().get_sinput("reset_token"),
+            self.form().get_sinput("new_password")
         )
 
-        result &= self.__reset_password.delete_reset_request(self.get_form().get_sinput("reset_token"))
+        result &= self.__reset_password.delete_reset_request(self.form().get_sinput("reset_token"))
 
         if not result:
             return self.json([{

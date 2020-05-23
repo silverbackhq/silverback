@@ -33,17 +33,13 @@ class Install(View, Controller):
     @stop_request_if_installed
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-
         if self.__install.is_installed():
             return self.json([{
                 "type": "error",
                 "message": _("Error! Application is already installed.")
             }])
 
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "app_name": "",
             "app_email": "",
             "app_url": "",
@@ -52,7 +48,7 @@ class Install(View, Controller):
             "admin_password": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'app_name': {
                 'value': request_data["app_name"],
                 'sanitize': {
@@ -130,26 +126,26 @@ class Install(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         self.__install.set_app_data(
-            self.get_form().get_sinput("app_name"),
-            self.get_form().get_sinput("app_email"),
-            self.get_form().get_sinput("app_url")
+            self.form().get_sinput("app_name"),
+            self.form().get_sinput("app_email"),
+            self.form().get_sinput("app_url")
         )
         self.__install.set_admin_data(
-            self.get_form().get_sinput("admin_username"),
-            self.get_form().get_sinput("admin_email"),
-            self.get_form().get_sinput("admin_password")
+            self.form().get_sinput("admin_username"),
+            self.form().get_sinput("admin_email"),
+            self.form().get_sinput("admin_password")
         )
 
         try:
             user_id = self.__install.install()
         except Exception as exception:
-            self.get_logger().error(_("Internal server error during installation: %(exception)s {'correlationId':'%(correlationId)s'}") % {
+            self.logger().error(_("Internal server error during installation: %(exception)s {'correlationId':'%(correlationId)s'}") % {
                 "exception": exception,
                 "correlationId": self.__correlation_id
             })

@@ -17,6 +17,9 @@ import logging
 
 # Local Library
 from app.modules.util.helpers import Helpers
+from threading import local
+
+_locals = local()
 
 
 class Correlation():
@@ -27,6 +30,7 @@ class Correlation():
 
     def __call__(self, request):
         request.META["X-Correlation-ID"] = self.__helpers.generate_uuid()
+        _locals.correlation_id = request.META["X-Correlation-ID"]
 
         response = self.get_response(request)
 
@@ -35,10 +39,10 @@ class Correlation():
 
 class CorrelationFilter(logging.Filter):
 
-    def __init__(self, correlation_id=""):
-        self.correlation_id = correlation_id
-
     def filter(self, record):
         if not hasattr(record, 'correlation_id'):
-            record.correlation_id = self.correlation_id
+            record.correlation_id = ""
+
+        record.correlation_id = _locals.correlation_id
+
         return True

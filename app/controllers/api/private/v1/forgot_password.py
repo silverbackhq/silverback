@@ -31,15 +31,11 @@ class ForgotPassword(View, Controller):
     @stop_request_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "email": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'email': {
                 'value': request_data["email"],
                 'sanitize': {
@@ -53,18 +49,18 @@ class ForgotPassword(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        if not self.__forgot_password.check_email(self.get_form().get_sinput("email")):
+        if not self.__forgot_password.check_email(self.form().get_sinput("email")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Email is not exist.")
             }])
 
-        reset_request = self.__forgot_password.reset_request_exists(self.get_form().get_sinput("email"))
+        reset_request = self.__forgot_password.reset_request_exists(self.form().get_sinput("email"))
 
         if reset_request:
             if self.__forgot_password.is_spam(reset_request):
@@ -74,7 +70,7 @@ class ForgotPassword(View, Controller):
                 }])
             token = self.__forgot_password.update_request(reset_request)
         else:
-            token = self.__forgot_password.create_request(self.get_form().get_sinput("email"))
+            token = self.__forgot_password.create_request(self.form().get_sinput("email"))
 
         if not token:
             return self.json([{
@@ -82,7 +78,7 @@ class ForgotPassword(View, Controller):
                 "message": _("Error! Something goes wrong while creating reset request.")
             }])
 
-        message = self.__forgot_password.send_message(self.get_form().get_sinput("email"), token)
+        message = self.__forgot_password.send_message(self.form().get_sinput("email"), token)
 
         if not message:
             return self.json([{

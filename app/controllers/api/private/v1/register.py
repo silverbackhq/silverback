@@ -34,11 +34,7 @@ class Register(View, Controller):
     @stop_request_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-
-        self.get_request().set_request(request)
-
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "register_request_token": "",
             "first_name": "",
             "last_name": "",
@@ -47,7 +43,7 @@ class Register(View, Controller):
             "password": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'first_name': {
                 'value': request_data["first_name"],
                 'sanitize': {
@@ -118,10 +114,10 @@ class Register(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         register_request = self.__user.get_register_request_by_token(request_data["register_request_token"])
 
@@ -133,24 +129,24 @@ class Register(View, Controller):
 
         payload = json.loads(register_request.payload)
 
-        if self.__user.username_used(self.get_form().get_sinput("username")):
+        if self.__user.username_used(self.form().get_sinput("username")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
             }])
 
-        if self.__user.email_used(self.get_form().get_sinput("email")):
+        if self.__user.email_used(self.form().get_sinput("email")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Email is already used for other account.")
             }])
 
         result = self.__user.insert_one({
-            "username": self.get_form().get_sinput("username"),
-            "email": self.get_form().get_sinput("email"),
-            "first_name": self.get_form().get_sinput("first_name"),
-            "last_name": self.get_form().get_sinput("last_name"),
-            "password": self.get_form().get_sinput("password"),
+            "username": self.form().get_sinput("username"),
+            "email": self.form().get_sinput("email"),
+            "first_name": self.form().get_sinput("first_name"),
+            "last_name": self.form().get_sinput("last_name"),
+            "password": self.form().get_sinput("password"),
             "is_staff": False,
             "is_active": True,
             "is_superuser": True if payload["role"] == "admin" else False

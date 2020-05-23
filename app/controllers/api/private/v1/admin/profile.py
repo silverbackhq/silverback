@@ -31,15 +31,13 @@ class Profile(View, Controller):
     @allow_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
         self.__user_id = request.user.id
 
-        self.get_request().set_request(request)
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "action": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'action': {
                 'value': request_data["action"],
                 'validate': {
@@ -51,25 +49,23 @@ class Profile(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        if self.get_form().get_sinput("action") == "_update_profile":
+        if self.form().get_sinput("action") == "_update_profile":
             return self.__update_profile(request)
-        elif self.get_form().get_sinput("action") == "_update_password":
+        elif self.form().get_sinput("action") == "_update_password":
             return self.__update_password(request)
-        elif self.get_form().get_sinput("action") == "_update_access_token":
+        elif self.form().get_sinput("action") == "_update_access_token":
             return self.__update_access_token(request)
-        elif self.get_form().get_sinput("action") == "_update_refresh_token":
+        elif self.form().get_sinput("action") == "_update_refresh_token":
             return self.__update_refresh_token(request)
 
     def __update_profile(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "first_name": "",
             "last_name": "",
             "username": "",
@@ -82,7 +78,7 @@ class Profile(View, Controller):
             "facebook_url": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'first_name': {
                 'value': request_data["first_name"],
                 'sanitize': {
@@ -228,34 +224,34 @@ class Profile(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        if self.__profile_module.username_used_elsewhere(self.__user_id, self.get_form().get_sinput("username")):
+        if self.__profile_module.username_used_elsewhere(self.__user_id, self.form().get_sinput("username")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Username is already used.")
             }])
 
-        if self.__profile_module.email_used_elsewhere(self.__user_id, self.get_form().get_sinput("email")):
+        if self.__profile_module.email_used_elsewhere(self.__user_id, self.form().get_sinput("email")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Email is already used.")
             }])
 
         result = self.__profile_module.update_profile(self.__user_id, {
-            "first_name": self.get_form().get_sinput("first_name"),
-            "last_name": self.get_form().get_sinput("last_name"),
-            "username": self.get_form().get_sinput("username"),
-            "email": self.get_form().get_sinput("email"),
-            "job_title": self.get_form().get_sinput("job_title"),
-            "company": self.get_form().get_sinput("company"),
-            "address": self.get_form().get_sinput("address"),
-            "github_url": self.get_form().get_sinput("github_url"),
-            "twitter_url": self.get_form().get_sinput("twitter_url"),
-            "facebook_url": self.get_form().get_sinput("facebook_url")
+            "first_name": self.form().get_sinput("first_name"),
+            "last_name": self.form().get_sinput("last_name"),
+            "username": self.form().get_sinput("username"),
+            "email": self.form().get_sinput("email"),
+            "job_title": self.form().get_sinput("job_title"),
+            "company": self.form().get_sinput("company"),
+            "address": self.form().get_sinput("address"),
+            "github_url": self.form().get_sinput("github_url"),
+            "twitter_url": self.form().get_sinput("twitter_url"),
+            "facebook_url": self.form().get_sinput("facebook_url")
         })
 
         if result:
@@ -272,14 +268,12 @@ class Profile(View, Controller):
 
     def __update_password(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "old_password": "",
             "new_password": ""
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'old_password': {
                 'value': request_data["old_password"],
                 'validate': {
@@ -306,18 +300,18 @@ class Profile(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed():
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
-        if not self.__profile_module.validate_password(self.__user_id, self.get_form().get_sinput("old_password")):
+        if not self.__profile_module.validate_password(self.__user_id, self.form().get_sinput("old_password")):
             return self.json([{
                 "type": "error",
                 "message": _("Error! Old password is invalid.")
             }])
 
-        result = self.__profile_module.change_password(self.__user_id, self.get_form().get_sinput("new_password"))
+        result = self.__profile_module.change_password(self.__user_id, self.form().get_sinput("new_password"))
 
         if result:
             self.__profile_module.restore_session(self.__user_id, request)
@@ -334,13 +328,11 @@ class Profile(View, Controller):
 
     def __update_access_token(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "token": "",
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'token': {
                 'value': request_data["token"],
                 'validate': {
@@ -351,10 +343,10 @@ class Profile(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed() and request_data["token"] != "":
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed() and request_data["token"] != "":
+            return self.json(self.form().get_errors())
 
         result = self.__profile_module.update_access_token(self.__user_id)
 
@@ -371,13 +363,11 @@ class Profile(View, Controller):
 
     def __update_refresh_token(self, request):
 
-        self.__correlation_id = self.get_correlation(request)
-        self.get_request().set_request(request)
-        request_data = self.get_request().get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "token": "",
         })
 
-        self.get_form().add_inputs({
+        self.form().add_inputs({
             'token': {
                 'value': request_data["token"],
                 'validate': {
@@ -388,10 +378,10 @@ class Profile(View, Controller):
             }
         })
 
-        self.get_form().process()
+        self.form().process()
 
-        if not self.get_form().is_passed() and request_data["token"] != "":
-            return self.json(self.get_form().get_errors())
+        if not self.form().is_passed() and request_data["token"] != "":
+            return self.json(self.form().get_errors())
 
         result = self.__profile_module.update_refresh_token(self.__user_id)
 
