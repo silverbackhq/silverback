@@ -42,6 +42,7 @@ before_script:
 # command to run tests
 script:
   - make ci
+  - cat storage/logs/*.log
 
 # Push the results back to coveralls
 after_success:
