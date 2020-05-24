@@ -27,6 +27,7 @@ from app.controllers.controller import Controller
 def handler500(request, exception=None, template_name='templates/500.html'):
     """500 Error Page Controller"""
 
+    controller = Controller()
     helpers = Helpers()
     logger = helpers.get_logger(__name__)
 
@@ -36,8 +37,6 @@ def handler500(request, exception=None, template_name='templates/500.html'):
         })
 
     template_name = 'templates/500.html'
-
-    controller = Controller()
 
     controller.autoload_options()
     controller.context_push({

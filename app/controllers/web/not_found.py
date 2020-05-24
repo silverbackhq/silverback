@@ -28,6 +28,7 @@ def handler404(request, exception=None, template_name='templates/404.html'):
     """404 Error Page Controller"""
 
     helpers = Helpers()
+    controller = Controller()
     logger = helpers.get_logger(__name__)
 
     if exception is not None:
@@ -36,8 +37,6 @@ def handler404(request, exception=None, template_name='templates/404.html'):
         })
 
     template_name = 'templates/404.html'
-
-    controller = Controller()
 
     controller.autoload_options()
     controller.context_push({
