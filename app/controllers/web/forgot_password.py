@@ -21,7 +21,6 @@ from django.shortcuts import render
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.core.context import Context
 from app.controllers.controller import Controller
 from app.modules.core.decorators import redirect_if_authenticated
 from app.modules.core.decorators import redirect_if_not_installed
@@ -36,11 +35,9 @@ class ForgotPassword(View, Controller):
     @redirect_if_authenticated
     def get(self, request):
 
-        self.__context = Context()
-
-        self.__context.autoload_options()
-        self.__context.push({
-            "page_title": _("Forgot Password · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
+        self.autoload_options()
+        self.context_push({
+            "page_title": _("Forgot Password · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())

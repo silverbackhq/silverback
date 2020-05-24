@@ -21,7 +21,6 @@ from django.http import HttpResponse
 from feedgen.feed import FeedGenerator
 
 # Local Library
-from app.modules.core.context import Context
 from app.controllers.controller import Controller
 from app.modules.core.decorators import redirect_if_not_installed
 
@@ -33,11 +32,9 @@ class AtomHistory(View, Controller):
     def get(self, request):
 
         self.__fg = FeedGenerator()
-        self.__context = Context()
-
-        self.__context.autoload_options()
-        self.__context.push({
-            "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.autoload_options()
+        self.context_push({
+            "page_title": self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "is_authenticated": request.user and request.user.is_authenticated
         })
 
@@ -60,11 +57,9 @@ class RssHistory(View, Controller):
     def get(self, request):
 
         self.__fg = FeedGenerator()
-        self.__context = Context()
-
-        self.__context.autoload_options()
-        self.__context.push({
-            "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.autoload_options()
+        self.context_push({
+            "page_title": self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "is_authenticated": request.user and request.user.is_authenticated
         })
 

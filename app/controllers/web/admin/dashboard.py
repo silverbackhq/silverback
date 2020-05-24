@@ -21,7 +21,6 @@ from django.shortcuts import render
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.core.context import Context
 from app.controllers.controller import Controller
 from app.modules.core.decorators import login_if_not_authenticated
 from app.modules.core.dashboard import Dashboard as DashboardModule
@@ -34,12 +33,12 @@ class Dashboard(View, Controller):
 
     @login_if_not_authenticated
     def get(self, request):
-        self.__context = Context()
+
         self.__dashboard = DashboardModule()
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Dashboard · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("Dashboard · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "count": {
                 "incidents": self.__dashboard.incidents_count(),
                 "subscribers": self.__dashboard.subscribers_count(),
@@ -61,4 +60,4 @@ class Dashboard(View, Controller):
             "affected_components": self.__dashboard.get_affected_components()
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())

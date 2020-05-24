@@ -21,7 +21,6 @@ from django.views import View
 from django.shortcuts import render
 
 # Local Library
-from app.modules.core.context import Context
 from app.controllers.controller import Controller
 from app.modules.core.decorators import redirect_if_not_installed
 from app.modules.core.status_page import StatusPage as StatusPageModule
@@ -35,12 +34,11 @@ class StatusPageIndex(View, Controller):
     @redirect_if_not_installed
     def get(self, request):
 
-        self.__context = Context()
         self.__status_page_module = StatusPageModule()
 
-        self.__context.autoload_options()
-        self.__context.push({
-            "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.autoload_options()
+        self.context_push({
+            "page_title": self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "is_authenticated": request.user and request.user.is_authenticated,
             "system_status": self.__status_page_module.get_system_status(),
             "about_site": self.__status_page_module.get_about_site(),
@@ -51,7 +49,7 @@ class StatusPageIndex(View, Controller):
             "services": self.__status_page_module.get_services()
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
 
 class StatusPageHistory(View, Controller):
@@ -62,7 +60,6 @@ class StatusPageHistory(View, Controller):
     @redirect_if_not_installed
     def get(self, request, period):
 
-        self.__context = Context()
         self.__status_page_module = StatusPageModule()
 
         period = int(period)
@@ -75,9 +72,9 @@ class StatusPageHistory(View, Controller):
         if not data:
             raise Http404("History period not found.")
 
-        self.__context.autoload_options()
-        self.__context.push({
-            "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.autoload_options()
+        self.context_push({
+            "page_title": self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "logo_url": self.__status_page_module.get_logo_url(),
             "favicon_url": self.__status_page_module.get_favicon_url(),
             "is_authenticated": request.user and request.user.is_authenticated,
@@ -87,7 +84,7 @@ class StatusPageHistory(View, Controller):
             "past_incidents": data["incidents"],
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
 
 class StatusPageSingle(View, Controller):
@@ -98,8 +95,6 @@ class StatusPageSingle(View, Controller):
     @redirect_if_not_installed
     def get(self, request, uri):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__context = Context()
         self.__status_page_module = StatusPageModule()
 
         incident = self.__status_page_module.get_incident_by_uri(uri)
@@ -107,9 +102,9 @@ class StatusPageSingle(View, Controller):
         if not incident:
             raise Http404("Incident not found.")
 
-        self.__context.autoload_options()
-        self.__context.push({
-            "page_title": self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.autoload_options()
+        self.context_push({
+            "page_title": self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "logo_url": self.__status_page_module.get_logo_url(),
             "favicon_url": self.__status_page_module.get_favicon_url(),
             "is_authenticated": request.user and request.user.is_authenticated,
@@ -117,4 +112,4 @@ class StatusPageSingle(View, Controller):
             "incident": incident
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())

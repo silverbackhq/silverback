@@ -23,7 +23,6 @@ from django.shortcuts import render
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.core.context import Context
 from app.controllers.controller import Controller
 from app.modules.core.incident import Incident as IncidentModule
 from app.modules.core.decorators import login_if_not_authenticated
@@ -41,7 +40,7 @@ class IncidentUpdateAdd(View, Controller):
 
     @login_if_not_authenticated
     def get(self, request, incident_id):
-        self.__context = Context()
+
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
@@ -51,14 +50,14 @@ class IncidentUpdateAdd(View, Controller):
         if not incident:
             raise Http404("Incident not found.")
 
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("Add Incident Update  · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "incident": incident
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
 
 class IncidentUpdateView(View, Controller):
@@ -69,7 +68,6 @@ class IncidentUpdateView(View, Controller):
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
-        self.__context = Context()
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__incident_update_component = IncidentUpdateComponentModule()
@@ -100,17 +98,17 @@ class IncidentUpdateView(View, Controller):
         components = self.__format_components(self.__component.get_all())
         affected_components = self.__format_affected_components(self.__incident_update_component.get_all(update_id))
 
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("View Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("View Incident Update  · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "update": update,
             "incident": incident,
             "components": components,
             "affected_components": affected_components
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
     def __format_components(self, components):
         components_list = []
@@ -145,7 +143,6 @@ class IncidentUpdateEdit(View, Controller):
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
-        self.__context = Context()
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
@@ -160,12 +157,12 @@ class IncidentUpdateEdit(View, Controller):
         if not update:
             raise Http404("Incident update not found.")
 
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Edit Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("Edit Incident Update  · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "update": update,
             "incident": incident
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())

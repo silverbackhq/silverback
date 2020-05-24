@@ -22,7 +22,6 @@ from django.shortcuts import render
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.core.context import Context
 from app.controllers.controller import Controller
 from app.modules.core.metric import Metric as MetricModule
 from app.modules.core.component import Component as ComponentModule
@@ -38,11 +37,10 @@ class Builder(View, Controller):
     @login_if_not_authenticated_or_no_permission("manage_settings")
     def get(self, request):
 
-        self.__context = Context()
         self.__metric = MetricModule()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.load_options({
             "builder_headline": "",
@@ -52,19 +50,19 @@ class Builder(View, Controller):
             "builder_components": json.dumps([]),
             "builder_metrics": json.dumps([])
         })
-        self.__context.push({
-            "page_title": _("Status Page Builder · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("Status Page Builder · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "groups": self.__format_groups(self.__component.get_all_groups()),
             "components": self.__format_components(self.__component.get_all()),
             "metrics": self.__format_metrics(self.__metric.get_all())
         })
 
-        self.__context.push({
-            "builder_components": json.loads(str(self.__context.get("builder_components"))),
-            "builder_metrics": json.loads(str(self.__context.get("builder_metrics")))
+        self.context_push({
+            "builder_components": json.loads(str(self.context_get("builder_components"))),
+            "builder_metrics": json.loads(str(self.context_get("builder_metrics")))
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
     def __format_components(self, components):
         components_list = []

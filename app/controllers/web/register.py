@@ -23,7 +23,6 @@ from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.core.context import Context
 from app.controllers.controller import Controller
 from app.modules.core.user import User as UserModule
 from app.modules.core.decorators import redirect_if_authenticated
@@ -40,16 +39,15 @@ class Register(View, Controller):
     def get(self, request, token):
 
         self.__user = UserModule()
-        self.__context = Context()
 
         if not self.__user.check_register_request(token):
             messages.error(request, _("Register token is expired or invalid, Please contact system administrator!"))
             return redirect("app.web.login")
 
-        self.__context.autoload_options()
-        self.__context.push({
-            "page_title": _("Register · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.autoload_options()
+        self.context_push({
+            "page_title": _("Register · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "register_request": self.__user.get_register_request_by_token(token)
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())

@@ -23,7 +23,6 @@ from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.core.context import Context
 from app.controllers.controller import Controller
 from app.modules.core.decorators import redirect_if_authenticated
 from app.modules.core.decorators import redirect_if_not_installed
@@ -40,11 +39,10 @@ class ResetPassword(View, Controller):
     def get(self, request, token):
 
         self.__reset_password_core = ResetPasswordModule()
-        self.__context = Context()
 
-        self.__context.autoload_options()
-        self.__context.push({
-            "page_title": _("Reset Password · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.autoload_options()
+        self.context_push({
+            "page_title": _("Reset Password · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "reset_token": token
         })
 
@@ -52,4 +50,4 @@ class ResetPassword(View, Controller):
             messages.error(request, _("Reset token is expired or invalid, Please request another token!"))
             return redirect("app.web.forgot_password")
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())

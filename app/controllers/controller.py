@@ -21,6 +21,20 @@ from django.utils.translation import gettext as _
 from pyvalitron.form import Form
 
 # Local Library
+from app.settings.info import AUTHOR
+from app.settings.info import COPYRIGHT
+from app.settings.info import LICENSE
+from app.settings.info import VERSION
+from app.settings.info import MAINTAINER
+from app.settings.info import EMAIL
+from app.settings.info import STATUS
+from app.settings.info import REPO_URL
+from app.settings.info import AUTHOR_URL
+from app.settings.info import RELEASES
+from app.settings.info import SUPPORT_URL
+from app.modules.util.gravatar import Gravatar
+from app.modules.entity.option_entity import OptionEntity
+from app.modules.entity.user_entity import UserEntity
 from app.modules.util.helpers import Helpers
 from app.modules.validation.extension import ExtraRules
 from app.exceptions.server_error import ServerError
@@ -32,6 +46,21 @@ class Controller():
     __helpers = None
     __form = None
     __logger = None
+    __option_entity = OptionEntity()
+    __user_entity = UserEntity()
+    __data = {
+        "AUTHOR": AUTHOR,
+        "COPYRIGHT": COPYRIGHT,
+        "LICENSE": LICENSE,
+        "VERSION": VERSION,
+        "MAINTAINER": MAINTAINER,
+        "EMAIL": EMAIL,
+        "STATUS": STATUS,
+        "REPO_URL": REPO_URL,
+        "AUTHOR_URL": AUTHOR_URL,
+        "RELEASES": RELEASES,
+        "SUPPORT_URL": SUPPORT_URL
+    }
 
     def json(self, messages, payload={}, status="success", status_code=HTTPStatus.OK):
         response = {
@@ -101,3 +130,48 @@ class Controller():
             self.__form = Form()
             self.__form.add_validator(ExtraRules())
         return self.__form
+
+    def load_options(self, options):
+        options_to_load = {}
+        for key in options.keys():
+            options_to_load[key] = options[key]
+            if key not in self.__data.keys():
+                self.__data[key] = options[key]
+
+        if len(options_to_load.keys()) > 0:
+            new_options = self.__option_entity.get_many_by_keys(options_to_load.keys())
+            for option in new_options:
+                self.__data[option.key] = option.value
+
+    def autoload_options(self):
+        options = self.__option_entity.get_many_by_autoload(True)
+        for option in options:
+            self.__data[option.key] = option.value
+
+    def autoload_user(self, user_id):
+        user_data = {
+            "user_first_name": "",
+            "user_last_name": "",
+            "user_username": "",
+            "user_email": "",
+            "user_avatar": ""
+        }
+
+        if user_id is not None:
+            user = self.__user_entity.get_one_by_id(user_id)
+            if user is not False:
+                user_data["user_first_name"] = user.first_name
+                user_data["user_last_name"] = user.last_name
+                user_data["user_username"] = user.username
+                user_data["user_email"] = user.email
+                user_data["user_avatar"] = Gravatar(user.email).get_image()
+
+        self.__data.update(user_data)
+
+    def context_push(self, new_data):
+        self.__data.update(new_data)
+
+    def context_get(self, key=None, default=None):
+        if key is not None:
+            return self.__data[key] if key in self.__data else default
+        return self.__data

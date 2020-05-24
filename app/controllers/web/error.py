@@ -20,8 +20,8 @@ from django.shortcuts import render
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.core.context import Context
 from app.modules.util.helpers import Helpers
+from app.controllers.controller import Controller
 
 
 def handler500(request, exception=None, template_name='templates/500.html'):
@@ -37,11 +37,11 @@ def handler500(request, exception=None, template_name='templates/500.html'):
 
     template_name = 'templates/500.html'
 
-    context = Context()
+    controller = Controller()
 
-    context.autoload_options()
-    context.push({
-        "page_title": _("500 · %s") % context.get("app_name", os.getenv("APP_NAME", "Silverback"))
+    controller.autoload_options()
+    controller.context_push({
+        "page_title": _("500 · %s") % controller.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
     })
 
-    return render(request, template_name, context.get(), status=500)
+    return render(request, template_name, controller.context_get(), status=500)

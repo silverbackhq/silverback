@@ -43,6 +43,7 @@ class CorrelationFilter(logging.Filter):
         if not hasattr(record, 'correlation_id'):
             record.correlation_id = ""
 
-        record.correlation_id = _locals.correlation_id
+        if hasattr(_locals, 'correlation_id'):
+            record.correlation_id = _locals.correlation_id
 
         return True

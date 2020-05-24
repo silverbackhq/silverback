@@ -22,7 +22,6 @@ from django.shortcuts import render
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.core.context import Context
 from app.controllers.controller import Controller
 from app.modules.core.incident import Incident as IncidentModule
 from app.modules.core.decorators import login_if_not_authenticated
@@ -39,18 +38,17 @@ class IncidentList(View, Controller):
     @login_if_not_authenticated
     def get(self, request):
 
-        self.__context = Context()
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Incidents · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
+        self.context_push({
+            "page_title": _("Incidents · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
 
 class IncidentAdd(View, Controller):
@@ -61,18 +59,17 @@ class IncidentAdd(View, Controller):
     @login_if_not_authenticated
     def get(self, request):
 
-        self.__context = Context()
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Add an Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
+        self.context_push({
+            "page_title": _("Add an Incident · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
 
 class IncidentEdit(View, Controller):
@@ -83,7 +80,6 @@ class IncidentEdit(View, Controller):
     @login_if_not_authenticated
     def get(self, request, incident_id):
 
-        self.__context = Context()
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
@@ -93,14 +89,14 @@ class IncidentEdit(View, Controller):
         if not incident:
             raise Http404("Incident not found.")
 
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Edit Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("Edit Incident · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "incident": incident
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
 
 class IncidentView(View, Controller):
@@ -111,7 +107,6 @@ class IncidentView(View, Controller):
     @login_if_not_authenticated
     def get(self, request, incident_id):
 
-        self.__context = Context()
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
@@ -121,11 +116,11 @@ class IncidentView(View, Controller):
         if not incident:
             raise Http404("Incident not found.")
 
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("View Incident · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("View Incident · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "incident": incident
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
