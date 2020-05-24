@@ -22,12 +22,12 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.entity.option_entity import OptionEntity
+from app.controllers.controller import Controller
 from app.modules.core.decorators import redirect_if_authenticated
 from app.modules.core.decorators import redirect_if_not_installed
 
 
-class ForgotPassword(View):
+class ForgotPassword(View, Controller):
     """Forgot Password Page Controller"""
 
     template_name = 'templates/forgot_password.html'
@@ -36,9 +36,7 @@ class ForgotPassword(View):
     @redirect_if_authenticated
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
-        self.__option_entity = OptionEntity()
 
         self.__context.autoload_options()
         self.__context.push({

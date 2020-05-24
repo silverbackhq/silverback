@@ -22,12 +22,12 @@ from django.shortcuts import render
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.entity.option_entity import OptionEntity
+from app.controllers.controller import Controller
 from app.modules.core.decorators import redirect_if_not_installed
 from app.modules.core.status_page import StatusPage as StatusPageModule
 
 
-class StatusPageIndex(View):
+class StatusPageIndex(View, Controller):
     """Status Page Index Page Controller"""
 
     template_name = 'templates/status_page_index.html'
@@ -35,9 +35,7 @@ class StatusPageIndex(View):
     @redirect_if_not_installed
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
-        self.__option_entity = OptionEntity()
         self.__status_page_module = StatusPageModule()
 
         self.__context.autoload_options()
@@ -56,7 +54,7 @@ class StatusPageIndex(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class StatusPageHistory(View):
+class StatusPageHistory(View, Controller):
     """Status Page History Page Controller"""
 
     template_name = 'templates/status_page_history.html'
@@ -64,9 +62,7 @@ class StatusPageHistory(View):
     @redirect_if_not_installed
     def get(self, request, period):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
-        self.__option_entity = OptionEntity()
         self.__status_page_module = StatusPageModule()
 
         period = int(period)
@@ -94,7 +90,7 @@ class StatusPageHistory(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class StatusPageSingle(View):
+class StatusPageSingle(View, Controller):
     """Status Page Single Page Controller"""
 
     template_name = 'templates/status_page_single.html'
@@ -104,7 +100,6 @@ class StatusPageSingle(View):
 
         self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context = Context()
-        self.__option_entity = OptionEntity()
         self.__status_page_module = StatusPageModule()
 
         incident = self.__status_page_module.get_incident_by_uri(uri)

@@ -20,14 +20,14 @@ from django.utils.translation import gettext as _
 # Local Library
 from app.modules.core.health import Health
 from app.modules.util.helpers import Helpers
+from app.controllers.controller import Controller
 
 
-class HealthCheck(View):
+class HealthCheck(View, Controller):
     """Health Check Page Controller"""
 
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__health = Health()
         self.__helpers = Helpers()
         self.__logger = self.__helpers.get_logger(__name__)
@@ -40,16 +40,14 @@ class HealthCheck(View):
 
         if len(errors) > 0:
             status = Health.NOT_OK
-            self.__logger.error(_("Health Check Result: %(status)s %(errors)s {'correlationId':'%(correlationId)s'}") % {
+            self.__logger.error(_("Health Check Result: %(status)s %(errors)s") % {
                 "status": status,
-                "errors": self.__helpers.json_dumps(errors),
-                "correlationId": self.__correlation_id
+                "errors": self.__helpers.json_dumps(errors)
             })
         else:
-            self.__logger.info(_("Health Check Result: %(status)s %(errors)s {'correlationId':'%(correlationId)s'}") % {
+            self.__logger.info(_("Health Check Result: %(status)s %(errors)s") % {
                 "status": status,
-                "errors": self.__helpers.json_dumps(errors),
-                "correlationId": self.__correlation_id
+                "errors": self.__helpers.json_dumps(errors)
             })
 
         return JsonResponse({

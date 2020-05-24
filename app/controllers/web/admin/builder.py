@@ -23,13 +23,14 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
+from app.controllers.controller import Controller
 from app.modules.core.metric import Metric as MetricModule
 from app.modules.core.component import Component as ComponentModule
 from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
 from app.modules.core.decorators import login_if_not_authenticated_or_no_permission
 
 
-class Builder(View):
+class Builder(View, Controller):
     """Builder Page Controller"""
 
     template_name = 'templates/admin/builder.html'
@@ -41,7 +42,6 @@ class Builder(View):
         self.__metric = MetricModule()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.load_options({

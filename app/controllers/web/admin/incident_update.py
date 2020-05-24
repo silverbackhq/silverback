@@ -24,6 +24,7 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
+from app.controllers.controller import Controller
 from app.modules.core.incident import Incident as IncidentModule
 from app.modules.core.decorators import login_if_not_authenticated
 from app.modules.core.component import Component as ComponentModule
@@ -33,7 +34,7 @@ from app.modules.core.incident_update_component import IncidentUpdateComponent a
 from app.modules.core.incident_update_notification import IncidentUpdateNotification as IncidentUpdateNotificationModule
 
 
-class IncidentUpdateAdd(View):
+class IncidentUpdateAdd(View, Controller):
     """Incident Update Add Page Controller"""
 
     template_name = 'templates/admin/incident/update/add.html'
@@ -45,7 +46,6 @@ class IncidentUpdateAdd(View):
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
@@ -61,7 +61,7 @@ class IncidentUpdateAdd(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class IncidentUpdateView(View):
+class IncidentUpdateView(View, Controller):
     """Incident Update View Page Controller"""
 
     template_name = 'templates/admin/incident/update/view.html'
@@ -76,7 +76,6 @@ class IncidentUpdateView(View):
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
         self.__incident_update_notification = IncidentUpdateNotificationModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
@@ -138,7 +137,7 @@ class IncidentUpdateView(View):
         return affected_components_list
 
 
-class IncidentUpdateEdit(View):
+class IncidentUpdateEdit(View, Controller):
     """Incident Update Edit Page Controller"""
 
     template_name = 'templates/admin/incident/update/edit.html'
@@ -151,7 +150,6 @@ class IncidentUpdateEdit(View):
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:

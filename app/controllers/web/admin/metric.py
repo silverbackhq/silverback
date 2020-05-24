@@ -24,11 +24,12 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
+from app.controllers.controller import Controller
 from app.modules.core.metric import Metric as MetricModule
 from app.modules.core.decorators import login_if_not_authenticated
 
 
-class MetricList(View):
+class MetricList(View, Controller):
     """Metric List Page Controller"""
 
     template_name = 'templates/admin/metric/list.html'
@@ -38,7 +39,6 @@ class MetricList(View):
 
         self.__context = Context()
         self.__metric = MetricModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -48,7 +48,7 @@ class MetricList(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class MetricAdd(View):
+class MetricAdd(View, Controller):
     """Metric Add Page Controller"""
 
     template_name = 'templates/admin/metric/add.html'
@@ -57,7 +57,6 @@ class MetricAdd(View):
     def get(self, request):
         self.__context = Context()
         self.__metric = MetricModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -67,7 +66,7 @@ class MetricAdd(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class MetricEdit(View):
+class MetricEdit(View, Controller):
     """Metric Edit Page Controller"""
 
     template_name = 'templates/admin/metric/edit.html'
@@ -77,7 +76,6 @@ class MetricEdit(View):
 
         self.__context = Context()
         self.__metric = MetricModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         metric = self.__metric.get_one_by_id(metric_id)
 
         if not metric:

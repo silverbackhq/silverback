@@ -22,20 +22,18 @@ from feedgen.feed import FeedGenerator
 
 # Local Library
 from app.modules.core.context import Context
-from app.modules.entity.option_entity import OptionEntity
+from app.controllers.controller import Controller
 from app.modules.core.decorators import redirect_if_not_installed
 
 
-class AtomHistory(View):
+class AtomHistory(View, Controller):
     """Atom History Page Controller"""
 
     @redirect_if_not_installed
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__fg = FeedGenerator()
         self.__context = Context()
-        self.__option_entity = OptionEntity()
 
         self.__context.autoload_options()
         self.__context.push({
@@ -55,16 +53,14 @@ class AtomHistory(View):
         return HttpResponse(self.__fg.atom_str(), content_type='text/xml')
 
 
-class RssHistory(View):
+class RssHistory(View, Controller):
     """RSS History Page Controller"""
 
     @redirect_if_not_installed
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__fg = FeedGenerator()
         self.__context = Context()
-        self.__option_entity = OptionEntity()
 
         self.__context.autoload_options()
         self.__context.push({

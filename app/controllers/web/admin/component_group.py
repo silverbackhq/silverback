@@ -23,11 +23,12 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
+from app.controllers.controller import Controller
 from app.modules.core.decorators import login_if_not_authenticated
 from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
 
 
-class ComponentGroupList(View):
+class ComponentGroupList(View, Controller):
     """Component Group List Page Controller"""
 
     template_name = 'templates/admin/component_group/list.html'
@@ -37,7 +38,6 @@ class ComponentGroupList(View):
 
         self.__context = Context()
         self.__component_group = ComponentGroupModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -47,7 +47,7 @@ class ComponentGroupList(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class ComponentGroupAdd(View):
+class ComponentGroupAdd(View, Controller):
     """Component Group Add Page Controller"""
 
     template_name = 'templates/admin/component_group/add.html'
@@ -57,7 +57,6 @@ class ComponentGroupAdd(View):
 
         self.__context = Context()
         self.__component_group = ComponentGroupModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -67,7 +66,7 @@ class ComponentGroupAdd(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class ComponentGroupEdit(View):
+class ComponentGroupEdit(View, Controller):
     """Component Group Edit Page Controller"""
 
     template_name = 'templates/admin/component_group/edit.html'
@@ -77,7 +76,6 @@ class ComponentGroupEdit(View):
 
         self.__context = Context()
         self.__component_group = ComponentGroupModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         group = self.__component_group.get_one_by_id(group_id)
 
         if not group:

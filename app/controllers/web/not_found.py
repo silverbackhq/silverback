@@ -27,14 +27,12 @@ from app.modules.util.helpers import Helpers
 def handler404(request, exception=None, template_name='templates/404.html'):
     """404 Error Page Controller"""
 
-    correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
     helpers = Helpers()
     logger = helpers.get_logger(__name__)
 
     if exception is not None:
-        logger.debug("Route Not Found: %(exception)s {'correlationId':'%(correlationId)s'}" % {
-            "exception": exception,
-            "correlationId": correlation_id
+        logger.info("Route Not Found: %(exception)s" % {
+            "exception": exception
         })
 
     template_name = 'templates/404.html'

@@ -23,11 +23,12 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.context import Context
+from app.controllers.controller import Controller
 from app.modules.core.decorators import login_if_not_authenticated
 from app.modules.core.component import Component as ComponentModule
 
 
-class ComponentList(View):
+class ComponentList(View, Controller):
     """Component List Page Controller"""
 
     template_name = 'templates/admin/component/list.html'
@@ -37,7 +38,6 @@ class ComponentList(View):
 
         self.__context = Context()
         self.__component = ComponentModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -47,7 +47,7 @@ class ComponentList(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class ComponentAdd(View):
+class ComponentAdd(View, Controller):
     """Component Add Page Controller"""
 
     template_name = 'templates/admin/component/add.html'
@@ -57,7 +57,6 @@ class ComponentAdd(View):
 
         self.__context = Context()
         self.__component = ComponentModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__context.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.__context.push({
@@ -68,7 +67,7 @@ class ComponentAdd(View):
         return render(request, self.template_name, self.__context.get())
 
 
-class ComponentEdit(View):
+class ComponentEdit(View, Controller):
     """Component Edit Page Controller"""
 
     template_name = 'templates/admin/component/edit.html'
@@ -78,7 +77,6 @@ class ComponentEdit(View):
 
         self.__context = Context()
         self.__component = ComponentModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         component = self.__component.get_one_by_id(component_id)
 
         if not component:
