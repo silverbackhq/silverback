@@ -44,8 +44,6 @@ class IncidentUpdates(View, Controller):
     @allow_if_authenticated
     def post(self, request, incident_id):
 
-        self.__user_id = request.user.id
-
         request_data = self.get_request_data(request, "post", {
             "status": "",
             "notify_subscribers": "",
