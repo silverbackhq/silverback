@@ -20,16 +20,16 @@ from django.contrib.auth import logout
 from django.utils.translation import gettext as _
 
 # Local Library
+from app.controllers.controller import Controller
 from app.modules.core.decorators import login_if_not_authenticated
 
 
-class Logout(View):
+class Logout(View, Controller):
     """Logout Controller"""
 
     @login_if_not_authenticated
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         logout(request)
         messages.success(request, _("You've been logged out successfully"))
         return redirect("app.web.login")

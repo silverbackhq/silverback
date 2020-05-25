@@ -12,8 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Standard Library
+import logging
+
 # Local Library
 from app.modules.util.helpers import Helpers
+from threading import local
+
+_locals = local()
 
 
 class Correlation():
@@ -24,7 +30,20 @@ class Correlation():
 
     def __call__(self, request):
         request.META["X-Correlation-ID"] = self.__helpers.generate_uuid()
+        _locals.correlation_id = request.META["X-Correlation-ID"]
 
         response = self.get_response(request)
 
         return response
+
+
+class CorrelationFilter(logging.Filter):
+
+    def filter(self, record):
+        if not hasattr(record, 'correlation_id'):
+            record.correlation_id = ""
+
+        if hasattr(_locals, 'correlation_id'):
+            record.correlation_id = _locals.correlation_id
+
+        return True

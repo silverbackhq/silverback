@@ -14,42 +14,28 @@
 
 # Third Party Library
 from django.views import View
-from pyvalitron.form import Form
-from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.acl import ACL
-from app.modules.util.helpers import Helpers
-from app.modules.core.request import Request
-from app.modules.core.response import Response
-from app.modules.validation.extension import ExtraRules
+from app.controllers.controller import Controller
 from app.modules.core.settings import Settings as SettingsModule
 from app.modules.core.activity import Activity as ActivityModule
 from app.modules.core.decorators import allow_if_authenticated_and_has_permission
 
 
-class Settings(View):
+class Settings(View, Controller):
     """Update Settings Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__settings_module = SettingsModule()
         self.__acl = ACL()
         self.__activity_module = ActivityModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated_and_has_permission("manage_settings")
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "app_name": "",
             "app_email": "",
             "app_url": "",
@@ -62,7 +48,7 @@ class Settings(View):
             "newrelic_api_key": ""
         })
 
-        self.__form.add_inputs({
+        self.form().add_inputs({
             'app_name': {
                 'value': request_data["app_name"],
                 'sanitize': {
@@ -190,35 +176,35 @@ class Settings(View):
             },
         })
 
-        self.__form.process()
+        self.form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         result = self.__settings_module.update_options({
-            "app_name": self.__form.get_sinput("app_name"),
-            "app_email": self.__form.get_sinput("app_email"),
-            "app_url": self.__form.get_sinput("app_url"),
-            "app_description": self.__form.get_sinput("app_description"),
-            "google_analytics_account": self.__form.get_sinput("google_analytics_account"),
-            "reset_mails_messages_count": self.__form.get_sinput("reset_mails_messages_count"),
-            "reset_mails_expire_after": self.__form.get_sinput("reset_mails_expire_after"),
-            "access_tokens_expire_after": self.__form.get_sinput("access_tokens_expire_after"),
-            "prometheus_token": self.__form.get_sinput("prometheus_token"),
-            "newrelic_api_key":  self.__form.get_sinput("newrelic_api_key")
+            "app_name": self.form().get_sinput("app_name"),
+            "app_email": self.form().get_sinput("app_email"),
+            "app_url": self.form().get_sinput("app_url"),
+            "app_description": self.form().get_sinput("app_description"),
+            "google_analytics_account": self.form().get_sinput("google_analytics_account"),
+            "reset_mails_messages_count": self.form().get_sinput("reset_mails_messages_count"),
+            "reset_mails_expire_after": self.form().get_sinput("reset_mails_expire_after"),
+            "access_tokens_expire_after": self.form().get_sinput("access_tokens_expire_after"),
+            "prometheus_token": self.form().get_sinput("prometheus_token"),
+            "newrelic_api_key":  self.form().get_sinput("newrelic_api_key")
         })
 
         if result:
 
             self.__activity_module.track(request.user.id, _('You updated application settings.'))
 
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Settings updated successfully.")
-            }], {}, self.__correlation_id))
+            }])
 
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating settings.")
-            }], {}, self.__correlation_id))
+            }])

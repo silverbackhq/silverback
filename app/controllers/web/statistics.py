@@ -18,22 +18,28 @@ from django.http import HttpResponse
 from django.http import Http404
 
 # Local Library
+from app.controllers.controller import Controller
 from app.modules.service.prometheus import Prometheus
 from app.modules.core.decorators import redirect_if_not_installed
 from app.modules.core.decorators import protect_metric_with_auth_key
 from app.modules.core.statistics import Statistics as StatisticsModule
+from app.modules.core.task import Task as TaskCore
 
 
-class Statistics(View):
+class Statistics(View, Controller):
     """Statistics Page Controller"""
 
     @redirect_if_not_installed
     @protect_metric_with_auth_key
     def get(self, request, type):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         self.__prometheus = Prometheus()
         self.__statistics = StatisticsModule()
+
+        TaskCore().delay("ping", {
+            "text": "HelloWorld",
+            "correlation_id": self.correlation(request)
+        }, 1)
 
         if type not in ("prometheus"):
             raise Http404("Page not found.")

@@ -32,7 +32,7 @@ class Statistics():
         return {
             "type": "count",
             "record": "%s_all_users" % self.__app_name,
-            "count": self.__user_entity.count_all_users(),
+            "count": self.__user_entity.count_all(),
             "comment": "Current All Users on System"
         }
 

@@ -12,16 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Third Party Library
-from django.views import View
+from app.exceptions.error_codes import ErrorCodes
 
 
-class Auth(View):
+class ClientError(Exception):
+    """Client Error Custom Exception"""
 
-    def get(self):
-        # To get current refresh token
-        pass
+    def __init__(self, message, error_code=None, extra={}):
+        Exception.__init__(self, message)
+        self.error_code = ErrorCodes().CLIENT_ERROR if error_code is None else error_code
+        self.extra = extra
 
-    def post(self):
-        # To Get your new API token in case it is expired
-        pass
+    def get_error_code(self):
+        return self.error_code

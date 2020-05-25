@@ -22,11 +22,11 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.core.acl import ACL
-from app.modules.core.context import Context
+from app.controllers.controller import Controller
 from app.modules.core.decorators import login_if_not_authenticated
 
 
-class Notification(View):
+class Notification(View, Controller):
     """Notification List Page Controller"""
 
     template_name = 'templates/admin/notification.html'
@@ -34,14 +34,12 @@ class Notification(View):
     @login_if_not_authenticated
     def get(self, request):
 
-        self.__context = Context()
         self.__acl = ACL()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
 
-        self.__context.push({
-            "page_title": _("Notification · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback"))
+        self.context_push({
+            "page_title": _("Notification · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())

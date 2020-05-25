@@ -15,46 +15,30 @@
 # Third Party Library
 from django.views import View
 from django.urls import reverse
-from pyvalitron.form import Form
-from django.http import JsonResponse
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.util.helpers import Helpers
-from app.modules.core.request import Request
-from app.modules.core.response import Response
-from app.modules.validation.extension import ExtraRules
+from app.controllers.controller import Controller
 from app.modules.core.decorators import allow_if_authenticated
 from app.modules.core.component_group import ComponentGroup as ComponentGroupModule
 
 
-class ComponentGroups(View):
+class ComponentGroups(View, Controller):
     """Create and List Component Groups Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__component_group = ComponentGroupModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
     def post(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
-
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "name": "",
             "description": "",
             "uptime": "",
         })
 
-        self.__form.add_inputs({
+        self.form().add_inputs({
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -91,42 +75,39 @@ class ComponentGroups(View):
             }
         })
 
-        self.__form.process()
+        self.form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         # Check if group name not used
-        if self.__component_group.get_one_by_name(self.__form.get_sinput("name")):
-            return JsonResponse(self.__response.send_private_failure([{
+        if self.__component_group.get_one_by_name(self.form().get_sinput("name")):
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Component group name is used before.")
-            }], {}, self.__correlation_id))
+            }])
 
         result = self.__component_group.insert_one({
-            "name": self.__form.get_sinput("name"),
-            "description": self.__form.get_sinput("description"),
-            "uptime": self.__form.get_sinput("uptime")
+            "name": self.form().get_sinput("name"),
+            "description": self.form().get_sinput("description"),
+            "uptime": self.form().get_sinput("uptime")
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Component group created successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while creating group.")
-            }], {}, self.__correlation_id))
+            }])
 
     @allow_if_authenticated
     def get(self, request):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
-
-        request_data = self.__request.get_request_data("get", {
+        request_data = self.get_request_data(request, "get", {
             "offset": 0,
             "limit": 20
         })
@@ -138,14 +119,14 @@ class ComponentGroups(View):
             offset = 0
             limit = 20
 
-        return JsonResponse(self.__response.send_private_success([], {
+        return self.json([], {
             'groups': self.__format_groups(self.__component_group.get_all(offset, limit)),
             'metadata': {
                 'offset': offset,
                 'limit': limit,
                 'count': self.__component_group.count_all()
             }
-        }, self.__correlation_id))
+        })
 
     def __format_groups(self, groups):
         groups_list = []
@@ -164,33 +145,22 @@ class ComponentGroups(View):
         return groups_list
 
 
-class ComponentGroup(View):
+class ComponentGroup(View, Controller):
     """Update and Delete Component Group Private Endpoint Controller"""
 
     def __init__(self):
-        self.__request = Request()
-        self.__response = Response()
-        self.__helpers = Helpers()
-        self.__form = Form()
         self.__component_group = ComponentGroupModule()
-        self.__logger = self.__helpers.get_logger(__name__)
-        self.__user_id = None
-        self.__correlation_id = ""
-        self.__form.add_validator(ExtraRules())
 
     @allow_if_authenticated
     def post(self, request, group_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__request.set_request(request)
-
-        request_data = self.__request.get_request_data("post", {
+        request_data = self.get_request_data(request, "post", {
             "name": "",
             "description": "",
             "uptime": ""
         })
 
-        self.__form.add_inputs({
+        self.form().add_inputs({
             'name': {
                 'value': request_data["name"],
                 'sanitize': {
@@ -227,51 +197,48 @@ class ComponentGroup(View):
             }
         })
 
-        self.__form.process()
+        self.form().process()
 
-        if not self.__form.is_passed():
-            return JsonResponse(self.__response.send_errors_failure(self.__form.get_errors(), {}, self.__correlation_id))
+        if not self.form().is_passed():
+            return self.json(self.form().get_errors())
 
         # Check if group name not used elsewhere
-        current_group = self.__component_group.get_one_by_name(self.__form.get_sinput("name"))
+        current_group = self.__component_group.get_one_by_name(self.form().get_sinput("name"))
 
         if current_group and not current_group["id"] == group_id:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Component group name is used before.")
-            }], {}, self.__correlation_id))
+            }])
 
         result = self.__component_group.update_one_by_id(group_id, {
-            "name": self.__form.get_sinput("name"),
-            "description": self.__form.get_sinput("description"),
-            "uptime": self.__form.get_sinput("uptime")
+            "name": self.form().get_sinput("name"),
+            "description": self.form().get_sinput("description"),
+            "uptime": self.form().get_sinput("uptime")
         })
 
         if result:
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Component group updated successfully.")
-            }], {}, self.__correlation_id))
+            }])
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while updating group.")
-            }], {}, self.__correlation_id))
+            }])
 
     @allow_if_authenticated
     def delete(self, request, group_id):
 
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
-        self.__user_id = request.user.id
-
         if self.__component_group.delete_one_by_id(group_id):
-            return JsonResponse(self.__response.send_private_success([{
+            return self.json([{
                 "type": "success",
                 "message": _("Component group deleted successfully.")
-            }], {}, self.__correlation_id))
+            }])
 
         else:
-            return JsonResponse(self.__response.send_private_failure([{
+            return self.json([{
                 "type": "error",
                 "message": _("Error! Something goes wrong while deleting group.")
-            }], {}, self.__correlation_id))
+            }])

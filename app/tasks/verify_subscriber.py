@@ -17,46 +17,53 @@ import json
 
 # Third Party Library
 from celery import shared_task
-from django.core.mail import send_mail
 from django.utils.translation import gettext as _
-from django.template.loader import render_to_string
 
 # Local Library
 from app.modules.util.helpers import Helpers
+from app.modules.core.subscriber import Subscriber as SubscriberModule
 
 
 @shared_task
-def register_request_email(app_name, app_email, app_url, recipient_list, token, subject, template, fail_silently=False, correlation_id=""):
+def verify_subscriber(subscriber_id, correlation_id=""):
     logger = Helpers().get_logger(__name__)
 
     logger.info(
-        _("Worker started processing register_request_email task with parameters %(parameters)s {'correlationId':'%(correlationId)s'}") % {
+        _("Worker started processing verify_subscriber task with parameters %(parameters)s {'correlationId':'%(correlationId)s'}") % {
             "parameters": json.dumps({}),
             "correlationId": correlation_id
         }
     )
 
-    try:
-        send_mail(
-            subject,
-            "",
-            app_email,
-            recipient_list,
-            fail_silently=fail_silently,
-            html_message=render_to_string(template, {
-                "app_url": app_url,
-                "token": token,
-                "app_name": app_name,
-                "subject": subject
-            }))
+    subscriber_module = SubscriberModule()
+    subscriber = subscriber_module.get_one_by_id(subscriber_id)
+
+    if not subscriber:
         return {
             "status": "passed",
             "result": "{}"
         }
-    except Exception as e:
-        return {
-            "status": "failed",
-            "result": {
-                "error": str(e)
-            }
-        }
+
+    if subscriber.type == SubscriberModule.EMAIL:
+        result = __verify_email()
+    elif subscriber.type == SubscriberModule.PHONE:
+        result = __verify_phone()
+    elif subscriber.type == SubscriberModule.ENDPOINT:
+        result = __verify_endpoint()
+
+    return result
+
+
+@shared_task
+def __verify_email():
+    pass
+
+
+@shared_task
+def __verify_phone():
+    pass
+
+
+@shared_task
+def __verify_endpoint():
+    pass

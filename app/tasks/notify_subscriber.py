@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # Standard Library
+import json
 import os
 
 # Third Party Library
@@ -26,13 +27,22 @@ from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 
 # Local Library
+from app.modules.util.helpers import Helpers
 from app.modules.entity.option_entity import OptionEntity
 from app.modules.core.subscriber import Subscriber as SubscriberModule
 from app.modules.core.incident_update_notification import IncidentUpdateNotification as IncidentUpdateNotificationModule
 
 
 @shared_task
-def notify_subscriber(notification_id):
+def notify_subscriber(notification_id, correlation_id=""):
+    logger = Helpers().get_logger(__name__)
+
+    logger.info(
+        _("Worker started processing notify_subscriber task with parameters %(parameters)s {'correlationId':'%(correlationId)s'}") % {
+            "parameters": json.dumps({}),
+            "correlationId": correlation_id
+        }
+    )
 
     option_entity = OptionEntity()
     incident_update_notification_module = IncidentUpdateNotificationModule()

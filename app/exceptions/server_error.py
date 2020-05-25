@@ -12,23 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from app.exceptions.error_codes import ErrorCodes
 
-class Funnel():
 
-    __rules = {}
-    __request = {}
+class ServerError(Exception):
+    """ServerError Custom Exception"""
 
-    def set_rules(self, rules):
-        self.__rules = rules
+    def __init__(self, message, error_code=None, extra={}):
+        Exception.__init__(self, message)
+        self.error_code = ErrorCodes().SERVER_ERROR if error_code is None else error_code
+        self.extra = extra
 
-    def set_request(self, request):
-        self.__request = request
-
-    def action_needed(self):
-        return False
-
-    def fire(self):
-        pass
-
-    def _parse(self):
-        pass
+    def get_error_code(self):
+        return self.error_code

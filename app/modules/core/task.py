@@ -16,14 +16,19 @@
 import json
 import importlib
 
+from django.utils.translation import gettext as _
+
 # Local Library
 from app.modules.entity.task_entity import TaskEntity
+from app.modules.util.helpers import Helpers
 
 
 class Task():
 
     def __init__(self):
         self.__task_entity = TaskEntity()
+        self.__helpers = Helpers()
+        self.__logger = self.__helpers.get_logger(__name__)
 
     def get_task_with_uuid(self, uuid):
         return self.__task_entity.get_one_by_uuid(uuid)
@@ -38,18 +43,26 @@ class Task():
         tasks_module = importlib.import_module("app.tasks")
         task_object = getattr(tasks_module, task_name)
 
-        task_result = task_object.delay(**parameters)
-
-        if task_result.task_id != "":
-
-            return self.create_task({
-                "uuid": task_result.task_id,
-                "status": "pending",
-                "executor": task_object.name,
-                "parameters": json.dumps(parameters),
-                "result": '{}',
-                "user_id": user_id
-            })
+        try:
+            task_result = task_object.delay(**parameters)
+            if task_result.task_id != "":
+                return self.create_task({
+                    "uuid": task_result.task_id,
+                    "status": "pending",
+                    "executor": task_object.name,
+                    "parameters": json.dumps(parameters),
+                    "result": '{}',
+                    "user_id": user_id
+                })
+        except Exception as e:
+            self.__logger.error(
+                _("Error while sending task %(taskName)s with parameters %(parameters)s to workers: %(error)s {'correlationId':'%(correlationId)s'}") % {
+                    "taskName": task_name,
+                    "parameters": json.dumps(parameters),
+                    "error": str(e),
+                    "correlationId": parameters["correlation_id"] if "correlation_id" in parameters.keys() else ""
+                }
+            )
 
         return False
 

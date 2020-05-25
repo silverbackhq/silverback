@@ -23,7 +23,7 @@ from django.shortcuts import render
 from django.utils.translation import gettext as _
 
 # Local Library
-from app.modules.core.context import Context
+from app.controllers.controller import Controller
 from app.modules.core.incident import Incident as IncidentModule
 from app.modules.core.decorators import login_if_not_authenticated
 from app.modules.core.component import Component as ComponentModule
@@ -33,35 +33,34 @@ from app.modules.core.incident_update_component import IncidentUpdateComponent a
 from app.modules.core.incident_update_notification import IncidentUpdateNotification as IncidentUpdateNotificationModule
 
 
-class IncidentUpdateAdd(View):
+class IncidentUpdateAdd(View, Controller):
     """Incident Update Add Page Controller"""
 
     template_name = 'templates/admin/incident/update/add.html'
 
     @login_if_not_authenticated
     def get(self, request, incident_id):
-        self.__context = Context()
+
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
             raise Http404("Incident not found.")
 
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Add Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("Add Incident Update  · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "incident": incident
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
 
-class IncidentUpdateView(View):
+class IncidentUpdateView(View, Controller):
     """Incident Update View Page Controller"""
 
     template_name = 'templates/admin/incident/update/view.html'
@@ -69,14 +68,12 @@ class IncidentUpdateView(View):
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
-        self.__context = Context()
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__incident_update_component = IncidentUpdateComponentModule()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
         self.__incident_update_notification = IncidentUpdateNotificationModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
@@ -101,17 +98,17 @@ class IncidentUpdateView(View):
         components = self.__format_components(self.__component.get_all())
         affected_components = self.__format_affected_components(self.__incident_update_component.get_all(update_id))
 
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("View Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("View Incident Update  · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "update": update,
             "incident": incident,
             "components": components,
             "affected_components": affected_components
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())
 
     def __format_components(self, components):
         components_list = []
@@ -138,7 +135,7 @@ class IncidentUpdateView(View):
         return affected_components_list
 
 
-class IncidentUpdateEdit(View):
+class IncidentUpdateEdit(View, Controller):
     """Incident Update Edit Page Controller"""
 
     template_name = 'templates/admin/incident/update/edit.html'
@@ -146,12 +143,10 @@ class IncidentUpdateEdit(View):
     @login_if_not_authenticated
     def get(self, request, incident_id, update_id):
 
-        self.__context = Context()
         self.__incident = IncidentModule()
         self.__incident_update = IncidentUpdateModule()
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
-        self.__correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
         incident = self.__incident.get_one_by_id(incident_id)
 
         if not incident:
@@ -162,12 +157,12 @@ class IncidentUpdateEdit(View):
         if not update:
             raise Http404("Incident update not found.")
 
-        self.__context.autoload_options()
+        self.autoload_options()
         self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.push({
-            "page_title": _("Edit Incident Update  · %s") % self.__context.get("app_name", os.getenv("APP_NAME", "Silverback")),
+        self.context_push({
+            "page_title": _("Edit Incident Update  · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "update": update,
             "incident": incident
         })
 
-        return render(request, self.template_name, self.__context.get())
+        return render(request, self.template_name, self.context_get())

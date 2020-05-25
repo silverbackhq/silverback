@@ -12,26 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Third Party Library
+from django.utils.translation import gettext as _
+
 # Local Library
-from app.modules.core.funnel import Funnel
 from app.modules.util.helpers import Helpers
 
 
-class APIFunnel():
+class Auth():
 
     def __init__(self, get_response):
         self.__helpers = Helpers()
-        self.__funnel = Funnel()
         self.get_response = get_response
         self.__roles = {}
         self.__logger = self.__helpers.get_logger(__name__)
 
     def __call__(self, request):
-        self.__funnel.set_rules(self.__roles)
-        self.__funnel.set_request(request)
 
-        if self.__funnel.action_needed():
-            return self.__funnel.fire()
+        self.__logger.info(_("Authorize %(method)s Request to %(path)s") % {
+            "method": request.method,
+            "path": request.path
+        })
 
         response = self.get_response(request)
 

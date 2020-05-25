@@ -32,7 +32,6 @@ class Request():
     def get_request_data(self, method, predicted):
         request_data = {}
         log_data = {}
-        correlation_id = self.__request.META["X-Correlation-ID"] if "X-Correlation-ID" in self.__request.META else ""
         data_bag = self.__request.POST if method.lower() == "post" else self.__request.GET
 
         for key, default in predicted.items():
@@ -44,9 +43,8 @@ class Request():
                 log_data[key] = data_bag[key] if key in data_bag else default
             request_data[key] = data_bag[key] if key in data_bag else default
 
-        self.__logger.debug(_("App Incoming Request: %(data)s {'correlationId':'%(correlationId)s'}") % {
-            "data": self.__helpers.json_dumps(log_data),
-            "correlationId": correlation_id
+        self.__logger.info(_("Required request data: %(data)s") % {
+            "data": self.__helpers.json_dumps(log_data)
         })
 
         return request_data

@@ -63,8 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'app.middleware.correlation.Correlation',
-    'app.middleware.api_funnel.APIFunnel',
-    'app.middleware.web_funnel.WebFunnel',
+    'app.middleware.auth.Auth',
     'app.middleware.logging.Logging',
     'app.middleware.errors.Errors'
 ]
@@ -206,24 +205,31 @@ APP_LOGGING_PROPAGATE = True if os.getenv("APP_LOGGING_PROPAGATE", "") == "" or 
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(filename)s %(module)s %(process)d %(thread)d %(message)s'
         },
         'simple': {
-            'format': '%(levelname)s %(asctime)s %(message)s'
+            'format': '%(levelname)s %(asctime)s %(message)s {\'correlationId\':\'%(correlation_id)s\'}'
         },
+    },
+    'filters': {
+        'correlation_filter': {
+            '()': 'app.middleware.correlation.CorrelationFilter',
+        }
     },
     'handlers': {
         'file': {
             'level': 'DEBUG',
+            'filters': ['correlation_filter'],
             'class': 'logging.FileHandler',
             'filename': os.path.join(APP_ROOT + "/storage/logs/", time.strftime("%d-%m-%Y") + ".log"),
             'formatter': 'simple'
         },
         'console': {
             'level': 'DEBUG',
+            'filters': ['correlation_filter'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },

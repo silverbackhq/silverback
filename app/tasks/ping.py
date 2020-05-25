@@ -12,10 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Standard Library
+import json
+
 # Third Party Library
 from celery import shared_task
+from django.utils.translation import gettext as _
+
+# Local Library
+from app.modules.util.helpers import Helpers
 
 
 @shared_task
-def ping(text="PONG"):
+def ping(text="PONG", correlation_id=""):
+    logger = Helpers().get_logger(__name__)
+
+    logger.info(_("Worker started processing ping task with parameters %(parameters)s {'correlationId':'%(correlationId)s'}") % {
+        "parameters": json.dumps({"text": text}),
+        "correlationId": correlation_id
+    })
+
     return {"status": "passed", "result": text}

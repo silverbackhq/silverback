@@ -18,7 +18,7 @@ from django.utils.translation import gettext as _
 
 # Local Library
 from app.modules.util.helpers import Helpers
-from app.modules.core.response import Response
+from app.exceptions.client_error import ClientError
 
 
 class Errors():
@@ -34,25 +34,34 @@ class Errors():
 
     def process_exception(self, request, exception):
 
-        correlation_id = request.META["X-Correlation-ID"] if "X-Correlation-ID" in request.META else ""
+        if isinstance(exception, ClientError):
+            self.__logger.info(
+                _("Client error thrown %(method)s:%(path)s  - %(name)s - %(exception)s") % {
+                    "method": request.method,
+                    "path": request.path,
+                    "name": exception.__class__.__name__,
+                    "exception": exception
+                }
+            )
+        else:
+            self.__logger.error(
+                _("The server encountered something unexpected! %(method)s:%(path)s  - %(name)s - %(exception)s") % {
+                    "method": request.method,
+                    "path": request.path,
+                    "name": exception.__class__.__name__,
+                    "exception": exception
+                }
+            )
 
-        self.__logger.error(
-            _("The server encountered something unexpected! %(method)s:%(path)s  - %(name)s - %(exception)s {'correlationId':'%(correlationId)s'}") % {
-                "method": request.method,
-                "path": request.path,
-                "name": exception.__class__.__name__,
-                "exception": exception,
-                "correlationId": correlation_id
-            }
-        )
-
-        self.__logger.exception(exception)
+            self.__logger.exception(exception)
 
         if request.is_ajax():
-            response = Response()
-            return JsonResponse(response.send_private_failure([{
-                "type": "error",
-                "message": _("Something goes wrong! Please contact a system administrator.")
-            }], {}, correlation_id))
+            return JsonResponse({
+                "status": "failure",
+                "messages": [{
+                    "type": "error",
+                    "message": str(exception) if isinstance(exception, ClientError) else _("Something goes wrong! Please contact a system administrator.")
+                }]
+            })
 
         return None

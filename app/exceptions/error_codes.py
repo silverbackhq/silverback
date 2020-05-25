@@ -12,20 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Third Party Library
-from celery import shared_task
 
+class ErrorCodes():
 
-@shared_task
-def verify_subscriber_email():
-    pass
-
-
-@shared_task
-def verify_subscriber_phone():
-    pass
-
-
-@shared_task
-def verify_subscriber_endpoint():
-    pass
+    SERVER_ERROR = "SERVER_ERROR"
+    CLIENT_ERROR = "CLIENT_ERROR"
