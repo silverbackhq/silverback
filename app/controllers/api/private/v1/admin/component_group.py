@@ -231,8 +231,6 @@ class ComponentGroup(View, Controller):
     @allow_if_authenticated
     def delete(self, request, group_id):
 
-        self.__user_id = request.user.id
-
         if self.__component_group.delete_one_by_id(group_id):
             return self.json([{
                 "type": "success",

@@ -500,8 +500,6 @@ class Subscriber(View, Controller):
     @allow_if_authenticated
     def delete(self, request, subscriber_id):
 
-        self.__user_id = request.user.id
-
         if self.__subscriber.delete_one_by_id(subscriber_id):
             return self.json([{
                 "type": "success",

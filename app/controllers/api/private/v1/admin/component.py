@@ -279,8 +279,6 @@ class Component(View, Controller):
     @allow_if_authenticated
     def delete(self, request, component_id):
 
-        self.__user_id = request.user.id
-
         if self.__component.delete_one_by_id(component_id):
             return self.json([{
                 "type": "success",

@@ -67,6 +67,7 @@ class Notifications(View, Controller):
     def get(self, request):
 
         self.__user_id = request.user.id
+
         request_data = self.get_request_data(request, "get", {
             "offset": 0,
             "limit": 20

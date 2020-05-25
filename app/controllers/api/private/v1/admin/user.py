@@ -480,9 +480,7 @@ class User(View, Controller):
     @allow_if_authenticated_and_has_permission("manage_settings")
     def delete(self, request, user_id):
 
-        self.__user_id = request.user.id
-
-        if self.__user_id == user_id:
+        if request.user.id == user_id:
             return self.json([{
                 "type": "error",
                 "message": _("Error! You can't delete your account.")

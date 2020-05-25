@@ -350,8 +350,6 @@ class Metric(View, Controller):
     @allow_if_authenticated
     def delete(self, request, metric_id):
 
-        self.__user_id = request.user.id
-
         if self.__metric.delete_one_by_id(metric_id):
             return self.json([{
                 "type": "success",

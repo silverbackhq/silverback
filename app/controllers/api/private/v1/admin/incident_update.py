@@ -267,8 +267,6 @@ class IncidentUpdate(View, Controller):
     @allow_if_authenticated
     def delete(self, request, incident_id, update_id):
 
-        self.__user_id = request.user.id
-
         if self.__incident_update.delete_one_by_id(update_id):
             return self.json([{
                 "type": "success",
@@ -339,8 +337,6 @@ class IncidentUpdatesComponents(View, Controller):
     @allow_if_authenticated
     def post(self, request, incident_id, update_id):
 
-        self.__user_id = request.user.id
-
         request_data = self.get_request_data(request, "post", {
             "type": "",
             "component_id": ""
@@ -397,8 +393,6 @@ class IncidentUpdatesComponent(View, Controller):
 
     @allow_if_authenticated
     def delete(self, request, incident_id, update_id, item_id):
-
-        self.__user_id = request.user.id
 
         if self.__incident_update_component.delete_one_by_id(item_id):
             return self.json([{

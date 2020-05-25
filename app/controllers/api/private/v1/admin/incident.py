@@ -215,8 +215,6 @@ class Incident(View, Controller):
     @allow_if_authenticated
     def delete(self, request, incident_id):
 
-        self.__user_id = request.user.id
-
         if self.__incident.delete_one_by_id(incident_id):
             return self.json([{
                 "type": "success",
