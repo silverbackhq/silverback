@@ -7,7 +7,7 @@
         <a href="https://sonarcloud.io/dashboard?id=silverbackhq_silverback"><img src="https://sonarcloud.io/api/project_badges/measure?project=silverbackhq_silverback&metric=alert_status"></a>
         <a href='https://coveralls.io/github/silverbackhq/silverback?branch=master'><img src='https://coveralls.io/repos/github/silverbackhq/silverback/badge.svg?branch=master' alt='Coverage Status' /></a>
         <a href="https://hub.docker.com/r/clivern/silverback"><img src="https://img.shields.io/badge/Docker-Latest-orange"></a>
-        <a href="https://github.com/silverbackhq/Silverback/releases"><img src="https://img.shields.io/badge/Version-v1.0.0--alpha.1-blue.svg"></a>
+        <a href="https://github.com/silverbackhq/Silverback/releases"><img src="https://img.shields.io/badge/Version-v1.0.0--beta.1-blue.svg"></a>
         <a href="https://github.com/silverbackhq/Silverback/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-Apache--2.0-orange.svg"></a>
     </p>
 </p>
