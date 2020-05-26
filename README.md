@@ -72,7 +72,7 @@ We are an open source, community-driven project so please feel free to join us. 
 
 Shoutout to these awesome open source projects and their maintainers.
 - [Django.](https://www.djangoproject.com/)
-- [Celery.](http://www.celeryproject.org/)
+- [Celery.](https://github.com/celery/celery)
 - [Requests.](https://github.com/kennethreitz/requests)
 - [Tabler.](https://github.com/tabler/tabler)
 - [VueJs.](https://vuejs.org/)
