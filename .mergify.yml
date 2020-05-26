@@ -5,14 +5,14 @@ pull_request_rules:
       merge: 
         method: merge
     conditions: 
-      - author!=clivern
+      - author!=Clivern
       - "#approved-reviews-by>=1"
-    name: "Automatic merge on approval"
+    name: "Automatic Merge 🚀"
   - 
     actions: 
       merge: 
         method: merge
     conditions: 
-      - author=clivern
+      - author=Clivern
       - label=merge
-    name: "automatic merge if author is clivern"
+    name: "Automatic Merge 🚀"
