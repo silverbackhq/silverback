@@ -145,9 +145,8 @@ class Install(View, Controller):
         try:
             user_id = self.__install.install()
         except Exception as exception:
-            self.logger().error(_("Internal server error during installation: %(exception)s {'correlationId':'%(correlationId)s'}") % {
-                "exception": exception,
-                "correlationId": self.__correlation_id
+            self.logger().error(_("Internal server error during installation: %(exception)s") % {
+                "exception": exception
             })
 
         if user_id:
