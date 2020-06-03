@@ -37,7 +37,7 @@ class SubscriberList(View, Controller):
 
         self.__subscriber = SubscriberModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Subscribers · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -55,7 +55,7 @@ class SubscriberAdd(View, Controller):
 
         self.__subscriber = SubscriberModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Add an Subscriber · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -78,7 +78,7 @@ class SubscriberEdit(View, Controller):
             raise Http404("Subscriber not found.")
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Edit Subscriber · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "subscriber": subscriber

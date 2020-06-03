@@ -36,7 +36,7 @@ class Dashboard(View, Controller):
 
         self.__dashboard = DashboardModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Dashboard · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "count": {

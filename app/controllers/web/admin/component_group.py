@@ -37,7 +37,7 @@ class ComponentGroupList(View, Controller):
 
         self.__component_group = ComponentGroupModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Component Groups · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -55,7 +55,7 @@ class ComponentGroupAdd(View, Controller):
 
         self.__component_group = ComponentGroupModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Add a Component Group · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -78,7 +78,7 @@ class ComponentGroupEdit(View, Controller):
             raise Http404("Component group not found.")
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Edit Component Group · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "group": group

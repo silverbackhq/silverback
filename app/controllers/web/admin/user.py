@@ -37,7 +37,7 @@ class UserList(View, Controller):
 
         self.__user = UserModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Users · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -55,7 +55,7 @@ class UserAdd(View, Controller):
 
         self.__user = UserModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Add a User · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -78,7 +78,7 @@ class UserEdit(View, Controller):
             raise Http404("User not found.")
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Edit User · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "user": user

@@ -37,7 +37,7 @@ class ComponentList(View, Controller):
 
         self.__component = ComponentModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Components · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -55,7 +55,7 @@ class ComponentAdd(View, Controller):
 
         self.__component = ComponentModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Add a Component · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "groups": self.__component.get_all_groups()
@@ -79,7 +79,7 @@ class ComponentEdit(View, Controller):
             raise Http404("Component not found.")
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Edit Component · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "component": component,

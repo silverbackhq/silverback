@@ -43,7 +43,7 @@ class IncidentList(View, Controller):
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Incidents · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -64,7 +64,7 @@ class IncidentAdd(View, Controller):
         self.__component = ComponentModule()
         self.__component_group = ComponentGroupModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Add an Incident · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -90,7 +90,7 @@ class IncidentEdit(View, Controller):
             raise Http404("Incident not found.")
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Edit Incident · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "incident": incident
@@ -117,7 +117,7 @@ class IncidentView(View, Controller):
             raise Http404("Incident not found.")
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("View Incident · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "incident": incident

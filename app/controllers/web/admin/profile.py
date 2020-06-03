@@ -37,7 +37,7 @@ class Profile(View, Controller):
         self.__profile = ProfileModule()
         self.__user_id = request.user.id
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Profile · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })

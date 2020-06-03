@@ -38,8 +38,8 @@ class Settings(View, Controller):
         self.__upgrade = Upgrade()
         self.__acl = ACL()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
-        self.__context.load_options({
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.load_options({
             "app_name": "",
             "app_email": "",
             "app_url": "",

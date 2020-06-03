@@ -36,7 +36,7 @@ class Notification(View, Controller):
 
         self.__acl = ACL()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
 
         self.context_push({
             "page_title": _("Notification · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))

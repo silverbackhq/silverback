@@ -51,7 +51,7 @@ class IncidentUpdateAdd(View, Controller):
             raise Http404("Incident not found.")
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Add Incident Update  · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "incident": incident
@@ -99,7 +99,7 @@ class IncidentUpdateView(View, Controller):
         affected_components = self.__format_affected_components(self.__incident_update_component.get_all(update_id))
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("View Incident Update  · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "update": update,
@@ -158,7 +158,7 @@ class IncidentUpdateEdit(View, Controller):
             raise Http404("Incident update not found.")
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Edit Incident Update  · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "update": update,

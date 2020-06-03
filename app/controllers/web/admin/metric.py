@@ -38,7 +38,7 @@ class MetricList(View, Controller):
 
         self.__metric = MetricModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Metrics · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -56,7 +56,7 @@ class MetricAdd(View, Controller):
 
         self.__metric = MetricModule()
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Add a Metric · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback"))
         })
@@ -79,7 +79,7 @@ class MetricEdit(View, Controller):
             raise Http404("Metric not found.")
 
         self.autoload_options()
-        self.__context.autoload_user(request.user.id if request.user.is_authenticated else None)
+        self.autoload_user(request.user.id if request.user.is_authenticated else None)
         self.context_push({
             "page_title": _("Edit Metric · %s") % self.context_get("app_name", os.getenv("APP_NAME", "Silverback")),
             "metric": metric
