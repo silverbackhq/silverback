@@ -1,0 +1,32 @@
+swagger: '2.0'
+info:
+  description: 'Silverback is a free and open source project for web infrastructure, developer APIs, services and SaaS companies to set up their very own status page in minutes.'
+  version: 1.0.0
+  title: Silverback
+  contact:
+    email: hello@clivern.com
+  license:
+    name: Apache 2.0
+    url: 'https://github.com/silverbackhq/silverback/blob/master/LICENSE'
+host: silverbackhq.org
+basePath: /
+schemes:
+  - https
+  - http
+paths:
+  /_healthcheck:
+    get:
+      tags:
+        - healthcheck
+      summary: Get system health
+      description: ''
+      operationId: logoutUser
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        default:
+          description: successful operation
+externalDocs:
+  description: Find out more about silverback
+  url: 'https://github.com/silverbackhq/silverback'
