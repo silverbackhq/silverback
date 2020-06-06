@@ -19,7 +19,7 @@
 **Silverback** is a **free** and **open source** project for web infrastructure, developer APIs, services and SaaS companies to set up their very own **status page** in minutes.
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/silverbackhq/silverback/master/assets/chart.png" />
+    <img src="https://raw.githubusercontent.com/silverbackhq/silverback/master/assets/chart.png?v=9" width="750" />
 </p>
 <br/>
 
