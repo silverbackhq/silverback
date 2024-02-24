@@ -7,7 +7,7 @@ psycopg2==2.8.5
 jsonschema==3.2.0
 celery==4.4.5
 redis==3.5.3
-cryptography==3.0
+cryptography==42.0.2
 markdown2==2.3.9
 twilio==6.44.1
 pyumetric==0.0.4
