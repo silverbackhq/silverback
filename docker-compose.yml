@@ -4,7 +4,7 @@ services:
 
     # Nginx Service
     nginx:
-        image: 'nginx:1.19'
+        image: 'nginx:1.27'
         ports:
             - '80:80'
         volumes:
