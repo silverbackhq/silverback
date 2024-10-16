@@ -3,7 +3,7 @@ mysqlclient==2.0.1
 python-dotenv==0.14.0
 gunicorn==20.0.4
 requests==2.24.0
-psycopg2==2.8.5
+psycopg2==2.9.10
 jsonschema==3.2.0
 celery==4.4.5
 redis==3.5.3
